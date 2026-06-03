@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import useEmblaCarousel from "embla-carousel-react";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -12,12 +13,10 @@ const SECTIONS = [
   { id: "locations", label: "Locations" },
   { id: "benefits-organic", label: "About" },
   { id: "services-dark", label: "Services" },
-  { id: "deployment-track", label: "Spaces" },
-  { id: "testimonials", label: "Testimonials" },
+  { id: "deployment-track", label: "Facilities" },
   { id: "booking", label: "Book a Space" }
 ];
 
-// Carousel Slides definitions for Hero Section background (3 Slides)
 const HERO_SLIDES = [
   {
     id: 0,
@@ -26,7 +25,7 @@ const HERO_SLIDES = [
     image: prefix("/hero1.jpg"),
     label: "PREMIUM OFFICES",
     description: "Enterprise-grade managed tech park offices in Coimbatore and Trichy. Built for high-performance software teams.",
-    priceTag: "Hub Overview"
+    meta: "SEAMLESS BUSINESS OPERATIONS"
   },
   {
     id: 1,
@@ -35,7 +34,7 @@ const HERO_SLIDES = [
     image: prefix("/hero2.jpg"),
     label: "MEETING ROOMS",
     description: "Corporate-ready conference halls and boardrooms built with high-fidelity acoustic isolation and smart screens.",
-    priceTag: "From ₹14,999/mo"
+    meta: "CONNECT • COLLABORATE • GROW"
   },
   {
     id: 2,
@@ -44,66 +43,31 @@ const HERO_SLIDES = [
     image: prefix("/hero3.jpg"),
     label: "PRIVATE CABINS",
     description: "Fully soundproofed lockable offices optimized for growing tech organizations and software teams.",
-    priceTag: "From ₹8,999/mo"
-  }
-];
-
-// Interactive testimonial data (Minimal Content)
-const TESTIMONIALS = [
-  {
-    id: 1,
-    quote: "CovaiTech Park transformed our team's productivity. The infrastructure, community, and 24/7 support are second to none.",
-    name: "Desirae Culhane",
-    role: "Content Creator",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    id: 2,
-    quote: "We scaled from 4 to 24 developers in weeks with zero capital expenditure. The private cabins gave us exactly the privacy we needed.",
-    name: "Adhithya Sen",
-    role: "CTO, Covaitech Solutions",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
+    meta: "ACCESS ON YOUR TERMS"
   },
   {
     id: 3,
-    quote: "Operating from Nehru Nagar East with lockable soundproof rooms was an absolute game-changer for our product launch.",
-    name: "K. Raghavan",
-    role: "Co-Founder, Inymart Group",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+    title: "Coworking &",
+    subtitle: "Hot Desk Plans.",
+    image: prefix("/hero13.jpg"),
+    label: "COWORKING SPACES",
+    description: "Flexible shared workspaces with dedicated community seating designed for freelancers, remote teams, and fast-scaling startups.",
+    meta: "COLLABORATE • CONNECT • GROW"
+  },
+  {
+    id: 4,
+    title: "Virtual Office &",
+    subtitle: "GST Address.",
+    image: prefix("/workspace-meeting.png"),
+    label: "VIRTUAL OFFICE",
+    description: "Establish your business presence with a prime Coimbatore address for GST registration and professional mail handling.",
+    meta: "PROFESSIONAL BUSINESS ADDRESS"
   }
 ];
 
-// Dual feature cards — image overlay layout (reference: solar showcase)
-const FEATURE_SHOWCASE_CARDS = [
-  {
-    id: "01",
-    title: "Premium Lounge Ecosystem",
-    description:
-      "Collaborative lounges, cafe breakouts, and event spaces create a campus where teams connect, pitch, and scale without leaving the building.",
-    image: "https://images.unsplash.com/photo-1571624436279-b272aff752b5?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "02",
-    title: "Private + Open Desks",
-    description:
-      "Lockable cabin suites and hot desks on one campus — use the same address for GST, meetings, and day-to-day engineering under one roof.",
-    image: "https://images.pexels.com/photos/34887638/pexels-photo-34887638.jpeg",
-  },
-];
 
-// Gallery Showcase Images (tilted deck)
-const GALLERY_ITEMS = [
-  { image: prefix("/workspace-lounge.png"), title: "Lounge Area" },
-  { image: prefix("/workspace-cabin.png"), title: "Private Cabins" },
-  { image: prefix("/workspace-meeting.png"), title: "Smart Meeting Room" },
-  { image: prefix("/workspace-hotdesk.png"), title: "Dedicated Desks" },
-  { image: prefix("/workspace-cafe.png"), title: "Breakout Cafe" },
-  { image: prefix("/workspace-event.png"), title: "Event Spaces" },
-  { image: prefix("/amenities-community.png"), title: "Active Community" },
-  { image: prefix("/hero-bg.png"), title: "CovaiTech Park Hub" },
-];
 
-// 12-Card Services Grid (Detailed offerings from covaitechpark.com)
+// 7 Main Services Grid (Detailed offerings from covaitechpark.com)
 const SERVICES_TAILORED = [
   {
     id: "01",
@@ -149,131 +113,118 @@ const SERVICES_TAILORED = [
   },
   {
     id: "07",
-    title: "Coworking & Hot Desks",
-    description: "Flexible, shared community seating in prime business districts built for remote talent and startups.",
+    title: "Coworking Spaces",
+    description: "Open-plan shared workspace community seating in prime business districts, designed for collaboration and networking.",
     image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80",
-    linkText: "GET PASS"
+    linkText: "JOIN NOW"
   },
   {
     id: "08",
-    title: "Secure Business-Class Wi-Fi",
-    description: "High-speed dual-fiber SLA backup internet and dedicated LAN firewall compliance setups.",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80",
-    linkText: "LEARN MORE"
-  },
-  {
-    id: "09",
-    title: "24/7 Biometric Access",
-    description: "Secure round-the-clock office building entry with continuous front desk and receptionist support.",
-    image: "https://images.pexels.com/photos/17155842/pexels-photo-17155842.jpeg",
-    linkText: "VIEW SECURITY"
-  },
-  {
-    id: "10",
-    title: "DG Power Backup & Server Racks",
-    description: "100% generator power backup, secure server rack cooling, and full IT cabinet options.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80",
-    linkText: "REQUEST QUOTE"
-  },
-  {
-    id: "11",
-    title: "Housekeeping & Facility Support",
-    description: "On-site housekeeping, daily professional sanitization, print hubs, and property managers.",
-    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80",
-    linkText: "VIEW SERVICES"
-  },
-  {
-    id: "12",
-    title: "Breakout Lounges & Cafeterias",
-    description: "Collaborative seating areas with premium espresso bars and food court dining zones.",
-    image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80",
-    linkText: "EXPLORE AMENITIES"
+    title: "Hot Desks",
+    description: "Flexible day-pass or monthly drop-in desk access — perfect for freelancers, remote workers, and startup founders.",
+    image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=600&q=80",
+    linkText: "GET PASS"
   }
 ];
 
-// 6-Slide stacked scroll workspace showcase data
 const DEPLOYMENT_PHASES = [
   {
     id: "01",
-    subtitle: "FLEXIBLE MEMBERSHIPS",
-    title: "Coworking Desks",
-    description: "Vibrant shared professional workspaces built for freelancers, remote professionals, and agile tech teams.",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
+    subtitle: "PREMIUM INFRASTRUCTURE",
+    title: "Premium Office Infrastructure",
+    description: "Thoughtfully designed workspaces with modern interiors, ergonomic furniture, and spacious layouts that create a productive and professional environment.",
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
     accent: "#f37021",
+    icon: "office",
     points: [
-      { label: "High-Speed WiFi", desc: "Dual-fiber SLA backup" },
-      { label: "Ergonomic Desks", desc: "Premium comfort seating" },
-      { label: "Active Community", desc: "Daily networking events" }
+      { label: "Ergonomic Workstations", desc: "Designed for comfort and productivity" },
+      { label: "Premium Interiors", desc: "Modern and professional office ambiance" },
+      { label: "Spacious Layouts", desc: "Optimized for collaboration and efficiency" }
     ]
   },
   {
     id: "02",
-    subtitle: "SECURE PRIVATE SUITES",
-    title: "Private Cabins",
-    description: "Secure, lockable, and fully furnished private cabins optimized for focused software development teams.",
-    image: "https://images.pexels.com/photos/12973795/pexels-photo-12973795.jpeg",
-    accent: "#0ea5e9",
+    subtitle: "CUSTOM SOLUTIONS",
+    title: "Tailored Workspace Solutions",
+    description: "Customizable office environments designed around your team's operational, branding, and workspace requirements.",
+    image: "https://images.pexels.com/photos/17155842/pexels-photo-17155842.jpeg",
+    accent: "#f37021",
+    icon: "support",
     points: [
-      { label: "Lockable Units", desc: "Complete physical privacy" },
-      { label: "Custom Partition", desc: "Personalized brand options" },
-      { label: "Scalable Desks", desc: "Grow teams instantly" }
+      { label: "Custom Cabin Layouts", desc: "Configured to your team size" },
+      { label: "Branding Opportunities", desc: "Reflect your corporate identity" },
+      { label: "Personalized Setup", desc: "Built around your workflow needs" }
     ]
   },
   {
     id: "03",
-    subtitle: "ENTERPRISE WORKSPACES",
-    title: "Managed Enterprise",
-    description: "Bespoke corporate setups built to your exact specifications with custom branding and IT infrastructure.",
-    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=80",
-    accent: "#8b5cf6",
+    subtitle: "SCALABILITY",
+    title: "Flexible Growth Options",
+    description: "Scale your workspace effortlessly as your business grows, without the constraints of traditional office leases.",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+    accent: "#f37021",
+    icon: "access",
     points: [
-      { label: "Custom Layouts", desc: "Tailored floor planning" },
-      { label: "Server Racks", desc: "Secure backup power" },
-      { label: "Biometric Access", desc: "24/7 front desk support" }
+      { label: "Easy Team Expansion", desc: "Add seats as you grow" },
+      { label: "Flexible Terms", desc: "Solutions that adapt to your business" },
+      { label: "Future-Ready Spaces", desc: "Designed for evolving requirements" }
     ]
   },
   {
     id: "04",
-    subtitle: "BUSINESS COMPLIANCE",
-    title: "Virtual Offices",
-    description: "Establish a professional corporate presence with business registration and official GST address solutions.",
-    image: "https://images.pexels.com/photos/21405533/pexels-photo-21405533.jpeg",
-    accent: "#10b981",
+    subtitle: "CUSTOMER FIRST",
+    title: "Proactive Customer-Centric Approach",
+    description: "A customer-first approach backed by responsive facility management, seamless onboarding, and continuous service improvement.",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
+    accent: "#f37021",
+    icon: "reception",
     points: [
-      { label: "GST Ready", desc: "Utility bills & NOC" },
-      { label: "Mail Services", desc: "Digital mail forwarding" },
-      { label: "Meeting Rooms", desc: "Executive boardroom access" }
-    ]
-  },
-  {
-    id: "05",
-    subtitle: "PREMIUM BOARDROOMS",
-    title: "Meeting Rooms",
-    description: "Fully-equipped, high-tech boardrooms tailored for presentation pitches, seminars, and client meetings.",
-    image: "https://images.pexels.com/photos/6794920/pexels-photo-6794920.jpeg",
-    accent: "#f59e0b",
-    points: [
-      { label: "Smart Displays", desc: "4K screens & HDMI" },
-      { label: "Lounge Cafe", desc: "Premium coffee & snacks" },
-      { label: "IT Assistance", desc: "On-site video support" }
-    ]
-  },
-  {
-    id: "06",
-    subtitle: "COMMUNITY & EVENTS",
-    title: "Event Spaces",
-    description: "Host product launches, tech meetups, training sessions, and large-scale corporate events with full AV support.",
-    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
-    accent: "#ec4899",
-    points: [
-      { label: "300+ Capacity", desc: "Flexible venue layouts" },
-      { label: "Full AV Setup", desc: "Pro sound & projection" },
-      { label: "Catering Options", desc: "On-demand refreshments" }
+      { label: "On-Site Facility Team", desc: "Immediate support when needed" },
+      { label: "Seamless Onboarding", desc: "Quick and hassle-free setup" },
+      { label: "Responsive Assistance", desc: "Fast resolution and proactive service" }
     ]
   }
 ];
 
 type DeploymentPhase = (typeof DEPLOYMENT_PHASES)[number];
+
+const FacilitiesIcon = ({ name, className }: { name: string; className?: string }) => {
+  const cls = className || "w-6 h-6";
+  switch (name) {
+    case "office":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h.008v.008H9V6zm0 3h.008v.008H9V9zm0 3h.008v.008H9V12zm3-6h.008v.008H12V6zm0 3h.008v.008H12V9zm0 3h.008v.008H12V12zm3-6h.008v.008H15V6zm0 3h.008v.008H15V9zm0 3h.008v.008H15V12z" />
+        </svg>
+      );
+    case "support":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 015.636 5.636" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
+        </svg>
+      );
+    case "access":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+        </svg>
+      );
+    case "reception":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+        </svg>
+      );
+    default:
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      );
+  }
+};
 
 function DeploymentPhaseContent({
   phase,
@@ -316,7 +267,7 @@ function DeploymentPhaseContent({
         <button
           type="button"
           onClick={() => onInquire(phase.title)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03] bg-brand-orange"
+          className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-white font-bold text-[10px] sm:text-xs uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03] bg-brand-orange"
         >
           Inquire Now
           <span className="text-sm">→</span>
@@ -326,25 +277,79 @@ function DeploymentPhaseContent({
   );
 }
 
+
+// Interactive testimonial data
+const TESTIMONIALS = [
+  {
+    id: 1,
+    quote: "CovaiTech Park transformed our team's productivity. The infrastructure, community, and 24/7 support are second to none.",
+    name: "Desirae Culhane",
+    role: "Content Creator",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 2,
+    quote: "We scaled from 4 to 24 developers in weeks with zero capital expenditure. The private cabins gave us exactly the privacy we needed.",
+    name: "Adhithya Sen",
+    role: "CTO, Covaitech Solutions",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    id: 3,
+    quote: "Operating from Nehru Nagar East with lockable soundproof rooms was an absolute game-changer for our product launch.",
+    name: "K. Raghavan",
+    role: "Co-Founder, Inymart Group",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+  }
+];
+
+// Gallery Showcase Images
+const GALLERY_ITEMS = [
+  { image: prefix("/workspace-lounge.png"), title: "Lounge Area", tags: ["SHARED", "LOUNGE"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-cabin.png"), title: "Private Cabins", tags: ["CABIN", "PRIVATE"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-meeting.png"), title: "Smart Meeting Room", tags: ["MEETING", "COLLABORATION"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-hotdesk.png"), title: "Dedicated Desks", tags: ["DESK", "RESERVED"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-cafe.png"), title: "Breakout Cafe", tags: ["CAFE", "BREAKOUT"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-event.png"), title: "Event Spaces", tags: ["EVENT", "VENUE"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/amenities-community.png"), title: "Active Community", tags: ["COMMUNITY", "NETWORKING"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/hero-bg.png"), title: "CovaiTech Park Hub", tags: ["CAMPUS", "OVERVIEW"], location: "Coimbatore, India", year: "2026" },
+];
+
+// FAQ Data
+const FAQS = [
+  {
+    question: "What are your operating hours?",
+    answer: "Our workspaces are accessible 24/7 for dedicated desk and private cabin members. Day pass users and visitors can access the space from 8:00 AM to 8:00 PM on weekdays."
+  },
+  {
+    question: "Is high-speed internet included?",
+    answer: "Yes! All our workspaces come with enterprise-grade, high-speed dual-fiber SLA backup internet to ensure uninterrupted connectivity."
+  },
+  {
+    question: "Can I upgrade my workspace as my team grows?",
+    answer: "Absolutely. We offer flexible scalability, allowing you to transition from hot desks to private cabins or even managed enterprise suites as your team expands."
+  },
+  {
+    question: "Do you provide business registration (GST) services?",
+    answer: "Yes, our Virtual Office plans include an official business address which can be used for company registration and GST purposes."
+  }
+];
+
 const CITIES = [
-  { name: "Chennai", icon: "chennai-central", image: prefix("/hero11.jpg") },
-  { name: "Mumbai", icon: "gateway", image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Bangalore", icon: "vidhana-soudha", image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Hyderabad", icon: "charminar", image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" },
-  
-  { name: "Lucknow", icon: "bara-imambara", image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Pune", icon: "shaniwar-wada", image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1200&q=80" },
- 
-  { name: "Delhi", icon: "india-gate", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Indore", icon: "rajwada", image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Ahmedabad", icon: "teen-darwaza", image: "https://images.unsplash.com/photo-1531973576160-7125cd663d86?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Jaipur", icon: "hawa-mahal", image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Kochi", icon: "fishing-net", image: "https://images.unsplash.com/photo-1431540015161-0bf868a2d407?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Chandigarh", icon: "open-hand", image: "https://images.unsplash.com/photo-1568992687947-868a62a9f521?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Kolkata", icon: "howrah-bridge", image: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Coimbatore", icon: "gopuram", image: "https://images.unsplash.com/photo-1564069114553-742ee2c3bcbe?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Goa", icon: "goa-church", image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80" },
- 
+  // Coimbatore hub + sub-locations
+  { name: "Coimbatore", icon: "gopuram", image: "https://images.pexels.com/photos/13219418/pexels-photo-13219418.jpeg" },
+  { name: "Nehru Nagar", icon: "office-block", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Saravanampatti", icon: "tech-hub", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Peelamedu", icon: "airport-city", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80" },
+  { name: "RS Puram", icon: "boulevard", image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Gandhipuram", icon: "city-center", image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80" },
+  // Trichy hub + sub-locations
+  { name: "Trichy", icon: "gopuram", image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Thillai Nagar", icon: "residential-biz", image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Cantonment", icon: "heritage-zone", image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Woraiyur", icon: "industry-park", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80" },
+  { name: "KK Nagar", icon: "smart-zone", image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Srirangam", icon: "temple-city", image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80" }
 ];
 
 const CityIcon = ({ icon, className }: { icon: string; className?: string }) => {
@@ -501,10 +506,100 @@ const CityIcon = ({ icon, className }: { icon: string; className?: string }) => 
           <path d="M32 12V6M30 6h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
+    case "office-block":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="48" cy="18" r="7" fill="#ffe066" className="opacity-90" />
+          <path d="M8 52h48M14 52V18h22v34M36 52V26h14v26" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M20 24v4m0 6v4m0 6v4M28 24v4m0 6v4m0 6v4M40 32v4m0 6v4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        </svg>
+      );
+    case "tech-hub":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="14" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M10 52h44M16 52V30l6-6h20l6 6v22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M24 52V40h6v12M34 52V40h6v12M32 24v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M20 34h6m12 0h6" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path d="M28 8l4-4 4 4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      );
+    case "airport-city":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="44" cy="14" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M8 52h48M12 52V34h16v18M32 52V22h18v30" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M16 38h8M16 44h8M36 28h10M36 36h10M36 44h10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path d="M28 34V22" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "boulevard":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="16" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M8 52h48M18 52V28l5-6h18l5 6v24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M22 52V40c0-2.8 2.2-5 5-5h10c2.8 0 5 2.2 5 5v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M18 34h28M22 28h20" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        </svg>
+      );
+    case "city-center":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="12" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M10 52h44M14 52V22h10v30M28 52V16h8v36M40 52V22h10v30" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M18 28v4m0 5v4m0 5v4M32 22v4m0 5v4m0 5v4M44 28v4m0 5v4m0 5v4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        </svg>
+      );
+    case "residential-biz":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="40" cy="18" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M8 52h48M14 52V28l8-10 8 10v24M38 52V24h16v28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M18 34v4m0 5v4M22 34v4m0 5v4M42 30v4m0 5v4m5-13v4m0 5v4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path d="M26 52V40h8v12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "heritage-zone":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="18" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M10 52h44M16 52V30l16-18 16 18v22M22 52V36h8v16M34 52V36h8v16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M32 12V6M20 30h24" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "industry-park":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="50" cy="20" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M8 52h48M14 52V32l10-8v8l10-8v8l10-8v28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M36 36v4m0 5v4" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path d="M42 44h10M42 48h10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+        </svg>
+      );
+    case "smart-zone":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="20" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M12 52h40M18 52V28h6v-6h16v6h6v24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M22 34h6m8 0h6M22 42h6m8 0h6M28 52V42h8v10" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+          <path d="M24 22h16" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+    case "temple-city":
+      return (
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="16" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M12 52h40M20 52l4-36h16l4 36M22 44h20M24 36h16M26 28h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M32 16V8M29 8c0-1.7 1.3-3 3-3s3 1.3 3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          <path d="M28 52v-6M36 52v-6M32 52v-6" stroke="currentColor" strokeWidth="1" />
+        </svg>
+      );
     default:
       return (
-        <svg className={cls} viewBox="0 0 24 24" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        <svg className={cls} viewBox="0 0 64 64">
+          <circle cx="32" cy="18" r="6" fill="#ffe066" className="opacity-90" />
+          <path d="M10 52h44M16 52V28l16-18 16 18v24M24 52V38h16v14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M32 12V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       );
   }
@@ -546,7 +641,7 @@ const BRANDS = [
   {
     name: "instaoffice",
     element: (
-      <span className="font-outfit font-extrabold text-xl tracking-tight text-slate-800">
+      <span className="font-outfit font-bold text-xl tracking-tight text-slate-800">
         Insta<span className="text-orange-500">Office</span>
       </span>
     )
@@ -558,7 +653,7 @@ const BRANDS = [
         <div className="w-5 h-5 bg-teal-500 rounded-sm transform rotate-45 flex items-center justify-center">
           <span className="text-[10px] text-white font-bold transform -rotate-45">I</span>
         </div>
-        <span className="font-sans font-extrabold text-lg tracking-wider text-teal-800 uppercase">
+        <span className="font-sans font-bold text-lg tracking-wider text-teal-800 uppercase">
           indiqube
         </span>
       </div>
@@ -570,7 +665,7 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeCity, setActiveCity] = useState("Chennai");
+  const [activeCity, setActiveCity] = useState("Coimbatore");
 
   // Hero carousel slider variables
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
@@ -580,16 +675,53 @@ export default function Home() {
   const [activePhase, setActivePhase] = useState(0);
 
 
+
+
   // Testimonials slider variables
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [testifierTransition, setTestifierTransition] = useState(false);
 
+  // Embla Carousel setup for gallery
+  const [galleryRef, galleryApi] = useEmblaCarousel({
+    align: "start",
+    loop: true,
+    slidesToScroll: 1
+  });
+  const scrollGalleryPrev = useCallback(() => {
+    if (galleryApi) galleryApi.scrollPrev();
+  }, [galleryApi]);
+  const scrollGalleryNext = useCallback(() => {
+    if (galleryApi) galleryApi.scrollNext();
+  }, [galleryApi]);
+
+  // FAQ state
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  
+  const handleNextTestimonial = () => {
+    setTestifierTransition(true);
+    setTimeout(() => {
+      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+      setTestifierTransition(false);
+    }, 200);
+  };
+  
+  const handlePrevTestimonial = () => {
+    setTestifierTransition(true);
+    setTimeout(() => {
+      setActiveTestimonial((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+      setTestifierTransition(false);
+    }, 200);
+  };
+
   // Booking states
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
-  const [bookingName, setBookingName] = useState("");
+  const [bookingFirstName, setBookingFirstName] = useState("");
+  const [bookingLastName, setBookingLastName] = useState("");
   const [bookingEmail, setBookingEmail] = useState("");
   const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
+  const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
   // Track scroll position for navbar styling
@@ -601,12 +733,24 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Prevent background scrolling when mobile menu drawer is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   // Carousel slider auto-play
   useEffect(() => {
     if (!isAutoPlay) return;
     const interval = setInterval(() => {
       setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 6000);
+    }, 5000);
     return () => clearInterval(interval);
   }, [isAutoPlay]);
 
@@ -684,40 +828,30 @@ export default function Home() {
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
+    setBookingLookingFor(plan);
     setBookingOpen(true);
     setBookingSuccess(false);
   };
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (bookingName && bookingEmail && bookingPhone) {
+    if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       setBookingSuccess(true);
       setTimeout(() => {
-        setBookingName("");
+        setBookingFirstName("");
+        setBookingLastName("");
         setSelectedPlan("");
+        setBookingLookingFor("");
         setBookingEmail("");
         setBookingPhone("");
+        setBookingPhoneCode("+91");
         setBookingOpen(false);
         setBookingSuccess(false);
       }, 3000);
     }
   };
 
-  const handleNextTestimonial = () => {
-    setTestifierTransition(true);
-    setTimeout(() => {
-      setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
-      setTestifierTransition(false);
-    }, 350);
-  };
 
-  const handlePrevTestimonial = () => {
-    setTestifierTransition(true);
-    setTimeout(() => {
-      setActiveTestimonial((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
-      setTestifierTransition(false);
-    }, 350);
-  };
 
 
 
@@ -804,39 +938,41 @@ export default function Home() {
       </div>
 
       <header
-        className={`left-0 w-full z-45 transition-all duration-300 ${
+        className={`left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? "fixed top-0 bg-white backdrop-blur-md shadow-md border-b border-slate-100 py-2 sm:py-3"
-            : "absolute top-4 sm:top-6 bg-transparent border-none py-2"
+            ? "fixed top-0 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100 py-2.5 lg:py-3.5"
+            : "absolute top-0 bg-white shadow-sm border-b border-slate-100 py-3 lg:py-4"
         }`}
       >
-        <div className="w-full section-x flex justify-between items-center gap-3 sm:gap-4">
+        <div className="w-full px-4 sm:px-6 md:px-8 xl:px-12 flex justify-between items-center gap-2 sm:gap-3 lg:gap-4">
           
           {/* Logo Card (Left) */}
           <a
             href="#"
-            className={`flex items-center shrink-0 transition-all duration-300 hover:scale-[1.01] max-w-[80%] sm:max-w-none ${
-              isScrolled
-                ? "p-1.5 sm:p-2 bg-white rounded-lg sm:rounded-xl "
-                : "p-0 bg-transparent border-none"
-            }`}
+            className="flex items-center shrink-0 transition-all duration-300 hover:scale-[1.02] p-1.5 sm:p-2 bg-white rounded-lg sm:rounded-xl shadow-sm border border-slate-100 min-w-0"
           >
             <Image
-              src={prefix(isScrolled ? "/covai-tech-park-logo.png" : "/covai-tech-park-logo-white.png")}
+              src={prefix("/covai-tech-park-logo.png")}
               alt="Covai Tech Park"
               width={180}
               height={85}
               priority
-              className="object-contain h-12 sm:h-14 w-auto max-w-full"
+              className="object-contain h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[200px]"
             />
           </a>
 
           {/* Centered Desktop Navigation Menus */}
           <nav
-            className={`hidden xl:flex items-center gap-8 text-[11px] font-normal tracking-widest uppercase mx-auto transition-colors duration-300 ${
-              isScrolled ? "text-slate-700" : "text-white/80"
-            }`}
+            className="hidden xl:flex items-center gap-8 text-[12px] font-medium tracking-widest uppercase mx-auto transition-colors duration-300 text-slate-700"
           >
+            
+            <div className="relative group cursor-pointer">
+              <a href="#locations" className="hover:text-brand-orange transition-colors flex items-center gap-1">Locations <span className="text-[8px]">▼</span></a>
+              <div className="absolute top-full left-0 mt-4 w-52 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-2 text-sm normal-case tracking-normal font-medium z-50">
+                <a href={prefix("/coimbatore")} className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Coimbatore</a>
+                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Trichy</a>
+              </div>
+            </div>
             <div className="relative group cursor-pointer">
               <a href="#services-dark" className="hover:text-brand-orange transition-colors flex items-center gap-1">Services <span className="text-[8px]">▼</span></a>
               <div className="absolute top-full left-0 mt-4 w-52 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-2 text-sm normal-case tracking-normal font-medium z-50">
@@ -847,16 +983,30 @@ export default function Home() {
                 <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Event Space</a>
               </div>
             </div>
-            <a href="#benefits-organic" className="hover:text-brand-orange transition-colors">About</a>
             <a href="#" className="hover:text-brand-orange transition-colors">Blog</a>
             <a href="#contact" className="hover:text-brand-orange transition-colors">Contact</a>
           </nav>
 
           {/* CTAs (Right) */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
+            {/* WhatsApp Highlighted Button */}
+            <a
+              href="https://wa.me/919042065360"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-normal uppercase tracking-wider sm:tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
+            >
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" viewBox="0 0 32 32" fill="white">
+                <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
+              </svg>
+              <span className="hidden lg:inline">+91 90420 65360</span>
+              <span className="hidden sm:inline lg:hidden">WhatsApp</span>
+              <span className="sm:hidden sr-only">WhatsApp</span>
+            </a>
+
             <button
               onClick={() => handleOpenBooking("Book Space")}
-              className="hidden sm:flex px-5 py-2.5 sm:px-6 sm:py-3 rounded-full text-[11px] font-normal uppercase tracking-widest bg-gradient-to-r from-brand-orange to-[#ffaa66] text-white hover:scale-103 transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap items-center gap-2"
+              className="hidden md:flex px-4 py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-widest bg-gradient-to-r from-brand-orange to-[#ffaa66] text-white hover:scale-103 transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap items-center gap-2"
             >
               Book Space
               <span className="text-sm font-bold">&rarr;</span>
@@ -865,17 +1015,15 @@ export default function Home() {
             {/* Mobile hamburger */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`xl:hidden p-2 rounded-xl transition-all duration-350 cursor-pointer shrink-0 ${
-                isScrolled ? "text-slate-800 hover:bg-slate-100" : "text-white hover:bg-white/10"
-              }`}
+              className="xl:hidden p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-350 cursor-pointer shrink-0 text-slate-800 hover:bg-slate-100"
               aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               ) : (
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               )}
@@ -884,13 +1032,13 @@ export default function Home() {
         </div>
 
         {/* Mobile menu drawer — side drawer layout */}
-        <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-brand-navy/98 backdrop-blur-2xl z-50 flex flex-col justify-center items-center gap-8 xl:hidden transition-transform duration-500 shadow-2xl ${
+        <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-brand-navy/98 backdrop-blur-2xl z-50 flex flex-col justify-center items-center gap-6 xl:hidden transition-transform duration-500 shadow-2xl ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}>
           {/* Close button inside drawer */}
           <button 
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 p-2 text-white/80 hover:text-white cursor-pointer"
+            className="absolute top-6 right-6 p-2 text-white/80 hover:text-white cursor-pointer transition-colors duration-250"
             aria-label="Close Menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -898,17 +1046,37 @@ export default function Home() {
             </svg>
           </button>
 
-          <nav className="flex flex-col items-center gap-6 text-[18px] font-bold text-white">
+          <nav className="flex flex-col items-center gap-6 text-[15px] font-bold text-white uppercase tracking-widest w-full px-8">
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-white/45 text-[10px] tracking-widest uppercase">Locations</span>
+              <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case tracking-normal">Coimbatore</a>
+              <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case tracking-normal">Trichy</a>
+            </div>
             <a href="#services-dark" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Services</a>
-            <a href="#benefits-organic" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">About</a>
             <a href="#" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Blog</a>
             <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Contact</a>
+            
+            <div className="w-full h-px bg-white/10 max-w-[160px] my-3 shrink-0" />
+            
+            {/* WhatsApp Link in Mobile Drawer */}
+            <a
+              href="https://wa.me/919042065360"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 w-full justify-center max-w-[220px] shadow-md hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 32 32" fill="white">
+                <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
+              </svg>
+              +91 90420 65360
+            </a>
+
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 handleOpenBooking("Schedule a Tour");
               }}
-              className="mt-6 px-8 py-4 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg"
+              className="mt-2 px-8 py-3.5 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg w-full max-w-[220px] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
             >
               Book Space Now
             </button>
@@ -917,31 +1085,29 @@ export default function Home() {
       </header>
 
       {/* HERO SECTION DESIGN CAROUSEL (100vh) */}
-      <section id="hero" className="relative min-h-[100dvh] sm:h-screen w-full flex flex-col justify-center lg:justify-center pt-[4.5rem] sm:pt-20 pb-5 sm:pb-8 lg:pb-0 overflow-hidden bg-brand-navy text-white herosmall" >
+      <section id="hero" className="relative min-h-[100dvh] sm:h-screen w-full flex flex-col justify-center lg:justify-center pt-[3.5rem] sm:pt-16 md:pt-20 pb-5 sm:pb-8 lg:pb-0 overflow-hidden bg-brand-navy text-white herosmall" >
         
         {/* Dynamic sliding backgrounds */}
-        <div className="absolute inset-0 z-0">
-          {HERO_SLIDES.map((slide, idx) => {
-            const isActive = activeHeroSlide === idx;
-            return (
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <div 
+            className="flex w-[500%] h-full transition-transform duration-1000 ease-in-out"
+            style={{ transform: `translateX(-${activeHeroSlide * 20}%)` }}
+          >
+            {HERO_SLIDES.map((slide) => (
               <div
                 key={slide.id}
-                className={`absolute inset-0 z-0 transition-opacity duration-1000 ${
-                  isActive ? "opacity-100 scale-100" : "opacity-0 scale-105 pointer-events-none"
-                }`}
+                className="relative w-1/5 h-full flex-shrink-0"
               >
                 <Image
                   src={slide.image}
                   alt={slide.label}
                   fill
-                  priority={idx === 0}
-                  className={`object-cover transition-transform duration-1000 ${
-                    isActive ? "animate-ken-burns" : ""
-                  }`}
+                  priority={slide.id === 0}
+                  className="object-cover"
                 />
               </div>
-            );
-          })}
+            ))}
+          </div>
           {/* Vignette dark overlay for text contrast (left 80% opacity to right fully transparent) */}
           <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/90 via-brand-navy/70 to-brand-navy/50 z-10 pointer-events-none lg:hidden" />
           <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-transparent z-10 pointer-events-none hidden lg:block" />
@@ -988,7 +1154,7 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl max-w-full">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
               <span className="text-[10px] font-normal tracking-widest leading-none uppercase">
-                24/7 BIOMETRIC SUITES ACTIVE
+                {HERO_SLIDES[activeHeroSlide].meta}
               </span>
             </div>
 
@@ -1006,49 +1172,46 @@ export default function Home() {
                 {HERO_SLIDES[activeHeroSlide].description}
               </p>
               
-              <div className="flex flex-wrap items-center gap-5 sm:gap-6 pt-2">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2">
                 <button
-                  onClick={() => handleOpenBooking(HERO_SLIDES[activeHeroSlide].label)}
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2.5"
+                  onClick={() => handleOpenBooking("Get Quote (Hero)")}
+                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
                 >
-                  Explore Workspaces
+                  Get Quote
                   <span className="text-sm font-bold">&rarr;</span>
                 </button>
-                
-                <button
-                  onClick={() => handleOpenBooking("Virtual Tour Request")}
-                  className="flex items-center gap-3 text-white/80 hover:text-white transition-colors cursor-pointer group"
+                <a
+                  href="#locations"
+                  className="px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
                 >
-                  <span className="w-10 h-10 rounded-full border border-white/25 bg-white/5 flex items-center justify-center group-hover:bg-white/10 group-hover:border-white/40 transition-all duration-300 shrink-0">
-                    <svg className="w-3.5 h-3.5 fill-current text-white translate-x-[1px]" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
-                  </span>
-                  <span className="text-xs sm:text-sm font-normal tracking-wider ">Virtual Tour</span>
-                </button>
+                  Learn More
+                </a>
               </div>
             </div>
           </div>
 
           {/* Slide thumbnails — vertical list with vertical dot line on desktop */}
-          <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center">
+          <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center mt-8 lg:mt-0">
             <div className="relative flex items-stretch gap-6 w-full lg:max-w-[320px] xl:max-w-[360px]">
               
               {/* Vertical Timeline Dot Connector (Desktop only) */}
               <div className="absolute left-1.5 top-[15%] bottom-[15%] w-[1px] bg-white/15 hidden lg:block z-0 pointer-events-none" />
 
-              <div className="w-full flex flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-5 justify-between items-center relative z-10">
-                {HERO_SLIDES.map((slide, idx) => {
-                  const isActive = activeHeroSlide === idx;
+              <div className="w-full flex flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-5 justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-4 lg:pb-0 px-4 lg:px-0 snap-x">
+                {HERO_SLIDES.map((slide, i) => {
+                  const isActive = activeHeroSlide === i;
+
                   return (
-                    <div key={slide.id} className="flex items-center gap-4 sm:gap-5 w-full group justify-center lg:justify-end">
-                      
+                    <div 
+                      key={slide.id} 
+                      className="flex-shrink-0 transition-all duration-700 ease-in-out snap-center w-[140px] sm:w-[160px] lg:w-full flex items-center gap-4 justify-center"
+                    >
                       {/* Timeline Dot (Desktop only) */}
                       <div className="relative flex items-center justify-center shrink-0 w-4 h-4 hidden lg:flex">
                         <div className={`rounded-full transition-all duration-500 ${
                           isActive 
                             ? "w-2.5 h-2.5 bg-brand-orange ring-4 ring-brand-orange/30 scale-125" 
-                            : "w-1.5 h-1.5 bg-white/45 group-hover:bg-white"
+                            : "w-1.5 h-1.5 bg-white/45"
                         }`} />
                       </div>
 
@@ -1056,13 +1219,13 @@ export default function Home() {
                       <button
                         type="button"
                         onClick={() => {
-                          setActiveHeroSlide(idx);
+                          setActiveHeroSlide(i);
                           setIsAutoPlay(false);
                         }}
-                        className={`relative w-full aspect-[16/10] lg:aspect-auto lg:h-[100px] xl:h-[110px] rounded-xl sm:rounded-2xl border font-bold transition-all duration-500 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
+                        className={`relative rounded-xl sm:rounded-2xl border font-bold transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
                           isActive
-                            ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 scale-102 lg:scale-105 z-10"
-                            : "border-white/15 font-bold opacity-100 hover:opacity-100 hover:border-white/30"
+                            ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 lg:h-[100px] w-full"
+                            : "border-white/10 opacity-45 scale-90 lg:h-[80px] w-[70%]"
                         }`}
                         title={slide.label}
                         aria-label={`View slide: ${slide.label}`}
@@ -1076,11 +1239,17 @@ export default function Home() {
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="(max-width: 1024px) 33vw, 360px"
                           />
-                          <div className="absolute inset-0 bg-[black]/55 group-hover:bg-[#2b3748]/30 transition-colors duration-300" />
+                          <div className={`absolute inset-0 transition-colors duration-500 ${
+                            isActive 
+                              ? "bg-black/20" 
+                              : "bg-black/50"
+                          }`} />
                           
                           {/* Label overlay aligned bottom left */}
-                          <div className="absolute inset-0 flex items-center justify-start pl-4 sm:pl-5">
-                            <span className="text-[10px] sm:text-xs font-normal tracking-widest text-white uppercase drop-shadow-md">
+                          <div className={`absolute inset-0 flex items-center justify-start pl-3 sm:pl-5 transition-opacity duration-500 ${
+                            isActive ? "opacity-100" : "opacity-60"
+                          }`}>
+                            <span className="text-[9px] sm:text-[10px] font-normal tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
                               {slide.label}
                             </span>
                           </div>
@@ -1131,11 +1300,235 @@ export default function Home() {
 
 
       {/* LOCATIONS SECTION — Reference Image Style */}
-      <section id="locations" className="w-full bg-white border-t border-slate-100 overflow-hidden">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+      <section id="benefits-organic" className="py-10 sm:py-16 section-x w-full bg-[#ffffff] text-brand-navy relative overflow-hidden">
+
+        {/* Subtle ambient orbs behind the card */}
+        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-brand-orange/6 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-[80px] pointer-events-none" />
+        
+        {/* Elegant transparent office chair & desk outline */}
+        <div className="absolute right-4 top-12 w-64 h-64 opacity-[0.04] text-brand-navy pointer-events-none select-none z-0 hidden lg:block">
+          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.8">
+            <path d="M30 70h40M50 70V50M35 30h30v20H35zm0 15h30M40 50l-5 12h30l-5-12M50 70l-8 10M50 70l8 10" />
+            <circle cx="72" cy="40" r="3" />
+            <path d="M72 40l-5-8h10l-5 8zm-5-8h10v-2a5 5 0 00-10 0v2z" />
+          </svg>
+        </div>
+
+        {/* Natural Layout (No Box) */}
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="reveal reveal-up">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+
+              {/* Left: Image styled naturally */}
+              <div className="relative w-full aspect-square sm:aspect-video lg:aspect-square rounded-[2rem] lg:rounded-[3rem] overflow-hidden">
+                <Image
+                  src={prefix("/hero13.jpg")}
+                  alt="CovaiTech Park premium workspace lounge"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-700 hover:scale-105"
+                />
+              </div>
+
+              {/* Right: Text Content */}
+              <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
+                <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.28em] block leading-none">
+                  About Covai Tech Park (Unit of MAX OFFICE)
+                </span>
+
+                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
+                  Business Ecosystem for<br />Collaboration & Growth
+                </h2>
+
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg">
+                  Covai Tech Park® and Trichy Coworks, brands under MAX OFFICE, have enabled the growth of 650+ businesses across Tamil Nadu through premium managed offices, coworking spaces, and flexible workspace solutions. Today, we manage over 1,50,000 sq. ft. of office infrastructure across multiple locations, serving startups, enterprises, and global brands alike.
+                </p>
+
+                {/* Stats row */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
+                  {[
+                    { val: "4,500+", label: "Seats", color: "text-brand-orange" },
+                    { val: "650+", label: "Clients Served", color: "text-teal-500" },
+                    { val: "8", label: "Locations", color: "text-brand-orange" },
+                    { val: "2", label: "Cities", color: "text-teal-500" },
+                  ].map(stat => (
+                    <div key={stat.label} className="space-y-1">
+                      <p className={`font-outfit font-bold text-2xl ${stat.color} leading-none`}>{stat.val}</p>
+                      <p className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">{stat.label}</p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <div className="pt-4">
+                  <button
+                    onClick={() => handleOpenBooking("About Section Inquiry")}
+                    className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-bold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02]"
+                  >
+                    Inquire About Spaces
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AWARDS & RECOGNITION SECTION — 2x2 Dark Card Grid with Wreath Icons */}
+      <section className="relative w-full overflow-hidden bg-[#060c10] py-24 sm:py-32 border-t border-b border-white/5">
+        {/* Background elements */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(243,112,33,0.10),transparent_60%)]" />
+        </div>
+        <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none z-0" />
+        <div className="absolute bottom-[5%] right-[5%] w-[350px] h-[350px] bg-brand-orange/4 rounded-full blur-[120px] pointer-events-none z-0" />
+
+        <div className="relative z-10 max-w-7xl mx-auto section-x">
+          {/* Header */}
+          <div className="text-center mb-14 sm:mb-20 reveal reveal-up">
+            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none mb-5">
+              AWARDS &amp; RECOGNITION
+            </span>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-tight">
+              Recognized for{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">Excellence</span>
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto mt-5">
+              MAX OFFICE — Covai Tech Park &amp; Trichy Coworks — is committed to setting new benchmarks in workspace design, IT infrastructure, and corporate hospitality.
+            </p>
+          </div>
+
+          {/* 2×2 Award Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 reveal reveal-up">
+
+            {/* Card 1 — Workspace Accelerator */}
+            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
+              {/* Wreath trophy icon */}
+              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
+                </svg>
+              </div>
+              <div className="text-left space-y-2">
+                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">SOUTH INDIA ECOSYSTEM — 2024</span>
+                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Workspace Accelerator Award</h3>
+                <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                  Awarded for outstanding ecosystem growth and flexible workspace delivery across South India — redefining high-compliance office infrastructure standards.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-white/8 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-1">
+                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
+                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">South India Award</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 — Elite Workplace */}
+            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
+              {/* Medal icon */}
+              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                </svg>
+              </div>
+              <div className="text-left space-y-2">
+                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">REALTY LEADERSHIP FORUM — 2024</span>
+                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Elite Workplace Excellence</h3>
+                <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                  Honored for architectural design, ergonomic amenities, and premium corporate hospitality — delivering high-performance office ecosystems for modern teams.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-white/8 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-1">
+                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
+                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Realty Leadership</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 — ISO Certified */}
+            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
+              {/* Shield/certified icon */}
+              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
+                </svg>
+              </div>
+              <div className="text-left space-y-2">
+                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">QUALITY CERTIFICATION — 2023</span>
+                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">ISO 9001:2015 Certified</h3>
+                <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                  Certified for operational excellence and high compliance across all workspace facilities — ensuring consistent quality in every interaction.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-white/8 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-1">
+                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
+                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Certified Excellence</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 — Member Satisfaction */}
+            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
+              {/* Heart/community icon */}
+              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
+                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
+                </svg>
+              </div>
+              <div className="text-left space-y-2">
+                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">MEMBER SATISFACTION — 2024</span>
+                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">98% Member Retention</h3>
+                <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                  Recognized for exceptional service quality, community building, and member satisfaction — trusted by 650+ businesses across Tamil Nadu.
+                </p>
+              </div>
+              <div className="pt-4 border-t border-white/8 mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="flex -space-x-1">
+                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
+                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
+                    ))}
+                  </div>
+                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Top Rated Workspace</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+ {/* SERVICES GRID (Image 4 Style - 100vh) */}
+      <section id="locations" className="w-full min-h-[100vh] flex bg-white border-t border-slate-100 overflow-hidden">
+        <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
 
           {/* LEFT: Heading + Dropdowns + City Grid */}
-          <div className="col-span-1 lg:col-span-7 xl:col-span-7 pl-4 sm:pl-6 md:pl-10 lg:pl-12 xl:pl-16 pr-4 sm:pr-6 md:pr-10 lg:pr-12 xl:pr-16 py-16 sm:py-20 lg:py-24 space-y-8 relative z-10">
+          <div className="col-span-1 lg:col-span-7 xl:col-span-7 pl-4 sm:pl-6 md:pl-10 lg:pl-12 xl:pl-16 pr-4 sm:pr-6 md:pr-10 lg:pr-12 xl:pr-16 py-10 sm:py-14 lg:py-16 space-y-8 relative z-10">
 
             {/* Heading block with yellow circle decoration */}
             <div className="space-y-4 relative">
@@ -1191,13 +1584,21 @@ export default function Home() {
             </div> */}
 
             {/* City Icon Grid — reference style with circular borders & realistic icons */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-6 pt-4">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-3 gap-y-5 pt-4">
               {CITIES.map((city) => {
                 const isActive = activeCity === city.name;
                 return (
                   <button
                     key={city.name}
-                    onClick={() => setActiveCity(city.name)}
+                    onClick={() => {
+                      if (city.name === "Coimbatore" || city.name === "Nehru Nagar" || city.name === "Saravanampatti" || city.name === "Peelamedu" || city.name === "RS Puram" || city.name === "Gandhipuram") {
+                        window.location.href = prefix("/coimbatore");
+                      } else if (city.name === "Trichy" || city.name === "Thillai Nagar" || city.name === "Cantonment" || city.name === "Woraiyur" || city.name === "KK Nagar" || city.name === "Srirangam") {
+                        window.open("https://trichycoworks.com/", "_blank");
+                      } else {
+                        setActiveCity(city.name);
+                      }
+                    }}
                     className="flex flex-col items-center gap-2 group cursor-pointer focus:outline-none"
                   >
                     {/* Circle Container */}
@@ -1220,10 +1621,10 @@ export default function Home() {
 
                     {/* City name — normal weight, bold only when active */}
                     <span
-                      className={`text-[10px] tracking-wide text-center leading-none transition-colors duration-300 uppercase ${
+                      className={`text-[12px] tracking-wide text-center leading-none transition-colors duration-300  ${
                         isActive
-                          ? "text-brand-orange font-bold"
-                          : "text-slate-500 group-hover:text-brand-orange font-medium"
+                          ? "text-brand-orange font-normal"
+                          : "text-slate-500 group-hover:text-brand-orange font-normal"
                       }`}
                     >
                       {city.name}
@@ -1232,14 +1633,6 @@ export default function Home() {
                 );
               })}
             </div>
-
-            {/* View all CTA */}
-            <button
-              onClick={() => handleOpenBooking("All Locations Enquiry")}
-              className="inline-flex items-center gap-2 text-xs font-bold text-brand-orange hover:text-brand-navy transition-colors uppercase tracking-widest cursor-pointer pt-4"
-            >
-              View All Locations <span className="text-base">→</span>
-            </button>
           </div>
 
           {/* RIGHT: Large full-height image with round bottom-left corner */}
@@ -1251,155 +1644,14 @@ export default function Home() {
                 fill
                 className="object-cover transition-all duration-700 rounded-bl-[6rem] sm:rounded-bl-[10rem] lg:rounded-bl-[12rem] lg:rounded-tl-none lg:rounded-tr-none lg:rounded-br-none"
               />
-              {/* <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" /> */}
-
-              {/* Active city badge — top left */}
-              <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-2.5 shadow-lg">
-                <p className="text-[9px] font-bold text-brand-orange uppercase tracking-widest leading-none">ACTIVE LOCATION</p>
-                <p className="font-outfit font-bold text-sm text-brand-navy leading-tight mt-0.5">{activeCity} Hub</p>
-              </div>
-
-              {/* Call/enquiry floating button — bottom right */}
-              <button
-                onClick={() => handleOpenBooking(`Enquiry — ${activeCity}`)}
-                className="absolute bottom-5 right-5 w-14 h-14 bg-brand-orange hover:bg-brand-navy text-white rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-[1.06] cursor-pointer"
-                aria-label={`Call for ${activeCity} enquiry`}
-              >
-                <svg className="w-6 h-6 fill-none stroke-current" viewBox="0 0 24 24" strokeWidth="2.2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.824-1.802-5.14-4.117-6.942-6.942l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-              </button>
             </div>
           </div>
 
         </div>
       </section>
-
-
-  {/* WE ARE HERE — Minimal neon gradient + feature cards */}
-  <section
-        id="feature-showcase"
-        className="neon-we-are-here relative w-full section-x py-12 sm:py-16 lg:py-24 overflow-hidden"
-      >
-        <div className="relative z-10 max-w-6xl mx-auto">
-          <div className="text-center mb-8 sm:mb-12 lg:mb-14 reveal reveal-up px-1">
-            <span className="text-[10px] sm:text-[11px] font-bold text-brand-orange uppercase tracking-[0.28em] block mb-3 sm:mb-4">
-              We Are Here
-            </span>
-            <h2 className="font-outfit font-bold text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] text-white/95 text-center leading-[1.2] tracking-tight max-w-3xl mx-auto">
-              Supporting your workspace ambitions — from your first desk to a full tech floor.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 lg:gap-7">
-            {FEATURE_SHOWCASE_CARDS.map((card, idx) => (
-              <article
-                key={card.id}
-                className={`relative w-full h-[300px] sm:h-[360px] lg:h-[400px] rounded-2xl sm:rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden border border-white/[0.08] shadow-2xl shadow-[#2b3748]/50 reveal reveal-up ${idx === 0 ? "delay-100" : "delay-200"}`}
-              >
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a]/90 via-[#0a0f1a]/20 to-transparent pointer-events-none" />
-
-                <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 rounded-xl sm:rounded-2xl bg-white/[0.07] backdrop-blur-xl border border-white/10 p-4 sm:p-5">
-                  <h3 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-tight mb-1.5 sm:mb-2">
-                    {card.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-normal text-white/65 leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
 
       {/* ABOUT COMPANY SECTION — NATURAL LAYOUT */}
-      <section id="benefits-organic" className="py-16 sm:py-24 section-x w-full bg-[#ffffff] text-brand-navy relative overflow-hidden">
-
-        {/* Subtle ambient orbs behind the card */}
-        <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-brand-orange/6 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-1/3 right-1/4 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-[80px] pointer-events-none" />
-        
-        {/* Elegant transparent office chair & desk outline */}
-        <div className="absolute right-4 top-12 w-64 h-64 opacity-[0.04] text-brand-navy pointer-events-none select-none z-0 hidden lg:block">
-          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-            <path d="M30 70h40M50 70V50M35 30h30v20H35zm0 15h30M40 50l-5 12h30l-5-12M50 70l-8 10M50 70l8 10" />
-            <circle cx="72" cy="40" r="3" />
-            <path d="M72 40l-5-8h10l-5 8zm-5-8h10v-2a5 5 0 00-10 0v2z" />
-          </svg>
-        </div>
-
-        {/* Natural Layout (No Box) */}
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="reveal reveal-up">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-              {/* Left: Image styled naturally */}
-              <div className="relative w-full aspect-square sm:aspect-video lg:aspect-square rounded-[2rem] lg:rounded-[3rem] overflow-hidden shadow-2xl">
-                <Image
-                  src={prefix("/hero13.jpg")}
-                  alt="CovaiTech Park premium workspace lounge"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 hover:scale-105"
-                />
-              </div>
-
-              {/* Right: Text Content */}
-              <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
-                <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.28em] block leading-none">
-                  ABOUT COVAITECH PARK
-                </span>
-
-                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
-                  Empowering Teams<br />with Serviced Infrastructure
-                </h2>
-
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg">
-                  Founded in 2017, CovaiTech Park bridges the gap between high-cost commercial offices and flexible shared suites — operating in Saravanampatti &amp; Nehru Nagar East, Coimbatore and Thillai Nagar, Trichy.
-                </p>
-
-                {/* Stats row */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
-                  {[
-                    { val: "2017", label: "Established", color: "text-brand-orange" },
-                    { val: "1.5K+", label: "Members", color: "text-teal-500" },
-                    { val: "90%", label: "CapEx Saved", color: "text-brand-orange" },
-                    { val: "100%", label: "Power Backup", color: "text-teal-500" },
-                  ].map(stat => (
-                    <div key={stat.label} className="space-y-1">
-                      <p className={`font-outfit font-black text-2xl ${stat.color} leading-none`}>{stat.val}</p>
-                      <p className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">{stat.label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <div className="pt-4">
-                  <button
-                    onClick={() => handleOpenBooking("About Section Inquiry")}
-                    className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-extrabold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02]"
-                  >
-                    Inquire About Spaces
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-
- {/* SERVICES GRID (Image 4 Style - 100vh) */}
-      <section id="services-dark" className="section-container h-auto min-h-0 py-16 sm:py-24 section-x bg-[#060c10] text-white w-full">
+      <section id="services-dark" className="section-container h-auto min-h-0 py-12 sm:py-16 section-x bg-[#060c10] text-white w-full">
         
         <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-brand-orange/5 rounded-full ambient-glow" />
         <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-navy/5 rounded-full ambient-glow" />
@@ -1431,10 +1683,10 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 border-b border-white/10 pb-8 reveal reveal-up">
             <div className="space-y-3 text-left">
               <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
-                TAILOR-MADE SOLUTIONS
+                CORE OFFERINGS
               </span>
               <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-bold tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
-                10+ Services. Unlimited Impact.
+                Our Services. Built for Teams.
               </h2>
             </div>
             <p className="text-white/75 text-base max-w-sm leading-relaxed text-left">
@@ -1442,44 +1694,56 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Large Services Grid (Compact & responsive optimized) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12 mt-12">
-            {SERVICES_TAILORED.map((service, idx) => (
-              <div
-                key={service.id}
-                className="group relative h-64 sm:h-72 rounded-3xl overflow-hidden border border-white/10 hover:border-brand-orange/45 transition-all duration-500 flex flex-col justify-end text-left p-6 sm:p-8 cursor-pointer reveal reveal-up"
-                style={{ transitionDelay: `${idx * 60}ms` }}
-              >
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/90 via-[#2b3748]/30 to-transparent z-10" />
+          {/* Large Services Grid — 4-col on xl, 3-col on lg, 2-col on tablet */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mt-12">
+            {SERVICES_TAILORED.map((service, idx) => {
+              return (
+                <div
+                  key={service.id}
+                  className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-brand-orange/45 transition-all duration-500 flex flex-col justify-end text-left p-6 sm:p-8 cursor-pointer reveal reveal-up h-64 sm:h-72"
+                  style={{ transitionDelay: `${idx * 60}ms` }}
+                >
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/90 via-[#2b3748]/30 to-transparent z-10" />
 
-                <div className="space-y-3 relative z-20">
-                  <h4 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
-                    {service.title}
-                  </h4>
-
-                  <div className="pt-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
-                      {service.linkText} <span className="text-xs sm:text-sm">&rarr;</span>
-                    </span>
+                  <div className="relative z-20 space-y-3">
+                    <h4 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                      {service.title}
+                    </h4>
+                    <div className="pt-1.5 shrink-0">
+                      <span className="text-[10px] sm:text-xs font-bold text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
+                        {service.linkText} <span className="text-xs sm:text-sm">&rarr;</span>
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+
+          {/* Bottom CTA for Services */}
+          <div className="flex justify-center pt-10 sm:pt-14 reveal reveal-up">
+            <button
+              onClick={() => handleOpenBooking("Custom Workspace Consultation")}
+              className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+            >
+              Request Custom Office Solution
+              <span className="text-sm font-bold">&rarr;</span>
+            </button>
           </div>
 
         </div>
       </section>
 
 
-      {/* WORKSPACES — mobile: full scrollable cards | desktop: sticky stacked scroll */}
-      <section id="deployment-track" className="relative w-full bg-[#f8fafc] section-x py-16 sm:py-24 overflow-hidden reveal reveal-up">
+      {/* FACILITIES — ScrollTrigger Stacked Card Layout */}
+      <section id="deployment-track" className="relative w-full bg-[#f8fafc] section-x py-16 sm:py-24">
         {/* Transparent Coworking Shapes (Floating) */}
         <div className="absolute bottom-10 right-10 w-80 h-80 opacity-[0.03] text-slate-800 pointer-events-none select-none z-10 hidden md:block">
           <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
@@ -1506,11 +1770,11 @@ export default function Home() {
         {/* Mobile / tablet: natural height so image + content are fully visible */}
         <div className="lg:hidden">
           <div className="text-center mb-8 sm:mb-10 reveal reveal-up">
-            <span className="text-[9px] sm:text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] block">
-              OUR WORKSPACES
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] block">
+              OUR FACILITIES
             </span>
             <h2 className="font-outfit font-bold text-2xl sm:text-3xl text-slate-800 leading-tight tracking-tight mt-1">
-              Every space, built for growth.
+              Premium facilities for modern teams.
             </h2>
           </div>
 
@@ -1549,15 +1813,15 @@ export default function Home() {
         <div
           id="deployment-track-desktop"
           style={{ height: `${DEPLOYMENT_PHASES.length * 100}vh` }}
-          className="hidden lg:block relative w-full reveal reveal-up"
+          className="hidden lg:block relative w-full"
         >
           <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#f8fafc]">
             <div className="absolute top-10 left-0 right-0 flex flex-col items-center text-center section-x z-20 pointer-events-none">
               <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em] block">
-                OUR WORKSPACES
+                OUR FACILITIES
               </span>
               <h2 className="font-outfit font-bold text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2">
-                Every space, built for growth.
+                Premium facilities for modern teams.
               </h2>
             </div>
 
@@ -1627,7 +1891,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-12 bg-white border-t border-slate-100 overflow-hidden w-full section-x reveal reveal-up">
+      {/* <section className="py-12 bg-white border-t border-slate-100 overflow-hidden w-full section-x reveal reveal-up">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
           
           <div className="flex -space-x-3 sm:-space-x-4">
@@ -1664,21 +1928,14 @@ export default function Home() {
           </div>
 
         </div>
-      </section>
+      </section> */}
 
-      {/* LOCATIONS SHOWCASE (MAP/GRID) */}
-      <section id="locations" className="w-full bg-white border-t border-slate-100 overflow-hidden relative reveal reveal-up">
-        {/* Floating shape */}
-        <div className="absolute top-1/4 left-10 w-48 h-48 opacity-[0.03] text-brand-orange pointer-events-none select-none z-0 hidden lg:block">
-          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
-            <polygon points="50,10 90,90 10,90" strokeDasharray="4 4"/>
-          </svg>
-        </div>
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch relative z-10">
 
-{/* TESTIMONIALS SECTION — Background image + overlay */}
-      <section id="testimonials" className="section-container w-full flex flex-col justify-center py-16 sm:py-24 relative overflow-hidden">
-        {/* Full-bleed background image */}
+    
+
+      {/* TESTIMONIALS SECTION */}
+      <section id="testimonials" className="section-container w-full flex flex-col justify-center py-16 sm:py-24 relative overflow-hidden bg-[#06090f]">
+        {/* Background Image */}
         <div className="absolute inset-0 z-0 min-h-full">
           <Image
             src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
@@ -1691,14 +1948,11 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#06090f]/88" />
           <div className="absolute inset-0 bg-gradient-to-b from-[#06090f]/40 via-transparent to-[#06090f]/90" />
         </div>
-
+        
         {/* Ambient accent orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none z-[1]" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-500/8 rounded-full blur-[100px] pointer-events-none z-[1]" />
-
+        
         <div className="relative z-10 box-container w-full flex flex-col items-center justify-center gap-0">
-
-          {/* Section Label */}
           <div className="text-center mb-10 reveal reveal-up">
             <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">TESTIMONIALS</span>
             <h2 className="font-outfit font-bold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
@@ -1706,241 +1960,192 @@ export default function Home() {
             </h2>
           </div>
 
-          {/* Clean unboxed container (no border, no box shadow, no glass background) */}
           <div className="w-full max-w-4xl p-4 sm:p-8 reveal reveal-up">
-
-            {/* Overlapping circular avatars + nav arrows */}
             <div className="relative flex items-center justify-center gap-4 mb-10">
-              {/* Prev arrow */}
-              <button
-                onClick={handlePrevTestimonial}
-                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 hover:border-brand-orange/40 text-white transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0 mr-2"
-                aria-label="Previous testimonial"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
+              <button onClick={handlePrevTestimonial} className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center mr-2 cursor-pointer">
+                &larr;
               </button>
-
-              {/* Three overlapping avatar images */}
+              
               <div className="flex items-center -space-x-6">
                 {TESTIMONIALS.map((t, i) => {
                   const isActive = i === activeTestimonial;
-                  const order = [
-                    (activeTestimonial + TESTIMONIALS.length - 1) % TESTIMONIALS.length,
-                    activeTestimonial,
-                    (activeTestimonial + 1) % TESTIMONIALS.length
-                  ];
+                  const order = [(activeTestimonial + TESTIMONIALS.length - 1) % TESTIMONIALS.length, activeTestimonial, (activeTestimonial + 1) % TESTIMONIALS.length];
                   const pos = order.indexOf(i);
                   return (
-                    <button
-                      key={t.id}
-                      onClick={() => {
-                        setTestifierTransition(true);
-                        setTimeout(() => {
-                          setActiveTestimonial(i);
-                          setTestifierTransition(false);
-                        }, 200);
-                      }}
-                      className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 cursor-pointer flex-shrink-0 ${
-                        isActive
-                          ? "w-28 h-28 sm:w-36 sm:h-36 border-brand-orange z-20 scale-110"
-                          : "w-20 h-20 sm:w-24 sm:h-24 border-white/15 z-10 opacity-50 hover:opacity-80"
-                      }`}
-                      aria-label={`View ${t.name} testimonial`}
-                      style={{ order: pos }}
-                    >
-                      <Image
-                        src={t.image}
-                        alt={t.name}
-                        fill
-                        className="object-cover"
-                      />
+                    <button key={t.id} onClick={() => setActiveTestimonial(i)} className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 flex-shrink-0 cursor-pointer ${isActive ? "w-28 h-28 sm:w-36 sm:h-36 border-brand-orange z-20 scale-110" : "w-20 h-20 sm:w-24 sm:h-24 border-white/15 z-10 opacity-50 hover:opacity-80"}`} style={{ order: pos }}>
+                      <Image src={t.image} alt={t.name} fill className="object-cover" />
                     </button>
                   );
                 })}
               </div>
 
-              {/* Next arrow */}
-              <button
-                onClick={handleNextTestimonial}
-                className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 hover:border-brand-orange/40 text-white transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0 ml-2"
-                aria-label="Next testimonial"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
+              <button onClick={handleNextTestimonial} className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center ml-2 cursor-pointer">
+                &rarr;
               </button>
             </div>
 
-            {/* Quote + attribution */}
-            <div className={`text-center transition-all duration-400 ease-in-out ${
-              testifierTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"
-            }`}>
-              {/* Big quote mark */}
+            <div className={`text-center transition-all duration-400 ease-in-out ${testifierTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
               <span className="font-outfit font-bold text-6xl text-brand-orange/30 leading-none block -mb-4">&ldquo;</span>
               <p className="font-outfit font-bold text-base sm:text-xl md:text-2xl lg:text-3xl text-white tracking-tight leading-snug px-1">
                 {TESTIMONIALS[activeTestimonial].quote}
               </p>
               <div className="mt-6 flex flex-col items-center gap-1">
                 <div className="w-8 h-0.5 bg-brand-orange rounded-full mb-3" />
-                <span className="text-sm font-bold text-white uppercase tracking-[0.15em]">
-                  {TESTIMONIALS[activeTestimonial].name}
-                </span>
-                <span className="text-xs font-bold text-white/45 uppercase tracking-[0.2em]">
-                  {TESTIMONIALS[activeTestimonial].role}
-                </span>
+                <span className="text-sm font-bold text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
+                <span className="text-xs font-bold text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
               </div>
             </div>
-
+            
             {/* Dot indicators */}
             <div className="flex items-center justify-center gap-3 mt-8">
               {TESTIMONIALS.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    setTestifierTransition(true);
-                    setTimeout(() => {
-                      setActiveTestimonial(i);
-                      setTestifierTransition(false);
-                    }, 200);
-                  }}
+                  onClick={() => setActiveTestimonial(i)}
                   className="rounded-full transition-all duration-300 cursor-pointer"
-                  style={{
-                    width: i === activeTestimonial ? "28px" : "8px",
-                    height: "8px",
-                    background: i === activeTestimonial ? "#f37021" : "rgba(255,255,255,0.20)"
-                  }}
+                  style={{ width: i === activeTestimonial ? "28px" : "8px", height: "8px", background: i === activeTestimonial ? "#f37021" : "rgba(255,255,255,0.20)" }}
                   aria-label={`Testimonial ${i + 1}`}
                 />
               ))}
             </div>
-
-          </div>{/* end glass card */}
-
+          </div>
         </div>
       </section>
 
-    
-
-      {/* TILTED GALLERY (OUR BEST WORKS) SECTION */}
-      <section id="gallery-works" className="section-container bg-white py-14 sm:py-20 lg:py-24 w-full overflow-hidden text-brand-navy relative reveal reveal-up">
-        {/* Floating background shapes */}
-        <div className="absolute top-10 right-0 w-64 h-64 opacity-[0.03] text-brand-navy pointer-events-none select-none z-0 hidden lg:block">
-          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1">
-            <path d="M10 90 Q 50 10 90 90" strokeDasharray="4 4" />
-            <circle cx="50" cy="50" r="20" strokeDasharray="2 2" />
-          </svg>
-        </div>
-
+      {/* GALLERY SECTION */}
+      <section id="gallery-works" className="section-container bg-white py-16 sm:py-24 w-full overflow-hidden text-brand-navy relative">
         <div className="w-full flex flex-col items-center relative z-10">
-
-          {/* Section header above gallery */}
-          <div className="box-container text-center max-w-3xl space-y-4 mb-12 reveal reveal-up">
-            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">OUR BEST WORKS</span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight leading-none text-slate-800">
-              Where High-Growth Teams Align
-            </h2>
-            <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
-              A virtual tour of our live campuses — from acoustic private cabins to premium collaborative lounges.
-            </p>
-          </div>
-
-          {/* Scrolling Marquee Container */}
-          <div className="w-full relative overflow-hidden py-4 select-none">
-            {/* Soft gradient fades on left and right edges */}
-            <div className="absolute top-0 left-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-            <div className="absolute top-0 right-0 bottom-0 w-12 sm:w-24 md:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-            <div className="flex animate-marquee gap-8">
-              {[...GALLERY_ITEMS, ...GALLERY_ITEMS].map((item, index) => {
-                // Alternating rotations and slight vertical offsets for tilted deck effect
-                const rotations = [
-                  "rotate-[-4deg] translate-y-2",
-                  "rotate-[3deg] -translate-y-1",
-                  "rotate-[-3deg] translate-y-3",
-                  "rotate-[4deg] -translate-y-2",
-                  "rotate-[-5deg] translate-y-1",
-                  "rotate-[5deg] -translate-y-3",
-                ];
-                const rotationClass = rotations[index % rotations.length];
-
-                return (
-                  <div
-                    key={index}
-                    className={`relative w-[260px] h-[220px] min-[400px]:w-72 min-[400px]:h-[250px] sm:w-[320px] sm:h-[280px] md:w-[360px] md:h-[320px] rounded-2xl sm:rounded-[2rem] overflow-hidden border-4 sm:border-[6px] border-white hover:scale-105 transition-all duration-500 cursor-pointer shrink-0 ${rotationClass} -mx-2`}
-                  >
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      fill
-                      className="object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/85 via-[#2b3748]/20 to-transparent z-10" />
-                    <div className="absolute bottom-6 left-6 right-6 z-20 text-left">
-                      <p className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">COVAITECH PARK</p>
-                      <h4 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-none">
-                        {item.title}
-                      </h4>
-                    </div>
-                  </div>
-                );
-              })}
+          
+          {/* Header block with side-by-side style */}
+          <div className="box-container flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16 px-4 w-full">
+            <div className="space-y-4 text-left max-w-2xl">
+              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block">
+                - OUR GALLERY
+              </span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight leading-none text-slate-800">
+                Creative Workspaces That <span className="text-brand-orange">Define Our Style</span>
+              </h2>
+            </div>
+            
+            <div className="flex flex-col sm:flex-row lg:items-end gap-6 w-full lg:w-auto">
+              <p className="text-slate-500 text-sm sm:text-base font-normal max-w-md leading-relaxed text-left">
+                Explore our beautifully configured spaces — from acoustic private cabins to premium collaborative lounges designed for high-performance software teams.
+              </p>
+              
+              {/* Embla Slider Buttons */}
+              <div className="flex gap-3 shrink-0">
+                <button
+                  onClick={scrollGalleryPrev}
+                  className="w-12 h-12 rounded-full border border-slate-200 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
+                  aria-label="Previous Slide"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                </button>
+                <button
+                  onClick={scrollGalleryNext}
+                  className="w-12 h-12 rounded-full border border-slate-200 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
+                  aria-label="Next Slide"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          {/* CTA below marquee */}
-          <div className="pt-10">
-            <button
-              onClick={() => handleOpenBooking("Book a Tour (Gallery Section)")}
-              className="inline-block px-10 py-4 bg-brand-orange text-white hover:bg-brand-navy font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer text-center"
-            >
+          {/* Embla Slider Container */}
+          <div className="overflow-hidden w-full px-4" ref={galleryRef}>
+            <div className="flex gap-6">
+              {GALLERY_ITEMS.map((item, index) => (
+                <div key={index} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] xl:flex-[0_0_28%] min-w-0">
+                  <div className="group relative flex flex-col text-left">
+                    {/* Image Container with rounded-[2rem] exactly like Image 1 */}
+                    <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden border border-slate-100 shadow-md">
+                      <Image 
+                        src={item.image} 
+                        alt={item.title} 
+                        fill 
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105" 
+                      />
+                      
+                      {/* Black overlay with circular "View" button in the center on hover */}
+                      <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+                        <div className="w-16 h-16 rounded-full bg-brand-orange text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-300 shadow-lg">
+                          View
+                        </div>
+                      </div>
+
+                      {/* White borderless pill tags on top left */}
+                      <div className="absolute top-6 left-6 z-10 flex gap-2">
+                        {item.tags.map((tag) => (
+                          <span key={tag} className="px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[9px] font-black tracking-wider text-slate-800 uppercase">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Metadata text below the card */}
+                    <div className="mt-5 px-2">
+                      <h3 className="font-outfit font-bold text-xl text-slate-900 group-hover:text-brand-orange transition-colors">
+                        {item.title}
+                      </h3>
+                      <div className="flex justify-between items-center mt-1 text-slate-400 text-xs font-normal">
+                        <span>{item.location}</span>
+                        <span>{item.year}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-12">
+            <button onClick={() => handleOpenBooking("Book a Tour (Gallery Section)")} className="inline-block px-10 py-4 bg-brand-orange text-white hover:bg-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer text-center">
               Book a Tour Now
             </button>
           </div>
         </div>
       </section>
 
-      
-
-      {/* 2ND IMAGE CTA BANNER CARD (FULLWIDTH AND BLEED IMAGE) */}
-      <section className="py-8 sm:py-10 bg-white w-full section-x">
-        <div className="relative w-full rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[#0a0f1a] via-[#091b29] to-[#0a0f1a] border-2 border-brand-orange/20 flex flex-col md:flex-row items-stretch justify-between shadow-2xl min-h-[380px]">
+      {/* FAQS SECTION */}
+      <section id="faqs" className="w-full bg-[#f8fafc] py-16 sm:py-24 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 relative z-10">
+          <div className="text-center mb-12 reveal reveal-up">
+            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">FAQS</span>
+            <h2 className="font-outfit font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
+              Frequently Asked Questions
+            </h2>
+          </div>
           
-          {/* Left Content */}
-          <div className="flex-1 text-left space-y-4 sm:space-y-6 p-6 sm:p-12 lg:p-16 xl:p-20 flex flex-col justify-center z-10">
-            <h3 className="font-outfit font-bold text-4xl sm:text-4xl lg:text-4xl text-white tracking-tight leading-tight">
-              Get the Perfect Coworking Space in your City
-            </h3>
-            <p className="text-sm font-bold text-brand-orange uppercase tracking-widest leading-relaxed">
-              Coimbatore | Chennai | Trichy | Kochi | Salem &amp; More...
-            </p>
-            <button
-              onClick={() => handleOpenBooking("CTA Banner Enquiry")}
-              className="px-10 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-md self-start active:scale-98"
-            >
-              Enquire Now
-            </button>
+          <div className="space-y-4">
+            {FAQS.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div key={idx} className="bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300">
+                  <button onClick={() => setOpenFaq(isOpen ? null : idx)} className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer">
+                    <span className="font-outfit font-bold text-lg text-brand-navy">{faq.question}</span>
+                    <span className={`text-brand-orange transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                    </span>
+                  </button>
+                  <div className={`px-6 overflow-hidden transition-all duration-300 ${isOpen ? "max-h-40 pb-5 opacity-100" : "max-h-0 opacity-0"}`}>
+                    <p className="text-brand-slate text-sm sm:text-base leading-relaxed">{faq.answer}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-
-          {/* Right blended image - Bleed, no padding */}
-          <div className="relative w-full md:w-[48%] h-[300px] md:h-auto overflow-hidden shrink-0">
-            <Image
-              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80"
-              alt="Perfect Coworking Office"
-              fill
-              className="object-cover"
-            />
-            {/* Blends with the background of the left container */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#091b29] via-transparent to-transparent hidden md:block z-10" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#091b29] via-transparent to-transparent md:hidden z-10" />
-          </div>
-
         </div>
       </section>
 
       {/* BOOKING/CONTACT SECTION */}
-      <section id="booking" className="section-container h-auto py-16 sm:py-24 section-x bg-[#f8fafc] border-t border-b border-brand-orange/15 text-brand-navy relative overflow-hidden reveal reveal-up">
+      <section id="booking" className="section-container h-auto py-12 sm:py-16 section-x bg-[#f8fafc] border-t border-b border-brand-orange/15 text-brand-navy relative overflow-hidden reveal reveal-up">
         
         {/* Floating transparent element */}
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] opacity-[0.02] text-brand-navy pointer-events-none select-none z-0">
@@ -2011,24 +2216,24 @@ export default function Home() {
               <form className="flex flex-col gap-5 w-full" onSubmit={(e) => { e.preventDefault(); handleOpenBooking("Contact Form"); setBookingOpen(false); }}>
                 <div className="flex flex-col sm:flex-row gap-5">
                   <div className="flex-1">
-                    <input type="text" placeholder="Name" required className="w-full bg-slate-50 border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-medium focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
+                    <input type="text" placeholder="Name" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
                   </div>
                   <div className="flex-1">
-                    <input type="email" placeholder="Email" required className="w-full bg-slate-50 border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-medium focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
+                    <input type="email" placeholder="Email" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
                   </div>
                 </div>
                 
                 <div>
-                  <input type="tel" placeholder="Phone Number" required className="w-full bg-slate-50 border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-medium focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
+                  <input type="tel" placeholder="Phone Number" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
                 </div>
 
                 <div>
-                  <textarea placeholder="How can we help?" rows={2} required className="w-full bg-slate-50 border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-medium focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400 resize-none"></textarea>
+                  <textarea placeholder="How can we help?" rows={2} required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400 resize-none"></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-orange hover:bg-[#091b29] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer mt-2"
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-orange hover:bg-[#091b29] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer mt-2"
                 >
                   Send Message
                 </button>
@@ -2057,7 +2262,7 @@ export default function Home() {
             </div>
             <button
               onClick={() => handleOpenBooking("General Inquiry")}
-              className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-extrabold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
+              className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
             >
               Book a Free Tour →
             </button>
@@ -2065,11 +2270,10 @@ export default function Home() {
         </div>
 
         {/* Main Footer Grid */}
-        <div className="box-container py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="box-container py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
 
-          {/* Column 1 — Brand */}
-          <div className="space-y-5 sm:col-span-2 lg:col-span-1">
-            {/* Logo mark */}
+          {/* Column 1 — Brand (Covai Tech Park + Addresses) */}
+          <div className="space-y-6 md:col-span-6 text-left">
             <div className="flex items-center">
               <a href="#" className="inline-block p-2 bg-white rounded-xl shadow-md border border-slate-200 hover:scale-[1.01] transition-transform">
                 <Image
@@ -2081,108 +2285,115 @@ export default function Home() {
                 />
               </a>
             </div>
-            <p className="text-white/45 text-xs font-bold leading-relaxed max-w-xs">
-              Premium managed tech coworking parks in Coimbatore &amp; Trichy for startups, enterprises, and digital-first teams.
-            </p>
-            {/* Social icons */}
-            <div className="flex gap-3">
-              {[
-                { label: "LinkedIn", path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
-                { label: "Twitter/X", path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.635 5.902-5.635zm-1.161 17.52h1.833L7.084 4.126H5.117z" },
-                { label: "Instagram", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
-              ].map(({ label, path }) => (
-                <a
-                  key={label}
-                  href="#"
-                  aria-label={label}
-                  className="w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-brand-orange hover:border-brand-orange flex items-center justify-center transition-all duration-300 cursor-pointer"
-                >
-                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                    <path d={path} />
-                  </svg>
-                </a>
-              ))}
+            
+            <div className="space-y-4">
+              <div>
+                <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Registered Address</h5>
+                <p className="text-white/70 font-bold text-xs uppercase tracking-wider mb-0.5">Max Office</p>
+                <p className="text-white/45 text-xs font-normal leading-relaxed max-w-md">
+                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                </p>
+              </div>
+
+              <div>
+                <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Address</h5>
+                <p className="text-white/45 text-xs font-normal leading-relaxed max-w-md">
+                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore- 641 014.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Email</h5>
+                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors">
+                    info@covaitechpark.com
+                  </a>
+                </div>
+                <div>
+                  <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Mobile</h5>
+                  <div className="flex flex-col gap-1 text-white/45 text-xs font-normal">
+                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors">+91 93607 80768</a>
+                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors">+91 900 355 0455</a>
+                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors">+91 968 899 2210</a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Column 2 — Services */}
-          <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Services</h5>
+          {/* Column 2 — Workspace Solutions */}
+          <div className="space-y-5 md:col-span-3 text-left">
+            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Workspace Solutions</h5>
             <ul className="space-y-3 text-xs font-normal text-white/45">
-              {["Private Cabin Suites", "Dedicated Desks", "Hot Desk Lounge", "Virtual Office & GST", "Meeting Rooms", "Event Space"].map(item => (
-                <li key={item}>
+              {[
+                "Coworking Space",
+                "Private Office Space",
+                "Managed Office",
+                "Virtual Office",
+                "Meeting Room",
+                "Event Space",
+                "Training Room"
+              ].map(item => (
+                <li key={item} className="flex items-center gap-2">
+                  <span className="text-brand-orange text-[10px]">&rsaquo;</span>
                   <a href="#services-dark" className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3 — Locations */}
-          <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Locations</h5>
-            <div className="space-y-5 text-xs font-bold text-white/45">
-              <div className="space-y-1">
-                <p className="text-white/70 font-bold uppercase tracking-wider text-[10px]">Coimbatore</p>
-                <p>Nehru Nagar East, Nehru Nagar</p>
-                <p>Coimbatore — 641 006</p>
-              </div>
-              <div className="space-y-1">
-                <p className="text-white/70 font-bold uppercase tracking-wider text-[10px]">Trichy</p>
-                <p>Thillai Nagar, Trichy</p>
-                <p>Tamil Nadu — 620 018</p>
-              </div>
+          {/* Column 3 — Useful Links, Socials & Other Sites */}
+          <div className="space-y-6 md:col-span-3 text-left">
+            <div className="space-y-4">
+              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Useful Links</h5>
+              <ul className="space-y-3 text-xs font-normal text-white/45">
+                {[
+                  { name: "Furnished Office Space in Coimbatore", link: prefix("/coimbatore") },
+                  { name: "Commercial Office Space in Coimbatore", link: prefix("/coimbatore") },
+                  { name: "Locations", link: "#locations" },
+                  { name: "Refer and Earn Program", link: "#contact" }
+                ].map(item => (
+                  <li key={item.name} className="flex items-center gap-2">
+                    <span className="text-brand-orange text-[10px]">&rsaquo;</span>
+                    <a href={item.link} className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item.name}</a>
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
 
-          {/* Column 4 — Contact */}
-          <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Contact</h5>
-            <ul className="space-y-3 text-xs font-normal text-white/45">
-              <li>
-                <a href="mailto:info@covaitechpark.com" className="hover:text-brand-orange transition-colors duration-200 flex items-center gap-2 cursor-pointer">
-                  <span className="w-5 h-5 rounded-full border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
-                    <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
-                    </svg>
-                  </span>
-                  info@covaitechpark.com
-                </a>
-              </li>
-              <li>
-                <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors duration-200 flex items-center gap-2 cursor-pointer">
-                  <span className="w-5 h-5 rounded-full border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
-                    <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .18h3a2 2 0 012 1.72c.13.98.36 1.94.7 2.87a2 2 0 01-.45 2.11L6.09 8a16 16 0 006 6l1.12-1.16a2 2 0 012.11-.45c.93.34 1.9.57 2.87.7A2 2 0 0122 14.92z" />
-                    </svg>
-                  </span>
-                  +91 93607 80768
-                </a>
-              </li>
-              <li>
-                <a href="https://covaitechpark.com" className="hover:text-brand-orange transition-colors duration-200 flex items-center gap-2 cursor-pointer">
-                  <span className="w-5 h-5 rounded-full border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
-                    <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
-                    </svg>
-                  </span>
-                  covaitechpark.com
-                </a>
-              </li>
-            </ul>
-
-            {/* Quick nav */}
-            <div className="pt-2 space-y-2">
-              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Quick Nav</h5>
-              <div className="flex flex-wrap gap-2">
-                {[["About", "#about"], ["Spaces", "#banking-layout"], ["Phases", "#deployment-track"], ["Book", "#booking"]].map(([label, href]) => (
+            <div className="space-y-3">
+              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Social Links</h5>
+              <div className="flex gap-3">
+                {[
+                  { label: "Facebook", link: "https://www.facebook.com/coworkingspaceincoimbatore/", path: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" },
+                  { label: "LinkedIn", link: "https://www.linkedin.com/company/covai-tech-park/", path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
+                  { label: "Instagram", link: "https://www.instagram.com/covaitechpark/", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
+                ].map(({ label, link, path }) => (
                   <a
                     key={label}
-                    href={href}
-                    className="text-[10px] font-bold uppercase tracking-widest text-white/45 hover:text-brand-orange border border-white/10 hover:border-brand-orange/40 px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer"
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-brand-orange hover:border-brand-orange flex items-center justify-center transition-all duration-300 cursor-pointer"
                   >
-                    {label}
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d={path} />
+                    </svg>
                   </a>
                 ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Other Site</h5>
+              <div className="flex flex-col gap-1.5 text-xs text-white/45 font-normal">
+                <a href="https://trichycoworks.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors flex items-center gap-1">
+                  <span className="text-brand-orange">&#9679;</span> trichycoworks.com
+                </a>
+                <a href="https://maxoffice.co.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors flex items-center gap-1">
+                  <span className="text-brand-orange">&#9679;</span> maxoffice.co.in
+                </a>
               </div>
             </div>
           </div>
@@ -2218,7 +2429,7 @@ export default function Home() {
             <div className="w-full md:w-7/12 p-8 sm:p-10 relative bg-white">
               <button
                 onClick={() => setBookingOpen(false)}
-                className="absolute top-5 right-5 text-brand-navy/55 hover:text-brand-navy hover:bg-brand-navy/5 p-2 rounded-full transition-all cursor-pointer"
+                className="absolute top-5 right-5 text-brand-navy/55 hover:text-brand-navy hover:bg-brand-navy/5 p-2 rounded-full transition-all cursor-pointer animate-float-delayed"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/>
@@ -2227,11 +2438,8 @@ export default function Home() {
 
               <div className="mb-6 space-y-1 text-left">
                 <h3 className="font-outfit font-bold text-2xl text-brand-navy">
-                  Reserve Your Space
+                  Request Quote
                 </h3>
-                <p className="text-xs text-brand-slate font-bold">
-                  Fill in the details below. Our space administration team will follow up.
-                </p>
               </div>
 
               {bookingSuccess ? (
@@ -2239,75 +2447,113 @@ export default function Home() {
                   <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   </div>
-                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Booking Request Sent!</h4>
+                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Request Submitted Successfully!</h4>
                   <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
-                    Thank you, <strong>{bookingName}</strong>. Your interest in <strong>{selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong>.
+                    Thank you, <strong>{bookingFirstName} {bookingLastName}</strong>. Your inquiry for <strong>{bookingLookingFor || selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong> or <strong>{bookingPhoneCode} {bookingPhone}</strong>.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleBookingSubmit} className="space-y-4 text-left font-bold text-sm">
+                <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-bold text-sm">
                 
-                <div>
-                  <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                    Selected Workspace / Plan
+                {/* Name Row */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-slate-800">
+                    Name <span className="text-red-500">*</span>
                   </label>
-                  <input
-                    type="text"
-                    value={selectedPlan}
-                    disabled
-                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl px-4 py-3 text-xs text-brand-navy/70 font-bold focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={bookingName}
-                    onChange={(e) => setBookingName(e.target.value)}
-                    placeholder="Enter your full name"
-                    className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
-                  />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      value={bookingEmail}
-                      onChange={(e) => setBookingEmail(e.target.value)}
-                      placeholder="name@company.com"
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
-                    />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <input
+                        type="text"
+                        required
+                        value={bookingFirstName}
+                        onChange={(e) => setBookingFirstName(e.target.value)}
+                        placeholder=""
+                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                      />
+                      <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        required
+                        value={bookingLastName}
+                        onChange={(e) => setBookingLastName(e.target.value)}
+                        placeholder=""
+                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                      />
+                      <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                    </div>
                   </div>
+                </div>
 
-                  <div>
-                    <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                      Phone Number *
-                    </label>
+                {/* Phone Number */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-slate-800">
+                    Phone <span className="text-red-500">*</span>
+                  </label>
+                  <div className="flex border border-slate-200/80 rounded-lg overflow-hidden focus-within:border-brand-orange shadow-sm">
+                    <select
+                      value={bookingPhoneCode}
+                      onChange={(e) => setBookingPhoneCode(e.target.value)}
+                      className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                    >
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+65">🇸🇬 +65</option>
+                    </select>
                     <input
                       type="tel"
                       required
                       value={bookingPhone}
                       onChange={(e) => setBookingPhone(e.target.value)}
-                      placeholder="+91 XXXXX XXXXX"
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
+                      placeholder=""
+                      className="w-full bg-white px-4 py-3 text-xs text-slate-800 focus:outline-none font-bold"
                     />
                   </div>
                 </div>
 
+                {/* Email Address */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-slate-800">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={bookingEmail}
+                    onChange={(e) => setBookingEmail(e.target.value)}
+                    placeholder=""
+                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                  />
+                </div>
+
+                {/* What are you looking for? */}
+                <div className="space-y-1">
+                  <label className="block text-xs font-bold text-slate-800">
+                    What are you looking for?
+                  </label>
+                  <select
+                    value={bookingLookingFor}
+                    onChange={(e) => setBookingLookingFor(e.target.value)}
+                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                    required
+                  >
+                    <option value="">-Select-</option>
+                    <option value="Coworking & Hot Desks">Coworking & Hot Desks</option>
+                    <option value="Dedicated Desks">Dedicated Desks</option>
+                    <option value="Private Cabins">Private Cabins</option>
+                    <option value="Meeting Rooms">Meeting Rooms</option>
+                    <option value="Custom Office Solutions">Custom Office Solutions</option>
+                  </select>
+                </div>
+
                 <button
                   type="submit"
-                  className="w-full py-4 bg-[#091b29] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow shadow-[#2b3748]/10 cursor-pointer"
+                  className="w-full py-3.5 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-lg transition-all duration-300 shadow-md shadow-brand-orange/20 cursor-pointer text-center"
                 >
-                  Confirm Request
+                  Submit
                 </button>
               </form>
             )}

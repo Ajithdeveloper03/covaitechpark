@@ -359,9 +359,24 @@ p {
 .freedom-panel.active {
   flex: 4 1 0%;
 }
-@media (max-width: 768px) {
+@media (max-width: 479px) {
   .herosmall {
-    padding-top: 60px !important;
+    padding-top: 64px !important;
+  }
+}
+@media (min-width: 480px) and (max-width: 639px) {
+  .herosmall {
+    padding-top: 68px !important;
+  }
+}
+@media (min-width: 640px) and (max-width: 768px) {
+  .herosmall {
+    padding-top: 76px !important;
+  }
+}
+@media (min-width: 769px) and (max-width: 1023px) {
+  .herosmall {
+    padding-top: 84px !important;
   }
 }
 /* Mobile: vertical stacking — each panel acts like an accordion row */

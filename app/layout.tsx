@@ -150,8 +150,20 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body className="min-h-full flex flex-col bg-white text-brand-navy" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-white text-brand-navy pb-[76px] md:pb-0" suppressHydrationWarning>
         {children}
+        {/* Sticky Mobile Call Button */}
+        <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-3 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+          <a
+            href="tel:+919360780768"
+            className="flex items-center justify-center w-full gap-2.5 py-3.5 bg-brand-orange text-white font-extrabold text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-brand-orange/30 transition-transform active:scale-[0.98]"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+            </svg>
+            Call Now
+          </a>
+        </div>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-ï»¿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -35,7 +35,7 @@ const HERO_SLIDES = [
     image: prefix("/hero2.jpg"),
     label: "MEETING ROOMS",
     description: "Corporate-ready conference halls and boardrooms built with high-fidelity acoustic isolation and smart screens.",
-    priceTag: "From Î“Ã©â•£14,999/mo"
+    priceTag: "From Gé¦14,999/mo"
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const HERO_SLIDES = [
     image: prefix("/hero3.jpg"),
     label: "PRIVATE CABINS",
     description: "Fully soundproofed lockable offices optimized for growing tech organizations and software teams.",
-    priceTag: "From Î“Ã©â•£8,999/mo"
+    priceTag: "From Gé¦8,999/mo"
   }
 ];
 
@@ -73,7 +73,7 @@ const TESTIMONIALS = [
   }
 ];
 
-// Dual feature cards Î“Ã‡Ã¶ image overlay layout (reference: solar showcase)
+// Dual feature cards GÇö image overlay layout (reference: solar showcase)
 const FEATURE_SHOWCASE_CARDS = [
   {
     id: "01",
@@ -86,7 +86,7 @@ const FEATURE_SHOWCASE_CARDS = [
     id: "02",
     title: "Private + Open Desks",
     description:
-      "Lockable cabin suites and hot desks on one campus Î“Ã‡Ã¶ use the same address for GST, meetings, and day-to-day engineering under one roof.",
+      "Lockable cabin suites and hot desks on one campus GÇö use the same address for GST, meetings, and day-to-day engineering under one roof.",
     image: "https://images.pexels.com/photos/34887638/pexels-photo-34887638.jpeg",
   },
 ];
@@ -286,7 +286,7 @@ function DeploymentPhaseContent({
 }) {
   return (
     <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
-      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] leading-none text-brand-orange">
+      <span className="text-[10px] sm:text-sm font-bold uppercase tracking-[0.22em] leading-none text-brand-orange">
         {phase.subtitle}
       </span>
       <h3
@@ -303,11 +303,11 @@ function DeploymentPhaseContent({
         {phase.points.map((pt) => (
           <div key={pt.label} className="flex gap-2.5 items-center">
             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-bold bg-brand-orange">
-              Î“Â£Ã´
+              G£ô
             </span>
             <div className="flex gap-1.5 items-baseline flex-wrap min-w-0">
-              <span className="font-bold text-xs sm:text-sm text-brand-navy">{pt.label}</span>
-              <span className="text-[11px] sm:text-xs text-brand-slate font-normal">{pt.desc}</span>
+              <span className="font-bold text-sm sm:text-sm text-brand-navy">{pt.label}</span>
+              <span className="text-[11px] sm:text-sm text-brand-slate font-normal">{pt.desc}</span>
             </div>
           </div>
         ))}
@@ -316,10 +316,10 @@ function DeploymentPhaseContent({
         <button
           type="button"
           onClick={() => onInquire(phase.title)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-white font-extrabold text-[10px] sm:text-xs uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03] bg-brand-orange"
+          className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-white font-extrabold text-[10px] sm:text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03] bg-brand-orange"
         >
           Inquire Now
-          <span className="text-sm">Î“Ã¥Ã†</span>
+          <span className="text-sm">GåÆ</span>
         </button>
       </div>
     </div>
@@ -576,7 +576,7 @@ export default function Home() {
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
 
-  // Phases stacked scroll Î“Ã‡Ã¶ active slide index
+  // Phases stacked scroll GÇö active slide index
   const [activePhase, setActivePhase] = useState(0);
 
 
@@ -734,7 +734,7 @@ export default function Home() {
             "@id": "https://covaitechpark.com/covaitechpark/#coworkingspace",
             "url": "https://covaitechpark.com/covaitechpark",
             "telephone": "+919360780768",
-            "priceRange": "Î“Ã©â•£1499 - Î“Ã©â•£14999",
+            "priceRange": "Gé¦1499 - Gé¦14999",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Nehru Nagar East",
@@ -769,7 +769,7 @@ export default function Home() {
         }}
       />
       
-      {/* VERTICAL SCROLL NAVIGATION TIMELINE Î“Ã‡Ã¶ hidden on hero, visible from 2nd section */}
+      {/* VERTICAL SCROLL NAVIGATION TIMELINE GÇö hidden on hero, visible from 2nd section */}
       <div
         className="fixed right-3 sm:right-6 xl:right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4 z-50 p-2.5 sm:p-3 bg-[#091b29]/95 backdrop-blur-md rounded-full border border-white/10 shadow-xl transition-all duration-500"
         style={{
@@ -838,7 +838,7 @@ export default function Home() {
             }`}
           >
             <div className="relative group cursor-pointer">
-              <a href="#services-dark" className="hover:text-brand-orange transition-colors flex items-center gap-1">Services <span className="text-[8px]">Î“Ã»â•</span></a>
+              <a href="#services-dark" className="hover:text-brand-orange transition-colors flex items-center gap-1">Services <span className="text-[8px]">Gû+</span></a>
               <div className="absolute top-full left-0 mt-4 w-52 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-2 text-sm normal-case tracking-normal font-medium z-50">
                 <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Private Office</a>
                 <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Managed Office</a>
@@ -883,7 +883,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Mobile menu drawer Î“Ã‡Ã¶ side drawer layout */}
+        {/* Mobile menu drawer GÇö side drawer layout */}
         <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-brand-navy/98 backdrop-blur-2xl z-50 flex flex-col justify-center items-center gap-8 xl:hidden transition-transform duration-500 shadow-2xl ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}>
@@ -908,7 +908,7 @@ export default function Home() {
                 setMobileMenuOpen(false);
                 handleOpenBooking("Schedule a Tour");
               }}
-              className="mt-6 px-8 py-4 bg-brand-orange text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg"
+              className="mt-6 px-8 py-4 bg-brand-orange text-white text-sm font-bold uppercase tracking-wider rounded-full shadow-lg"
             >
               Book Space Now
             </button>
@@ -1009,7 +1009,7 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-5 sm:gap-6 pt-2">
                 <button
                   onClick={() => handleOpenBooking(HERO_SLIDES[activeHeroSlide].label)}
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2.5"
+                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2.5"
                 >
                   Explore Workspaces
                   <span className="text-sm font-bold">&rarr;</span>
@@ -1024,13 +1024,13 @@ export default function Home() {
                       <path d="M8 5v14l11-7z" />
                     </svg>
                   </span>
-                  <span className="text-xs sm:text-sm font-normal tracking-wider ">Virtual Tour</span>
+                  <span className="text-sm sm:text-sm font-normal tracking-wider ">Virtual Tour</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Slide thumbnails Î“Ã‡Ã¶ vertical list with vertical dot line on desktop */}
+          {/* Slide thumbnails GÇö vertical list with vertical dot line on desktop */}
           <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center">
             <div className="relative flex items-stretch gap-6 w-full lg:max-w-[320px] xl:max-w-[360px]">
               
@@ -1080,7 +1080,7 @@ export default function Home() {
                           
                           {/* Label overlay aligned bottom left */}
                           <div className="absolute inset-0 flex items-center justify-start pl-4 sm:pl-5">
-                            <span className="text-[10px] sm:text-xs font-normal tracking-widest text-white uppercase drop-shadow-md">
+                            <span className="text-[10px] sm:text-sm font-normal tracking-widest text-white uppercase drop-shadow-md">
                               {slide.label}
                             </span>
                           </div>
@@ -1130,7 +1130,7 @@ export default function Home() {
       </section>
 
 
-      {/* LOCATIONS SECTION Î“Ã‡Ã¶ Reference Image Style */}
+      {/* LOCATIONS SECTION GÇö Reference Image Style */}
       <section id="locations" className="w-full bg-white border-t border-slate-100 overflow-hidden">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
 
@@ -1141,7 +1141,7 @@ export default function Home() {
             <div className="space-y-4 relative">
               {/* Yellow decorative accent circle */}
               <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#ffe066]/80 -z-10" />
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
+              <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
               <h2 className="font-outfit font-bold text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
                 Choose from <span className="text-brand-orange">100,000+</span><br />spaces to Work &amp; Live
               </h2>
@@ -1190,7 +1190,7 @@ export default function Home() {
               </div>
             </div> */}
 
-            {/* City Icon Grid Î“Ã‡Ã¶ reference style with circular borders & realistic icons */}
+            {/* City Icon Grid GÇö reference style with circular borders & realistic icons */}
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-4 gap-y-6 pt-4">
               {CITIES.map((city) => {
                 const isActive = activeCity === city.name;
@@ -1218,7 +1218,7 @@ export default function Home() {
                       />
                     </div>
 
-                    {/* City name Î“Ã‡Ã¶ normal weight, bold only when active */}
+                    {/* City name GÇö normal weight, bold only when active */}
                     <span
                       className={`text-[10px] tracking-wide text-center leading-none transition-colors duration-300 uppercase ${
                         isActive
@@ -1236,9 +1236,9 @@ export default function Home() {
             {/* View all CTA */}
             <button
               onClick={() => handleOpenBooking("All Locations Enquiry")}
-              className="inline-flex items-center gap-2 text-xs font-bold text-brand-orange hover:text-brand-navy transition-colors uppercase tracking-widest cursor-pointer pt-4"
+              className="inline-flex items-center gap-2 text-sm font-bold text-brand-orange hover:text-brand-navy transition-colors uppercase tracking-widest cursor-pointer pt-4"
             >
-              View All Locations <span className="text-base">Î“Ã¥Ã†</span>
+              View All Locations <span className="text-base">GåÆ</span>
             </button>
           </div>
 
@@ -1253,15 +1253,15 @@ export default function Home() {
               />
               {/* <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent pointer-events-none" /> */}
 
-              {/* Active city badge Î“Ã‡Ã¶ top left */}
+              {/* Active city badge GÇö top left */}
               <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-2.5 shadow-lg">
                 <p className="text-[9px] font-bold text-brand-orange uppercase tracking-widest leading-none">ACTIVE LOCATION</p>
                 <p className="font-outfit font-bold text-sm text-brand-navy leading-tight mt-0.5">{activeCity} Hub</p>
               </div>
 
-              {/* Call/enquiry floating button Î“Ã‡Ã¶ bottom right */}
+              {/* Call/enquiry floating button GÇö bottom right */}
               <button
-                onClick={() => handleOpenBooking(`Enquiry Î“Ã‡Ã¶ ${activeCity}`)}
+                onClick={() => handleOpenBooking(`Enquiry GÇö ${activeCity}`)}
                 className="absolute bottom-5 right-5 w-14 h-14 bg-brand-orange hover:bg-brand-navy text-white rounded-full flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-[1.06] cursor-pointer"
                 aria-label={`Call for ${activeCity} enquiry`}
               >
@@ -1276,7 +1276,7 @@ export default function Home() {
       </section>
 
 
-  {/* WE ARE HERE Î“Ã‡Ã¶ Minimal neon gradient + feature cards */}
+  {/* WE ARE HERE GÇö Minimal neon gradient + feature cards */}
   <section
         id="feature-showcase"
         className="neon-we-are-here relative w-full section-x py-12 sm:py-16 lg:py-24 overflow-hidden"
@@ -1287,7 +1287,7 @@ export default function Home() {
               We Are Here
             </span>
             <h2 className="font-outfit font-bold text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] text-white/95 text-center leading-[1.2] tracking-tight max-w-3xl mx-auto">
-              Supporting your workspace ambitions Î“Ã‡Ã¶ from your first desk to a full tech floor.
+              Supporting your workspace ambitions GÇö from your first desk to a full tech floor.
             </h2>
           </div>
 
@@ -1310,7 +1310,7 @@ export default function Home() {
                   <h3 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-tight mb-1.5 sm:mb-2">
                     {card.title}
                   </h3>
-                  <p className="text-xs sm:text-sm font-normal text-white/65 leading-relaxed">
+                  <p className="text-sm sm:text-sm font-normal text-white/65 leading-relaxed">
                     {card.description}
                   </p>
                 </div>
@@ -1321,7 +1321,7 @@ export default function Home() {
       </section>
 
 
-      {/* ABOUT COMPANY SECTION Î“Ã‡Ã¶ NATURAL LAYOUT */}
+      {/* ABOUT COMPANY SECTION GÇö NATURAL LAYOUT */}
       <section id="benefits-organic" className="py-16 sm:py-24 section-x w-full bg-[#ffffff] text-brand-navy relative overflow-hidden">
 
         {/* Subtle ambient orbs behind the card */}
@@ -1355,7 +1355,7 @@ export default function Home() {
 
               {/* Right: Text Content */}
               <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
-                <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.28em] block leading-none">
+                <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.28em] block leading-none">
                   ABOUT COVAITECH PARK
                 </span>
 
@@ -1364,7 +1364,7 @@ export default function Home() {
                 </h2>
 
                 <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg">
-                  Founded in 2017, CovaiTech Park bridges the gap between high-cost commercial offices and flexible shared suites Î“Ã‡Ã¶ operating in Saravanampatti &amp; Nehru Nagar East, Coimbatore and Thillai Nagar, Trichy.
+                  Founded in 2017, CovaiTech Park bridges the gap between high-cost commercial offices and flexible shared suites GÇö operating in Saravanampatti &amp; Nehru Nagar East, Coimbatore and Thillai Nagar, Trichy.
                 </p>
 
                 {/* Stats row */}
@@ -1465,8 +1465,8 @@ export default function Home() {
                   </h4>
 
                   <div className="pt-1.5">
-                    <span className="text-[10px] sm:text-xs font-bold text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
-                      {service.linkText} <span className="text-xs sm:text-sm">&rarr;</span>
+                    <span className="text-[10px] sm:text-sm font-bold text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
+                      {service.linkText} <span className="text-sm sm:text-sm">&rarr;</span>
                     </span>
                   </div>
                 </div>
@@ -1478,7 +1478,7 @@ export default function Home() {
       </section>
 
 
-      {/* WORKSPACES Î“Ã‡Ã¶ mobile: full scrollable cards | desktop: sticky stacked scroll */}
+      {/* WORKSPACES GÇö mobile: full scrollable cards | desktop: sticky stacked scroll */}
       <section id="deployment-track" className="relative w-full bg-[#f8fafc] section-x py-16 sm:py-24 overflow-hidden reveal reveal-up">
         {/* Transparent Coworking Shapes (Floating) */}
         <div className="absolute bottom-10 right-10 w-80 h-80 opacity-[0.03] text-slate-800 pointer-events-none select-none z-10 hidden md:block">
@@ -1676,7 +1676,7 @@ export default function Home() {
         </div>
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch relative z-10">
 
-{/* TESTIMONIALS SECTION Î“Ã‡Ã¶ Background image + overlay */}
+{/* TESTIMONIALS SECTION GÇö Background image + overlay */}
       <section id="testimonials" className="section-container w-full flex flex-col justify-center py-16 sm:py-24 relative overflow-hidden">
         {/* Full-bleed background image */}
         <div className="absolute inset-0 z-0 min-h-full">
@@ -1787,7 +1787,7 @@ export default function Home() {
                 <span className="text-sm font-bold text-white uppercase tracking-[0.15em]">
                   {TESTIMONIALS[activeTestimonial].name}
                 </span>
-                <span className="text-xs font-bold text-white/45 uppercase tracking-[0.2em]">
+                <span className="text-sm font-bold text-white/45 uppercase tracking-[0.2em]">
                   {TESTIMONIALS[activeTestimonial].role}
                 </span>
               </div>
@@ -1842,7 +1842,7 @@ export default function Home() {
               Where High-Growth Teams Align
             </h2>
             <p className="text-slate-500 text-base sm:text-lg leading-relaxed max-w-xl mx-auto">
-              A virtual tour of our live campuses Î“Ã‡Ã¶ from acoustic private cabins to premium collaborative lounges.
+              A virtual tour of our live campuses GÇö from acoustic private cabins to premium collaborative lounges.
             </p>
           </div>
 
@@ -1878,7 +1878,7 @@ export default function Home() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/85 via-[#2b3748]/20 to-transparent z-10" />
                     <div className="absolute bottom-6 left-6 right-6 z-20 text-left">
-                      <p className="text-xs font-bold text-brand-orange uppercase tracking-wider mb-1">COVAITECH PARK</p>
+                      <p className="text-sm font-bold text-brand-orange uppercase tracking-wider mb-1">COVAITECH PARK</p>
                       <h4 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-none">
                         {item.title}
                       </h4>
@@ -1893,7 +1893,7 @@ export default function Home() {
           <div className="pt-10">
             <button
               onClick={() => handleOpenBooking("Book a Tour (Gallery Section)")}
-              className="inline-block px-10 py-4 bg-brand-orange text-white hover:bg-brand-navy font-extrabold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer text-center"
+              className="inline-block px-10 py-4 bg-brand-orange text-white hover:bg-brand-navy font-extrabold text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer text-center"
             >
               Book a Tour Now
             </button>
@@ -1917,7 +1917,7 @@ export default function Home() {
             </p>
             <button
               onClick={() => handleOpenBooking("CTA Banner Enquiry")}
-              className="px-10 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-md self-start active:scale-98"
+              className="px-10 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-md self-start active:scale-98"
             >
               Enquire Now
             </button>
@@ -1956,7 +1956,7 @@ export default function Home() {
           
           {/* Left Side: Campus Locations & Details */}
           <div className="lg:col-span-6 text-left space-y-6 reveal reveal-left">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
+            <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
               CONNECT WITH US
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
@@ -1976,7 +1976,7 @@ export default function Home() {
                 </span>
                 <div className="text-left">
                   <h4 className="font-outfit font-bold text-base text-brand-navy">Coimbatore Main Hub</h4>
-                  <p className="text-xs sm:text-sm text-slate-500 font-bold">Nehru Nagar East, Near Saravanampatti Road, Civil Aerodrome Post, Coimbatore - 641014</p>
+                  <p className="text-sm sm:text-sm text-slate-500 font-bold">Nehru Nagar East, Near Saravanampatti Road, Civil Aerodrome Post, Coimbatore - 641014</p>
                 </div>
               </div>
 
@@ -1989,7 +1989,7 @@ export default function Home() {
                 </span>
                 <div className="text-left">
                   <h4 className="font-outfit font-bold text-base text-brand-navy">Trichy Satellite Campus</h4>
-                  <p className="text-xs sm:text-sm text-slate-500 font-bold">Thillai Nagar Main Road, West Boulevard, Trichy - 620018</p>
+                  <p className="text-sm sm:text-sm text-slate-500 font-bold">Thillai Nagar Main Road, West Boulevard, Trichy - 620018</p>
                 </div>
               </div>
             </div>
@@ -2003,7 +2003,7 @@ export default function Home() {
                 <h3 className="font-outfit font-bold text-2xl text-brand-navy leading-none">
                   Get in Touch
                 </h3>
-                <p className="text-xs text-brand-slate font-medium">
+                <p className="text-sm text-brand-slate font-medium">
                   Leave your details and we'll reach out shortly.
                 </p>
               </div>
@@ -2028,7 +2028,7 @@ export default function Home() {
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-orange hover:bg-[#091b29] text-white font-extrabold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer mt-2"
+                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-orange hover:bg-[#091b29] text-white font-extrabold text-sm uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer mt-2"
                 >
                   Send Message
                 </button>
@@ -2041,9 +2041,9 @@ export default function Home() {
 
       </section>
 
-      {/* Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰
+      {/* GòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉ
            RICH BRANDED FOOTER
-      Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰Î“Ã²Ã‰ */}
+      GòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉGòÉ */}
       <footer className="w-full bg-[#060c10] text-white border-t border-white/5">
         
         {/* Top CTA Strip */}
@@ -2053,13 +2053,13 @@ export default function Home() {
               <p className="font-outfit font-bold text-2xl sm:text-3xl text-white tracking-tight">
                 Ready to grow your team?
               </p>
-              <p className="text-white/45 text-xs font-bold">Flexible tech workspaces in Coimbatore &amp; Trichy</p>
+              <p className="text-white/45 text-sm font-bold">Flexible tech workspaces in Coimbatore &amp; Trichy</p>
             </div>
             <button
               onClick={() => handleOpenBooking("General Inquiry")}
               className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-extrabold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
             >
-              Book a Free Tour Î“Ã¥Ã†
+              Book a Free Tour GåÆ
             </button>
           </div>
         </div>
@@ -2067,7 +2067,7 @@ export default function Home() {
         {/* Main Footer Grid */}
         <div className="box-container py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-          {/* Column 1 Î“Ã‡Ã¶ Brand */}
+          {/* Column 1 GÇö Brand */}
           <div className="space-y-5 sm:col-span-2 lg:col-span-1">
             {/* Logo mark */}
             <div className="flex items-center">
@@ -2081,7 +2081,7 @@ export default function Home() {
                 />
               </a>
             </div>
-            <p className="text-white/45 text-xs font-bold leading-relaxed max-w-xs">
+            <p className="text-white/45 text-sm font-bold leading-relaxed max-w-xs">
               Premium managed tech coworking parks in Coimbatore &amp; Trichy for startups, enterprises, and digital-first teams.
             </p>
             {/* Social icons */}
@@ -2105,10 +2105,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Column 2 Î“Ã‡Ã¶ Services */}
+          {/* Column 2 GÇö Services */}
           <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Services</h5>
-            <ul className="space-y-3 text-xs font-normal text-white/45">
+            <h5 className="font-outfit font-bold text-sm text-white uppercase tracking-[0.2em]">Services</h5>
+            <ul className="space-y-3 text-sm font-normal text-white/45">
               {["Private Cabin Suites", "Dedicated Desks", "Hot Desk Lounge", "Virtual Office & GST", "Meeting Rooms", "Event Space"].map(item => (
                 <li key={item}>
                   <a href="#services-dark" className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item}</a>
@@ -2117,27 +2117,27 @@ export default function Home() {
             </ul>
           </div>
 
-          {/* Column 3 Î“Ã‡Ã¶ Locations */}
+          {/* Column 3 GÇö Locations */}
           <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Locations</h5>
-            <div className="space-y-5 text-xs font-bold text-white/45">
+            <h5 className="font-outfit font-bold text-sm text-white uppercase tracking-[0.2em]">Locations</h5>
+            <div className="space-y-5 text-sm font-bold text-white/45">
               <div className="space-y-1">
                 <p className="text-white/70 font-bold uppercase tracking-wider text-[10px]">Coimbatore</p>
                 <p>Nehru Nagar East, Nehru Nagar</p>
-                <p>Coimbatore Î“Ã‡Ã¶ 641 006</p>
+                <p>Coimbatore GÇö 641 006</p>
               </div>
               <div className="space-y-1">
                 <p className="text-white/70 font-bold uppercase tracking-wider text-[10px]">Trichy</p>
                 <p>Thillai Nagar, Trichy</p>
-                <p>Tamil Nadu Î“Ã‡Ã¶ 620 018</p>
+                <p>Tamil Nadu GÇö 620 018</p>
               </div>
             </div>
           </div>
 
-          {/* Column 4 Î“Ã‡Ã¶ Contact */}
+          {/* Column 4 GÇö Contact */}
           <div className="space-y-5">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Contact</h5>
-            <ul className="space-y-3 text-xs font-normal text-white/45">
+            <h5 className="font-outfit font-bold text-sm text-white uppercase tracking-[0.2em]">Contact</h5>
+            <ul className="space-y-3 text-sm font-normal text-white/45">
               <li>
                 <a href="mailto:info@covaitechpark.com" className="hover:text-brand-orange transition-colors duration-200 flex items-center gap-2 cursor-pointer">
                   <span className="w-5 h-5 rounded-full border border-white/10 bg-white/5 flex items-center justify-center shrink-0">
@@ -2172,7 +2172,7 @@ export default function Home() {
 
             {/* Quick nav */}
             <div className="pt-2 space-y-2">
-              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Quick Nav</h5>
+              <h5 className="font-outfit font-bold text-sm text-white uppercase tracking-[0.2em]">Quick Nav</h5>
               <div className="flex flex-wrap gap-2">
                 {[["About", "#about"], ["Spaces", "#banking-layout"], ["Phases", "#deployment-track"], ["Book", "#booking"]].map(([label, href]) => (
                   <a
@@ -2191,8 +2191,8 @@ export default function Home() {
 
         {/* Legal Strip */}
         <div className="border-t border-white/5 py-5">
-          <div className="box-container flex items-center justify-center text-center text-xs sm:text-sm font-bold text-white/60 px-2">
-            <span>â”¬âŒ {new Date().getFullYear()} Covai Tech Park Î“Ã‡Ã¶ MAX OFFICE. All rights reserved.</span>
+          <div className="box-container flex items-center justify-center text-center text-sm sm:text-sm font-bold text-white/60 px-2">
+            <span>-¬ {new Date().getFullYear()} Covai Tech Park GÇö MAX OFFICE. All rights reserved.</span>
           </div>
         </div>
 
@@ -2229,7 +2229,7 @@ export default function Home() {
                 <h3 className="font-outfit font-bold text-2xl text-brand-navy">
                   Reserve Your Space
                 </h3>
-                <p className="text-xs text-brand-slate font-bold">
+                <p className="text-sm text-brand-slate font-bold">
                   Fill in the details below. Our space administration team will follow up.
                 </p>
               </div>
@@ -2240,7 +2240,7 @@ export default function Home() {
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   </div>
                   <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Booking Request Sent!</h4>
-                  <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
+                  <p className="text-sm text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
                     Thank you, <strong>{bookingName}</strong>. Your interest in <strong>{selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong>.
                   </p>
                 </div>
@@ -2255,7 +2255,7 @@ export default function Home() {
                     type="text"
                     value={selectedPlan}
                     disabled
-                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl px-4 py-3 text-xs text-brand-navy/70 font-bold focus:outline-none"
+                    className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl px-4 py-3 text-sm text-brand-navy/70 font-bold focus:outline-none"
                   />
                 </div>
 
@@ -2269,7 +2269,7 @@ export default function Home() {
                     value={bookingName}
                     onChange={(e) => setBookingName(e.target.value)}
                     placeholder="Enter your full name"
-                    className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
+                    className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
                   />
                 </div>
 
@@ -2284,7 +2284,7 @@ export default function Home() {
                       value={bookingEmail}
                       onChange={(e) => setBookingEmail(e.target.value)}
                       placeholder="name@company.com"
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
                     />
                   </div>
 
@@ -2298,14 +2298,14 @@ export default function Home() {
                       value={bookingPhone}
                       onChange={(e) => setBookingPhone(e.target.value)}
                       placeholder="+91 XXXXX XXXXX"
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-4 bg-[#091b29] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow shadow-[#2b3748]/10 cursor-pointer"
+                  className="w-full py-4 bg-[#091b29] text-white text-sm font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow shadow-[#2b3748]/10 cursor-pointer"
                 >
                   Confirm Request
                 </button>

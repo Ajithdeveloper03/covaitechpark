@@ -22,7 +22,7 @@ replaceSection(
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-slate-200 pb-8">
             <div className="max-w-xl space-y-2 text-left">
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block">
+              <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.25em] block">
                 OTHER WORKSPACE SOLUTIONS
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1]">
@@ -90,7 +90,7 @@ replaceSection(
               </div>
               <button
                 onClick={() => handleOpenBooking("Book an appointment")} 
-                className="inline-flex items-center gap-3 px-8 py-4 bg-brand-navy hover:bg-brand-orange text-white font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 w-max shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+                className="inline-flex items-center gap-3 px-8 py-4 bg-brand-navy hover:bg-brand-orange text-white font-bold text-sm uppercase tracking-widest rounded-full transition-all duration-300 w-max shadow-lg hover:shadow-xl hover:-translate-y-0.5"
               >
                 Book an appointment
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -114,7 +114,7 @@ replaceSection(
       <section id="amenities" className="py-20 sm:py-28 bg-[#f8fafc] w-full border-b border-slate-100 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-16 sm:space-y-20">
           <div className="text-center space-y-3 max-w-xl mx-auto">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
+            <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
               FACILITIES DIRECTORY
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight">
@@ -172,12 +172,12 @@ replaceSection(
                       <h3 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors duration-200 text-left">
                         {amenity.name}
                       </h3>
-                      <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed text-left">
+                      <p className="text-slate-500 text-sm sm:text-sm font-normal leading-relaxed text-left">
                         {amenity.desc}
                       </p>
                     </div>
                     <div className="mt-5 pt-4 border-t border-slate-100 flex justify-start">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-brand-orange group-hover:gap-2.5 transition-all duration-300">
+                      <span className="inline-flex items-center gap-1.5 text-sm font-black uppercase tracking-wider text-brand-orange group-hover:gap-2.5 transition-all duration-300">
                         Learn more <span className="text-sm font-bold">&rarr;</span>
                       </span>
                     </div>

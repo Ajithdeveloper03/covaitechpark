@@ -2,6 +2,10 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import FloatingNav from "./components/FloatingNav";
+import HomeGallery from "./components/HomeGallery";
 import useEmblaCarousel from "embla-carousel-react";
 
 const BASE_PATH = "/covaitechpark";
@@ -233,11 +237,11 @@ function DeploymentPhaseContent({
 }) {
   return (
     <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
-      <span className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.22em] leading-none text-brand-orange">
+      <span className="text-[10px] sm:text-sm font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
         {phase.subtitle}
       </span>
       <h3
-        className={`font-outfit font-bold text-brand-navy tracking-tight leading-[1.05] ${
+        className={`font-outfit font-medium text-brand-navy tracking-tight leading-[1.05] ${
           compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
         }`}
       >
@@ -249,12 +253,12 @@ function DeploymentPhaseContent({
       <div className={`border-t border-slate-100 ${compact ? "space-y-2 pt-2" : "space-y-3 pt-3"}`}>
         {phase.points.map((pt) => (
           <div key={pt.label} className="flex gap-2.5 items-center">
-            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-bold bg-brand-orange">
+            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-medium bg-brand-orange">
               ✓
             </span>
             <div className="flex gap-1.5 items-baseline flex-wrap min-w-0">
-              <span className="font-bold text-xs sm:text-sm text-brand-navy">{pt.label}</span>
-              <span className="text-[11px] sm:text-xs text-brand-slate font-normal">{pt.desc}</span>
+              <span className="font-medium text-sm sm:text-sm text-brand-navy">{pt.label}</span>
+              <span className="text-[11px] sm:text-sm text-brand-slate font-normal">{pt.desc}</span>
             </div>
           </div>
         ))}
@@ -595,7 +599,7 @@ const BRANDS = [
   {
     name: "wework",
     element: (
-      <span className="font-outfit font-bold text-2xl tracking-tighter text-slate-800 uppercase">
+      <span className="font-outfit font-medium text-2xl tracking-tighter text-slate-800 uppercase">
         we<span className="text-slate-400">work</span>
       </span>
     )
@@ -603,7 +607,7 @@ const BRANDS = [
   {
     name: "awfis",
     element: (
-      <span className="font-sans font-bold text-2xl tracking-tight text-red-500">
+      <span className="font-sans font-medium text-2xl tracking-tight text-red-500">
         aw<span className="text-orange-500">fis</span>
       </span>
     )
@@ -611,7 +615,7 @@ const BRANDS = [
   {
     name: "innov8",
     element: (
-      <span className="font-sans font-bold text-xl tracking-wider text-orange-600 uppercase">
+      <span className="font-sans font-medium text-xl tracking-wider text-orange-600 uppercase">
         INNOV<span className="text-orange-400">8</span>
       </span>
     )
@@ -619,7 +623,7 @@ const BRANDS = [
   {
     name: "91springboard",
     element: (
-      <span className="font-mono font-bold text-base tracking-wider text-slate-700 uppercase">
+      <span className="font-mono font-medium text-base tracking-wider text-slate-700 uppercase">
         91<span className="text-slate-400 font-normal">springboard</span>
       </span>
     )
@@ -627,7 +631,7 @@ const BRANDS = [
   {
     name: "instaoffice",
     element: (
-      <span className="font-outfit font-bold text-xl tracking-tight text-slate-800">
+      <span className="font-outfit font-medium text-xl tracking-tight text-slate-800">
         Insta<span className="text-orange-500">Office</span>
       </span>
     )
@@ -637,9 +641,9 @@ const BRANDS = [
     element: (
       <div className="flex items-center gap-1">
         <div className="w-5 h-5 bg-teal-500 rounded-sm transform rotate-45 flex items-center justify-center">
-          <span className="text-[10px] text-white font-bold transform -rotate-45">I</span>
+          <span className="text-[10px] text-white font-medium transform -rotate-45">I</span>
         </div>
-        <span className="font-sans font-bold text-lg tracking-wider text-teal-800 uppercase">
+        <span className="font-sans font-medium text-lg tracking-wider text-teal-800 uppercase">
           indiqube
         </span>
       </div>
@@ -730,7 +734,7 @@ export default function Home() {
     if (!isAutoPlay) return;
     const interval = setInterval(() => {
       setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 3500);
     return () => clearInterval(interval);
   }, [isAutoPlay]);
 
@@ -852,7 +856,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-white text-brand-navy flex flex-col font-inter relative select-none font-bold text-base">
+    <div className="min-h-screen bg-white text-brand-navy flex flex-col font-inter relative select-none font-medium text-base">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -899,186 +903,9 @@ export default function Home() {
         }}
       />
       
-      {/* VERTICAL SCROLL NAVIGATION TIMELINE — hidden on hero, visible from 2nd section */}
-      <div
-        className="fixed right-3 sm:right-6 xl:right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4 z-50 p-2.5 sm:p-3 bg-[#091b29]/95 backdrop-blur-md rounded-full border border-white/10 shadow-xl transition-all duration-500"
-        style={{
-          opacity: activeSection === "hero" ? 0 : 1,
-          transform: `translateY(-50%) translateX(${activeSection === "hero" ? "24px" : "0px"})`,
-          pointerEvents: activeSection === "hero" ? "none" : "auto",
-        }}
-      >
-        <div className="relative flex flex-col items-center gap-4 py-2">
-          <div className="dot-timeline-line bg-white/10" />
-          {SECTIONS.map((sec) => {
-            const isActive = activeSection === sec.id;
-            return (
-              <a
-                key={sec.id}
-                href={`#${sec.id}`}
-                title={sec.label}
-                className="w-3.5 h-3.5 rounded-full transition-all duration-300 relative group flex items-center justify-center animate-float-delayed"
-              >
-                <span className={`rounded-full transition-all duration-500 ${
-                  isActive 
-                    ? "w-3.5 h-3.5 bg-brand-orange scale-110 shadow-lg shadow-brand-orange/40" 
-                    : "w-2.5 h-2.5 bg-white/35 hover:bg-white"
-                }`} />
-                <span className="absolute right-8 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-brand-navy text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap translate-x-2 group-hover:translate-x-0 border border-white/10">
-                  {sec.label}
-                </span>
-              </a>
-            );
-          })}
-        </div>
-      </div>
+      <FloatingNav sections={SECTIONS} />
 
-      <header
-        className={`left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled
-            ? "fixed top-0 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100 py-2.5 lg:py-3.5"
-            : "absolute top-0 bg-white shadow-sm border-b border-slate-100 py-3 lg:py-4"
-        }`}
-      >
-        <div className="w-full px-4 sm:px-6 md:px-8 xl:px-12 flex justify-between items-center gap-2 sm:gap-3 lg:gap-4">
-          
-          {/* Logo Card (Left) */}
-          <a
-            href="#"
-            className="flex items-center shrink-0 transition-all duration-300 hover:scale-[1.02] p-1.5 sm:p-2 bg-white rounded-lg sm:rounded-xl shadow-sm border border-slate-100 min-w-0"
-          >
-            <Image
-              src={prefix("/covai-tech-park-logo.png")}
-              alt="Covai Tech Park"
-              width={180}
-              height={85}
-              priority
-              className="object-contain h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[200px]"
-            />
-          </a>
-
-          {/* Centered Desktop Navigation Menus */}
-          <nav
-            className="hidden xl:flex items-center gap-8 text-[12px] font-medium tracking-widest uppercase mx-auto transition-colors duration-300 text-slate-700"
-          >
-            
-            <div className="relative group cursor-pointer">
-              <a href="#locations" className="hover:text-brand-orange transition-colors flex items-center gap-1">Locations <span className="text-[8px]">▼</span></a>
-              <div className="absolute top-full left-0 mt-4 w-52 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-2 text-sm normal-case tracking-normal font-medium z-50">
-                <a href={prefix("/coimbatore")} className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Coimbatore</a>
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Trichy</a>
-              </div>
-            </div>
-            <div className="relative group cursor-pointer">
-              <a href="#services-dark" className="hover:text-brand-orange transition-colors flex items-center gap-1">Services <span className="text-[8px]">▼</span></a>
-              <div className="absolute top-full left-0 mt-4 w-52 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-2 text-sm normal-case tracking-normal font-medium z-50">
-                <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Private Office</a>
-                <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Managed Office</a>
-                <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Virtual Office</a>
-                <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Meeting Rooms</a>
-                <a href="#services-dark" className="px-4 py-2 hover:bg-slate-50 hover:text-brand-orange rounded-lg transition-colors">Event Space</a>
-              </div>
-            </div>
-            <a href="#" className="hover:text-brand-orange transition-colors">Blog</a>
-            <a href="#contact" className="hover:text-brand-orange transition-colors">Contact</a>
-          </nav>
-
-          {/* CTAs (Right) */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
-            {/* WhatsApp Highlighted Button */}
-            <a
-              href="https://wa.me/919042065360"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-normal uppercase tracking-wider sm:tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" viewBox="0 0 32 32" fill="white">
-                <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
-              </svg>
-              <span className="hidden lg:inline">+91 90420 65360</span>
-              <span className="hidden sm:inline lg:hidden">WhatsApp</span>
-              <span className="sm:hidden sr-only">WhatsApp</span>
-            </a>
-
-            <button
-              onClick={() => handleOpenBooking("Book Space")}
-              className="hidden md:flex px-4 py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-widest bg-gradient-to-r from-brand-orange to-[#ffaa66] text-white hover:scale-103 transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap items-center gap-2"
-            >
-              Book Space
-              <span className="text-sm font-bold">&rarr;</span>
-            </button>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="xl:hidden p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-350 cursor-pointer shrink-0 text-slate-800 hover:bg-slate-100"
-              aria-label="Toggle Menu"
-            >
-              {mobileMenuOpen ? (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu drawer — side drawer layout */}
-        <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-brand-navy/98 backdrop-blur-2xl z-50 flex flex-col justify-center items-center gap-6 xl:hidden transition-transform duration-500 shadow-2xl ${
-          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
-        }`}>
-          {/* Close button inside drawer */}
-          <button 
-            onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 p-2 text-white/80 hover:text-white cursor-pointer transition-colors duration-250"
-            aria-label="Close Menu"
-          >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          <nav className="flex flex-col items-center gap-6 text-[15px] font-bold text-white uppercase tracking-widest w-full px-8">
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-white/45 text-[10px] tracking-widest uppercase">Locations</span>
-              <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case tracking-normal">Coimbatore</a>
-              <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case tracking-normal">Trichy</a>
-            </div>
-            <a href="#services-dark" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Services</a>
-            <a href="#" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Blog</a>
-            <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors">Contact</a>
-            
-            <div className="w-full h-px bg-white/10 max-w-[160px] my-3 shrink-0" />
-            
-            {/* WhatsApp Link in Mobile Drawer */}
-            <a
-              href="https://wa.me/919042065360"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 w-full justify-center max-w-[220px] shadow-md hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <svg className="w-4 h-4 shrink-0" viewBox="0 0 32 32" fill="white">
-                <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
-              </svg>
-              +91 90420 65360
-            </a>
-
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handleOpenBooking("Schedule a Tour");
-              }}
-              className="mt-2 px-8 py-3.5 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg w-full max-w-[220px] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 cursor-pointer"
-            >
-              Book Space Now
-            </button>
-          </nav>
-        </div>
-      </header>
+      <Header ctaText="Book Space" ctaAction={() => handleOpenBooking("Book Space")} />
 
       {/* HERO SECTION DESIGN CAROUSEL (100vh) */}
       <section id="hero" className="relative min-h-[100dvh] sm:h-screen w-full flex flex-col justify-center lg:justify-center pt-[3.5rem] sm:pt-16 md:pt-20 pb-5 sm:pb-8 lg:pb-0 overflow-hidden bg-brand-navy text-white herosmall" >
@@ -1100,7 +927,7 @@ export default function Home() {
                   fill
                   priority={slide.id === 0}
                   className="object-cover"
-                />
+                 sizes="(max-width: 768px) 100vw, 800px"/>
               </div>
             ))}
           </div>
@@ -1137,7 +964,7 @@ export default function Home() {
         </div>
 
         {/* Backdrop outlined watermark text */}
-        <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[15vw] font-bold leading-none text-outline-white opacity-[0.05] z-10 font-outfit tracking-widest uppercase pointer-events-none text-center w-full">
+        <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[15vw] font-medium leading-none text-outline-white opacity-[0.05] z-10 font-outfit tracking-widest uppercase pointer-events-none text-center w-full">
           COVAITECH
         </div>
 
@@ -1154,7 +981,7 @@ export default function Home() {
               </span>
             </div>
 
-            <h1 className="text-[2.25rem] min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-outfit font-bold tracking-tight text-white leading-[1.08] relative">
+            <h1 className="text-[2.25rem] min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-outfit font-medium tracking-tight text-white leading-[1.08] relative">
               {HERO_SLIDES[activeHeroSlide].title} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">
                 {HERO_SLIDES[activeHeroSlide].subtitle}
@@ -1171,14 +998,14 @@ export default function Home() {
               <div className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2">
                 <button
                   onClick={() => handleOpenBooking("Get Quote (Hero)")}
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
                 >
                   Get Quote
-                  <span className="text-sm font-bold">&rarr;</span>
+                  <span className="text-sm font-medium">&rarr;</span>
                 </button>
                 <a
                   href="#locations"
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
+                  className="px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
                 >
                   Learn More
                 </a>
@@ -1218,7 +1045,7 @@ export default function Home() {
                           setActiveHeroSlide(i);
                           setIsAutoPlay(false);
                         }}
-                        className={`relative rounded-xl sm:rounded-2xl border font-bold transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
+                        className={`relative rounded-xl sm:rounded-2xl border font-medium transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
                           isActive
                             ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 lg:h-[100px] w-full"
                             : "border-white/10 opacity-45 scale-90 lg:h-[80px] w-[70%]"
@@ -1234,7 +1061,7 @@ export default function Home() {
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="(max-width: 1024px) 33vw, 360px"
-                          />
+                           loading="lazy"/>
                           <div className={`absolute inset-0 transition-colors duration-500 ${
                             isActive 
                               ? "bg-black/20" 
@@ -1267,30 +1094,22 @@ export default function Home() {
       {/* TRUSTED BRANDS PARTNERS SECTION (AUTOMATIC INFINITE MARQUEE DRAG-SLIDER) */}
       <section className="py-12 bg-white border-t border-slate-100 overflow-hidden w-full section-x">
         <div className="w-full text-center">
-          
-          {/* <div className="relative inline-block mb-2">
-            <span className="absolute -top-3 -left-3 w-10 h-10 bg-yellow-200/60 rounded-full -z-10 blur-[1px]" />
-            <h3 className="font-outfit font-bold text-2xl md:text-3xl text-slate-800 tracking-tight">
-              Our CoWorking Partners
-            </h3>
-          </div> */}
-          {/* <div className="w-16 h-0.5 bg-blue-500 mx-auto mb-10" /> */}
-
           {/* Marquee Wrapper with Drag Support */}
           <div className="w-full overflow-x-auto no-scrollbar py-2 cursor-grab active:cursor-grabbing select-none">
             <div className="animate-marquee flex gap-12 md:gap-16 items-center">
               {/* Loop logos twice for infinite marquee effect */}
-              {[...BRANDS, ...BRANDS].map((brand, idx) => (
+              {[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6].map((num, idx) => (
                 <div 
-                  key={`${brand.name}-${idx}`} 
-                  className="flex-shrink-0  opacity-60 hover:opacity-100 transition-all duration-350 px-6 pointer-events-none"
+                  key={`logo-${idx}`} 
+                  className="flex-shrink-0 opacity-50 hover:opacity-100 transition-all duration-350 px-6 pointer-events-none"
                 >
-                  {brand.element}
+                  <div className="relative w-24 h-12 md:w-32 md:h-16">
+                    <Image src={prefix(`/logo${num}.jpg`)} alt={`Partner ${num}`} fill className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300" sizes="128px" loading="lazy" />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-
         </div>
       </section>
 
@@ -1324,16 +1143,16 @@ export default function Home() {
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover transition-transform duration-700 hover:scale-105"
-                />
+                 loading="lazy"/>
               </div>
 
               {/* Right: Text Content */}
               <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
-                <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.28em] block leading-none">
+                <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.28em] block leading-none">
                   About Covai Tech Park (Unit of MAX OFFICE)
                 </span>
 
-                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
+                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
                   Business Ecosystem for<br />Collaboration & Growth
                 </h2>
 
@@ -1350,20 +1169,20 @@ export default function Home() {
                     { val: "2", label: "Cities", color: "text-teal-500" },
                   ].map(stat => (
                     <div key={stat.label} className="space-y-1">
-                      <p className={`font-outfit font-bold text-2xl ${stat.color} leading-none`}>{stat.val}</p>
-                      <p className="text-[10px] font-bold text-slate-500 tracking-widest uppercase">{stat.label}</p>
+                      <p className={`font-outfit font-medium text-2xl ${stat.color} leading-none`}>{stat.val}</p>
+                      <p className="text-[10px] font-medium text-slate-500 tracking-widest uppercase">{stat.label}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* CTA */}
                 <div className="pt-4">
-                  <button
-                    onClick={() => handleOpenBooking("About Section Inquiry")}
-                    className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-bold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02]"
+                  <a
+                    href={prefix("/about-us")}
+                    className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-medium text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02] text-center"
                   >
-                    Inquire About Spaces
-                  </button>
+                    Know More About Us
+                  </a>
                 </div>
               </div>
             </div>
@@ -1380,41 +1199,51 @@ export default function Home() {
         <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none z-0" />
         <div className="absolute bottom-[5%] right-[5%] w-[350px] h-[350px] bg-brand-orange/4 rounded-full blur-[120px] pointer-events-none z-0" />
 
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center">
+        <div className="relative z-10 max-w-6xl mx-auto section-x">
           {/* Header */}
           <div className="text-center mb-10 reveal reveal-up">
-            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none mb-5">
+            <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none mb-5">
               Awards &amp; Recogonitions
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-tight">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-tight">
               Excellence in providing <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">office space solutions</span>
             </h2>
           </div>
 
-          {/* Centered Single Award Card */}
-          <div className="max-w-xl mx-auto reveal reveal-up">
-            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col items-center gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
-              {/* Wreath trophy icon */}
-              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
-                </svg>
+          {/* Two-column Awards Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center text-left mt-16 max-w-6xl mx-auto reveal reveal-up">
+            {/* Left Column: gold.png */}
+            <div className="lg:col-span-5 flex justify-center">
+              <div className="relative flex flex-col items-center select-none">
+                <Image src={prefix("/gold.png")} alt="Award Winner" width={320} height={320} className="w-44 sm:w-52 md:w-60 lg:w-72 h-auto object-contain drop-shadow-2xl"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
               </div>
-              <div className="space-y-2">
-                <h3 className="font-outfit font-bold text-2xl sm:text-3xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Times Business Awards</h3>
-                <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                  Recognized for excellence in providing state-of-the-art office space solutions, premium managed workspaces, and outstanding corporate environment standards.
-                </p>
-              </div>
-              <div className="pt-2">
-                <button
-                  onClick={() => handleOpenBooking("Times Business Awards")}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg hover:scale-[1.03]"
-                >
-                  Learn More &rarr;
-                </button>
+            </div>
+
+            {/* Right Column: Details */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="group relative bg-[#0b1420] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col sm:flex-row gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+                <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
+                
+                {/* Wreath trophy icon */}
+                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 relative flex items-center justify-center bg-white/5 rounded-2xl overflow-hidden border border-white/10">
+                  <Image src={prefix("/awards.jpg")} alt="Award Badge" fill className="w-full h-full object-cover"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
+                </div>
+                
+                <div className="space-y-4">
+                  <h3 className="font-outfit font-medium text-2xl sm:text-3xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Times Business Awards</h3>
+                  <p className="text-slate-400 text-sm font-normal leading-relaxed">
+                    Recognized for excellence in providing state-of-the-art office space solutions, premium managed workspaces, and outstanding corporate environment standards.
+                  </p>
+                  <div className="pt-2">
+                    <button
+                      onClick={() => handleOpenBooking("Times Business Awards")}
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg hover:scale-[1.03]"
+                    >
+                      Learn More &rarr;
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1433,54 +1262,14 @@ export default function Home() {
             <div className="space-y-4 relative">
               {/* Yellow decorative accent circle */}
               <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#ffe066]/80 -z-10" />
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
-              <h2 className="font-outfit font-bold text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
+              <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
+              <h2 className="font-outfit font-medium text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
                 Choose from <span className="text-brand-orange">100,000+</span><br />spaces to Work &amp; Live
               </h2>
               <p className="text-slate-500 text-md leading-relaxed max-w-md relative z-10 font-normal">
                 Explore tech-ready coworking hubs in prime business districts across major Indian cities.
               </p>
             </div>
-
-            {/* Dropdown Filters (Mockup style from reference image) */}
-            {/* <div className="flex flex-wrap gap-4 items-center z-10 relative">
-              <div className="relative min-w-[160px] sm:min-w-[180px]">
-                <select className="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 pr-10 appearance-none focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange cursor-pointer font-normal shadow-sm">
-                  <option>Looking For</option>
-                  <option>Coworking Space</option>
-                  <option>Private Office</option>
-                  <option>Meeting Room</option>
-                  <option>Managed Suite</option>
-                </select>
-                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="relative min-w-[160px] sm:min-w-[180px]">
-                <select 
-                  value={activeCity}
-                  onChange={(e) => {
-                    if (e.target.value) {
-                      setActiveCity(e.target.value);
-                    }
-                  }}
-                  className="w-full bg-white border border-slate-200 text-slate-700 text-sm rounded-xl px-4 py-3 pr-10 appearance-none focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange cursor-pointer font-normal shadow-sm"
-                >
-                  <option value="">Select City</option>
-                  {CITIES.map(c => (
-                    <option key={c.name} value={c.name}>{c.name}</option>
-                  ))}
-                </select>
-                <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </div>
-              </div>
-            </div> */}
 
             {/* City Icon Grid — reference style with circular borders & realistic icons */}
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-3 gap-y-5 pt-4">
@@ -1581,10 +1370,10 @@ export default function Home() {
           
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 border-b border-white/10 pb-8 reveal reveal-up">
             <div className="space-y-3 text-left">
-              <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
+              <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
                 CORE OFFERINGS
               </span>
-              <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-bold tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
+              <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-medium tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
                 Our Services. Built for Teams.
               </h2>
             </div>
@@ -1608,16 +1397,16 @@ export default function Home() {
                     fill
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
-                  />
+                   loading="lazy"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/90 via-[#2b3748]/30 to-transparent z-10" />
 
                   <div className="relative z-20 space-y-3">
-                    <h4 className="font-outfit font-bold text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                    <h4 className="font-outfit font-medium text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
                       {service.title}
                     </h4>
                     <div className="pt-1.5 shrink-0">
-                      <span className="text-[10px] sm:text-xs font-bold text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
-                        {service.linkText} <span className="text-xs sm:text-sm">&rarr;</span>
+                      <span className="text-[10px] sm:text-sm font-medium text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
+                        {service.linkText} <span className="text-sm sm:text-sm">&rarr;</span>
                       </span>
                     </div>
                   </div>
@@ -1630,10 +1419,10 @@ export default function Home() {
           <div className="flex justify-center pt-10 sm:pt-14 reveal reveal-up">
             <button
               onClick={() => handleOpenBooking("Custom Workspace Consultation")}
-              className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+              className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
             >
               Request Custom Office Solution
-              <span className="text-sm font-bold">&rarr;</span>
+              <span className="text-sm font-medium">&rarr;</span>
             </button>
           </div>
 
@@ -1669,10 +1458,10 @@ export default function Home() {
         {/* Mobile / tablet: natural height so image + content are fully visible */}
         <div className="lg:hidden">
           <div className="text-center mb-8 sm:mb-10 reveal reveal-up">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.3em] block">
+            <span className="text-[10px] font-medium text-slate-500 uppercase tracking-[0.3em] block">
               OUR FACILITIES
             </span>
-            <h2 className="font-outfit font-bold text-2xl sm:text-3xl text-slate-800 leading-tight tracking-tight mt-1">
+            <h2 className="font-outfit font-medium text-2xl sm:text-3xl text-slate-800 leading-tight tracking-tight mt-1">
               Premium facilities for modern teams.
             </h2>
           </div>
@@ -1690,9 +1479,9 @@ export default function Home() {
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     className="object-cover"
-                  />
+                   loading="lazy"/>
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-4 text-[10px] font-bold uppercase tracking-[0.2em] text-white/90 drop-shadow-md">
+                  <span className="absolute bottom-3 left-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/90 drop-shadow-md">
                     {phase.subtitle}
                   </span>
                 </div>
@@ -1715,10 +1504,10 @@ export default function Home() {
         >
           <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#f8fafc]">
             <div className="absolute top-10 left-0 right-0 flex flex-col items-center text-center section-x z-20 pointer-events-none">
-              <span className="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em] block">
+              <span className="text-[11px] font-medium text-slate-500 uppercase tracking-[0.3em] block">
                 OUR FACILITIES
               </span>
-              <h2 className="font-outfit font-bold text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2">
+              <h2 className="font-outfit font-medium text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2">
                 Premium facilities for modern teams.
               </h2>
             </div>
@@ -1769,7 +1558,7 @@ export default function Home() {
                         fill
                         sizes="50vw"
                         className="object-cover"
-                      />
+                       loading="lazy"/>
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900/10" />
                     </div>
                     <div className="bg-slate-50 p-10 lg:p-14 flex flex-col justify-center overflow-y-auto h-full relative">
@@ -1788,48 +1577,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* <section className="py-12 bg-white border-t border-slate-100 overflow-hidden w-full section-x reveal reveal-up">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
-          
-          <div className="flex -space-x-3 sm:-space-x-4">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-md relative overflow-hidden bg-slate-100">
-                <Image
-                  src={`https://images.unsplash.com/photo-${1500000000000 + i * 1000000}?auto=format&fit=facearea&facepad=2&w=100&h=100&q=80`}
-                  alt={`Member ${i}`}
-                  fill
-                  sizes="48px"
-                  className="object-cover"
-                />
-              </div>
-            ))}
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-md bg-slate-50 flex items-center justify-center relative z-10">
-              <span className="text-[9px] sm:text-[10px] font-bold text-slate-600">+1.5K</span>
-            </div>
-          </div>
-
-          <div className="text-center md:text-left flex-1">
-            <h3 className="font-outfit font-bold text-lg sm:text-xl text-slate-800 leading-tight">
-              Join 1,500+ Innovators &amp; Tech Leaders
-            </h3>
-            <p className="text-sm text-slate-500 font-medium mt-1">
-              Trusted by fast-growing startups and global enterprises.
-            </p>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 mt-4 md:mt-0">
-            <div className="text-center md:text-right">
-              <span className="block font-outfit font-black text-2xl sm:text-3xl text-brand-orange leading-none">4.9/5</span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1 block">Member Rating</span>
-            </div>
-          </div>
-
-        </div>
-      </section> */}
-
-
-    
 
       {/* TESTIMONIALS SECTION */}
       <section id="testimonials" className="section-container w-full flex flex-col justify-center py-16 sm:py-24 relative overflow-hidden bg-[#06090f]">
@@ -1852,8 +1599,8 @@ export default function Home() {
         
         <div className="relative z-10 box-container w-full flex flex-col items-center justify-center gap-0">
           <div className="text-center mb-10 reveal reveal-up">
-            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">TESTIMONIALS</span>
-            <h2 className="font-outfit font-bold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+            <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">TESTIMONIALS</span>
+            <h2 className="font-outfit font-medium text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
               Trusted by Teams.
             </h2>
           </div>
@@ -1871,7 +1618,7 @@ export default function Home() {
                   const pos = order.indexOf(i);
                   return (
                     <button key={t.id} onClick={() => setActiveTestimonial(i)} className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 flex-shrink-0 cursor-pointer ${isActive ? "w-28 h-28 sm:w-36 sm:h-36 border-brand-orange z-20 scale-110" : "w-20 h-20 sm:w-24 sm:h-24 border-white/15 z-10 opacity-50 hover:opacity-80"}`} style={{ order: pos }}>
-                      <Image src={t.image} alt={t.name} fill className="object-cover" />
+                      <Image src={t.image} alt={t.name} fill className="object-cover"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
                     </button>
                   );
                 })}
@@ -1883,14 +1630,14 @@ export default function Home() {
             </div>
 
             <div className={`text-center transition-all duration-400 ease-in-out ${testifierTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
-              <span className="font-outfit font-bold text-6xl text-brand-orange/30 leading-none block -mb-4">&ldquo;</span>
-              <p className="font-outfit font-bold text-base sm:text-xl md:text-2xl lg:text-3xl text-white tracking-tight leading-snug px-1">
+              <span className="font-outfit font-medium text-6xl text-brand-orange/30 leading-none block -mb-4">&ldquo;</span>
+              <p className="font-outfit font-medium text-base sm:text-xl md:text-2xl lg:text-3xl text-white tracking-tight leading-snug px-1">
                 {TESTIMONIALS[activeTestimonial].quote}
               </p>
               <div className="mt-6 flex flex-col items-center gap-1">
                 <div className="w-8 h-0.5 bg-brand-orange rounded-full mb-3" />
-                <span className="text-sm font-bold text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
-                <span className="text-xs font-bold text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
+                <span className="text-sm font-medium text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
+                <span className="text-sm font-medium text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
               </div>
             </div>
             
@@ -1910,85 +1657,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* GALLERY SECTION */}
-      <section id="gallery-works" className="bg-[#fcfbf9] w-full min-h-screen lg:h-screen flex items-center justify-center py-8 px-4 sm:px-6 md:px-8 overflow-hidden relative">
-        <div className="w-full max-w-7xl mx-auto h-full flex flex-col justify-center items-center">
-          <div className="grid grid-cols-3 grid-rows-3 gap-4 md:gap-5 lg:gap-6 w-full h-[82vh] max-h-[820px]">
-            {/* Card 1: Tall (Row 1-2, Col 1) */}
-            <div className="col-start-1 row-start-1 row-end-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-cabin.png")}
-                alt="Private Cabins"
-                fill
-                sizes="(max-width: 768px) 33vw, 400px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-
-            {/* Card 2: Square (Row 3, Col 1) */}
-            <div className="col-start-1 row-start-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-lounge.png")}
-                alt="Lounge Area"
-                fill
-                sizes="(max-width: 768px) 33vw, 400px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-
-            {/* Card 3: Horizontal (Row 1, Col 2) */}
-            <div className="col-start-2 row-start-1 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-meeting.png")}
-                alt="Meeting Room"
-                fill
-                sizes="(max-width: 768px) 33vw, 400px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-
-            {/* Card 4: Square (Row 1, Col 3) */}
-            <div className="col-start-3 row-start-1 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-hotdesk.png")}
-                alt="Dedicated Desks"
-                fill
-                sizes="(max-width: 768px) 33vw, 400px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-
-            {/* Card 5: Wide Landscape (Row 2, Col 2-3) */}
-            <div className="col-start-2 col-span-2 row-start-2 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-event.png")}
-                alt="Event Spaces"
-                fill
-                sizes="(max-width: 768px) 66vw, 800px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-
-            {/* Card 6: Wide Landscape (Row 3, Col 2-3) */}
-            <div className="col-start-2 col-span-2 row-start-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
-              <Image
-                src={prefix("/workspace-cafe.png")}
-                alt="Breakout Cafe"
-                fill
-                sizes="(max-width: 768px) 66vw, 800px"
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeGallery />   
 
       {/* FAQS SECTION */}
       <section id="faqs" className="w-full bg-[#f8fafc] py-16 sm:py-24 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-12 reveal reveal-up">
-            <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">FAQS</span>
-            <h2 className="font-outfit font-bold text-3xl sm:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
+            <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">FAQS</span>
+            <h2 className="font-outfit font-medium text-3xl sm:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
               Frequently Asked Questions
             </h2>
           </div>
@@ -1999,7 +1675,7 @@ export default function Home() {
               return (
                 <div key={idx} className="bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300">
                   <button onClick={() => setOpenFaq(isOpen ? null : idx)} className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer">
-                    <span className="font-outfit font-bold text-lg text-brand-navy">{faq.question}</span>
+                    <span className="font-outfit font-medium text-lg text-brand-navy">{faq.question}</span>
                     <span className={`text-brand-orange transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </span>
@@ -2031,13 +1707,13 @@ export default function Home() {
           
           {/* Left Side: Campus Locations & Details */}
           <div className="lg:col-span-6 text-left space-y-6 reveal reveal-left">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
+            <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
               CONNECT WITH US
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
               Establish your business at Coimbatore or Trichy
             </h2>
-            <p className="text-sm sm:text-base text-brand-slate font-bold leading-relaxed">
+            <p className="text-sm sm:text-base text-brand-slate font-medium leading-relaxed">
               We look forward to hosting your team. Reach out to coordinate custom site layouts, schedule live walkthroughs, or get instant lease pricing details.
             </p>
             
@@ -2050,8 +1726,8 @@ export default function Home() {
                   </svg>
                 </span>
                 <div className="text-left">
-                  <h4 className="font-outfit font-bold text-base text-brand-navy">Coimbatore Main Hub</h4>
-                  <p className="text-xs sm:text-sm text-slate-500 font-bold">Nehru Nagar East, Near Saravanampatti Road, Civil Aerodrome Post, Coimbatore - 641014</p>
+                  <h4 className="font-outfit font-medium text-base text-brand-navy">Coimbatore Main Hub</h4>
+                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Nehru Nagar East, Near Saravanampatti Road, Civil Aerodrome Post, Coimbatore - 641014</p>
                 </div>
               </div>
 
@@ -2063,8 +1739,8 @@ export default function Home() {
                   </svg>
                 </span>
                 <div className="text-left">
-                  <h4 className="font-outfit font-bold text-base text-brand-navy">Trichy Satellite Campus</h4>
-                  <p className="text-xs sm:text-sm text-slate-500 font-bold">Thillai Nagar Main Road, West Boulevard, Trichy - 620018</p>
+                  <h4 className="font-outfit font-medium text-base text-brand-navy">Trichy Satellite Campus</h4>
+                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Thillai Nagar Main Road, West Boulevard, Trichy - 620018</p>
                 </div>
               </div>
             </div>
@@ -2075,10 +1751,10 @@ export default function Home() {
             <div className="bg-white text-brand-navy rounded-2xl sm:rounded-[2rem] p-6 sm:p-8 lg:p-10 shadow-xl relative border border-slate-100 flex flex-col gap-6 w-full max-w-lg ml-auto">
               
               <div className="text-left space-y-1">
-                <h3 className="font-outfit font-bold text-2xl text-brand-navy leading-none">
+                <h3 className="font-outfit font-medium text-2xl text-brand-navy leading-none">
                   Get in Touch
                 </h3>
-                <p className="text-xs text-brand-slate font-medium">
+                <p className="text-sm text-brand-slate font-medium">
                   Leave your details and we'll reach out shortly.
                 </p>
               </div>
@@ -2088,16 +1764,16 @@ export default function Home() {
                   <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   </div>
-                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Tour Request Submitted!</h4>
-                  <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
+                  <h4 className="font-outfit font-medium text-lg text-brand-navy leading-none">Tour Request Submitted!</h4>
+                  <p className="text-sm text-brand-slate font-medium leading-relaxed max-w-sm mx-auto">
                     Thank you, <strong>{contactFirstName} {contactLastName}</strong>. Your tour request has been received. We will contact you at <strong>{contactEmail}</strong> or <strong>{contactPhoneCode} {contactPhone}</strong> shortly.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-bold text-sm w-full">
+                <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-medium text-sm w-full">
                   {/* Name Row */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brand-navy">
+                    <label className="block text-sm font-medium text-brand-navy">
                       Name <span className="text-red-500">*</span>
                     </label>
                     <div className="grid grid-cols-2 gap-4">
@@ -2108,7 +1784,7 @@ export default function Home() {
                           value={contactFirstName}
                           onChange={(e) => setContactFirstName(e.target.value)}
                           placeholder=""
-                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
                         <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
                       </div>
@@ -2119,7 +1795,7 @@ export default function Home() {
                           value={contactLastName}
                           onChange={(e) => setContactLastName(e.target.value)}
                           placeholder=""
-                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
                         <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
                       </div>
@@ -2128,14 +1804,14 @@ export default function Home() {
 
                   {/* Phone Number */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brand-navy">
+                    <label className="block text-sm font-medium text-brand-navy">
                       Phone <span className="text-red-500">*</span>
                     </label>
                     <div className="flex border border-brand-navy/15 rounded-xl overflow-hidden focus-within:border-brand-orange shadow-sm">
                       <select
                         value={contactPhoneCode}
                         onChange={(e) => setContactPhoneCode(e.target.value)}
-                        className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                        className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-sm text-slate-800 focus:outline-none cursor-pointer font-medium shrink-0"
                       >
                         <option value="+91">🇮🇳 +91</option>
                         <option value="+1">🇺🇸 +1</option>
@@ -2149,14 +1825,14 @@ export default function Home() {
                         value={contactPhone}
                         onChange={(e) => setContactPhone(e.target.value)}
                         placeholder=""
-                        className="w-full bg-white px-4 py-3 text-xs text-brand-navy focus:outline-none font-bold"
+                        className="w-full bg-white px-4 py-3 text-sm text-brand-navy focus:outline-none font-medium"
                       />
                     </div>
                   </div>
 
                   {/* Email Address */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brand-navy">
+                    <label className="block text-sm font-medium text-brand-navy">
                       Email <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -2165,19 +1841,19 @@ export default function Home() {
                       value={contactEmail}
                       onChange={(e) => setContactEmail(e.target.value)}
                       placeholder=""
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                     />
                   </div>
 
                   {/* What are you looking for? */}
                   <div className="space-y-1">
-                    <label className="block text-xs font-bold text-brand-navy">
+                    <label className="block text-sm font-medium text-brand-navy">
                       What are you looking for?
                     </label>
                     <select
                       value={contactLookingFor}
                       onChange={(e) => setContactLookingFor(e.target.value)}
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium cursor-pointer shadow-sm"
                       required
                     >
                       <option value="">-Select-</option>
@@ -2191,7 +1867,7 @@ export default function Home() {
 
                   <button
                     type="submit"
-                    className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
+                    className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
                   >
                     Request Tour Schedule
                   </button>
@@ -2207,165 +1883,7 @@ export default function Home() {
       {/* ═══════════════════════════════════════════════════════
            RICH BRANDED FOOTER
       ═══════════════════════════════════════════════════════ */}
-      <footer className="w-full bg-[#060c10] text-white border-t border-white/5">
-        
-        {/* Top CTA Strip */}
-        <div className="border-b border-white/35 py-6 sm:py-8">
-          <div className="box-container flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
-            <div className="text-left space-y-1 ">
-              <p className="font-outfit font-bold text-2xl sm:text-3xl text-white tracking-tight">
-                Ready to grow your team?
-              </p>
-              <p className="text-white/45 text-xs font-bold">Flexible tech workspaces in Coimbatore &amp; Trichy</p>
-            </div>
-            <button
-              onClick={() => handleOpenBooking("General Inquiry")}
-              className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
-            >
-              Book a Free Tour →
-            </button>
-          </div>
-        </div>
-
-        {/* Main Footer Grid */}
-        <div className="box-container py-14 grid grid-cols-1 md:grid-cols-12 gap-10">
-
-          {/* Column 1 — Brand (Covai Tech Park + Addresses) */}
-          <div className="space-y-6 md:col-span-6 text-left">
-            <div className="flex items-center">
-              <a href="#" className="inline-block p-2 bg-white rounded-xl shadow-md border border-slate-200 hover:scale-[1.01] transition-transform">
-                <Image
-                  src={prefix("/covai-tech-park-logo.png")}
-                  alt="Covai Tech Park"
-                  width={140}
-                  height={45}
-                  className="object-contain h-8 w-auto"
-                />
-              </a>
-            </div>
-            
-            <div className="space-y-4">
-              <div>
-                <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Registered Address</h5>
-                <p className="text-white/70 font-bold text-xs uppercase tracking-wider mb-0.5">Max Office</p>
-                <p className="text-white/45 text-xs font-normal leading-relaxed max-w-md">
-                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
-                </p>
-              </div>
-
-              <div>
-                <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Address</h5>
-                <p className="text-white/45 text-xs font-normal leading-relaxed max-w-md">
-                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore- 641 014.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Email</h5>
-                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors whitespace-nowrap">
-                    info@covaitechpark.com
-                  </a>
-                </div>
-                <div>
-                  <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Mobile</h5>
-                  <div className="flex flex-col gap-1 text-white/45 text-xs font-normal">
-                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
-                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 900 355 0455</a>
-                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 968 899 2210</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Column 2 — Workspace Solutions */}
-          <div className="space-y-5 md:col-span-3 text-left">
-            <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Workspace Solutions</h5>
-            <ul className="space-y-3 text-xs font-normal text-white/45">
-              {[
-                "Coworking Space",
-                "Private Office Space",
-                "Managed Office",
-                "Virtual Office",
-                "Meeting Room",
-                "Event Space",
-                "Training Room"
-              ].map(item => (
-                <li key={item} className="flex items-center gap-2">
-                  <span className="text-brand-orange text-[10px]">&rsaquo;</span>
-                  <a href="#services-dark" className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Column 3 — Useful Links, Socials & Other Sites */}
-          <div className="space-y-6 md:col-span-3 text-left">
-            <div className="space-y-4">
-              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Useful Links</h5>
-              <ul className="space-y-3 text-xs font-normal text-white/45">
-                {[
-                  { name: "Furnished Office Space in Coimbatore", link: prefix("/coimbatore") },
-                  { name: "Commercial Office Space in Coimbatore", link: prefix("/coimbatore") },
-                  { name: "Locations", link: "#locations" },
-                  { name: "Refer and Earn Program", link: "#contact" }
-                ].map(item => (
-                  <li key={item.name} className="flex items-center gap-2">
-                    <span className="text-brand-orange text-[10px]">&rsaquo;</span>
-                    <a href={item.link} className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item.name}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Social Links</h5>
-              <div className="flex gap-3">
-                {[
-                  { label: "Facebook", link: "https://www.facebook.com/coworkingspaceincoimbatore/", path: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" },
-                  { label: "LinkedIn", link: "https://www.linkedin.com/company/covai-tech-park/", path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
-                  { label: "Instagram", link: "https://www.instagram.com/covaitechpark/", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
-                ].map(({ label, link, path }) => (
-                  <a
-                    key={label}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:bg-brand-orange hover:border-brand-orange flex items-center justify-center transition-all duration-300 cursor-pointer"
-                  >
-                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-                      <path d={path} />
-                    </svg>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em]">Other Site</h5>
-              <div className="flex flex-col gap-1.5 text-xs text-white/45 font-normal">
-                <a href="https://trichycoworks.com" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors flex items-center gap-1">
-                  <span className="text-brand-orange">&#9679;</span> trichycoworks.com
-                </a>
-                <a href="https://maxoffice.co.in" target="_blank" rel="noopener noreferrer" className="hover:text-brand-orange transition-colors flex items-center gap-1">
-                  <span className="text-brand-orange">&#9679;</span> maxoffice.co.in
-                </a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Legal Strip */}
-        <div className="border-t border-white/5 py-5">
-          <div className="box-container flex items-center justify-center text-center text-xs sm:text-sm font-bold text-white/60 px-2">
-            <span>© {new Date().getFullYear()} Covai Tech Park — MAX OFFICE. All rights reserved.</span>
-          </div>
-        </div>
-
-      </footer>
+      <Footer onCtaClick={() => handleOpenBooking("General Inquiry")} />
 
       {/* FLOATING IN-PAGE RESERVATION MODAL */}
       {bookingOpen && (
@@ -2379,7 +1897,7 @@ export default function Home() {
                 alt="CovaiTech Park Premium Workspace"
                 fill
                 className="object-cover"
-              />
+               sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
               <div className="absolute inset-0 bg-brand-navy/20" />
             </div>
 
@@ -2395,7 +1913,7 @@ export default function Home() {
               </button>
 
               <div className="mb-6 space-y-1 text-left">
-                <h3 className="font-outfit font-bold text-2xl text-brand-navy">
+                <h3 className="font-outfit font-medium text-2xl text-brand-navy">
                   Request Quote
                 </h3>
               </div>
@@ -2405,17 +1923,17 @@ export default function Home() {
                   <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
                     <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   </div>
-                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Request Submitted Successfully!</h4>
-                  <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
+                  <h4 className="font-outfit font-medium text-lg text-brand-navy leading-none">Request Submitted Successfully!</h4>
+                  <p className="text-sm text-brand-slate font-medium leading-relaxed max-w-sm mx-auto">
                     Thank you, <strong>{bookingFirstName} {bookingLastName}</strong>. Your inquiry for <strong>{bookingLookingFor || selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong> or <strong>{bookingPhoneCode} {bookingPhone}</strong>.
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-bold text-sm">
+                <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-medium text-sm">
                 
                 {/* Name Row */}
                 <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-800">
+                  <label className="block text-sm font-medium text-slate-800">
                     Name <span className="text-red-500">*</span>
                   </label>
                   <div className="grid grid-cols-2 gap-4">
@@ -2426,7 +1944,7 @@ export default function Home() {
                         value={bookingFirstName}
                         onChange={(e) => setBookingFirstName(e.target.value)}
                         placeholder=""
-                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                       />
                       <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
                     </div>
@@ -2437,7 +1955,7 @@ export default function Home() {
                         value={bookingLastName}
                         onChange={(e) => setBookingLastName(e.target.value)}
                         placeholder=""
-                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                       />
                       <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
                     </div>
@@ -2446,14 +1964,14 @@ export default function Home() {
 
                 {/* Phone Number */}
                 <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-800">
+                  <label className="block text-sm font-medium text-slate-800">
                     Phone <span className="text-red-500">*</span>
                   </label>
                   <div className="flex border border-slate-200/80 rounded-lg overflow-hidden focus-within:border-brand-orange shadow-sm">
                     <select
                       value={bookingPhoneCode}
                       onChange={(e) => setBookingPhoneCode(e.target.value)}
-                      className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                      className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-sm text-slate-800 focus:outline-none cursor-pointer font-medium shrink-0"
                     >
                       <option value="+91">🇮🇳 +91</option>
                       <option value="+1">🇺🇸 +1</option>
@@ -2467,14 +1985,14 @@ export default function Home() {
                       value={bookingPhone}
                       onChange={(e) => setBookingPhone(e.target.value)}
                       placeholder=""
-                      className="w-full bg-white px-4 py-3 text-xs text-slate-800 focus:outline-none font-bold"
+                      className="w-full bg-white px-4 py-3 text-sm text-slate-800 focus:outline-none font-medium"
                     />
                   </div>
                 </div>
 
                 {/* Email Address */}
                 <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-800">
+                  <label className="block text-sm font-medium text-slate-800">
                     Email <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -2483,19 +2001,19 @@ export default function Home() {
                     value={bookingEmail}
                     onChange={(e) => setBookingEmail(e.target.value)}
                     placeholder=""
-                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                   />
                 </div>
 
                 {/* What are you looking for? */}
                 <div className="space-y-1">
-                  <label className="block text-xs font-bold text-slate-800">
+                  <label className="block text-sm font-medium text-slate-800">
                     What are you looking for?
                   </label>
                   <select
                     value={bookingLookingFor}
                     onChange={(e) => setBookingLookingFor(e.target.value)}
-                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-xs text-slate-800 focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                    className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium cursor-pointer shadow-sm"
                     required
                   >
                     <option value="">-Select-</option>
@@ -2509,7 +2027,7 @@ export default function Home() {
 
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-lg transition-all duration-300 shadow-md shadow-brand-orange/20 cursor-pointer text-center"
+                  className="w-full py-3.5 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium uppercase tracking-widest rounded-lg transition-all duration-300 shadow-md shadow-brand-orange/20 cursor-pointer text-center"
                 >
                   Submit
                 </button>

@@ -71,8 +71,8 @@ const newGallery = `<section id="gallery-works" className="bg-[#fcfbf9] py-16 sm
                         <h3 className="font-outfit font-bold text-xl text-[#1a1a1a] mb-1">
                           {item.title}
                         </h3>
-                        <p className="text-xs text-slate-400 font-normal">{item.location}</p>
-                        <p className="text-xs text-slate-400 font-normal">2024</p>
+                        <p className="text-sm text-slate-400 font-normal">{item.location}</p>
+                        <p className="text-sm text-slate-400 font-normal">2024</p>
                       </div>
                     </div>
                   );

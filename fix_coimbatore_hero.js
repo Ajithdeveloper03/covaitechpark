@@ -31,7 +31,7 @@ const flatRowHTML = `{/* Responsive Image Row at Bottom */}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-4 sm:bottom-6 left-0 w-full text-center px-2">
-                    <p className={\`text-white font-outfit font-bold tracking-wide \${card.active ? 'text-base sm:text-lg' : 'text-xs sm:text-sm'}\`}>
+                    <p className={\`text-white font-outfit font-bold tracking-wide \${card.active ? 'text-base sm:text-lg' : 'text-sm sm:text-sm'}\`}>
                       {card.label}
                     </p>
                   </div>

@@ -73,7 +73,7 @@ if (startIndexPage !== -1 && endIndexPage !== -1) {
                           <div className={\`absolute inset-0 flex items-center justify-start pl-4 sm:pl-5 transition-all duration-700 ease-out \${
                             isActive ? "opacity-100 translate-x-0" : "opacity-60 -translate-x-2"
                           }\`}>
-                            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
+                            <span className="text-[10px] sm:text-sm font-bold tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
                               {slide.label.split(' ').map((word, idx) => (
                                 <span key={idx} className="block">{word}</span>
                               ))}
@@ -189,7 +189,7 @@ replaceCoimbatoreSection(
           {/* Section Header */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-8">
             <div className="space-y-3 text-left">
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
+              <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
                 WHAT OUR MEMBERS SAY
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
@@ -200,7 +200,7 @@ replaceCoimbatoreSection(
                   <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
                 <span className="text-sm font-bold text-brand-navy">4.9</span>
-                <span className="text-slate-400 text-xs font-normal">· Google Business</span>
+                <span className="text-slate-400 text-sm font-normal">· Google Business</span>
               </div>
             </div>
 
@@ -261,7 +261,7 @@ replaceCoimbatoreSection(
                       </div>
                       <div className="text-left">
                         <p className="font-outfit font-bold text-sm text-brand-navy">{testimonial.name}</p>
-                        <p className="text-xs text-brand-orange font-semibold">Verified Member</p>
+                        <p className="text-sm text-brand-orange font-semibold">Verified Member</p>
                       </div>
                     </div>
 

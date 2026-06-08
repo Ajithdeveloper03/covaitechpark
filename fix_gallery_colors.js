@@ -71,7 +71,7 @@ const newGallery = `<section id="gallery-works" className="bg-slate-50 py-16 sm:
                         <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors duration-300 mb-1">
                           {item.title}
                         </h3>
-                        <p className="text-xs text-slate-500 font-normal">{item.location}</p>
+                        <p className="text-sm text-slate-500 font-normal">{item.location}</p>
                       </div>
                     </div>
                   );

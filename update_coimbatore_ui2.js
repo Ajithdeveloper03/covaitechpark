@@ -106,14 +106,14 @@ const newWhy = `{/* ── WHY CHOOSE US SECTION (Image 2 Top Reference) ── 
                 ].map((feat, i) => (
                   <div key={i}>
                     <h4 className="font-bold text-sm text-slate-900 mb-1">{feat.label}</h4>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed max-w-sm">{feat.desc}</p>
+                    <p className="text-slate-500 text-sm sm:text-sm font-normal leading-relaxed max-w-sm">{feat.desc}</p>
                   </div>
                 ))}
               </div>
 
               <button
                 onClick={() => handleOpenBooking("Book an appointment")} 
-                className="inline-flex items-center gap-3 px-6 py-3 border border-slate-200 hover:border-brand-orange text-slate-900 font-bold text-xs uppercase tracking-wide rounded-full transition-all duration-300 w-max group"
+                className="inline-flex items-center gap-3 px-6 py-3 border border-slate-200 hover:border-brand-orange text-slate-900 font-bold text-sm uppercase tracking-wide rounded-full transition-all duration-300 w-max group"
               >
                 Book an appointment
                 <span className="w-6 h-6 rounded-full bg-[#6a6c53] text-white flex items-center justify-center group-hover:bg-brand-orange transition-colors">
@@ -176,7 +176,7 @@ const newServices = `{/* ── SERVICES SECTION (Image 2 Bottom Reference) ─�
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-slate-900 mb-2">Dedicated Desk</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-500 text-sm leading-relaxed">
                     Enjoy the comfort of your own dedicated desk in our coworking space. The desk is reserved for you at a specific spot.
                   </p>
                 </div>
@@ -192,7 +192,7 @@ const newServices = `{/* ── SERVICES SECTION (Image 2 Bottom Reference) ─�
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-slate-900 mb-2">Private Cabins</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-500 text-sm leading-relaxed">
                     Ideal for growing teams requiring permanent enclosed desks and local storage with complete privacy.
                   </p>
                 </div>
@@ -221,7 +221,7 @@ const newServices = `{/* ── SERVICES SECTION (Image 2 Bottom Reference) ─�
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-slate-900 mb-2">Day Pass</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-500 text-sm leading-relaxed">
                     Reserve your seat in our coworking space and enjoy all the amenities with the flexibility to use it your way.
                   </p>
                 </div>
@@ -236,7 +236,7 @@ const newServices = `{/* ── SERVICES SECTION (Image 2 Bottom Reference) ─�
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-slate-900 mb-2">Meeting Rooms</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">
+                  <p className="text-slate-500 text-sm leading-relaxed">
                     Integrated tech-ready spaces to host your clients and team members for productive brainstorming sessions.
                   </p>
                 </div>

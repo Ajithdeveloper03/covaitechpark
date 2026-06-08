@@ -37,7 +37,7 @@ replaceSection(
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-brand-navy mb-2">Dedicated Desk</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">Enjoy the comfort of your own dedicated desk in our coworking space. Reserved for you during your membership period. (Starts From INR 6,000/seat/month)</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">Enjoy the comfort of your own dedicated desk in our coworking space. Reserved for you during your membership period. (Starts From INR 6,000/seat/month)</p>
                 </div>
               </div>
               <div className="bg-slate-50 border border-slate-100 rounded-2xl p-8 flex flex-col h-full hover:border-brand-orange/40 hover:shadow-md transition-all">
@@ -46,7 +46,7 @@ replaceSection(
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-brand-navy mb-2">Private Office Space</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">Ideal for growing teams requiring permanent enclosed desks and local storage with complete privacy.</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">Ideal for growing teams requiring permanent enclosed desks and local storage with complete privacy.</p>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@ replaceSection(
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-brand-navy mb-2">Day Pass</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">Reserve your seat in our coworking space for individuals and enjoy all the amenities. (Starts From INR 450/seat/day)</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">Reserve your seat in our coworking space for individuals and enjoy all the amenities. (Starts From INR 450/seat/day)</p>
                 </div>
               </div>
               <div className="bg-slate-50 border border-slate-100 rounded-2xl p-8 flex flex-col h-full hover:border-brand-orange/40 hover:shadow-md transition-all">
@@ -69,7 +69,7 @@ replaceSection(
                 </div>
                 <div className="mt-auto">
                   <h3 className="font-outfit font-bold text-lg text-brand-navy mb-2">Meeting Room</h3>
-                  <p className="text-slate-500 text-xs leading-relaxed">Integrated tech-ready spaces to host your clients and team members for productive brainstorming sessions.</p>
+                  <p className="text-slate-500 text-sm leading-relaxed">Integrated tech-ready spaces to host your clients and team members for productive brainstorming sessions.</p>
                 </div>
               </div>
             </div>
@@ -87,7 +87,7 @@ replaceSection(
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-slate-200 pb-8">
             <div className="max-w-xl space-y-2 text-left">
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block">
+              <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.25em] block">
                 OTHER WORKSPACE SOLUTIONS
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1]">
@@ -144,13 +144,13 @@ replaceSection(
                 ].map((feat, i) => (
                   <div key={i}>
                     <h4 className="font-bold text-sm text-brand-navy mb-1">{feat.label}</h4>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed max-w-sm">{feat.desc}</p>
+                    <p className="text-slate-500 text-sm sm:text-sm font-normal leading-relaxed max-w-sm">{feat.desc}</p>
                   </div>
                 ))}
               </div>
               <button
                 onClick={() => handleOpenBooking("Book an appointment")} 
-                className="inline-flex items-center gap-3 px-6 py-3 border border-slate-200 hover:border-brand-orange text-brand-navy font-bold text-xs uppercase tracking-wide rounded-full transition-all duration-300 w-max group"
+                className="inline-flex items-center gap-3 px-6 py-3 border border-slate-200 hover:border-brand-orange text-brand-navy font-bold text-sm uppercase tracking-wide rounded-full transition-all duration-300 w-max group"
               >
                 Book an appointment
                 <span className="w-6 h-6 rounded-full bg-brand-navy text-white flex items-center justify-center group-hover:bg-brand-orange transition-colors">
@@ -231,7 +231,7 @@ replaceSection(
       <section id="amenities" className="py-20 sm:py-28 bg-white w-full border-b border-slate-100 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto space-y-16 sm:space-y-20">
           <div className="text-center space-y-3 max-w-xl mx-auto">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
+            <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
               FACILITIES DIRECTORY
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight">
@@ -252,7 +252,7 @@ replaceSection(
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <h4 className="font-outfit font-bold text-xs sm:text-sm text-brand-navy tracking-wide">{amenity}</h4>
+                <h4 className="font-outfit font-bold text-sm sm:text-sm text-brand-navy tracking-wide">{amenity}</h4>
               </div>
             ))}
           </div>
@@ -268,7 +268,7 @@ replaceSection(
       <section className="py-20 sm:py-28 bg-slate-50 section-x w-full relative overflow-hidden border-b border-slate-200">
         <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="text-center space-y-3 mb-16">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.2em]">COMMUNITY</span>
+            <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.2em]">COMMUNITY</span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy">Here's what our happy customers say!</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">

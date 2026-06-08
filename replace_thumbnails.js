@@ -72,7 +72,7 @@ const targetStr = `            <div className="relative flex items-stretch gap-6
                           
                           {/* Label overlay aligned bottom left */}
                           <div className={\`absolute inset-0 flex items-center justify-start pl-4 sm:pl-5 transition-opacity duration-500 \${isHidden ? "opacity-0" : "opacity-100"}\`}>
-                            <span className="text-[10px] sm:text-xs font-normal tracking-widest text-white uppercase drop-shadow-md">
+                            <span className="text-[10px] sm:text-sm font-normal tracking-widest text-white uppercase drop-shadow-md">
                               {slide.label}
                             </span>
                           </div>
@@ -165,7 +165,7 @@ const replacementStr = `            <div className="relative flex items-center j
                           
                           {/* Label overlay aligned bottom left */}
                           <div className={\`absolute inset-0 flex items-center justify-start pl-4 sm:pl-5 transition-opacity duration-500 \${isActive ? "opacity-100" : "opacity-40"}\`}>
-                            <span className="text-[10px] sm:text-xs font-normal tracking-widest text-white uppercase drop-shadow-md">
+                            <span className="text-[10px] sm:text-sm font-normal tracking-widest text-white uppercase drop-shadow-md">
                               {slide.label}
                             </span>
                           </div>

@@ -72,7 +72,7 @@ if (startIndex !== -1 && endIndex !== -1) {
                           <div className={\`absolute inset-0 flex items-center justify-start pl-4 sm:pl-5 transition-all duration-700 ease-out \${
                             isActive ? "opacity-100 translate-x-0" : "opacity-60 -translate-x-2"
                           }\`}>
-                            <span className="text-[10px] sm:text-xs font-bold tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
+                            <span className="text-[10px] sm:text-sm font-bold tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
                               {slide.label.split(' ').map((word, idx) => (
                                 <span key={idx} className="block">{word}</span>
                               ))}

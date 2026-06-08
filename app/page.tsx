@@ -7,7 +7,7 @@ import useEmblaCarousel from "embla-carousel-react";
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
-// Section coordinates for vertical scroll tracker timeline
+
 const SECTIONS = [
   { id: "hero", label: "Home" },
   { id: "locations", label: "Locations" },
@@ -66,8 +66,6 @@ const HERO_SLIDES = [
 ];
 
 
-
-// 7 Main Services Grid (Detailed offerings from covaitechpark.com)
 const SERVICES_TAILORED = [
   {
     id: "01",
@@ -228,11 +226,9 @@ const FacilitiesIcon = ({ name, className }: { name: string; className?: string 
 
 function DeploymentPhaseContent({
   phase,
-  onInquire,
   compact = false,
 }: {
   phase: DeploymentPhase;
-  onInquire: (title: string) => void;
   compact?: boolean;
 }) {
   return (
@@ -262,16 +258,6 @@ function DeploymentPhaseContent({
             </div>
           </div>
         ))}
-      </div>
-      <div className={compact ? "pt-0.5" : "pt-1"}>
-        <button
-          type="button"
-          onClick={() => onInquire(phase.title)}
-          className="inline-flex items-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 text-white font-bold text-[10px] sm:text-xs uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg hover:scale-[1.03] bg-brand-orange"
-        >
-          Inquire Now
-          <span className="text-sm">→</span>
-        </button>
       </div>
     </div>
   );
@@ -305,14 +291,14 @@ const TESTIMONIALS = [
 
 // Gallery Showcase Images
 const GALLERY_ITEMS = [
-  { image: prefix("/workspace-lounge.png"), title: "Lounge Area", tags: ["SHARED", "LOUNGE"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/workspace-cabin.png"), title: "Private Cabins", tags: ["CABIN", "PRIVATE"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/workspace-meeting.png"), title: "Smart Meeting Room", tags: ["MEETING", "COLLABORATION"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/workspace-hotdesk.png"), title: "Dedicated Desks", tags: ["DESK", "RESERVED"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/workspace-cafe.png"), title: "Breakout Cafe", tags: ["CAFE", "BREAKOUT"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/workspace-event.png"), title: "Event Spaces", tags: ["EVENT", "VENUE"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/amenities-community.png"), title: "Active Community", tags: ["COMMUNITY", "NETWORKING"], location: "Coimbatore, India", year: "2026" },
-  { image: prefix("/hero-bg.png"), title: "CovaiTech Park Hub", tags: ["CAMPUS", "OVERVIEW"], location: "Coimbatore, India", year: "2026" },
+  { image: prefix("/workspace-lounge.png"), title: "Lounge Area", tags: ["SHARED", "LOUNGE"], location: "Coimbatore, India", year: "2026", category: "Lounges" },
+  { image: prefix("/workspace-cabin.png"), title: "Private Cabins", tags: ["CABIN", "PRIVATE"], location: "Coimbatore, India", year: "2026", category: "Cabins" },
+  { image: prefix("/workspace-meeting.png"), title: "Smart Meeting Room", tags: ["MEETING", "COLLABORATION"], location: "Coimbatore, India", year: "2026", category: "Meetings" },
+  { image: prefix("/workspace-hotdesk.png"), title: "Dedicated Desks", tags: ["DESK", "RESERVED"], location: "Coimbatore, India", year: "2026", category: "Desks" },
+  { image: prefix("/workspace-cafe.png"), title: "Breakout Cafe", tags: ["CAFE", "BREAKOUT"], location: "Coimbatore, India", year: "2026", category: "Lounges" },
+  { image: prefix("/workspace-event.png"), title: "Event Spaces", tags: ["EVENT", "VENUE"], location: "Coimbatore, India", year: "2026", category: "Meetings" },
+  { image: prefix("/amenities-community.png"), title: "Active Community", tags: ["COMMUNITY", "NETWORKING"], location: "Coimbatore, India", year: "2026", category: "Lounges" },
+  { image: prefix("/hero-bg.png"), title: "CovaiTech Park Hub", tags: ["CAMPUS", "OVERVIEW"], location: "Coimbatore, India", year: "2026", category: "Cabins" },
 ];
 
 // FAQ Data
@@ -674,25 +660,18 @@ export default function Home() {
   // Phases stacked scroll — active slide index
   const [activePhase, setActivePhase] = useState(0);
 
-
-
-
   // Testimonials slider variables
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [testifierTransition, setTestifierTransition] = useState(false);
 
-  // Embla Carousel setup for gallery
-  const [galleryRef, galleryApi] = useEmblaCarousel({
-    align: "start",
-    loop: true,
-    slidesToScroll: 1
-  });
-  const scrollGalleryPrev = useCallback(() => {
-    if (galleryApi) galleryApi.scrollPrev();
-  }, [galleryApi]);
-  const scrollGalleryNext = useCallback(() => {
-    if (galleryApi) galleryApi.scrollNext();
-  }, [galleryApi]);
+  // Contact form states
+  const [contactFirstName, setContactFirstName] = useState("");
+  const [contactLastName, setContactLastName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [contactPhoneCode, setContactPhoneCode] = useState("+91");
+  const [contactLookingFor, setContactLookingFor] = useState("");
+  const [contactSuccess, setContactSuccess] = useState(false);
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -729,6 +708,7 @@ export default function Home() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -847,6 +827,22 @@ export default function Home() {
         setBookingPhoneCode("+91");
         setBookingOpen(false);
         setBookingSuccess(false);
+      }, 3000);
+    }
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (contactFirstName && contactLastName && contactEmail && contactPhone) {
+      setContactSuccess(true);
+      setTimeout(() => {
+        setContactFirstName("");
+        setContactLastName("");
+        setContactEmail("");
+        setContactPhone("");
+        setContactPhoneCode("+91");
+        setContactLookingFor("");
+        setContactSuccess(false);
       }, 3000);
     }
   };
@@ -1375,7 +1371,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AWARDS & RECOGNITION SECTION — 2x2 Dark Card Grid with Wreath Icons */}
+      {/* AWARDS & RECOGNITION SECTION — Single Featured Award */}
       <section className="relative w-full overflow-hidden bg-[#060c10] py-24 sm:py-32 border-t border-b border-white/5">
         {/* Background elements */}
         <div className="absolute inset-0 z-0 pointer-events-none">
@@ -1384,26 +1380,20 @@ export default function Home() {
         <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none z-0" />
         <div className="absolute bottom-[5%] right-[5%] w-[350px] h-[350px] bg-brand-orange/4 rounded-full blur-[120px] pointer-events-none z-0" />
 
-        <div className="relative z-10 max-w-7xl mx-auto section-x">
+        <div className="relative z-10 max-w-4xl mx-auto section-x text-center">
           {/* Header */}
-          <div className="text-center mb-14 sm:mb-20 reveal reveal-up">
+          <div className="text-center mb-10 reveal reveal-up">
             <span className="text-[11px] font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none mb-5">
-              AWARDS &amp; RECOGNITION
+              Awards &amp; Recogonitions
             </span>
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-tight">
-              Recognized for{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">Excellence</span>
+              Excellence in providing <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">office space solutions</span>
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base font-normal leading-relaxed max-w-2xl mx-auto mt-5">
-              MAX OFFICE — Covai Tech Park &amp; Trichy Coworks — is committed to setting new benchmarks in workspace design, IT infrastructure, and corporate hospitality.
-            </p>
           </div>
 
-          {/* 2×2 Award Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 reveal reveal-up">
-
-            {/* Card 1 — Workspace Accelerator */}
-            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
+          {/* Centered Single Award Card */}
+          <div className="max-w-xl mx-auto reveal reveal-up">
+            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col items-center gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
               <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
               <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
               {/* Wreath trophy icon */}
@@ -1412,112 +1402,21 @@ export default function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0" />
                 </svg>
               </div>
-              <div className="text-left space-y-2">
-                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">SOUTH INDIA ECOSYSTEM — 2024</span>
-                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Workspace Accelerator Award</h3>
+              <div className="space-y-2">
+                <h3 className="font-outfit font-bold text-2xl sm:text-3xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Times Business Awards</h3>
                 <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                  Awarded for outstanding ecosystem growth and flexible workspace delivery across South India — redefining high-compliance office infrastructure standards.
+                  Recognized for excellence in providing state-of-the-art office space solutions, premium managed workspaces, and outstanding corporate environment standards.
                 </p>
               </div>
-              <div className="pt-4 border-t border-white/8 mt-auto">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-1">
-                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
-                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">South India Award</span>
-                </div>
+              <div className="pt-2">
+                <button
+                  onClick={() => handleOpenBooking("Times Business Awards")}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg hover:scale-[1.03]"
+                >
+                  Learn More &rarr;
+                </button>
               </div>
             </div>
-
-            {/* Card 2 — Elite Workplace */}
-            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
-              {/* Medal icon */}
-              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-              </div>
-              <div className="text-left space-y-2">
-                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">REALTY LEADERSHIP FORUM — 2024</span>
-                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Elite Workplace Excellence</h3>
-                <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                  Honored for architectural design, ergonomic amenities, and premium corporate hospitality — delivering high-performance office ecosystems for modern teams.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/8 mt-auto">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-1">
-                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
-                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Realty Leadership</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 — ISO Certified */}
-            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
-              {/* Shield/certified icon */}
-              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
-                </svg>
-              </div>
-              <div className="text-left space-y-2">
-                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">QUALITY CERTIFICATION — 2023</span>
-                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">ISO 9001:2015 Certified</h3>
-                <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                  Certified for operational excellence and high compliance across all workspace facilities — ensuring consistent quality in every interaction.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/8 mt-auto">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-1">
-                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
-                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Certified Excellence</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 — Member Satisfaction */}
-            <div className="group relative bg-gradient-to-br from-[#0d1520] to-[#091016] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
-              <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-              <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
-              {/* Heart/community icon */}
-              <div className="w-16 h-16 rounded-2xl bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300 shadow-lg shadow-brand-orange/10">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                </svg>
-              </div>
-              <div className="text-left space-y-2">
-                <span className="text-[9px] font-bold text-brand-orange/80 uppercase tracking-[0.22em]">MEMBER SATISFACTION — 2024</span>
-                <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">98% Member Retention</h3>
-                <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                  Recognized for exceptional service quality, community building, and member satisfaction — trusted by 650+ businesses across Tamil Nadu.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-white/8 mt-auto">
-                <div className="flex items-center gap-3">
-                  <div className="flex -space-x-1">
-                    {["#f37021", "#ffaa66", "#f37021"].map((c, i) => (
-                      <div key={i} className="w-2 h-2 rounded-full" style={{ background: c, opacity: 0.6 + i * 0.2 }} />
-                    ))}
-                  </div>
-                  <span className="text-xs font-bold text-brand-orange/70 uppercase tracking-widest">Top Rated Workspace</span>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -1800,7 +1699,6 @@ export default function Home() {
                 <div className="bg-slate-50 p-5 sm:p-6">
                   <DeploymentPhaseContent
                     phase={phase}
-                    onInquire={handleOpenBooking}
                     compact
                   />
                 </div>
@@ -1881,7 +1779,7 @@ export default function Home() {
                            <rect x="20" y="20" width="60" height="60" rx="10" />
                          </svg>
                       </div>
-                      <DeploymentPhaseContent phase={phase} onInquire={handleOpenBooking} />
+                      <DeploymentPhaseContent phase={phase} />
                     </div>
                   </div>
                 );
@@ -2013,102 +1911,74 @@ export default function Home() {
       </section>
 
       {/* GALLERY SECTION */}
-      <section id="gallery-works" className="section-container bg-white py-16 sm:py-24 w-full overflow-hidden text-brand-navy relative">
-        <div className="w-full flex flex-col items-center relative z-10">
-          
-          {/* Header block with side-by-side style */}
-          <div className="box-container flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-16 px-4 w-full">
-            <div className="space-y-4 text-left max-w-2xl">
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block">
-                - OUR GALLERY
-              </span>
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight leading-none text-slate-800">
-                Creative Workspaces That <span className="text-brand-orange">Define Our Style</span>
-              </h2>
+      <section id="gallery-works" className="bg-[#fcfbf9] w-full min-h-screen lg:h-screen flex items-center justify-center py-8 px-4 sm:px-6 md:px-8 overflow-hidden relative">
+        <div className="w-full max-w-7xl mx-auto h-full flex flex-col justify-center items-center">
+          <div className="grid grid-cols-3 grid-rows-3 gap-4 md:gap-5 lg:gap-6 w-full h-[82vh] max-h-[820px]">
+            {/* Card 1: Tall (Row 1-2, Col 1) */}
+            <div className="col-start-1 row-start-1 row-end-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-cabin.png")}
+                alt="Private Cabins"
+                fill
+                sizes="(max-width: 768px) 33vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
             </div>
-            
-            <div className="flex flex-col sm:flex-row lg:items-end gap-6 w-full lg:w-auto">
-              <p className="text-slate-500 text-sm sm:text-base font-normal max-w-md leading-relaxed text-left">
-                Explore our beautifully configured spaces — from acoustic private cabins to premium collaborative lounges designed for high-performance software teams.
-              </p>
-              
-              {/* Embla Slider Buttons */}
-              <div className="flex gap-3 shrink-0">
-                <button
-                  onClick={scrollGalleryPrev}
-                  className="w-12 h-12 rounded-full border border-slate-200 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
-                  aria-label="Previous Slide"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                  </svg>
-                </button>
-                <button
-                  onClick={scrollGalleryNext}
-                  className="w-12 h-12 rounded-full border border-slate-200 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
-                  aria-label="Next Slide"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                  </svg>
-                </button>
-              </div>
+
+            {/* Card 2: Square (Row 3, Col 1) */}
+            <div className="col-start-1 row-start-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-lounge.png")}
+                alt="Lounge Area"
+                fill
+                sizes="(max-width: 768px) 33vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
             </div>
-          </div>
 
-          {/* Embla Slider Container */}
-          <div className="overflow-hidden w-full px-4" ref={galleryRef}>
-            <div className="flex gap-6">
-              {GALLERY_ITEMS.map((item, index) => (
-                <div key={index} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] xl:flex-[0_0_28%] min-w-0">
-                  <div className="group relative flex flex-col text-left">
-                    {/* Image Container with rounded-[2rem] exactly like Image 1 */}
-                    <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden border border-slate-100 shadow-md">
-                      <Image 
-                        src={item.image} 
-                        alt={item.title} 
-                        fill 
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-105" 
-                      />
-                      
-                      {/* Black overlay with circular "View" button in the center on hover */}
-                      <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
-                        <div className="w-16 h-16 rounded-full bg-brand-orange text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center transform scale-90 group-hover:scale-100 transition-all duration-300 shadow-lg">
-                          View
-                        </div>
-                      </div>
-
-                      {/* White borderless pill tags on top left */}
-                      <div className="absolute top-6 left-6 z-10 flex gap-2">
-                        {item.tags.map((tag) => (
-                          <span key={tag} className="px-3 py-1 bg-white/80 backdrop-blur-sm rounded-full text-[9px] font-black tracking-wider text-slate-800 uppercase">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Metadata text below the card */}
-                    <div className="mt-5 px-2">
-                      <h3 className="font-outfit font-bold text-xl text-slate-900 group-hover:text-brand-orange transition-colors">
-                        {item.title}
-                      </h3>
-                      <div className="flex justify-between items-center mt-1 text-slate-400 text-xs font-normal">
-                        <span>{item.location}</span>
-                        <span>{item.year}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
+            {/* Card 3: Horizontal (Row 1, Col 2) */}
+            <div className="col-start-2 row-start-1 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-meeting.png")}
+                alt="Meeting Room"
+                fill
+                sizes="(max-width: 768px) 33vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
             </div>
-          </div>
 
-          <div className="pt-12">
-            <button onClick={() => handleOpenBooking("Book a Tour (Gallery Section)")} className="inline-block px-10 py-4 bg-brand-orange text-white hover:bg-brand-navy font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer text-center">
-              Book a Tour Now
-            </button>
+            {/* Card 4: Square (Row 1, Col 3) */}
+            <div className="col-start-3 row-start-1 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-hotdesk.png")}
+                alt="Dedicated Desks"
+                fill
+                sizes="(max-width: 768px) 33vw, 400px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
+
+            {/* Card 5: Wide Landscape (Row 2, Col 2-3) */}
+            <div className="col-start-2 col-span-2 row-start-2 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-event.png")}
+                alt="Event Spaces"
+                fill
+                sizes="(max-width: 768px) 66vw, 800px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
+
+            {/* Card 6: Wide Landscape (Row 3, Col 2-3) */}
+            <div className="col-start-2 col-span-2 row-start-3 relative overflow-hidden rounded-[1.5rem] sm:rounded-[2rem] border border-slate-100 shadow-md group">
+              <Image
+                src={prefix("/workspace-cafe.png")}
+                alt="Breakout Cafe"
+                fill
+                sizes="(max-width: 768px) 66vw, 800px"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -2213,32 +2083,120 @@ export default function Home() {
                 </p>
               </div>
 
-              <form className="flex flex-col gap-5 w-full" onSubmit={(e) => { e.preventDefault(); handleOpenBooking("Contact Form"); setBookingOpen(false); }}>
-                <div className="flex flex-col sm:flex-row gap-5">
-                  <div className="flex-1">
-                    <input type="text" placeholder="Name" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
+              {contactSuccess ? (
+                <div className="py-10 text-center space-y-4 w-full">
+                  <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                   </div>
-                  <div className="flex-1">
-                    <input type="email" placeholder="Email" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
+                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Tour Request Submitted!</h4>
+                  <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
+                    Thank you, <strong>{contactFirstName} {contactLastName}</strong>. Your tour request has been received. We will contact you at <strong>{contactEmail}</strong> or <strong>{contactPhoneCode} {contactPhone}</strong> shortly.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-bold text-sm w-full">
+                  {/* Name Row */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={contactFirstName}
+                          onChange={(e) => setContactFirstName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={contactLastName}
+                          onChange={(e) => setContactLastName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                
-                <div>
-                  <input type="tel" placeholder="Phone Number" required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400" />
-                </div>
 
-                <div>
-                  <textarea placeholder="How can we help?" rows={2} required className="w-full  border-b-2 border-slate-200 px-0 py-3 text-sm text-brand-navy font-normal focus:outline-none focus:border-brand-orange transition-colors rounded-none placeholder:text-slate-400 resize-none"></textarea>
-                </div>
+                  {/* Phone Number */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Phone <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex border border-brand-navy/15 rounded-xl overflow-hidden focus-within:border-brand-orange shadow-sm">
+                      <select
+                        value={contactPhoneCode}
+                        onChange={(e) => setContactPhoneCode(e.target.value)}
+                        className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+65">🇸🇬 +65</option>
+                      </select>
+                      <input
+                        type="tel"
+                        required
+                        value={contactPhone}
+                        onChange={(e) => setContactPhone(e.target.value)}
+                        placeholder=""
+                        className="w-full bg-white px-4 py-3 text-xs text-brand-navy focus:outline-none font-bold"
+                      />
+                    </div>
+                  </div>
 
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-4 bg-brand-orange hover:bg-[#091b29] text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all shadow-md cursor-pointer mt-2"
-                >
-                  Send Message
-                </button>
-              </form>
+                  {/* Email Address */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      placeholder=""
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                    />
+                  </div>
 
+                  {/* What are you looking for? */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      What are you looking for?
+                    </label>
+                    <select
+                      value={contactLookingFor}
+                      onChange={(e) => setContactLookingFor(e.target.value)}
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                      required
+                    >
+                      <option value="">-Select-</option>
+                      <option value="Coworking & Hot Desks">Coworking & Hot Desks</option>
+                      <option value="Dedicated Desks">Dedicated Desks</option>
+                      <option value="Private Cabins">Private Cabins</option>
+                      <option value="Meeting Rooms">Meeting Rooms</option>
+                      <option value="Custom Office Solutions">Custom Office Solutions</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
+                  >
+                    Request Tour Schedule
+                  </button>
+                </form>
+              )}
             </div>
           </div>
 
@@ -2302,19 +2260,19 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Email</h5>
-                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors">
+                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors whitespace-nowrap">
                     info@covaitechpark.com
                   </a>
                 </div>
                 <div>
                   <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Mobile</h5>
                   <div className="flex flex-col gap-1 text-white/45 text-xs font-normal">
-                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors">+91 93607 80768</a>
-                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors">+91 900 355 0455</a>
-                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors">+91 968 899 2210</a>
+                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
+                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 900 355 0455</a>
+                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 968 899 2210</a>
                   </div>
                 </div>
               </div>

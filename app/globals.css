@@ -464,3 +464,11 @@ p {
   height: 1px;
   background: #e5e7eb;
 }
+
+/* Gallery masonry height utilities */
+.h-88 { height: 22rem; }
+
+/* Hide scrollbar for mobile scroll strips */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+

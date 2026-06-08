@@ -7,6 +7,15 @@ import useEmblaCarousel from "embla-carousel-react";
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
+const SECTIONS = [
+  { id: "hero", label: "Home" },
+  { id: "plans", label: "Plans" },
+  { id: "amenities", label: "Amenities" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faqs", label: "FAQ" },
+  { id: "contact", label: "Contact" }
+];
+
 const COIMBATORE_PLAN_DETAILS = [
   {
     name: "Day Pass",
@@ -314,6 +323,7 @@ export default function CoimbatorePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [activeSection, setActiveSection] = useState("hero");
 
   // Embla Carousel setup for Testimonials
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -362,18 +372,55 @@ export default function CoimbatorePage() {
     document.title = "Book a Shared Office For Rent in Coimbatore | Coworking Space";
   }, []);
 
+  // IntersectionObserver to sync vertical dot navigation
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: "-25% 0px -45% 0px",
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    SECTIONS.forEach((sec) => {
+      const el = document.getElementById(sec.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   // Booking Modal States
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
-  const [bookingName, setBookingName] = useState("");
+  const [bookingFirstName, setBookingFirstName] = useState("");
+  const [bookingLastName, setBookingLastName] = useState("");
   const [bookingEmail, setBookingEmail] = useState("");
   const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
+  const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+
+  // Contact form states
+  const [contactFirstName, setContactFirstName] = useState("");
+  const [contactLastName, setContactLastName] = useState("");
+  const [contactEmail, setContactEmail] = useState("");
+  const [contactPhone, setContactPhone] = useState("");
+  const [contactPhoneCode, setContactPhoneCode] = useState("+91");
+  const [contactLookingFor, setContactLookingFor] = useState("");
+  const [contactSuccess, setContactSuccess] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
     };
+    handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -391,27 +438,81 @@ export default function CoimbatorePage() {
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
+    setBookingLookingFor(plan);
     setBookingOpen(true);
     setBookingSuccess(false);
   };
 
   const handleBookingSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (bookingName && bookingEmail && bookingPhone) {
+    if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       setBookingSuccess(true);
       setTimeout(() => {
-        setBookingName("");
+        setBookingFirstName("");
+        setBookingLastName("");
         setSelectedPlan("");
+        setBookingLookingFor("");
         setBookingEmail("");
         setBookingPhone("");
+        setBookingPhoneCode("+91");
         setBookingOpen(false);
         setBookingSuccess(false);
       }, 3000);
     }
   };
 
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (contactFirstName && contactLastName && contactEmail && contactPhone) {
+      setContactSuccess(true);
+      setTimeout(() => {
+        setContactFirstName("");
+        setContactLastName("");
+        setContactEmail("");
+        setContactPhone("");
+        setContactPhoneCode("+91");
+        setContactLookingFor("");
+        setContactSuccess(false);
+      }, 3000);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white text-brand-navy flex flex-col font-inter relative select-none font-bold text-base antialiased">
+      
+      {/* VERTICAL SCROLL NAVIGATION TIMELINE — right side centered, hidden on hero, visible from 2nd section */}
+      <div
+        className="fixed right-3 sm:right-6 xl:right-8 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-4 z-50 p-2.5 sm:p-3 bg-[#091b29]/95 backdrop-blur-md rounded-full border border-white/10 shadow-xl transition-all duration-500"
+        style={{
+          opacity: activeSection === "hero" ? 0 : 1,
+          transform: `translateY(-50%) translateX(${activeSection === "hero" ? "24px" : "0px"})`,
+          pointerEvents: activeSection === "hero" ? "none" : "auto",
+        }}
+      >
+        <div className="relative flex flex-col items-center gap-4 py-2">
+          <div className="dot-timeline-line bg-white/10" />
+          {SECTIONS.map((sec) => {
+            const isActive = activeSection === sec.id;
+            return (
+              <a
+                key={sec.id}
+                href={`#${sec.id}`}
+                title={sec.label}
+                className="w-3.5 h-3.5 rounded-full transition-all duration-300 relative group flex items-center justify-center animate-float-delayed"
+              >
+                <span className={`rounded-full transition-all duration-500 ${
+                  isActive 
+                    ? "w-3.5 h-3.5 bg-brand-orange scale-110 shadow-lg shadow-brand-orange/40" 
+                    : "w-2.5 h-2.5 bg-white/35 hover:bg-white"
+                }`} />
+                <span className="absolute right-8 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-brand-navy text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg pointer-events-none whitespace-nowrap translate-x-2 group-hover:translate-x-0 border border-white/10">
+                  {sec.label}
+                </span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
       
       {/* ── HEADER / NAVBAR ── */}
       <header
@@ -553,385 +654,336 @@ export default function CoimbatorePage() {
         </div>
       </header>
 
-      {/* ── COIMBATORE HERO SECTION WITH DARK OVERLAY ── */}
-      <section className="relative min-h-[100vh] w-full flex items-center pt-28 pb-16 sm:pt-32 sm:pb-24 lg:pt-36 overflow-hidden bg-brand-navy text-white">
+      {/* ── COIMBATORE HERO SECTION — coimbatore.png bg + centered text + fan arc cards ── */}
+      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-24 sm:pt-28 pb-60 overflow-hidden text-white">
 
-        {/* Full-bleed BG image with sophisticated dark overlays for enhanced readability */}
+        {/* Full bleed coimbatore.png background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1600&q=80"
-            alt="Coimbatore workspace background"
+            src="/covaitechpark/coimbatore.png"
+            alt="Coimbatore coworking space"
             fill
             priority
-            className="object-cover object-center brightness-[0.25]"
+            className="object-cover object-center"
           />
-          {/* Multi-layered dark overlay for maximum text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/85 to-brand-navy/60 z-1" />
-          <div className="absolute inset-0 bg-black/65 z-1" />
+          {/* Multi-layer dark overlay for readability */}
+          {/* <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/80 z-10" /> */}
+          {/* <div className="absolute inset-0 bg-brand-navy/30 z-10" /> */}
         </div>
 
-        {/* Accent glow */}
-        <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-brand-orange/12 rounded-full blur-[130px] pointer-events-none z-0" />
-        <div className="absolute bottom-[5%] right-[5%] w-[350px] h-[350px] bg-brand-orange/8 rounded-full blur-[100px] pointer-events-none z-0" />
+        {/* Ambient glow orbs */}
+        {/* <div className="absolute top-[15%] left-[10%] w-[350px] h-[350px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none z-10" />
+        <div className="absolute top-[20%] right-[8%] w-[300px] h-[300px] bg-cyan-600/8 rounded-full blur-[100px] pointer-events-none z-10" /> */}
 
-        <div className="w-full box-container relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        {/* Centered Hero Content */}
+        <div className="relative z-20 flex flex-col items-center text-center px-4 sm:px-4 max-w-8xl mt-8 mx-auto w-full">
+          {/* <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/85 text-[10px] font-bold tracking-[0.2em] uppercase mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+            Premium Coworking &middot; Coimbatore
+          </span> */}
 
-          {/* Left Column */}
-          <div className="lg:col-span-7 text-left space-y-6 sm:space-y-8">
-            <span className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl">
-              <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse" />
-              <span className="text-[10px] font-bold tracking-[0.2em] uppercase">Premium Workspace Community</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-white leading-[1.05] mb-6">
+            Coworking Space in{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-300 to-yellow-300">
+              Coimbatore
             </span>
+          </h1>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-outfit font-bold tracking-tight text-white leading-[1.1]">
-              Coworking Space in <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">
-                Coimbatore
-              </span>
-            </h1>
+          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-4xl mb-8">
+            Covai Tech Park coworking space offers a vibrant, dynamic working environment in Coimbatore. Join our network of 650+ professionals and businesses.
+          </p>
 
-            <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-xl">
-              Covai Tech Park coworking space offers you a vibrant and dynamic working environment in Coimbatore. Get connected with the network of professionals and businesses by joining Covai Tech Park&apos;s coworking community.
-            </p>
-
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <button
-                onClick={() => handleOpenBooking("Coimbatore General Quote")}
-                className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-350 shadow-lg hover:scale-103 cursor-pointer shrink-0"
-              >
-                Get Quote
-              </button>
-              <a
-                href="#amenities"
-                className="px-8 py-4 border border-white/20 hover:border-brand-orange text-white hover:bg-brand-orange/10 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-350 hover:scale-103 cursor-pointer decoration-transparent shrink-0"
-              >
-                Explore Amenities
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column: High-fidelity website mock photo */}
-          <div className="lg:col-span-5 relative w-full flex items-center justify-center min-h-[300px] sm:min-h-[400px] lg:min-h-0 aspect-[4/3] lg:aspect-square">
-            <div className="absolute right-0 top-0 w-11/12 h-11/12 rounded-3xl overflow-hidden border border-white/15 shadow-2xl hover:scale-[1.02] transition-transform duration-700">
-              <Image 
-                src="https://covaitechpark.com/wp-content/uploads/2023/07/WhatsApp-Image-2023-07-08-at-16.38.05.jpeg" 
-                alt="CovaiTech Park Coimbatore Workspace" 
-                fill 
-                priority 
-                className="object-cover" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <button
+              onClick={() => handleOpenBooking("Coimbatore General Quote")}
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+            >
+              Book Appointment
+            </button>
+            <a
+              href="#amenities"
+              className="px-8 py-4 border border-white/30 hover:border-brand-orange text-white hover:bg-brand-orange/15 font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
+            >
+              Explore Amenities
+            </a>
           </div>
         </div>
-      </section>
 
-      {/* ── CORE SPACE SOLUTIONS SECTION (Image 2 Bottom Style) ── */}
-      <section id="plans" className="py-20 sm:py-28 bg-[#f8fafc] section-x w-full border-b border-slate-200">
-        <div className="max-w-7xl mx-auto space-y-16">
-          
-          {/* Section Header */}
-          <div className="text-center space-y-3 max-w-xl mx-auto">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">WORKSPACE PACKAGES</span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight">
-              Choose your workspace. <br />Built for high-growth teams.
-            </h2>
-          </div>
-
-          {/* 3-column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            
-            {/* Left Column: 2 Cards */}
-            <div className="lg:col-span-4 flex flex-col justify-between gap-6">
-              
-              {/* Card 1: Hot Desking */}
-              <div className="bg-white rounded-3xl p-8 border border-slate-200/70 shadow-sm flex flex-col justify-between flex-1 text-left group hover:shadow-md hover:border-brand-orange/45 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A2.25 2.25 0 0112.75 21.5h-1.5a2.25 2.25 0 01-2.25-2.263V19.13m-4.75-3.07a9.3 9.3 0 00-1.724 1.156 4.125 4.125 0 006.182 4.417A2.25 2.25 0 0110.5 19.5h1.5a2.25 2.25 0 012.25 2.25M6.75 19.13v-.003c0-1.11-.285-2.16-.786-3.07m0 0A7.447 7.447 0 0112 13.5c2.16 0 4.12.915 5.503 2.392" />
-                    </svg>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Hot Desks</h3>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
-                      Reserve a seat in our open-plan shared workspace community. Perfect for freelancers, startup founders, and remote workers who enjoy a collaborative environment.
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-lg font-bold text-brand-navy">₹450<span className="text-xs text-slate-400 font-normal"> /seat/day</span></span>
-                  <button onClick={() => handleOpenBooking("Coimbatore: Hot Desks")} className="px-5 py-2.5 bg-brand-navy hover:bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition-all">Book Space</button>
-                </div>
-              </div>
-
-              {/* Card 2: Dedicated Desks */}
-              <div className="bg-white rounded-3xl p-8 border border-slate-200/70 shadow-sm flex flex-col justify-between flex-1 text-left group hover:shadow-md hover:border-brand-orange/45 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <rect x="4" y="4" width="16" height="16" rx="2" />
-                      <path d="M9 4v16M15 4v16M4 9h16M4 15h16" />
-                    </svg>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Dedicated Desks</h3>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
-                      Enjoy the comfort of your own dedicated desk reserved just for you at a specific spot. Ideal for growing teams requiring permanent desks and local storage.
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-lg font-bold text-brand-navy">₹6,000<span className="text-xs text-slate-400 font-normal"> /seat/month</span></span>
-                  <button onClick={() => handleOpenBooking("Coimbatore: Dedicated Desk")} className="px-5 py-2.5 bg-brand-navy hover:bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition-all">Book Space</button>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Center Column: Tall Image */}
-            <div className="lg:col-span-4 relative min-h-[350px] lg:min-h-0 rounded-[2.5rem] overflow-hidden border border-slate-200 shadow-sm">
-              <Image 
-                src="https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=800&q=80" 
-                alt="CovaiTech Park Premium Interior" 
-                fill 
-                className="object-cover" 
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
-            </div>
-
-            {/* Right Column: 2 Cards */}
-            <div className="lg:col-span-4 flex flex-col justify-between gap-6">
-              
-              {/* Card 3: Private Cabins */}
-              <div className="bg-white rounded-3xl p-8 border border-slate-200/70 shadow-sm flex flex-col justify-between flex-1 text-left group hover:shadow-md hover:border-brand-orange/45 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
-                    </svg>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Private Cabins</h3>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
-                      Lockable, secure, and fully furnished soundproof offices designed to reflect your corporate identity. Perfect for compliance-heavy teams and agencies.
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-lg font-bold text-brand-navy">₹8,999<span className="text-xs text-slate-400 font-normal"> /seat/month</span></span>
-                  <button onClick={() => handleOpenBooking("Coimbatore: Private Cabins")} className="px-5 py-2.5 bg-brand-navy hover:bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition-all">Book Space</button>
-                </div>
-              </div>
-
-              {/* Card 4: Meeting & Boardrooms */}
-              <div className="bg-white rounded-3xl p-8 border border-slate-200/70 shadow-sm flex flex-col justify-between flex-1 text-left group hover:shadow-md hover:border-brand-orange/45 transition-all duration-300">
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0">
-                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
-                      <circle cx="12" cy="12" r="3" />
-                    </svg>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Meeting Rooms</h3>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
-                      Host clients, team standups, and strategic reviews in soundproof rooms equipped with smart presentation displays, whiteboards, and high-speed Wi-Fi.
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-6 mt-6 border-t border-slate-100 flex justify-between items-center">
-                  <span className="text-lg font-bold text-brand-navy">₹500<span className="text-xs text-slate-400 font-normal"> /hour</span></span>
-                  <button onClick={() => handleOpenBooking("Coimbatore: Meeting Room")} className="px-5 py-2.5 bg-brand-navy hover:bg-brand-orange text-white text-[10px] font-black uppercase tracking-wider rounded-xl transition-all">Book Space</button>
-                </div>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── WORKSPACE SOLUTIONS DIRECTORY SECTION (Image 3 Top Style) ── */}
-      <section className="py-20 sm:py-28 bg-[#f5f6f8] section-x w-full border-b border-slate-200">
-        <div className="max-w-7xl mx-auto space-y-12">
-          
-          {/* Header with slider controls on right */}
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 border-b border-slate-200/80 pb-6 text-left">
-            <div className="space-y-3">
-              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
-                DIRECTORY
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
-                Workspace Solutions Directory
-              </h2>
-            </div>
-            
-            {/* Prev/Next circle buttons */}
-            <div className="flex gap-3 shrink-0">
-              <button
-                onClick={scrollDirectoryPrev}
-                className="w-12 h-12 rounded-full border border-slate-300 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
-                aria-label="Previous Slide"
+        {/* Fan-out Arc of 5 tilted workspace cards at bottom — flex-based responsive */}
+        <div className="relative z-20 w-full max-w-5xl mx-auto mt-4 sm:mt-2 md:mt-2 lg:mt-6 px-4 flex-shrink-0 h-[220px] sm:h-[240px] md:h-[280px] justify-start">
+          {/* Desktop/tablet: absolute positioned fan */}
+          <div className="hidden sm:block relative w-full h-full">
+            {[
+              { img: "/covaitechpark/hero1.jpg", rotate: -36, offset: "-420px", translateY: "60px", active: false },
+              { img: "/covaitechpark/hero2.jpg", rotate: -18, offset: "-210px", translateY: "15px", active: false },
+              { img: "/covaitechpark/hero3.jpg", rotate: 0, offset: "0px", translateY: "0px", active: true },
+              { img: "/covaitechpark/hero11.jpg", rotate: 18, offset: "210px", translateY: "15px", active: false },
+              { img: "/covaitechpark/hero13.jpg", rotate: 36, offset: "420px", translateY: "60px", active: false },
+            ].map((card, i) => (
+              <div
+                key={i}
+                className="absolute bottom-0 left-1/2"
+                style={{
+                  transform: `translateX(calc(-50% + ${card.offset})) translateY(${card.translateY}) rotate(${card.rotate}deg)`,
+                  transformOrigin: 'bottom center',
+                  zIndex: card.active ? 30 : 20 - Math.abs(i - 2),
+                  transition: 'transform 0.5s ease',
+                }}
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-              </button>
-              <button
-                onClick={scrollDirectoryNext}
-                className="w-12 h-12 rounded-full border border-slate-300 bg-white hover:bg-brand-orange hover:border-brand-orange hover:text-white text-brand-navy flex items-center justify-center shadow-sm transition-all duration-300 cursor-pointer active:scale-95"
-                aria-label="Next Slide"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          {/* Embla slider for directory */}
-          <div className="overflow-hidden w-full" ref={directoryRef}>
-            <div className="flex gap-8">
-              
-              {/* Card 1 */}
-              <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
-                <div className="group flex flex-col text-left cursor-pointer" onClick={() => handleOpenBooking("Coimbatore Directory: Coworking")}>
-                  <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80" 
-                      alt="Coworking Space" 
-                      fill 
-                      className="object-cover transition-transform duration-750 group-hover:scale-105" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/35 to-transparent" />
-                  </div>
-                  <div className="mt-4 px-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Coworking Space</h3>
-                    <p className="text-slate-400 text-xs font-normal mt-0.5">50+ Seats Available · Coimbatore, India</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 */}
-              <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
-                <div className="group flex flex-col text-left cursor-pointer" onClick={() => handleOpenBooking("Coimbatore Directory: Private Cabins")}>
-                  <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" 
-                      alt="Private Office Space" 
-                      fill 
-                      className="object-cover transition-transform duration-750 group-hover:scale-105" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/35 to-transparent" />
-                  </div>
-                  <div className="mt-4 px-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Private Office Space</h3>
-                    <p className="text-slate-400 text-xs font-normal mt-0.5">20+ Cabin Suites · Coimbatore, India</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 */}
-              <div className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
-                <div className="group flex flex-col text-left cursor-pointer" onClick={() => handleOpenBooking("Coimbatore Directory: Virtual Office")}>
-                  <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-200 shadow-sm">
-                    <Image 
-                      src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" 
-                      alt="Virtual Office & GST" 
-                      fill 
-                      className="object-cover transition-transform duration-750 group-hover:scale-105" 
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/35 to-transparent" />
-                  </div>
-                  <div className="mt-4 px-2">
-                    <h3 className="font-outfit font-bold text-xl text-brand-navy group-hover:text-brand-orange transition-colors">Virtual Office &amp; GST</h3>
-                    <p className="text-slate-400 text-xs font-normal mt-0.5">100+ Registrations · Coimbatore, India</p>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* ── WHY CHOOSE COVAI TECH PARK SECTION — Elegant, Rich & Modern Grid ── */}
-      <section className="py-20 sm:py-32 bg-white w-full border-b border-slate-100 overflow-hidden px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-16 sm:space-y-24">
-
-          {/* Header */}
-          <div className="max-w-3xl space-y-4">
-            <div className="flex items-center gap-4">
-              <span className="w-10 h-px bg-brand-orange"></span>
-              <span className="text-[10px] font-bold text-brand-orange uppercase tracking-[0.4em] leading-none">
-                Why Choose Us
-              </span>
-            </div>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-light text-slate-900 tracking-tight leading-[1.1]">
-              Why choose <br className="hidden sm:block" />
-              <span className="font-semibold text-brand-orange">Covai Tech Park Coworking?</span>
-            </h2>
-            <p className="text-slate-500 text-sm sm:text-base font-normal max-w-xl leading-relaxed pt-2">
-              Discover the benefits of establishing your business operations inside Coimbatore&apos;s most premium coworking space.
-            </p>
-          </div>
-
-          {/* 3-column Elegant Grid of Cards with Images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {COIMBATORE_WHY_CHOOSE.map((pillar) => (
-              <div key={pillar.id} className="group bg-white rounded-3xl overflow-hidden border border-slate-200/70 shadow-sm hover:shadow-xl hover:border-brand-orange/40 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
-                {/* Top Image Container */}
-                <div className="relative w-full aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={pillar.image}
-                    alt={pillar.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-slate-900/20 to-transparent" />
-                  <span className="absolute bottom-4 left-6 text-6xl font-extralight text-white/35 font-outfit select-none leading-none">
-                    {pillar.id}
-                  </span>
-                </div>
-
-                {/* Card Content with Minimal Text */}
-                <div className="p-6 sm:p-8 flex flex-col justify-between flex-grow">
-                  <div className="space-y-4">
-                    <div className="space-y-1">
-                      <span className="text-[9px] font-bold text-brand-orange uppercase tracking-widest block">
-                        {pillar.subtitle}
-                      </span>
-                      <h3 className="font-outfit font-semibold text-2xl text-brand-navy leading-tight group-hover:text-brand-orange transition-colors duration-250">
-                        {pillar.title}
-                      </h3>
-                    </div>
-                    <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed">
-                      {pillar.description}
-                    </p>
-                  </div>
-
-                  {/* Checklist */}
-                  <ul className="space-y-3 mt-6 pt-6 border-t border-slate-100">
-                    {pillar.points.map(pt => (
-                      <li key={pt} className="flex items-start gap-3">
-                        <span className="mt-[0.45rem] w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0" />
-                        <span className="text-xs font-semibold text-slate-800 leading-tight">{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div
+                  className={`relative w-48 sm:w-56 md:w-68 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${
+                    card.active ? 'scale-105' : 'scale-95'
+                  }`}
+                  style={{ height: card.active ? '260px' : '260px' }}
+                >
+                  <Image src={card.img} alt="Workspace" fill sizes="156px" className="object-cover" />
                 </div>
               </div>
             ))}
           </div>
 
+          {/* Mobile: horizontal scroll row (no rotation) */}
+          <div className="flex sm:hidden gap-3 overflow-x-auto pb-2 scrollbar-hide items-end justify-center">
+            {[
+              { img: "/covaitechpark/hero1.jpg" },
+              { img: "/covaitechpark/hero2.jpg" },
+              { img: "/covaitechpark/hero3.jpg", active: true },
+              { img: "/covaitechpark/hero11.jpg" },
+              { img: "/covaitechpark/hero13.jpg" },
+            ].map((card, i) => (
+              <div key={i} className={`flex-shrink-0 w-28 relative rounded-[1rem] overflow-hidden ${card.active ? 'h-44' : 'h-36'}`}>
+                <Image src={card.img} alt="Workspace" fill sizes="112px" className="object-cover" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── NEED HELP BANNER ── */}
+      {/* ── SERVICES SECTION (Image 2 Bottom Reference) ── */}
+      <section id="plans" className="py-20 sm:py-28 bg-[#f8fafc] section-x w-full">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <span className="text-[10px] font-bold text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+              PLANS & PRICING
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1]">
+              Flexible Office Solutions<br />Tailored For Your Budget
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
+            <div className="flex flex-col gap-6 lg:gap-8">
+              <div className="bg-white border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between h-full hover:border-brand-orange/45 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/5 rounded-bl-[4rem]" />
+                <div>
+                  <div className="mb-6 w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                  </div>
+                  <h3 className="font-outfit font-bold text-xl text-brand-navy mb-2">Dedicated Desk</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-normal mb-6">Enjoy the comfort of your own dedicated desk in our coworking space. Reserved for you at a specific spot in our facility during your membership period.</p>
+                </div>
+                <div className="mt-auto pt-6 border-t border-slate-100 flex flex-col gap-3">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-black text-brand-navy">₹6,000</span>
+                    <span className="text-xs text-slate-400 font-semibold">/seat/month</span>
+                  </div>
+                  <button onClick={() => handleOpenBooking("Coimbatore Dedicated Desk")} className="w-full py-3.5 bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:text-white text-xs font-medium  tracking-widest rounded-xl transition-all duration-300">Book Seat</button>
+                </div>
+              </div>
+              <div className="bg-white border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between h-full hover:border-brand-orange/45 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/5 rounded-bl-[4rem]" />
+                <div>
+                  <div className="mb-6 w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  </div>
+                  <h3 className="font-outfit font-bold text-xl text-brand-navy mb-2">Private Office Space</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-normal mb-6">Ideal for growing teams requiring secure, lockable, fully furnished private cabins with complete operational privacy.</p>
+                </div>
+                <div className="mt-auto pt-6 border-t border-slate-100 flex flex-col gap-3">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-black text-brand-navy">Custom Pricing</span>
+                    <span className="text-xs text-slate-400 font-semibold">/team layout</span>
+                  </div>
+                  <button onClick={() => handleOpenBooking("Coimbatore Private Office")} className="w-full py-3.5 bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:text-white text-xs font-medium  tracking-widest rounded-xl transition-all duration-300">Request Quote</button>
+                </div>
+              </div>
+            </div>
+            <div className="relative min-h-[400px] md:min-h-full rounded-3xl overflow-hidden shadow-md">
+              <Image src="https://images.pexels.com/photos/20123842/pexels-photo-20123842.jpeg" alt="Services Image" fill className="object-cover" />
+            </div>
+            <div className="flex flex-col gap-6 lg:gap-8">
+              <div className="bg-white border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between h-full hover:border-brand-orange/45 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/5 rounded-bl-[4rem]" />
+                <div>
+                  <div className="mb-6 w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+                  </div>
+                  <h3 className="font-outfit font-bold text-xl text-brand-navy mb-2">Day Pass</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-normal mb-6">Access professional hot desking workspace on demand with high-speed internet, comfortable seating, and premium support amenities.</p>
+                </div>
+                <div className="mt-auto pt-6 border-t border-slate-100 flex flex-col gap-3">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-black text-brand-navy">₹450</span>
+                    <span className="text-xs text-slate-400 font-semibold">/seat/day</span>
+                  </div>
+                  <button onClick={() => handleOpenBooking("Coimbatore Day Pass")} className="w-full py-3.5 bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:text-white text-xs font-medium  tracking-widest rounded-xl transition-all duration-300">Get Pass</button>
+                </div>
+              </div>
+              <div className="bg-white border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between h-full hover:border-brand-orange/45 hover:shadow-xl transition-all duration-300 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-brand-orange/5 rounded-bl-[4rem]" />
+                <div>
+                  <div className="mb-6 w-12 h-12 rounded-2xl bg-brand-orange/10 flex items-center justify-center text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                    <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  </div>
+                  <h3 className="font-outfit font-bold text-xl text-brand-navy mb-2">Meeting Room</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed font-normal mb-6">Host client presentations, team discussions, and strategic boot camps in professionally configured boardrooms.</p>
+                </div>
+                <div className="mt-auto pt-6 border-t border-slate-100 flex flex-col gap-3">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-2xl font-black text-brand-navy">Custom Hours</span>
+                    <span className="text-xs text-slate-400 font-semibold">/hour block</span>
+                  </div>
+                  <button onClick={() => handleOpenBooking("Coimbatore Meeting Room")} className="w-full py-3.5 bg-brand-navy/5 text-brand-navy hover:bg-brand-orange hover:text-white text-xs font-medium  tracking-widest rounded-xl transition-all duration-300">Reserve Room</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORKSPACE SOLUTIONS DIRECTORY SECTION (Image 3 Top Style) ── */}
+      <section className="py-20 sm:py-28 bg-slate-50 section-x w-full border-b border-slate-200">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
+          <div className="flex flex-col sm:flex-row justify-center items-center sm:items-end gap-6 border-b border-slate-200 pb-8">
+            <div className="max-w-xl space-y-2 text-left">
+              <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block">
+                OTHER WORKSPACE SOLUTIONS
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1]">
+                Versatile setups for <br className="hidden sm:block" />every work style
+              </h2>
+            </div>
+          </div>
+          <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
+              {[
+                { title: "Virtual Office", desc: "Professional Business Address", img: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=600&q=80" },
+                { title: "Event Space", desc: "Spacious Venues for Gatherings", img: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=600&q=80" },
+                { title: "Training Room", desc: "Corporate Training Setups", img: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80" }
+              ].map((item, i) => (
+                <div key={i} className="w-full">
+                  <div className="group flex flex-col text-left cursor-pointer relative h-full" onClick={() => handleOpenBooking(`Coimbatore Directory: ${item.title}`)}>
+                    <div className="relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-md h-full">
+                      <Image src={item.img} alt={item.title} fill className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-black/20 to-transparent" />
+                      <div className="absolute bottom-0 left-0 w-full bg-brand-navy/10 backdrop-blur-md border-t border-white/20 p-5 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                        <h3 className="font-outfit font-bold text-xl sm:text-2xl text-white mb-1 drop-shadow-sm">{item.title}</h3>
+                        <p className="text-white/90 text-sm font-normal drop-shadow-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY CHOOSE COVAI TECH PARK — 2-column split layout like image 4 ── */}
+      <section id="benefits" className="py-20 sm:py-20 bg-slate-50 section-x w-full">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden rounded-[2.5rem] bg-white shadow-xl border border-slate-100">
+            <div className="p-5 sm:p-10 lg:p-10 flex flex-col justify-center">
+              <span className="text-[10px] font-bold text-brand-orange uppercase tracking-widest block mb-4 border border-brand-orange/40 w-max px-3 py-1 rounded-full bg-brand-orange/5">
+                WHY CHOOSE COVAI TECH PARK
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1] mb-12">
+                A modern approach to<br />coworking
+              </h2>
+              <div className="space-y-4 mb-12">
+                {[
+                  { label: "Flexible Plans", desc: "Covai Tech Park offers flexible coworking membership plans that cater to your long-term and short-term workspace needs. Book from a day to a month.", icon: "M12 6v6m0 0v6m0-6h6m-6 0H6" },
+                  { label: "Cost-effective Workspace", desc: "Coworking spaces at Covai Tech Park are ready-to-use, which significantly reduces the initial investment required to set up your office.", icon: "M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3" },
+                  { label: "Maintenance Covered", desc: "Don't worry about maintenance! Our dedicated staff handle regular cleaning and maintenance of the facility.", icon: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+                ].map((feat, i) => (
+                  <div key={i} className="flex items-start gap-3 p-2 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100 group">
+                    <div className="w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange shrink-0 group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
+                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d={feat.icon} /></svg>
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-base text-brand-navy mb-1.5">{feat.label}</h3>
+                      <p className="text-slate-500 text-sm font-normal leading-relaxed">{feat.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => handleOpenBooking("Book an appointment")} 
+                className="inline-flex items-center gap-3 px-8 py-4 bg-brand-navy hover:bg-brand-orange text-white font-bold text-xs uppercase tracking-widest rounded-full transition-all duration-300 w-max shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+              >
+                Book an appointment
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </button>
+            </div>
+            <div className="relative w-full h-[400px] lg:h-auto min-h-[500px]">
+              <Image src="https://images.pexels.com/photos/7688333/pexels-photo-7688333.jpeg" alt="Modern workspace approach" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── STATS SECTION — Image 3 Reference ── */}
+      {/* <section className="w-full min-h-[100vh] flex flex-col justify-center py-16 sm:py-20 border-t border-slate-100 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="space-y-4 max-w-md">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-3 h-3 rounded-full bg-brand-orange" />
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">ACHIEVEMENTS AT A GLANCE</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.1]">
+                Our Edge<br />in Excellence
+              </h2>
+              <p className="text-slate-500 text-sm font-normal leading-relaxed pt-2 pb-4">
+                With a diverse range of workspace solutions, premium amenities, and a prime location in Coimbatore, we are committed to delivering exceptional quality infrastructure.
+              </p>
+              <div className="w-24 h-[1px] bg-slate-300" />
+            </div>
+            <div className="relative flex items-center justify-center lg:justify-end gap-8 sm:gap-10 lg:pr-8">
+              <div className="mt-28">
+                <div className="relative w-48 sm:w-56 h-56 sm:h-64 rounded-[2rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] bg-[#0a1120] border border-white/5">
+                  <div className="absolute right-0 top-0 bottom-0 w-3 bg-brand-orange" />
+                  <div className="absolute inset-0 flex flex-col justify-between p-8 pr-10">
+                    <div>
+                      <p className="text-[10px] font-black text-white/70 uppercase tracking-widest leading-snug">SUBSCRIBERS<br />TRUST US</p>
+                    </div>
+                    <p className="font-outfit font-black text-5xl sm:text-6xl text-white leading-none tracking-tighter">250+</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-8 sm:gap-10">
+                <div className="relative w-48 sm:w-56 h-56 sm:h-64 rounded-[2rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] bg-[#0a1120] border border-white/5">
+                  <div className="absolute right-0 top-0 bottom-0 w-3 bg-brand-orange" />
+                  <div className="absolute inset-0 flex flex-col justify-between p-8 pr-10">
+                    <p className="text-[10px] font-black text-white/70 uppercase tracking-widest leading-snug">LOCATIONS<br />PRIME</p>
+                    <p className="font-outfit font-black text-5xl sm:text-6xl text-white leading-none tracking-tighter">8</p>
+                  </div>
+                </div>
+                <div className="relative w-48 sm:w-56 h-56 sm:h-64 rounded-[2rem] overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.35)] bg-[#0a1120] border border-white/5">
+                  <div className="absolute right-0 top-0 bottom-0 w-3 bg-brand-orange" />
+                  <div className="absolute inset-0 flex flex-col justify-between p-8 pr-10">
+                    <p className="text-[10px] font-black text-white/70 uppercase tracking-widest leading-snug">EXPERIENCE<br />YEARS</p>
+                    <p className="font-outfit font-black text-5xl sm:text-6xl text-white leading-none tracking-tighter">25+</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
+      {/* ── HELP BANNER ── */}
       <section className="bg-brand-navy py-12 sm:py-16 w-full text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(243,112,33,0.15),transparent_50%)]" />
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
@@ -947,97 +999,48 @@ export default function CoimbatorePage() {
         </div>
       </section>
 
-      {/* ── AMENITIES SECTION — Mockup Card Grid with Overlapping Circle Icons ── */}
+      {/* ── AMENITIES SECTION — Minimalist Grid with Icons ── */}
       <section id="amenities" className="py-20 sm:py-28 bg-[#f8fafc] w-full border-b border-slate-100 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto space-y-16 sm:space-y-20">
-
-          {/* Header */}
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-3 max-w-xl mx-auto">
             <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.3em] block leading-none">
               FACILITIES DIRECTORY
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight">
-              Amenities
+              Best in Class Amenities
             </h2>
             <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed">
               Everything your organization needs is covered. Zero maintenance overhead, zero setup complications.
             </p>
           </div>
 
-          {/* 3-column grid matching the user's reference image exactly */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {COIMBATORE_AMENITIES.map((amenity, i) => {
-              // High-quality relevant Unsplash URLs for the 17 amenities
-              const imagesList = [
-                "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80", // Office
-                "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80", // Wifi
-                "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80", // AC
-                "https://images.unsplash.com/photo-1521791136364-728647526959?auto=format&fit=crop&w=600&q=80", // Support
-                "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80", // Cleaning
-                "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=600&q=80", // Mail
-                "https://images.unsplash.com/photo-1556740758-90de374c12ad?auto=format&fit=crop&w=600&q=80", // Reception
-                "https://images.unsplash.com/photo-1506521788723-868114856b3e?auto=format&fit=crop&w=600&q=80", // Parking
-                "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=600&q=80", // CCTV
-                "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80", // generator
-                "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80", // food
-                "https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=600&q=80", // water
-                "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?auto=format&fit=crop&w=600&q=80", // printer
-                "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=600&q=80", // security
-                "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=600&q=80", // access
-                "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80", // breakout
-                "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"  // gym
-              ];
-              const imageUrl = imagesList[i] || imagesList[0];
-
-              return (
-                <div key={i} className="group bg-white rounded-3xl overflow-hidden border border-slate-200/70 shadow-sm hover:shadow-xl hover:border-brand-orange/40 hover:-translate-y-1.5 transition-all duration-300 flex flex-col">
-                  {/* Top Image Container */}
-                  <div className="relative w-full aspect-[16/10] overflow-hidden">
-                    <Image
-                      src={imageUrl}
-                      alt={amenity.name}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {COIMBATORE_AMENITIES.map((amenity, i) => (
+              <div
+                key={i}
+                className="group relative bg-white rounded-2xl p-6 sm:p-8 border border-slate-100 hover:border-brand-orange/30 hover:shadow-lg transition-all duration-300 text-left flex flex-col justify-between"
+              >
+                <div>
+                  {/* Icon Block with subtle color background */}
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 group-hover:bg-brand-orange/10 group-hover:text-brand-orange flex items-center justify-center transition-colors duration-300 mb-5">
+                    <AmenityIcon name={amenity.icon} className="w-6 h-6 stroke-[1.5]" />
                   </div>
-
-                  {/* Overlapping circular icon */}
-                  <div className="relative px-6">
-                    <div className="w-12 h-12 -mt-6 mb-2 relative z-20 rounded-full border-4 border-white shadow-md flex items-center justify-center bg-brand-orange text-white group-hover:bg-[#d96010] transition-colors duration-300">
-                      <AmenityIcon name={amenity.icon} className="w-5 h-5 stroke-[1.8]" />
-                    </div>
-                  </div>
-
-                  {/* Card Body */}
-                  <div className="px-6 pb-6 pt-2 flex flex-col justify-between flex-grow">
-                    <div className="space-y-2">
-                      <h3 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors duration-200 text-left">
-                        {amenity.name}
-                      </h3>
-                      <p className="text-slate-500 text-xs sm:text-sm font-normal leading-relaxed text-left">
-                        {amenity.desc}
-                      </p>
-                    </div>
-
-                    {/* Learn More link */}
-                    <div className="mt-5 pt-4 border-t border-slate-100 flex justify-start">
-                      <span className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-brand-orange group-hover:gap-2.5 transition-all duration-300">
-                        Learn more <span className="text-sm font-bold">&rarr;</span>
-                      </span>
-                    </div>
-                  </div>
+                  
+                  <h3 className="font-outfit font-bold text-base text-brand-navy group-hover:text-brand-orange transition-colors duration-300 mb-2">
+                    {amenity.name}
+                  </h3>
+                  <p className="text-slate-500 text-xs sm:text-xs font-normal leading-relaxed">
+                    {amenity.desc}
+                  </p>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
-
         </div>
       </section>
 
       {/* ── TESTIMONIALS SECTION — Premium Slider Carousel ── */}
-      <section className="py-20 sm:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
+      <section id="testimonials" className="py-20 sm:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-14 relative z-10">
 
           {/* Section Header */}
@@ -1047,14 +1050,14 @@ export default function CoimbatorePage() {
                 WHAT OUR MEMBERS SAY
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
-                Here&apos;s what our happy customers say!
+                Here's what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
                 <div className="text-brand-orange flex items-center gap-0.5 text-base">
                   <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                 </div>
                 <span className="text-sm font-bold text-brand-navy">4.9</span>
-                <span className="text-slate-400 text-xs font-normal">· Google Business (180+ Reviews)</span>
+                <span className="text-slate-400 text-xs font-normal">· Google Business</span>
               </div>
             </div>
 
@@ -1084,7 +1087,12 @@ export default function CoimbatorePage() {
           {/* Embla Slider Carousel */}
           <div className="overflow-hidden w-full cursor-grab active:cursor-grabbing" ref={emblaRef}>
             <div className="flex">
-              {COIMBATORE_TESTIMONIALS.map((testimonial, idx) => (
+              {[
+                { name: "Saravanan", review: "Ready to move office space at the best price. I highly recommend this place if you are planning for an office space in Coimbatore." },
+                { name: "Vivek Anand", review: "I'm happy to share this information. It has a friendly atmosphere working in the community space. They provide end to end support and suitable for startup firm, freelancers and large scale business office use." },
+                { name: "Vijayakumar Balu", review: "I used this Facility and found to be useful and productive for me. I recommend this facility for freelancers or startups or corporate professionals working remotely." },
+                { name: "Dhanush", review: "It is clean and bright place and convenient to work. We Booked conference room for a day to a official business meet, out team is so happy and satisfied with their service." }
+              ].map((testimonial, idx) => (
                 <div key={idx} className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] px-3 min-w-0">
                   <div className="bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between relative group">
                     
@@ -1099,18 +1107,18 @@ export default function CoimbatorePage() {
                         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                       </div>
                       <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed -mt-1 italic">
-                        &ldquo;{testimonial.quote}&rdquo;
+                        &ldquo;{testimonial.review}&rdquo;
                       </p>
                     </div>
 
                     {/* Member profile */}
                     <div className="mt-8 pt-5 border-t border-slate-100 flex items-center gap-3">
                       <div className="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center text-white font-bold text-sm shrink-0 border-2 border-brand-orange/20">
-                        {testimonial.name.split(' ').map((n: string) => n[0]).join('')}
+                        {testimonial.name.split(' ').map((n) => n[0]).join('').substring(0, 2)}
                       </div>
                       <div className="text-left">
                         <p className="font-outfit font-bold text-sm text-brand-navy">{testimonial.name}</p>
-                        <p className="text-xs text-brand-orange font-semibold">{testimonial.role}</p>
+                        <p className="text-xs text-brand-orange font-semibold">Verified Member</p>
                       </div>
                     </div>
 
@@ -1138,54 +1146,36 @@ export default function CoimbatorePage() {
       </section>
 
       {/* ── FAQ SECTION (Sleek Minimal Grid Layout) ── */}
-      <section className="py-20 sm:py-28 bg-white section-x w-full">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-left">
-          
-          {/* Left Column: Heading and WhatsApp support CTA */}
-          <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
-              FAQ
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-slate-500 text-sm font-normal leading-relaxed">
-              Have specific questions about booking terms, GST registration, or space customized layouts?
-            </p>
-            <div className="pt-2">
-              <a
-                href="https://wa.me/919360780768"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 bg-[#25d366] hover:bg-[#1da851] text-white text-xs font-bold uppercase tracking-widest rounded-full transition-colors duration-300 decoration-transparent"
-              >
-                Ask us on WhatsApp
-                <span className="text-sm font-bold">&rarr;</span>
-              </a>
-            </div>
+      <section id="faqs" className="py-20 sm:py-28 bg-white section-x w-full">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center space-y-3 mb-16">
+            <span className="text-[10px] font-bold text-brand-orange uppercase tracking-[0.25em]">FAQ</span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold text-brand-navy">Frequently asked questions</h2>
           </div>
-
-          {/* Right Column: Clean Accordion list */}
-          <div className="lg:col-span-8 space-y-4 w-full">
-            {COIMBATORE_FAQS.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div key={idx} className="bg-slate-50 rounded-2xl border border-slate-200/80 overflow-hidden transition-all duration-300">
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer"
-                  >
-                    <span className="font-outfit font-bold text-sm sm:text-base text-brand-navy leading-tight pr-4">{faq.question}</span>
-                    <span className={`text-brand-orange transition-transform duration-300 shrink-0 ${isOpen ? "rotate-180" : ""}`}>
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                    </span>
-                  </button>
-                  <div className={`px-6 overflow-hidden transition-all duration-350 ${isOpen ? "max-h-40 pb-5 opacity-100" : "max-h-0 opacity-0"}`}>
-                    <p className="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed border-t border-slate-200/60 pt-4">{faq.answer}</p>
+          <div className="space-y-4">
+            {[
+              { q: "Is there an option to book a coworking space for one day in Coimbatore?", a: "Yes, the shared workspace can be booked for a day in Coimbatore. The terms for using the workspace are highly flexible to meet your short-term and long-term office space needs." },
+              { q: "Is there 24/7 access to the coworking space facility?", a: "Yes, the Covai Tech Park’s coworking space facility is accessible 24/7." },
+              { q: "Who can benefit from coworking space?", a: "Coworking spaces in Coimbatore are best suited for entrepreneurs, remote workers, freelancers, small-medium enterprises, startups, businesses, and professionals who want to be part of a dynamic community." },
+              { q: "Can we host events in this coworking facility?", a: "Yes, Event spaces are available at Covai Tech Park." },
+              { q: "What are the benefits of choosing a shared office space in Coimbatore?", a: "Professional working environment at affordable price. Opportunities to network and collaborate. Workspace that is flexible and can be adjusted according to your requirements." },
+              { q: "Can we access the coworking space on Sundays?", a: "Certainly! Our coworking space is open throughout the entire week, including Sundays." }
+            ].map((faq, i) => (
+              <div key={i} className="border border-slate-200 rounded-2xl p-2 transition-all">
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  className="flex items-center justify-between w-full p-4 sm:p-5 text-left bg-transparent group"
+                >
+                  <span className="font-outfit font-bold text-brand-navy text-sm sm:text-base pr-8 group-hover:text-brand-orange transition-colors">{faq.q}</span>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${openFaq === i ? 'bg-brand-orange text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-brand-orange/10 group-hover:text-brand-orange'}`}>
+                    <svg className={`w-4 h-4 transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                   </div>
+                </button>
+                <div className={`overflow-hidden transition-all duration-300 ease-in-out ${openFaq === i ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <p className="p-4 sm:p-5 pt-0 text-slate-500 text-sm leading-relaxed border-t border-slate-100 mt-2">{faq.a}</p>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1204,7 +1194,7 @@ export default function CoimbatorePage() {
               <span className="text-xs font-bold text-brand-orange uppercase tracking-[0.25em] block leading-none">
                 VISIT THE CAMPUS
               </span>
-              <h2 className="text-3xl sm:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Establish Your Organization at CovaiTech Park
               </h2>
               <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed">
@@ -1231,8 +1221,14 @@ export default function CoimbatorePage() {
                 </span>
                 <div>
                   <h4 className="font-outfit font-bold text-sm sm:text-base text-brand-navy">Campus Contacts</h4>
-                  <p className="text-xs sm:text-sm text-slate-500 font-normal mt-1">info@covaitechpark.com</p>
-                  <p className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5">+91 93607 80768 | +91 96889 92210</p>
+                  <p className="text-xs sm:text-sm text-slate-500 font-normal mt-1">
+                    <a href="mailto:info@covaitechpark.com" className="hover:text-brand-orange transition-colors">info@covaitechpark.com</a>
+                  </p>
+                  <div className="text-xs sm:text-sm text-slate-500 font-normal mt-0.5 flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
+                    <span className="hidden sm:inline text-slate-300">|</span>
+                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 96889 92210</a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1246,52 +1242,120 @@ export default function CoimbatorePage() {
                 <p className="text-xs text-brand-slate font-bold">Leave your contact details and we&apos;ll call you shortly.</p>
               </div>
 
-              <form
-                className="space-y-5 text-sm font-normal text-left"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  handleOpenBooking("Coimbatore Tour Request");
-                }}
-              >
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Your Name"
-                    required
-                    className="w-full border-b border-slate-200 py-3 text-brand-navy focus:outline-none focus:border-brand-orange rounded-none placeholder:text-slate-400 font-normal text-xs bg-transparent"
-                  />
+              {contactSuccess ? (
+                <div className="py-10 text-center space-y-4 w-full">
+                  <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
+                    <svg className="w-6 h-6 fill-current" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                  </div>
+                  <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Tour Request Submitted!</h4>
+                  <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
+                    Thank you, <strong>{contactFirstName} {contactLastName}</strong>. Your tour request has been received. We will contact you at <strong>{contactEmail}</strong> or <strong>{contactPhoneCode} {contactPhone}</strong> shortly.
+                  </p>
                 </div>
-                <div>
-                  <input
-                    type="email"
-                    placeholder="Email Address"
-                    required
-                    className="w-full border-b border-slate-200 py-3 text-brand-navy focus:outline-none focus:border-brand-orange rounded-none placeholder:text-slate-400 font-normal text-xs bg-transparent"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    required
-                    className="w-full border-b border-slate-200 py-3 text-brand-navy focus:outline-none focus:border-brand-orange rounded-none placeholder:text-slate-400 font-normal text-xs bg-transparent"
-                  />
-                </div>
-                <div>
-                  <textarea
-                    placeholder="Briefly describe your team size or seating requirements..."
-                    rows={2}
-                    required
-                    className="w-full border-b border-slate-200 py-3 text-brand-navy focus:outline-none focus:border-brand-orange rounded-none placeholder:text-slate-400 font-normal text-xs resize-none bg-transparent"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
-                >
-                  Request Tour Schedule
-                </button>
-              </form>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-bold text-sm w-full">
+                  {/* Name Row */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={contactFirstName}
+                          onChange={(e) => setContactFirstName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={contactLastName}
+                          onChange={(e) => setContactLastName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Phone Number */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Phone <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex border border-brand-navy/15 rounded-xl overflow-hidden focus-within:border-brand-orange shadow-sm">
+                      <select
+                        value={contactPhoneCode}
+                        onChange={(e) => setContactPhoneCode(e.target.value)}
+                        className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+65">🇸🇬 +65</option>
+                      </select>
+                      <input
+                        type="tel"
+                        required
+                        value={contactPhone}
+                        onChange={(e) => setContactPhone(e.target.value)}
+                        placeholder=""
+                        className="w-full bg-white px-4 py-3 text-xs text-brand-navy focus:outline-none font-bold"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email Address */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={contactEmail}
+                      onChange={(e) => setContactEmail(e.target.value)}
+                      placeholder=""
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                    />
+                  </div>
+
+                  {/* What are you looking for? */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      What are you looking for?
+                    </label>
+                    <select
+                      value={contactLookingFor}
+                      onChange={(e) => setContactLookingFor(e.target.value)}
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                      required
+                    >
+                      <option value="">-Select-</option>
+                      <option value="Coworking & Hot Desks">Coworking & Hot Desks</option>
+                      <option value="Dedicated Desks">Dedicated Desks</option>
+                      <option value="Private Cabins">Private Cabins</option>
+                      <option value="Meeting Rooms">Meeting Rooms</option>
+                      <option value="Custom Office Solutions">Custom Office Solutions</option>
+                    </select>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
+                  >
+                    Request Tour Schedule
+                  </button>
+                </form>
+              )}
             </div>
           </div>
 
@@ -1331,19 +1395,19 @@ export default function CoimbatorePage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Email</h5>
-                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors">
+                  <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-xs font-normal transition-colors whitespace-nowrap">
                     info@covaitechpark.com
                   </a>
                 </div>
                 <div>
                   <h5 className="font-outfit font-bold text-xs text-white uppercase tracking-[0.2em] mb-1">Mobile</h5>
                   <div className="flex flex-col gap-1 text-white/45 text-xs font-normal">
-                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors">+91 93607 80768</a>
-                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors">+91 900 355 0455</a>
-                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors">+91 968 899 2210</a>
+                    <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
+                    <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 900 355 0455</a>
+                    <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 968 899 2210</a>
                   </div>
                 </div>
               </div>
@@ -1462,70 +1526,108 @@ export default function CoimbatorePage() {
                   </div>
                   <h4 className="font-outfit font-bold text-lg text-brand-navy leading-none">Booking Request Sent!</h4>
                   <p className="text-xs text-brand-slate font-bold leading-relaxed max-w-sm mx-auto">
-                    Thank you, <strong>{bookingName}</strong>. Your interest in <strong>{selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong>.
+                    Thank you, <strong>{bookingFirstName} {bookingLastName}</strong>. Your interest in <strong>{bookingLookingFor || selectedPlan}</strong> has been logged. We will contact you at <strong>{bookingEmail}</strong> or <strong>{bookingPhoneCode} {bookingPhone}</strong> shortly.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-4 text-left font-bold text-sm">
-                  <div>
-                    <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                      Selected Workspace / Plan
+                  {/* Name Row */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Name <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="text"
-                      value={selectedPlan}
-                      disabled
-                      className="w-full bg-brand-cream border border-brand-navy/10 rounded-xl px-4 py-3 text-xs text-brand-navy/70 font-bold focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                      Full Name *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={bookingName}
-                      onChange={(e) => setBookingName(e.target.value)}
-                      placeholder="Enter your full name"
-                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        value={bookingEmail}
-                        onChange={(e) => setBookingEmail(e.target.value)}
-                        placeholder="name@company.com"
-                        className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
-                      />
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={bookingFirstName}
+                          onChange={(e) => setBookingFirstName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={bookingLastName}
+                          onChange={(e) => setBookingLastName(e.target.value)}
+                          placeholder=""
+                          className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                        />
+                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                      </div>
                     </div>
+                  </div>
 
-                    <div>
-                      <label className="block text-[9px] font-bold text-brand-navy uppercase tracking-widest mb-1.5">
-                        Phone Number *
-                      </label>
+                  {/* Phone Number */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Phone <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex border border-brand-navy/15 rounded-xl overflow-hidden focus-within:border-brand-orange shadow-sm">
+                      <select
+                        value={bookingPhoneCode}
+                        onChange={(e) => setBookingPhoneCode(e.target.value)}
+                        className="bg-slate-50 border-r border-slate-200/80 px-3 py-3 text-xs text-slate-800 focus:outline-none cursor-pointer font-bold shrink-0"
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+65">🇸🇬 +65</option>
+                      </select>
                       <input
                         type="tel"
                         required
                         value={bookingPhone}
                         onChange={(e) => setBookingPhone(e.target.value)}
-                        placeholder="+91 XXXXX XXXXX"
-                        className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold"
+                        placeholder=""
+                        className="w-full bg-white px-4 py-3 text-xs text-brand-navy focus:outline-none font-bold"
                       />
                     </div>
                   </div>
 
+                  {/* Email Address */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      Email <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      value={bookingEmail}
+                      onChange={(e) => setBookingEmail(e.target.value)}
+                      placeholder=""
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold shadow-sm"
+                    />
+                  </div>
+
+                  {/* What are you looking for? */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold text-brand-navy">
+                      What are you looking for?
+                    </label>
+                    <select
+                      value={bookingLookingFor}
+                      onChange={(e) => setBookingLookingFor(e.target.value)}
+                      className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-xs text-brand-navy focus:outline-none focus:border-brand-orange font-bold cursor-pointer shadow-sm"
+                      required
+                    >
+                      <option value="">-Select-</option>
+                      <option value="Coworking & Hot Desks">Coworking & Hot Desks</option>
+                      <option value="Dedicated Desks">Dedicated Desks</option>
+                      <option value="Private Cabins">Private Cabins</option>
+                      <option value="Meeting Rooms">Meeting Rooms</option>
+                      <option value="Custom Office Solutions">Custom Office Solutions</option>
+                    </select>
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full py-4 bg-[#091b29] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer"
+                    className="w-full py-4 bg-[#091b29] text-white text-xs font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4"
                   >
                     Confirm Request
                   </button>

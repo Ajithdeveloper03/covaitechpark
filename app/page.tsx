@@ -12,14 +12,6 @@ const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
-const SECTIONS = [
-  { id: "hero", label: "Home" },
-  { id: "locations", label: "Locations" },
-  { id: "benefits-organic", label: "About" },
-  { id: "services-dark", label: "Services" },
-  { id: "deployment-track", label: "Facilities" },
-  { id: "booking", label: "Book a Space" }
-];
 
 const HERO_SLIDES = [
   {
@@ -759,8 +751,13 @@ export default function Home() {
       });
     }, observerOptions);
 
-    SECTIONS.forEach((sec) => {
-      const el = document.getElementById(sec.id);
+    const HOME_SECTION_IDS = [
+      "hero", "benefits-organic", "services-dark", "locations",
+      "deployment-track", "testimonials", "faqs", "booking"
+    ];
+
+    HOME_SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
 
@@ -903,7 +900,7 @@ export default function Home() {
         }}
       />
       
-      <FloatingNav sections={SECTIONS} />
+      <FloatingNav />
 
       <Header ctaText="Book Space" ctaAction={() => handleOpenBooking("Book Space")} />
 
@@ -1096,15 +1093,15 @@ export default function Home() {
         <div className="w-full text-center">
           {/* Marquee Wrapper with Drag Support */}
           <div className="w-full overflow-x-auto no-scrollbar py-2 cursor-grab active:cursor-grabbing select-none">
-            <div className="animate-marquee flex gap-12 md:gap-16 items-center">
+            <div className="animate-marquee flex gap-8 md:gap-8 items-center">
               {/* Loop logos twice for infinite marquee effect */}
               {[1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6].map((num, idx) => (
                 <div 
                   key={`logo-${idx}`} 
-                  className="flex-shrink-0 opacity-50 hover:opacity-100 transition-all duration-350 px-6 pointer-events-none"
+                  className="flex-shrink-0 opacity-100 hover:opacity-100 transition-all duration-350 px-6 pointer-events-none"
                 >
-                  <div className="relative w-24 h-12 md:w-32 md:h-16">
-                    <Image src={prefix(`/logo${num}.jpg`)} alt={`Partner ${num}`} fill className="object-contain filter grayscale hover:grayscale-0 transition-all duration-300" sizes="128px" loading="lazy" />
+                  <div className="relative w-24 h-22 md:w-32 md:h-26">
+                    <Image src={prefix(`/logo${num}.jpg`)} alt={`Partner ${num}`} fill className="object-contain transition-all duration-300" sizes="128px" loading="lazy" />
                   </div>
                 </div>
               ))}
@@ -1147,7 +1144,7 @@ export default function Home() {
               </div>
 
               {/* Right: Text Content */}
-              <div className="flex flex-col justify-center space-y-6 sm:space-y-8">
+              <div className="flex flex-col justify-center space-y-4 sm:space-y-6">
                 <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.28em] block leading-none">
                   About Covai Tech Park (Unit of MAX OFFICE)
                 </span>
@@ -1215,7 +1212,7 @@ export default function Home() {
             {/* Left Column: gold.png */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative flex flex-col items-center select-none">
-                <Image src={prefix("/gold.png")} alt="Award Winner" width={320} height={320} className="w-44 sm:w-52 md:w-60 lg:w-72 h-auto object-contain drop-shadow-2xl"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
+                <Image src={prefix("/awards.png")} alt="Award Winner" width={320} height={320} className="w-44 sm:w-52 md:w-60 lg:w-72 h-auto object-contain drop-shadow-2xl"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
               </div>
             </div>
 
@@ -1249,9 +1246,7 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
- {/* SERVICES GRID (Image 4 Style - 100vh) */}
+{/* SERVICES GRID (Image 4 Style - 100vh) */}
       <section id="locations" className="w-full min-h-[100vh] flex bg-white border-t border-slate-100 overflow-hidden">
         <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
 
@@ -1429,6 +1424,8 @@ export default function Home() {
         </div>
       </section>
 
+
+ 
 
       {/* FACILITIES — ScrollTrigger Stacked Card Layout */}
       <section id="deployment-track" className="relative w-full bg-[#f8fafc] section-x py-16 sm:py-24">

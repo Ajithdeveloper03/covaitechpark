@@ -110,7 +110,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
             ))}
           </ul>
 
-          <div className="pt-2">
+          <div className="">
             <h5 className="font-sans font-bold text-[11px] text-white uppercase tracking-[0.2em] mb-1.5 mt-2">Mobile</h5>
             <div className="flex flex-col gap-1.5 text-white/45 text-xs font-normal">
               <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>

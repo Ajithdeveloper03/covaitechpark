@@ -10,14 +10,6 @@ import useEmblaCarousel from "embla-carousel-react";
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
-const SECTIONS = [
-  { id: "hero", label: "Home" },
-  { id: "plans", label: "Plans" },
-  { id: "amenities", label: "Amenities" },
-  { id: "testimonials", label: "Testimonials" },
-  { id: "faqs", label: "FAQ" },
-  { id: "contact", label: "Contact" }
-];
 
 const COIMBATORE_PLAN_DETAILS = [
   {
@@ -326,7 +318,6 @@ export default function CoimbatorePage() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [activeSection, setActiveSection] = useState("hero");
 
   // Embla Carousel setup for Testimonials
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -373,30 +364,6 @@ export default function CoimbatorePage() {
   // Set page meta title for SEO
   useEffect(() => {
     document.title = "Book a Shared Office For Rent in Coimbatore | Coworking Space";
-  }, []);
-
-  // IntersectionObserver to sync vertical dot navigation
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "-25% 0px -45% 0px",
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, observerOptions);
-
-    SECTIONS.forEach((sec) => {
-      const el = document.getElementById(sec.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
   }, []);
 
   // Booking Modal States
@@ -483,13 +450,13 @@ export default function CoimbatorePage() {
   return (
     <div className="min-h-screen bg-white text-brand-navy flex flex-col font-inter relative select-none font-medium text-base antialiased">
       
-      <FloatingNav sections={SECTIONS} />
+      <FloatingNav />
       
       {/* ── HEADER / NAVBAR ── */}
       <Header />
 
       {/* ── COIMBATORE HERO SECTION — coimbatore.png bg + centered text + fan arc cards ── */}
-      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-24 sm:pt-28 pb-60 overflow-hidden text-white">
+      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-24 sm:pt-28 pb-30 overflow-hidden text-white">
 
         {/* Full bleed coimbatore.png background */}
         <div className="absolute inset-0 z-0">
@@ -516,14 +483,14 @@ export default function CoimbatorePage() {
             Premium Coworking &middot; Coimbatore
           </span> */}
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-medium tracking-tight text-white leading-[1.05] mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-white leading-[1.05] mb-2">
             Coworking Space in{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-orange-300 to-yellow-300">
               Coimbatore
             </span>
           </h1>
 
-          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-4xl mb-8">
+          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-4xl mb-4">
             Covai Tech Park coworking space offers a vibrant, dynamic working environment in Coimbatore. Join our network of 650+ professionals and businesses.
           </p>
 
@@ -548,11 +515,11 @@ export default function CoimbatorePage() {
           {/* Desktop/tablet: absolute positioned fan */}
           <div className="hidden sm:block relative w-full h-full">
             {[
-              { img: "/covaitechpark/hero1.jpg", rotate: -36, offset: "-420px", translateY: "60px", active: false },
-              { img: "/covaitechpark/hero2.jpg", rotate: -18, offset: "-210px", translateY: "15px", active: false },
+              { img: "/covaitechpark/hero1.jpg", rotate: -36, offset: "-300px", translateY: "60px", active: false },
+              { img: "/covaitechpark/hero2.jpg", rotate: -18, offset: "-160px", translateY: "15px", active: false },
               { img: "/covaitechpark/hero3.jpg", rotate: 0, offset: "0px", translateY: "0px", active: true },
-              { img: "/covaitechpark/hero11.jpg", rotate: 18, offset: "210px", translateY: "15px", active: false },
-              { img: "/covaitechpark/hero13.jpg", rotate: 36, offset: "420px", translateY: "60px", active: false },
+              { img: "/covaitechpark/hero11.jpg", rotate: 18, offset: "160px", translateY: "15px", active: false },
+              { img: "/covaitechpark/hero13.jpg", rotate: 36, offset: "300px", translateY: "60px", active: false },
             ].map((card, i) => (
               <div
                 key={i}
@@ -565,7 +532,7 @@ export default function CoimbatorePage() {
                 }}
               >
                 <div
-                  className={`relative w-48 sm:w-56 md:w-68 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${
+                  className={`relative w-48 sm:w-52 md:w-52 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${
                     card.active ? 'scale-105' : 'scale-95'
                   }`}
                   style={{ height: card.active ? '260px' : '260px' }}

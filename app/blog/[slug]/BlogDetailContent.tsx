@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -14,6 +14,7 @@ const ARTICLES_CONTENT: Record<string, {
   date: string;
   readTime: string;
   img: string;
+  excerpt: string;
   content: Array<{ heading: string; text: string; img: string }>;
 }> = {
   "future-of-coworking-spaces-in-coimbatore": {
@@ -22,25 +23,26 @@ const ARTICLES_CONTENT: Record<string, {
     date: "June 4, 2026",
     readTime: "5 min read",
     img: "/workspace-lounge.png",
+    excerpt: "How hybrid models, premium modular cabins, and smart tech parks are reshaping the corporate ecosystem in Coimbatore's thriving tech corridors.",
     content: [
-      { 
-        heading: "The Shift in Workspace Dynamics", 
-        text: "Managed coworking spaces are no longer just for freelancers and small teams. Today, premium tech coworking parks like CovaiTech Park are housing mid-size enterprises and fast-growing startups in Coimbatore's thriving tech corridors. The rise of hybrid work models has dramatically accelerated this shift, requiring adaptable environments.", 
+      {
+        heading: "The Shift in Workspace Dynamics",
+        text: "Managed coworking spaces are no longer just for freelancers and small teams. Today, premium tech coworking parks like CovaiTech Park are housing mid-size enterprises and fast-growing startups in Coimbatore's thriving tech corridors. The rise of hybrid work models has dramatically accelerated this shift, requiring adaptable environments that scale with business needs while maintaining operational excellence.",
         img: "/workspace-lounge.png"
       },
-      { 
-        heading: "Financial Flexibility", 
-        text: "As Coimbatore continues to emerge as a Tier-II powerhouse, the demand for flexible infrastructure is skyrocketing. Fitting out a custom office requires heavy capital expenditure (CapEx) and months of layout planning. Managed private suites completely bypass this, offering move-in ready private cabins at the best price with zero setup headaches.", 
+      {
+        heading: "Financial Flexibility",
+        text: "As Coimbatore continues to emerge as a Tier-II powerhouse, the demand for flexible infrastructure is skyrocketing. Fitting out a custom office requires heavy capital expenditure (CapEx) and months of layout planning. Managed private suites completely bypass this, offering move-in ready private cabins at the best price with zero setup headaches—allowing founders to invest capital where it truly matters.",
         img: "/workspace-cabin.png"
       },
-      { 
-        heading: "Focusing on Growth", 
-        text: "With modern integrations like dual high-speed SLA-backed fiber connectivity, sound-insulated glass dividers, and dedicated reception desk presence, businesses can focus 100% of their energy on engineering, building products, and driving growth. Operational burdens are entirely lifted off the shoulders of founders.", 
+      {
+        heading: "Focusing on Growth",
+        text: "With modern integrations like dual high-speed SLA-backed fiber connectivity, sound-insulated glass dividers, and dedicated reception desk presence, businesses can focus 100% of their energy on engineering, building products, and driving growth. Operational burdens are entirely lifted off the shoulders of founders, creating an environment where innovation thrives.",
         img: "/workspace-meeting.png"
       },
-      { 
-        heading: "The Ecosystem Advantage", 
-        text: "Furthermore, the shared ecosystem provides access to professional board rooms, breakout zones, fully stocked cafeterias, and health spaces like gym studios, offering employees an excellent work-life balance while facilitating organic networking opportunities with other innovative companies.", 
+      {
+        heading: "The Ecosystem Advantage",
+        text: "Furthermore, the shared ecosystem provides access to professional board rooms, breakout zones, fully stocked cafeterias, and health spaces like gym studios, offering employees an excellent work-life balance while facilitating organic networking opportunities with other innovative companies sharing the same high-performance infrastructure.",
         img: "/workspace-cafe.png"
       }
     ]
@@ -51,25 +53,26 @@ const ARTICLES_CONTENT: Record<string, {
     date: "May 28, 2026",
     readTime: "4 min read",
     img: "/workspace-cabin.png",
+    excerpt: "A deep dive into UX-driven workspace ergonomics, acoustic privacy, and how dedicated cabin structures accelerate business outputs.",
     content: [
-      { 
-        heading: "The Need for Acoustic Privacy", 
-        text: "Acoustic privacy is the single biggest productivity differentiator in modern open-office design layouts. While hot desks are fantastic for networking and collaboration, deep focused work requires distraction-free isolation, especially for engineering, legal, or finance teams dealing with sensitive tasks.", 
+      {
+        heading: "The Need for Acoustic Privacy",
+        text: "Acoustic privacy is the single biggest productivity differentiator in modern open-office design layouts. While hot desks are fantastic for networking and collaboration, deep focused work requires distraction-free isolation—especially for engineering, legal, or finance teams dealing with sensitive tasks that demand complete concentration.",
         img: "/workspace-cabin.png"
       },
-      { 
-        heading: "Engineering Isolation", 
-        text: "Dedicated soundproof private cabins are engineered to address this specific need. By dampening sound waves and visually isolating the team, private offices allow software development or critical analysis to occur with zero interruptions, leading to faster sprint deliveries and lower error rates.", 
+      {
+        heading: "Engineering Isolation",
+        text: "Dedicated soundproof private cabins are engineered to address this specific need. By dampening sound waves and visually isolating the team, private offices allow software development or critical analysis to occur with zero interruptions, leading to faster sprint deliveries and measurably lower error rates across all operational workflows.",
         img: "/workspace-meeting.png"
       },
-      { 
-        heading: "Customizable Environments", 
-        text: "Every cabin suite at CovaiTech Park is fully customized with ergonomic seating, modular storage, and individual smart air conditioning control units. It allows teams to set their own workspace environment parameters according to their workflows, enhancing comfort over long hours.", 
+      {
+        heading: "Customizable Environments",
+        text: "Every cabin suite at CovaiTech Park is fully customized with ergonomic seating, modular storage, and individual smart air conditioning control units. It allows teams to set their own workspace environment parameters according to their workflows, enhancing comfort over long hours and improving overall team retention metrics.",
         img: "/workspace-event.png"
       },
-      { 
-        heading: "Operational Zero-Downtime", 
-        text: "Operational details like high-speed connectivity, housekeeping, electrical backup systems, and reception presence are taken care of by the management team. This ensures zero operational downtime for your staff, keeping momentum intact throughout the work week.", 
+      {
+        heading: "Operational Zero-Downtime",
+        text: "Operational details like high-speed connectivity, housekeeping, electrical backup systems, and reception presence are taken care of by the management team. This ensures zero operational downtime for your staff, keeping momentum intact throughout the work week and enabling your team to stay laser-focused on delivering results.",
         img: "/workspace-lounge.png"
       }
     ]
@@ -80,29 +83,36 @@ const ARTICLES_CONTENT: Record<string, {
     date: "May 15, 2026",
     readTime: "3 min read",
     img: "/workspace-meeting.png",
+    excerpt: "How virtual mailing addresses and professional phone handling help companies register for GST and build credibility remotely.",
     content: [
-      { 
-        heading: "Capital Efficiency", 
-        text: "Starting a new technology venture is a capital-intensive journey. Spending on physical office leases before validating a product or building a team can severely restrict cash flow runway. A virtual setup minimizes fixed overheads completely.", 
+      {
+        heading: "Capital Efficiency",
+        text: "Starting a new technology venture is a capital-intensive journey. Spending on physical office leases before validating a product or building a team can severely restrict cash flow runway. A virtual setup minimizes fixed overheads completely, allowing founders to focus every rupee on product development and customer acquisition.",
         img: "/workspace-hotdesk.png"
       },
-      { 
-        heading: "Prestigious Presence", 
-        text: "A virtual office address solves this by providing a highly prestigious commercial address in premium hubs (like Nehru Nagar East in Coimbatore or Thillai Nagar in Trichy) at a fraction of the cost, instantly building trust with initial clients and investors.", 
+      {
+        heading: "Prestigious Presence",
+        text: "A virtual office address solves the credibility problem by providing a highly prestigious commercial address in premium hubs—like Nehru Nagar East in Coimbatore or Thillai Nagar in Trichy—at a fraction of the cost, instantly building trust with initial clients and investors who judge companies by their registered addresses.",
         img: "/workspace-cafe.png"
       },
-      { 
-        heading: "Compliance Ready", 
-        text: "These plans are fully compliant with government rules for GST registration, company filings, and bank account creation, complete with legal agreements and property documentation required for statutory audits.", 
+      {
+        heading: "Compliance Ready",
+        text: "These plans are fully compliant with government rules for GST registration, company filings, and bank account creation, complete with legal agreements and property documentation required for statutory audits. Our compliance team handles all paperwork so you can focus on operations.",
         img: "/workspace-meeting.png"
       },
-      { 
-        heading: "On-Demand Infrastructure", 
-        text: "Additionally, startups benefit from mailbox management, mail scanning, courier receipt, and the ability to book premium meeting rooms and boardrooms on-demand when client sessions require physical meetings, projecting a professional image at all times.", 
+      {
+        heading: "On-Demand Infrastructure",
+        text: "Additionally, startups benefit from mailbox management, mail scanning, courier receipt, and the ability to book premium meeting rooms and boardrooms on-demand when client sessions require physical meetings. This projects a professional image at all times while keeping operational costs fully variable.",
         img: "/workspace-lounge.png"
       }
     ]
   }
+};
+
+const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
+  Workspace: { bg: "bg-sky-50", text: "text-sky-700", border: "border-sky-200" },
+  Productivity: { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
+  Business: { bg: "bg-violet-50", text: "text-violet-700", border: "border-violet-200" },
 };
 
 interface BlogDetailContentProps {
@@ -111,15 +121,39 @@ interface BlogDetailContentProps {
 
 export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
   const article = ARTICLES_CONTENT[slug] || ARTICLES_CONTENT["future-of-coworking-spaces-in-coimbatore"];
+  const catColor = categoryColors[article.category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
+
+  const [bookingFirstName, setBookingFirstName] = useState("");
+  const [bookingLastName, setBookingLastName] = useState("");
+  const [bookingPhone, setBookingPhone] = useState("");
+  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [activeSection, setActiveSection] = useState(0);
+  const [readProgress, setReadProgress] = useState(0);
 
   useEffect(() => {
     document.title = `${article.title} | Blog - CovaiTech Park`;
   }, [article.title]);
 
-  const [bookingFirstName, setBookingFirstName] = React.useState("");
-  const [bookingLastName, setBookingLastName] = React.useState("");
-  const [bookingPhone, setBookingPhone] = React.useState("");
-  const [bookingSuccess, setBookingSuccess] = React.useState(false);
+  // Read progress bar
+  useEffect(() => {
+    const handleScroll = () => {
+      const el = document.documentElement;
+      const scrollTop = el.scrollTop || document.body.scrollTop;
+      const scrollHeight = el.scrollHeight - el.clientHeight;
+      setReadProgress(scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0);
+
+      // Update active section
+      for (let i = article.content.length - 1; i >= 0; i--) {
+        const sec = document.getElementById(`section-${i}`);
+        if (sec && sec.getBoundingClientRect().top <= 160) {
+          setActiveSection(i);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [article.content.length]);
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,214 +168,317 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
     }
   };
 
+  const otherArticles = Object.entries(ARTICLES_CONTENT).filter(([key]) => key !== slug);
+
   return (
-    <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative select-none antialiased">
-      
-      <Header ctaText="Write Message" />
+    <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col font-sans relative select-none antialiased">
+
+      {/* Reading progress bar */}
+      <div className="fixed top-0 left-0 z-[200] h-[3px] bg-[#f37021] transition-all duration-100 ease-out rounded-r-full" style={{ width: `${readProgress}%` }} />
+
+      <Header ctaText="Book a Tour" />
 
       {/* ── HERO BANNER ── */}
-      <section 
-        className="relative min-h-[50vh] flex flex-col justify-center items-center text-center pt-32 pb-16 section-x bg-slate-950"
-      >
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <Image 
-            src={prefix("/hero-bg.png")} 
-            alt="Hero Background" 
-            fill 
-            className="object-cover" 
+      <section className="relative min-h-[72vh] flex flex-col justify-end items-start overflow-hidden pt-32">
+        {/* Dark background with rich gradient */}
+        <div className="absolute inset-0 bg-[#060d17]" />
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
+            src={prefix(article.img)}
+            alt={article.title}
+            fill
+            className="object-cover opacity-25 scale-105"
             sizes="100vw"
-            priority 
+            priority
           />
-          <div className="absolute inset-0 bg-slate-950/80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060d17] via-[#060d17]/70 to-[#060d17]/40" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-5">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-bold tracking-[0.15em] uppercase">
-            {article.category} &bull; {article.readTime}
-          </span>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold tracking-tight text-white leading-[1.2] max-w-3xl">
-            {article.title}
-          </h1>
-          <p className="text-slate-400 text-xs font-normal">
-            Published on {article.date} &middot; CovaiTech Park
-          </p>
+        {/* Ambient glows */}
+        <div className="absolute top-[-5%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#f37021]/10 blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-[10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-sky-500/8 blur-[120px] pointer-events-none" />
+
+        {/* Content */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 xl:px-16 pb-16">
+          {/* Back link */}
+          <a
+            href={prefix("/blog")}
+            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-xs font-medium uppercase tracking-widest mb-8 transition-colors"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+            </svg>
+            All Articles
+          </a>
+
+          <div className="max-w-3xl space-y-6">
+            {/* Category + meta */}
+            <div className="flex items-center flex-wrap gap-3">
+              <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
+                {article.category}
+              </span>
+              <span className="text-white/40 text-xs">·</span>
+              <span className="text-white/50 text-xs font-medium">{article.readTime}</span>
+              <span className="text-white/40 text-xs">·</span>
+              <span className="text-white/50 text-xs font-medium">{article.date}</span>
+            </div>
+
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+              {article.title}
+            </h1>
+
+            <p className="text-slate-400 text-base sm:text-lg font-normal leading-relaxed max-w-2xl">
+              {article.excerpt}
+            </p>
+          </div>
         </div>
+
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-[#fafafa] to-transparent pointer-events-none z-20" />
       </section>
 
-      {/* ── ARTICLE DETAILS & SIDEBAR ── */}
-      <section className="py-20 w-full section-x relative z-10">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Main Article Content */}
-          <article className="lg:col-span-8 space-y-8 text-left">
-            <div className="relative w-full aspect-[16/9] rounded-3xl overflow-hidden border border-slate-200 shadow-md">
-              <Image 
-                src={prefix(article.img)} 
-                alt={article.title} 
-                fill 
-                className="object-cover" 
-                sizes="(max-width: 768px) 100vw, 800px" 
-                priority 
-              />
-            </div>
+      {/* ── ARTICLE + SIDEBAR ── */}
+      <section className="py-16 w-full">
+        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-16 items-start">
 
-            <div className="space-y-12 text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-              {article.content.map((section, index) => (
-                <div key={index} id={`section-${index}`} className="scroll-mt-28 flex flex-col gap-5">
-                  <h2 className="text-2xl font-bold text-slate-900">{section.heading}</h2>
-                  <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden shadow-sm border border-slate-100">
-                    <Image 
-                      src={prefix(section.img)} 
-                      alt={section.heading} 
-                      fill 
-                      className="object-cover transition-transform duration-700 hover:scale-105" 
-                      sizes="(max-width: 1024px) 100vw, 800px" 
-                    />
-                  </div>
-                  <p className="text-slate-600 leading-relaxed text-base">{section.text}</p>
-                </div>
-              ))}
-            </div>
+            {/* ── MAIN ARTICLE ── */}
+            <article className="lg:col-span-8 space-y-0">
 
-            <div className="pt-8 border-t border-slate-100 flex items-center justify-between">
-              <a 
-                href={prefix("/blog")}
-                className="text-xs font-bold text-brand-orange hover:underline flex items-center gap-1.5"
-              >
-                &larr; Back to Articles
-              </a>
-              <span className="text-[10px] text-slate-400 font-medium">Category: {article.category}</span>
-            </div>
-          </article>
+              {/* Hero image */}
+              <div className="relative w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-slate-200/80 shadow-xl shadow-slate-200/50 mb-14">
+                <Image
+                  src={prefix(article.img)}
+                  alt={article.title}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 800px"
+                  priority
+                />
+              </div>
 
-          {/* Sidebar Inquiry Card & TOC */}
-          <aside className="lg:col-span-4 space-y-8 text-left">
-            
-            {/* Table of Contents */}
-            <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-              <h3 className="font-sans font-bold text-base text-slate-900 mb-4">Table of Contents</h3>
-              <ul className="space-y-3">
+              {/* Content sections */}
+              <div className="space-y-20">
                 {article.content.map((section, index) => (
-                  <li key={index}>
-                    <a 
-                      href={`#section-${index}`}
-                      className="text-sm text-slate-600 hover:text-brand-orange font-medium leading-snug block transition-colors"
-                    >
-                      {section.heading}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-6 shadow-sm">
-              <h3 className="font-sans font-bold text-base text-slate-900 mb-2">Request callback</h3>
-              <p className="text-slate-500 text-xs font-normal leading-relaxed mb-4">
-                Interested in our workspaces? Drop your details and our local team will call you within 2 hours.
-              </p>
-
-              {bookingSuccess ? (
-                <div className="text-center py-8 space-y-3 bg-white border border-slate-100 rounded-xl">
-                  <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <h4 className="font-sans font-bold text-xs text-slate-900">Request Sent!</h4>
-                </div>
-              ) : (
-                <form onSubmit={handleCallbackSubmit} className="space-y-3">
-                  <input
-                    type="text"
-                    required
-                    placeholder="First Name"
-                    value={bookingFirstName}
-                    onChange={(e) => setBookingFirstName(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brand-orange"
-                  />
-                  <input
-                    type="text"
-                    required
-                    placeholder="Last Name"
-                    value={bookingLastName}
-                    onChange={(e) => setBookingLastName(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brand-orange"
-                  />
-                  <input
-                    type="tel"
-                    required
-                    placeholder="Phone Number"
-                    value={bookingPhone}
-                    onChange={(e) => setBookingPhone(e.target.value)}
-                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-800 focus:outline-none focus:border-brand-orange"
-                  />
-                  <button
-                    type="submit"
-                    className="w-full py-3 bg-brand-orange hover:bg-slate-900 text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 cursor-pointer"
+                  <div
+                    key={index}
+                    id={`section-${index}`}
+                    className="scroll-mt-28 space-y-7"
                   >
-                    Get Call Back
-                  </button>
-                </form>
-              )}
-            </div>
+                    {/* Section number + heading */}
+                    <div className="flex items-start gap-5">
+                      <span className="flex-shrink-0 w-10 h-10 rounded-full bg-[#f37021]/10 border border-[#f37021]/20 flex items-center justify-center text-[#f37021] text-sm font-bold mt-1">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+                      <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 leading-snug pt-1.5">
+                        {section.heading}
+                      </h2>
+                    </div>
 
-            <div className="p-6 rounded-2xl border border-slate-100 bg-slate-50/50">
-              <h4 className="font-sans font-bold text-sm text-slate-800 mb-3">Other Articles</h4>
-              <ul className="space-y-3">
-                {Object.entries(ARTICLES_CONTENT)
-                  .filter(([key]) => key !== slug)
-                  .map(([key, item]) => (
-                    <li key={key}>
-                      <a 
-                        href={prefix(`/blog/${key}`)}
-                        className="text-xs text-slate-600 hover:text-brand-orange font-medium leading-snug block transition-colors"
+                    {/* Section image */}
+                    <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden shadow-md border border-slate-100">
+                      <Image
+                        src={prefix(section.img)}
+                        alt={section.heading}
+                        fill
+                        className="object-cover transition-transform duration-700 hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 800px"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Section text */}
+                    <p className="text-slate-600 text-base sm:text-lg leading-[1.85] font-normal pl-0 sm:pl-15">
+                      {section.text}
+                    </p>
+
+                    {index < article.content.length - 1 && (
+                      <div className="w-full h-px bg-slate-100 mt-4" />
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Article footer */}
+              <div className="mt-16 pt-8 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">
+                <a
+                  href={prefix("/blog")}
+                  className="inline-flex items-center gap-2 text-[#f37021] text-xs font-bold uppercase tracking-widest hover:gap-3 transition-all"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                  </svg>
+                  Back to Articles
+                </a>
+                <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
+                  {article.category}
+                </span>
+              </div>
+            </article>
+
+            {/* ── SIDEBAR ── */}
+            <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
+
+              {/* Table of Contents */}
+              <div className="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm">
+                <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">In this Article</h3>
+                <ul className="space-y-1">
+                  {article.content.map((section, index) => (
+                    <li key={index}>
+                      <a
+                        href={`#section-${index}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document.getElementById(`section-${index}`)?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className={`flex items-center gap-3 py-2.5 px-3 rounded-xl text-sm font-medium leading-snug transition-all duration-200 group ${
+                          activeSection === index
+                            ? "bg-[#f37021]/8 text-[#f37021] border border-[#f37021]/20"
+                            : "text-slate-500 hover:bg-slate-50 hover:text-slate-800 border border-transparent"
+                        }`}
                       >
-                        {item.title}
+                        <span className={`flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
+                          activeSection === index ? "bg-[#f37021] text-white" : "bg-slate-100 text-slate-400"
+                        }`}>
+                          {index + 1}
+                        </span>
+                        {section.heading}
                       </a>
                     </li>
                   ))}
-              </ul>
-            </div>
-          </aside>
+                </ul>
+              </div>
 
+              {/* Callback Form */}
+              <div className="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm">
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-8 h-8 rounded-full bg-[#f37021]/10 flex items-center justify-center">
+                    <svg className="w-4 h-4 text-[#f37021]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-slate-900">Request a Callback</h3>
+                    <p className="text-xs text-slate-400 font-normal">We&apos;ll call you within 2 hours</p>
+                  </div>
+                </div>
+
+                {bookingSuccess ? (
+                  <div className="py-10 flex flex-col items-center gap-3 text-center">
+                    <div className="w-12 h-12 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center">
+                      <svg className="w-6 h-6 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-semibold text-slate-800">Request Sent!</p>
+                    <p className="text-xs text-slate-400 font-normal">Our team will reach out shortly.</p>
+                  </div>
+                ) : (
+                  <form onSubmit={handleCallbackSubmit} className="space-y-3">
+                    <input
+                      type="text"
+                      required
+                      placeholder="First Name"
+                      value={bookingFirstName}
+                      onChange={(e) => setBookingFirstName(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 focus:bg-white transition-all"
+                    />
+                    <input
+                      type="text"
+                      required
+                      placeholder="Last Name"
+                      value={bookingLastName}
+                      onChange={(e) => setBookingLastName(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 focus:bg-white transition-all"
+                    />
+                    <input
+                      type="tel"
+                      required
+                      placeholder="Phone Number"
+                      value={bookingPhone}
+                      onChange={(e) => setBookingPhone(e.target.value)}
+                      className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 focus:bg-white transition-all"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full py-3.5 bg-[#f37021] hover:bg-[#060d17] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-[#f37021]/20"
+                    >
+                      Get Callback
+                    </button>
+                  </form>
+                )}
+              </div>
+
+              {/* Other Articles */}
+              {otherArticles.length > 0 && (
+                <div className="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm">
+                  <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">More Articles</h3>
+                  <div className="space-y-4">
+                    {otherArticles.map(([key, item]) => {
+                      const c = categoryColors[item.category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
+                      return (
+                        <a
+                          key={key}
+                          href={prefix(`/blog/${key}`)}
+                          className="group flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all"
+                        >
+                          <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
+                            <Image src={prefix(item.img)} alt={item.title} fill className="object-cover" sizes="56px" />
+                          </div>
+                          <div className="space-y-1.5 min-w-0">
+                            <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border ${c.bg} ${c.text} ${c.border}`}>
+                              {item.category}
+                            </span>
+                            <p className="text-sm font-semibold text-slate-700 leading-snug group-hover:text-[#f37021] transition-colors line-clamp-2">
+                              {item.title}
+                            </p>
+                            <p className="text-[11px] text-slate-400">{item.readTime}</p>
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </aside>
+          </div>
         </div>
       </section>
 
-      {/* ── BLOG FAQS ── */}
-      <section className="w-full bg-[#f8fafc] py-16 relative overflow-hidden border-t border-slate-200">
-        <div className="max-w-3xl mx-auto px-6 relative z-10 text-center">
-          <h2 className="font-sans font-bold text-3xl sm:text-4xl text-slate-900 mb-8">Related Questions</h2>
-          <div className="space-y-4 text-left">
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-              <h3 className="font-sans font-bold text-lg text-slate-900 mb-2">Can I customize my private cabin space?</h3>
-              <p className="text-slate-600 text-sm">Absolutely. We offer complete custom fit-outs including branding, specialized network infrastructure, and ergonomic furniture arrangements tailored for your team's workflow.</p>
-            </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-              <h3 className="font-sans font-bold text-lg text-slate-900 mb-2">Are meeting rooms included in the membership?</h3>
-              <p className="text-slate-600 text-sm">Yes, all our memberships come with complimentary meeting room credits every month, allowing you to host clients and team syncs in professional boardrooms.</p>
-            </div>
-            <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
-              <h3 className="font-sans font-bold text-lg text-slate-900 mb-2">Is the internet connection reliable?</h3>
-              <p className="text-slate-600 text-sm">We provide high-speed, dual-fiber enterprise internet with SLA-backed 99.9% uptime, ensuring your operations never skip a beat.</p>
+      {/* ── CTA SECTION ── */}
+      <section className="py-24 bg-white border-t border-slate-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#f37021]/5 blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 relative z-10">
+          <div className="relative rounded-[2rem] bg-[#060d17] overflow-hidden p-12 md:p-16 text-center">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#f37021]/12 blur-[100px] rounded-full pointer-events-none" />
+            <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f37021] block">Ready to get started?</span>
+              <h2 className="text-3xl sm:text-5xl font-bold text-white leading-tight">
+                Elevate your workspace experience
+              </h2>
+              <p className="text-slate-400 text-base font-normal leading-relaxed">
+                Join hundreds of growing companies at CovaiTech Park and experience a premium ecosystem designed for scale, collaboration, and success.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
+                <a
+                  href={prefix("/private-office-space")}
+                  className="px-8 py-4 bg-[#f37021] hover:bg-white hover:text-[#f37021] text-white text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-[#f37021]/20"
+                >
+                  Explore Memberships
+                </a>
+                <a
+                  href={prefix("/contact")}
+                  className="px-8 py-4 border border-white/15 hover:border-white/30 text-white hover:bg-white/5 text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300"
+                >
+                  Contact Us
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── BLOG CTA ── */}
-      <section className="w-full bg-brand-navy py-20 relative overflow-hidden text-center text-white">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none" />
-        <div className="max-w-3xl mx-auto px-6 relative z-10">
-          <h2 className="text-3xl sm:text-5xl font-sans font-bold mb-6">Ready to elevate your workspace?</h2>
-          <p className="text-white/70 text-lg mb-8 max-w-xl mx-auto">Join hundreds of growing companies at CovaiTech Park and experience a premium ecosystem designed for scale.</p>
-          <a href={prefix("/private-office-space")} className="inline-block px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl cursor-pointer">
-            Explore Memberships
-          </a>
-        </div>
-      </section>
-
       <Footer />
-
     </div>
   );
 }

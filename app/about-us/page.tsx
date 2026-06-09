@@ -19,71 +19,62 @@ export default function AboutUsPage() {
     <div className="min-h-screen bg-[#faf9f6] text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
 
-      <FloatingNav sections={[
-        { id: "hero", label: "Hero" },
-        { id: "who-we-are", label: "Who We Are" },
-        { id: "our-story", label: "Our Story" },
-        { id: "feeling", label: "The Feeling" },
-        { id: "vision", label: "Vision" }
-      ]} />
+      <FloatingNav />
 
-      {/* Hero Section (ZenMind Reference Style) */}
+      {/* NEW CREATIVE HERO SECTION */}
       <section 
         id="hero"
-        className="relative min-h-[100vh] flex flex-col justify-center items-center text-center pt-32 pb-24 lg:pb-32 overflow-hidden bg-[#0a0a0a]"
+        className="relative min-h-[90vh] flex flex-col items-center justify-center pt-32 pb-24 overflow-hidden bg-[#060d17]"
       >
-        {/* Background Image with Dark Overlay */}
-        <div className="absolute inset-0 z-0">
-          <Image 
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1920&q=80"
-            alt="Dark Workspace"
-            fill
-            className="object-cover opacity-30 object-center"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]/80" />
+        {/* Abstract shapes / Glows for a unique aesthetic */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-[#f37021]/15 blur-[120px]" />
+          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-sky-500/10 blur-[100px]" />
+          <div className="absolute top-[30%] right-[10%] w-[30%] h-[30%] rounded-full bg-violet-500/10 blur-[80px]" />
+          
+          {/* Subtle noise texture */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{backgroundImage:"url('data:image/svg+xml,%3Csvg width=\"200\" height=\"200\" viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noise\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noise)\" opacity=\"1\"/%3E%3C/svg%3E')"}} />
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 px-4">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 w-full flex flex-col items-center text-center">
           
-          {/* Trust Badge */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="flex -space-x-2">
-              <div className="w-6 h-6 rounded-full border border-[#0a0a0a] overflow-hidden relative"><Image src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="User" fill className="object-cover" /></div>
-              <div className="w-6 h-6 rounded-full border border-[#0a0a0a] overflow-hidden relative"><Image src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="User" fill className="object-cover" /></div>
-              <div className="w-6 h-6 rounded-full border border-[#0a0a0a] overflow-hidden relative"><Image src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="User" fill className="object-cover" /></div>
-              <div className="w-6 h-6 rounded-full border border-[#0a0a0a] overflow-hidden relative"><Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&q=80" alt="User" fill className="object-cover" /></div>
-            </div>
-            <div className="flex flex-col items-start text-left">
-              <div className="flex gap-1 text-[#fbbf24] text-[10px]">
-                <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-              </div>
-              <span className="text-[9px] text-white/50 font-medium tracking-wide">Trusted by 2,000+ teams</span>
-            </div>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#f37021] animate-pulse" />
+            <span className="text-white/80 text-xs font-semibold tracking-[0.2em] uppercase">Redefining Workspaces</span>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] tracking-tight text-white leading-[1.05] font-sans font-medium">
-            Your business is <span className="font-serif italic font-normal text-white/90">unique.</span><br />
-            A workspace that listens.
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter text-white font-sans font-bold leading-[0.95] mb-8">
+            Work. Connect.<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f37021] via-orange-300 to-yellow-300 italic font-serif font-medium pr-4">Thrive.</span>
           </h1>
 
-          {/* Subheading */}
-          <p className="text-white/40 text-sm sm:text-base md:text-lg max-w-lg mx-auto leading-relaxed mt-4 font-light tracking-wide">
-            CovaiTech uses premium amenities to personalize every experience—so you get exactly what you need, when you need it.
+          <p className="text-white/60 text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal mb-12">
+            CovaiTech Park isn't just an office. It's an organically designed ecosystem engineered for high-performance teams, innovative startups, and visionary founders.
           </p>
 
-          {/* CTA Button */}
-          <div className="mt-8">
-            <button className="px-8 py-4 bg-white text-black font-semibold text-sm rounded-[2rem] hover:scale-105 transition-transform duration-300">
-              Book a free tour
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <button className="px-8 py-4 bg-[#f37021] text-white font-bold text-sm tracking-widest uppercase rounded-full hover:bg-white hover:text-[#f37021] transition-colors duration-300 shadow-xl shadow-[#f37021]/20">
+              Explore Spaces
+            </button>
+            <button className="px-8 py-4 bg-white/5 border border-white/10 text-white font-bold text-sm tracking-widest uppercase rounded-full hover:bg-white/10 transition-colors duration-300 backdrop-blur-sm">
+              Our Story
             </button>
           </div>
-
         </div>
 
+        {/* Floating image accents */}
+        <div className="absolute left-[5%] top-[20%] hidden lg:block w-48 h-64 rounded-3xl overflow-hidden border border-white/10 shadow-2xl rotate-[-6deg] animate-float">
+          <Image src={prefix("/workspace-meeting.png")} alt="Meeting" fill className="object-cover" sizes="200px" />
+        </div>
+        <div className="absolute right-[5%] bottom-[15%] hidden lg:block w-56 h-40 rounded-3xl overflow-hidden border border-white/10 shadow-2xl rotate-[4deg] animate-float" style={{ animationDelay: '1.5s' }}>
+          <Image src={prefix("/workspace-cabin.png")} alt="Cabin" fill className="object-cover" sizes="224px" />
+        </div>
+
+        {/* Fade to white at bottom */}
+        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#faf9f6] to-transparent pointer-events-none z-20" />
       </section>
+
+     
 
       {/* WHO WE ARE SECTION */}
       <section id="who-we-are" className="py-24 bg-white w-full relative overflow-hidden border-b border-slate-100">
@@ -248,62 +239,112 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      {/* Vision & Mission (Central Hub Layout) */}
-      <section id="vision" className="py-32 bg-[#faf9f6] w-full mt-12 sm:mt-24">
-        <div className="max-w-7xl mx-auto px-4 md:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-sans font-bold text-slate-900 tracking-tight">
-              Symbolizing Innovation<br/> and Reliability
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-            {/* Left Points: Vision */}
-            <div className="space-y-8 order-2 lg:order-1 text-center lg:text-right">
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-end gap-3">
-                  Sustainable Communities <span className="w-3 h-3 rounded-full bg-brand-orange"></span>
-                </h4>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-end gap-3">
-                  Modern Infrastructure <span className="w-3 h-3 rounded-full bg-brand-orange"></span>
-                </h4>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-end gap-3">
-                  South India's Leader <span className="w-3 h-3 rounded-full bg-brand-orange"></span>
-                </h4>
-              </div>
-            </div>
-
-            {/* Central Image */}
-            <div className="order-1 lg:order-2">
-              <div className="relative w-full aspect-[3/4] rounded-[2rem] overflow-hidden shadow-2xl border-8 border-white">
-                <Image src={prefix("/workspace-meeting.png")} alt="Vision and Mission" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 33vw" />
-              </div>
-            </div>
-
-            {/* Right Points: Mission */}
-            <div className="space-y-8 order-3 text-center lg:text-left">
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-start gap-3">
-                  <span className="w-3 h-3 rounded-full bg-brand-navy"></span> Absolute Integrity
-                </h4>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-start gap-3">
-                  <span className="w-3 h-3 rounded-full bg-brand-navy"></span> Operational Excellence
-                </h4>
-              </div>
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 flex items-center justify-center lg:justify-start gap-3">
-                  <span className="w-3 h-3 rounded-full bg-brand-navy"></span> Unmatched Hospitality
-                </h4>
-              </div>
-            </div>
-          </div>
+       {/* EXCLUSIVE ECOSYSTEM SECTION — full-width, reference-matched layout */}
+      <section className="w-full bg-white pt-24 pb-0 overflow-hidden">
+        
+        {/* Heading block — centered, constrained */}
+        <div className="max-w-3xl mx-auto px-4 text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-6 font-sans">
+            Step into CovaiTech's exclusive ecosystem
+          </h2>
+          <p className="text-slate-500 text-base sm:text-md leading-relaxed mb-10">
+            We connect members with premium office cabins, enterprise-grade networking, bespoke meeting rooms, and proactive operational support—empowering teams to work optimized.
+          </p>
+          <a
+            href={prefix("/private-office-space")}
+            className="inline-flex items-center gap-3 bg-[#1a1a1a] text-white pl-7 pr-2 py-2 rounded-full text-sm font-semibold hover:bg-[#f37021] transition-colors duration-300 shadow-md group"
+          >
+            Explore Spaces
+            <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black group-hover:translate-x-0.5 transition-transform shrink-0">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
         </div>
+
+        {/* Full-width stage: hand image + positioned cards */}
+        <div className="relative w-full flex justify-center items-end" style={{ minHeight: '680px' }}>
+
+          {/* Huge centered hand image */}
+          <div className="relative z-10 w-[340px] sm:w-[480px] md:w-[580px] lg:w-[700px] xl:w-[920px]" style={{ height: '680px' }}>
+            <Image
+              src={prefix("/hand.png")}
+              alt="CovaiTech Mobile Experience"
+              fill
+              className="object-contain object-bottom"
+              sizes="(max-width: 640px) 340px, (max-width: 1024px) 580px, 820px"
+              priority
+            />
+          </div>
+
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-white to-transparent z-20 pointer-events-none" />
+
+          {/* ── CARD 1: Top-Left — Coworking Spaces ── */}
+          <div className="absolute top-[6%] left-[4%] md:left-[6%] lg:left-[9%] xl:left-[12%] z-30 hidden md:flex gap-4 items-start bg-white border border-slate-100 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 w-[260px] lg:w-[350px] cursor-pointer">
+            <div className="w-20 h-30 shrink-0 rounded-xl overflow-hidden relative border border-slate-100">
+              <Image src={prefix("/workspace-lounge.png")} alt="Coworking Spaces" fill className="object-cover" sizes="72px" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-md font-extrabold  text-slate-800 uppercase mb-1.5">Coworking Spaces</h4>
+              <p className="text-sm text-slate-500 leading-relaxed mb-2.5">
+                Discover flexible hot desks and dedicated workstations designed for focus, collaboration, and productivity.
+              </p>
+              {/* <a href={prefix("/#services-dark")} className="text-[11px] font-bold text-slate-900 underline underline-offset-2 hover:text-[#f37021] transition-colors">See full list</a> */}
+            </div>
+          </div>
+
+          {/* ── CARD 2: Bottom-Left — Meeting Rooms ── */}
+          <div className="absolute bottom-[18%] left-[4%] md:left-[6%] lg:left-[9%] xl:left-[12%] z-30 hidden md:flex gap-4 items-start bg-white border border-slate-100 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 w-[260px] lg:w-[350px] cursor-pointer">
+            <div className="w-20 h-30 shrink-0 rounded-xl overflow-hidden relative border border-slate-100">
+              <Image src={prefix("/workspace-meeting.png")} alt="Meeting Rooms" fill className="object-cover" sizes="72px" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-md font-extrabold tracking-[0.1em] text-slate-800 uppercase mb-1.5">Meeting Rooms</h4>
+              <p className="text-sm text-slate-500 leading-relaxed mb-2.5">
+                Book fully-equipped boardrooms for team sessions, client meetings, and high-stakes presentations.
+              </p>
+              {/* <a href={prefix("/#services-dark")} className="text-[11px] font-bold text-slate-900 underline underline-offset-2 hover:text-[#f37021] transition-colors">See full list</a> */}
+            </div>
+          </div>
+
+          {/* ── CARD 3: Right — Private Cabins ── */}
+          <div className="absolute top-[30%] right-[4%] md:right-[6%] lg:right-[9%] xl:right-[12%] z-30 hidden md:flex gap-4 items-start bg-white border border-slate-100 rounded-2xl p-4 shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 w-[260px] lg:w-[350px] cursor-pointer">
+            <div className="w-20 h-30 shrink-0 rounded-xl overflow-hidden relative border border-slate-100">
+              <Image src={prefix("/workspace-cabin.png")} alt="Private Cabins" fill className="object-cover" sizes="72px" />
+            </div>
+            <div className="flex-1">
+              <h4 className="text-md font-extrabold tracking-[0.1em] text-slate-800 uppercase mb-1.5">Private Cabins</h4>
+              <p className="text-sm text-slate-500 leading-relaxed mb-2.5">
+                Access soundproof, enterprise-ready private office suites that help you and your team achieve more.
+              </p>
+              {/* <a href={prefix("/private-office-space")} className="text-[11px] font-bold text-slate-900 underline underline-offset-2 hover:text-[#f37021] transition-colors">See full list</a> */}
+            </div>
+          </div>
+
+        </div>
+
+        {/* ── Mobile card stack (visible only on small screens) ── */}
+        <div className="md:hidden flex flex-col gap-4 px-4 pb-12 pt-8">
+          {[
+            { title: "Coworking Spaces", img: "/workspace-lounge.png", desc: "Flexible hot desks and dedicated workstations for focus and collaboration.", href: "/#services-dark" },
+            { title: "Meeting Rooms", img: "/workspace-meeting.png", desc: "Fully-equipped boardrooms for team sessions and client meetings.", href: "/#services-dark" },
+            { title: "Private Cabins", img: "/workspace-cabin.png", desc: "Soundproof private office suites for deep focus and confidentiality.", href: "/private-office-space" },
+          ].map((card) => (
+            <div key={card.title} className="flex gap-4 items-start bg-white border border-slate-100 rounded-2xl p-4 shadow-sm">
+              <div className="w-16 h-16 shrink-0 rounded-xl overflow-hidden relative border border-slate-100">
+                <Image src={prefix(card.img)} alt={card.title} fill className="object-cover" sizes="64px" />
+              </div>
+              <div>
+                <h4 className="text-[10px] font-black tracking-[0.18em] text-slate-800 uppercase mb-1.5">{card.title}</h4>
+                <p className="text-[11px] text-slate-500 leading-relaxed mb-2">{card.desc}</p>
+                <a href={prefix(card.href)} className="text-[11px] font-bold text-slate-900 underline underline-offset-2">See full list</a>
+              </div>
+            </div>
+          ))}
+        </div>
+
       </section>
 
       {/* Why Choose CovaiTech (Bento Grid) */}

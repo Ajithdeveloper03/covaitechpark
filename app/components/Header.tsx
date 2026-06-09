@@ -43,7 +43,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
       <header
         className={`left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
-            ? "fixed top-0 bg-white/95 backdrop-blur-md shadow-md border-b border-slate-100 py-2.5 lg:py-3.5"
+            ? "fixed top-0 bg-white shadow-md border-b border-slate-100 py-2.5 lg:py-3.5"
             : "absolute top-0 lg:top-4 bg-transparent border-none py-3 lg:py-4"
         }`}
       >
@@ -51,7 +51,11 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
           
           <a
             href={prefix("/")}
-            className="flex items-center shrink-0 transition-all duration-300 hover:scale-[1.01] min-w-0 p-1 sm:p-1.5 md:p-2 bg-white rounded-lg sm:rounded-xl shadow-sm border border-slate-200"
+            className={`flex items-center shrink-0 transition-all duration-300 hover:scale-[1.01] min-w-0 p-1 sm:p-1.5 md:p-2 rounded-lg sm:rounded-xl ${
+              isScrolled
+                ? "bg-white"
+                : "bg-white/100  backdrop-blur-sm"
+            }`}
           >
             <Image
               src={prefix("/covai-tech-park-logo.png")}
@@ -70,38 +74,58 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
           >
             <div className="relative group cursor-pointer h-full flex items-center">
               <a href={prefix("/#locations")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6">Locations <span className="text-[8px]">▼</span></a>
-              <div className="absolute top-[85%] left-1/2 -translate-x-1/2 w-[550px] bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 grid grid-cols-2 p-4 text-sm normal-case tracking-normal font-medium z-50 gap-4 pointer-events-none group-hover:pointer-events-auto">
+              <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-[700px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out grid grid-cols-2 p-6 text-sm normal-case tracking-normal font-medium z-50 gap-6 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
                 {/* Coimbatore Card */}
-                <a href={prefix("/coimbatore")} className="group/loc relative bg-white border border-slate-100 rounded-xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-lg transition-all duration-300">
-                  <div className="relative aspect-video w-full overflow-hidden">
+                <a href={prefix("/coimbatore")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                  <div className="relative h-36 w-full overflow-hidden">
                     <Image src={prefix("/coimbatore.png")} alt="Coimbatore" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
-                    <div className="absolute bottom-3 left-4 text-white">
-                      <h4 className="font-outfit font-medium text-lg">Coimbatore</h4>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
+                      <div>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-1.5 block drop-shadow-md">Primary Hub</span>
+                        <h4 className="font-outfit font-medium text-[22px] text-white tracking-tight leading-none drop-shadow-md">Coimbatore</h4>
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover/loc:bg-brand-orange group-hover/loc:border-brand-orange transition-colors duration-300">
+                        <span className="text-sm font-light">&rarr;</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-4 flex-grow flex flex-col gap-2">
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Nehru Nagar</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Saravanampatti</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Peelamedu</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>RS Puram</span>
+                  <div className="p-6 flex-grow flex flex-col gap-3.5 bg-slate-50/50">
+                    {["Nehru Nagar", "Saravanampatti", "Peelamedu", "RS Puram"].map((area, idx) => (
+                      <span key={idx} className="text-slate-600 text-[13px] group-hover/loc:text-slate-900 transition-colors flex items-center gap-3">
+                        <span className="w-5 h-5 rounded-md bg-white border border-slate-200 flex items-center justify-center group-hover/loc:border-brand-orange/30 shadow-sm transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/loc:bg-brand-orange transition-colors"></span>
+                        </span>
+                        {area}
+                      </span>
+                    ))}
                   </div>
                 </a>
                 
                 {/* Trichy Card */}
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" className="group/loc relative bg-white border border-slate-100 rounded-xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-lg transition-all duration-300">
-                  <div className="relative aspect-video w-full overflow-hidden">
+                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                  <div className="relative h-36 w-full overflow-hidden">
                     <Image src={prefix("/workspace-meeting.png")} alt="Trichy" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
-                    <div className="absolute bottom-3 left-4 text-white">
-                      <h4 className="font-outfit font-medium text-lg">Trichy</h4>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
+                      <div>
+                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-1.5 block drop-shadow-md">New Hub</span>
+                        <h4 className="font-outfit font-medium text-[22px] text-white tracking-tight leading-none drop-shadow-md">Trichy</h4>
+                      </div>
+                      <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover/loc:bg-brand-orange group-hover/loc:border-brand-orange transition-colors duration-300">
+                        <span className="text-sm font-light">&rarr;</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-4 flex-grow flex flex-col gap-2">
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Thillai Nagar</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Cantonment</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>Woraiyur</span>
-                    <span className="text-slate-500 text-xs hover:text-brand-orange transition-colors flex items-center gap-2"><span className="w-1 h-1 rounded-full bg-slate-300 group-hover/loc:bg-brand-orange transition-colors"></span>KK Nagar</span>
+                  <div className="p-6 flex-grow flex flex-col gap-3.5 bg-slate-50/50">
+                    {["Thillai Nagar", "Cantonment", "Woraiyur", "KK Nagar"].map((area, idx) => (
+                      <span key={idx} className="text-slate-600 text-[13px] group-hover/loc:text-slate-900 transition-colors flex items-center gap-3">
+                        <span className="w-5 h-5 rounded-md bg-white border border-slate-200 flex items-center justify-center group-hover/loc:border-brand-orange/30 shadow-sm transition-colors">
+                          <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/loc:bg-brand-orange transition-colors"></span>
+                        </span>
+                        {area}
+                      </span>
+                    ))}
                   </div>
                 </a>
               </div>
@@ -109,26 +133,26 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             
             <div className="relative group cursor-pointer h-full flex items-center">
               <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6">Services <span className="text-[8px]">▼</span></a>
-              <div className="absolute top-[85%] left-0 w-[240px] bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-100 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-300 flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto">
-                <a href={prefix("/private-office-space")} className="px-4 py-3 hover:bg-slate-50 hover:text-brand-orange rounded-xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-slate-700 group-hover/link:text-brand-orange">Private Office</span>
-                  <span className="text-brand-orange opacity-0 group-hover/link:opacity-100 transition-opacity">&rarr;</span>
+              <div className="absolute top-[90%] left-0 w-[260px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
+                <a href={prefix("/private-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/#services-dark")} className="px-4 py-3 hover:bg-slate-50 hover:text-brand-orange rounded-xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-slate-700 group-hover/link:text-brand-orange">Managed Office</span>
-                  <span className="text-brand-orange opacity-0 group-hover/link:opacity-100 transition-opacity">&rarr;</span>
+                <a href={prefix("/#services-dark")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Managed Office</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/#services-dark")} className="px-4 py-3 hover:bg-slate-50 hover:text-brand-orange rounded-xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-slate-700 group-hover/link:text-brand-orange">Virtual Office</span>
-                  <span className="text-brand-orange opacity-0 group-hover/link:opacity-100 transition-opacity">&rarr;</span>
+                <a href={prefix("/#services-dark")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Virtual Office</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/#services-dark")} className="px-4 py-3 hover:bg-slate-50 hover:text-brand-orange rounded-xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-slate-700 group-hover/link:text-brand-orange">Meeting Rooms</span>
-                  <span className="text-brand-orange opacity-0 group-hover/link:opacity-100 transition-opacity">&rarr;</span>
+                <a href={prefix("/#services-dark")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Meeting Rooms</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/#services-dark")} className="px-4 py-3 hover:bg-slate-50 hover:text-brand-orange rounded-xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-slate-700 group-hover/link:text-brand-orange">Event Space</span>
-                  <span className="text-brand-orange opacity-0 group-hover/link:opacity-100 transition-opacity">&rarr;</span>
+                <a href={prefix("/#services-dark")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Event Space</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
               </div>
             </div>

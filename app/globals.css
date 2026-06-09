@@ -472,3 +472,13 @@ p {
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
+@keyframes float {
+  0% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
+  50% { transform: translateY(-15px) rotate(var(--tw-rotate, 0deg)); }
+  100% { transform: translateY(0px) rotate(var(--tw-rotate, 0deg)); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+

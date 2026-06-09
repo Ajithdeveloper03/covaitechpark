@@ -40,29 +40,34 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[60vh] flex items-center pt-32 pb-16 section-x bg-slate-950 overflow-hidden">
-        <div className="absolute right-0 bottom-0 top-0 w-1/2 opacity-80 pointer-events-none hidden md:block">
+      <section className="relative min-h-[60vh] flex items-center pt-32 pb-16 section-x overflow-hidden bg-brand-navy">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
           <Image 
-            src={prefix("/workspace-meeting.png")} 
-            alt="Hero Background" 
-            fill 
-            className="object-cover object-right"
-            priority 
+            src={prefix("/workspace-meeting.png")}
+            alt="Contact Background"
+            fill
+            className="object-cover opacity-30 object-center"
+            priority
           />
-          {/* Overlay to blend image with background */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060d17] via-[#060d17]/80 to-transparent" />
         </div>
+
+        {/* Powerful Glassy Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#060d17]/80 via-[#060d17]/60 to-[#f37021]/10 z-0"></div>
+        <div className="absolute top-0 right-0 w-[80%] h-[80%] rounded-full bg-[#f37021]/20 blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none z-0"></div>
+        <div className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-full bg-sky-500/15 blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
+        <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-[2px] border-b border-white/10 pointer-events-none z-0"></div>
         
-        <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col gap-4 text-left">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white flex items-start gap-2">
-            Contact Us <span className="text-brand-orange text-3xl animate-pulse mt-2">*</span>
+        <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center text-center gap-4">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white flex items-center justify-center gap-2">
+            Contact Us <span className="text-[#f37021] text-3xl animate-pulse mt-2">*</span>
           </h1>
-          <p className="text-slate-300 text-sm sm:text-base max-w-md font-normal leading-relaxed">
+          <p className="text-slate-300 text-sm sm:text-base max-w-md font-normal leading-relaxed mx-auto">
             Premium managed workspaces and bespoke private cabins at the intersection of productivity, design and technology.
           </p>
-          <div className="mt-8 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-4">
-            <span>Home</span> <span className="text-brand-orange font-bold">|</span> <span>Contact Us</span>
+          <div className="mt-8 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-4">
+            <span>Home</span> <span className="text-[#f37021] font-bold">|</span> <span>Contact Us</span>
           </div>
         </div>
       </section>

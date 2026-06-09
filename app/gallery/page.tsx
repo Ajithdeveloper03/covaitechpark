@@ -31,10 +31,6 @@ const FULL_GALLERY_ITEMS = [
   { img: "/hero13.jpg", category: "Facilities", aspect: "aspect-[4/3]" }
 ];
 
-const SECTIONS = [
-  { id: "gallery-hero", label: "Gallery" },
-  { id: "gallery-grid", label: "Images" }
-];
 
 export default function GalleryPage() {
   const [activeTab, setActiveTab] = useState("All");
@@ -57,30 +53,37 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-[#faf9f6] text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
-      <FloatingNav sections={SECTIONS} />
+      <FloatingNav />
 
       {/* Hero Section */}
       <section 
         id="gallery-hero"
-        className="relative pt-40 pb-20 px-4 md:px-8 bg-[#0a0a0a] text-white flex flex-col items-center justify-center text-center overflow-hidden"
+        className="relative pt-40 pb-20 px-4 md:px-8 bg-[#060d17] text-white flex flex-col items-center justify-center text-center overflow-hidden min-h-[50vh]"
       >
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
-            src={prefix("/hero2.jpg")}
-            alt="CovaiTech Gallery"
+            src={prefix("/workspace-meeting.png")}
+            alt="Gallery Background"
             fill
-            className="object-cover opacity-20 object-center"
+            className="object-cover opacity-30 object-center"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-[#0a0a0a]/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#060d17] via-[#060d17]/80 to-transparent" />
         </div>
+
+        {/* Powerful Glassy Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#060d17]/80 via-[#060d17]/60 to-[#f37021]/10 z-0"></div>
+        <div className="absolute top-0 right-0 w-[80%] h-[80%] rounded-full bg-[#f37021]/20 blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none z-0"></div>
+        <div className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-full bg-sky-500/15 blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
+        <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-[2px] border-b border-white/10 pointer-events-none z-0"></div>
         
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-4">
-          <span className="text-sm font-bold text-brand-orange uppercase tracking-[0.2em]">Our Spaces</span>
+          <span className="text-sm font-bold text-[#f37021] uppercase tracking-[0.2em]">Our Spaces</span>
           <h1 className="text-5xl sm:text-6xl md:text-7xl tracking-tight text-white leading-[1.1] font-sans font-medium">
             Explore <span className="font-serif italic text-white/90">CovaiTech</span>
           </h1>
-          <p className="text-white/60 max-w-2xl text-base sm:text-lg mt-4 font-light leading-relaxed">
+          <p className="text-white/60 max-w-2xl text-base sm:text-lg mt-4 font-light leading-relaxed mx-auto">
             Take a visual tour of our meticulously designed private cabins, meeting rooms, and collaborative organic lounges.
           </p>
         </div>
@@ -106,12 +109,12 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        {/* Masonry Layout Grid */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-6 space-y-6 w-full">
+        {/* Standard Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
           {filteredItems.map((item, idx) => (
             <div 
               key={`${item.img}-${idx}`} 
-              className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-xl w-full break-inside-avoid ${item.aspect} cursor-pointer`}
+              className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-xl w-full break-inside-avoid aspect-[4/3] cursor-pointer`}
               onClick={() => openLightbox(item.img)}
             >
               <Image

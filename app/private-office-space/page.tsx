@@ -10,13 +10,6 @@ import useEmblaCarousel from "embla-carousel-react";
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
-const SECTIONS = [
-  { id: "hero", label: "Home" },
-  { id: "features", label: "Features" },
-  { id: "amenities", label: "Amenities" },
-  { id: "testimonials", label: "Testimonials" },
-  { id: "faqs", label: "FAQs" }
-];
 
 const PRIVATE_OFFICE_DETAILS = [
   { title: "Ready to Move", desc: "Fully furnished workspace available to move in immediately and start operating with zero lead time.", icon: "zap", image: "/workspace-cabin.png" },
@@ -222,7 +215,7 @@ export default function PrivateOfficePage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-inter relative select-none antialiased">
-      <FloatingNav sections={SECTIONS} />
+      <FloatingNav />
       
       {/* ── HEADER / NAVBAR ── */}
       <Header />
@@ -230,13 +223,13 @@ export default function PrivateOfficePage() {
       {/* ── 1. HERO SECTION WITH BACKGROUND IMAGE ── */}
       <section 
         id="hero" 
-        className="relative min-h-[90vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-28 pb-16 section-x gap-12 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.78), rgba(10, 15, 26, 0.88)), url(${prefix("/hero-bg.png")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-28 pb-16 section-x gap-12 bg-brand-navy"
       >
+        {/* Powerful Glassy Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy via-brand-navy/90 to-brand-orange/20"></div>
+        <div className="absolute top-0 right-0 w-[80%] h-[80%] rounded-full bg-brand-orange/20 blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-full bg-brand-orange/15 blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-white/[0.03] backdrop-blur-3xl border-b border-white/10 pointer-events-none"></div>
         {/* Hero Content Left */}
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
@@ -274,7 +267,7 @@ export default function PrivateOfficePage() {
         {/* Hero Visual Right */}
         <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
-            src={prefix("/workspace-cabin.png")}
+            src="https://images.pexels.com/photos/7651627/pexels-photo-7651627.jpeg"
             alt="Private Cabin Office Space"
             fill
             priority

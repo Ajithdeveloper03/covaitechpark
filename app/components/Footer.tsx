@@ -39,7 +39,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
           </div>
           <button
             onClick={handleCtaClick}
-            className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
+            className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
           >
             Book a Free Tour &rarr;
           </button>
@@ -104,15 +104,15 @@ export default function Footer({ onCtaClick }: FooterProps) {
               { name: "Training Room", link: prefix("/#services-dark") }
             ].map(item => (
               <li key={item.name} className="flex items-center gap-2">
-                <span className="text-brand-orange text-[10px]">&rsaquo;</span>
+                <span className="text-brand-orange text-sm">&rsaquo;</span>
                 <a href={item.link} className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item.name}</a>
               </li>
             ))}
           </ul>
 
           <div className="">
-            <h5 className="font-sans font-bold text-[11px] text-white uppercase tracking-[0.2em] mb-1.5 mt-2">Mobile</h5>
-            <div className="flex flex-col gap-1.5 text-white/45 text-xs font-normal">
+            <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em] mb-1.5 mt-2">Mobile</h5>
+            <div className="flex flex-col gap-1.5 text-white/45 text-sm font-normal">
               <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
               <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 900 355 0455</a>
               <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 968 899 2210</a>
@@ -132,7 +132,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
                 { name: "Refer and Earn Program", link: prefix("/#contact") }
               ].map(item => (
                 <li key={item.name} className="flex items-center gap-2">
-                  <span className="text-brand-orange text-[10px]">&rsaquo;</span>
+                  <span className="text-brand-orange text-sm">&rsaquo;</span>
                   <a href={item.link} className="hover:text-brand-orange transition-colors duration-200 cursor-pointer">{item.name}</a>
                 </li>
               ))}

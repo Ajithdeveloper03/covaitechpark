@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import FloatingNav from "./components/FloatingNav";
 import "./globals.css";
 
 const BASE_URL = "https://covaitechpark.com/covaitechpark";
@@ -151,6 +152,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white text-brand-navy pb-[76px] md:pb-0" suppressHydrationWarning>
+        <FloatingNav />
         {children}
         {/* Sticky Mobile Call Button */}
         <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-3 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">

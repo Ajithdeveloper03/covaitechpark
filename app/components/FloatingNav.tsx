@@ -21,63 +21,102 @@ export const GLOBAL_SECTIONS: NavSection[] = [
   { id: "booking", label: "Book Space" }
 ];
 
-interface FloatingNavProps {
-  sections?: NavSection[];
-}
+export const ABOUT_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero" },
+  { id: "who-we-are", label: "Who We Are" },
+  { id: "our-story", label: "Our Story" },
+  { id: "feeling", label: "Feeling" },
+  { id: "exclusive-ecosystem", label: "Ecosystem" }
+];
 
-export default function FloatingNav({ sections = GLOBAL_SECTIONS }: FloatingNavProps) {
+export const COIMBATORE_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero" },
+  { id: "plans", label: "Plans" },
+  { id: "benefits", label: "Benefits" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faqs", label: "FAQs" }
+];
+
+export const PRIVATE_OFFICE_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero" },
+  { id: "features", label: "Features" },
+  { id: "amenities", label: "Amenities" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faqs", label: "FAQs" }
+];
+
+export const GALLERY_SECTIONS: NavSection[] = [
+  { id: "gallery-hero", label: "Hero" },
+  { id: "gallery-grid", label: "Gallery" }
+];
+
+export default function FloatingNav() {
   const [activeId, setActiveId] = useState<string>("");
+  const [sections, setSections] = useState<NavSection[]>(GLOBAL_SECTIONS);
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
   const [hasAnySections, setHasAnySections] = useState(false);
 
   useEffect(() => {
-    // Only show if at least one section ID exists in the DOM
-    const found = sections.some((sec) => !!document.getElementById(sec.id));
+    // Determine the page sections based on current pathname
+    const path = window.location.pathname;
+    let selectedSections = GLOBAL_SECTIONS;
+    
+    if (path.includes("/about-us")) {
+      selectedSections = ABOUT_SECTIONS;
+    } else if (path.includes("/coimbatore")) {
+      selectedSections = COIMBATORE_SECTIONS;
+    } else if (path.includes("/private-office-space")) {
+      selectedSections = PRIVATE_OFFICE_SECTIONS;
+    } else if (path.includes("/gallery")) {
+      selectedSections = GALLERY_SECTIONS;
+    }
+
+    setSections(selectedSections);
+
+    // Check if at least one section ID exists in the DOM on this page
+    const found = selectedSections.some((sec) => !!document.getElementById(sec.id));
     setHasAnySections(found);
     if (!found) return;
 
     const handleScroll = () => {
+      // Hide floating nav on all page hero sections
+      setIsScrolledPastHero(window.scrollY > 220);
+
       let currentSection = "";
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i].id);
+      for (let i = selectedSections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(selectedSections[i].id);
         if (el) {
           const rect = el.getBoundingClientRect();
           if (rect.top <= window.innerHeight / 2) {
-            currentSection = sections[i].id;
+            currentSection = selectedSections[i].id;
             break;
           }
         }
       }
       // Fall back to first section that exists
       if (!currentSection) {
-        const first = sections.find((s) => !!document.getElementById(s.id));
+        const first = selectedSections.find((s) => !!document.getElementById(s.id));
         if (first) currentSection = first.id;
       }
       if (currentSection) setActiveId(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initialize on mount
-    setTimeout(handleScroll, 120);
+    // Initialize scroll state on mount
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections]);
+  }, []);
 
   if (!hasAnySections || sections.length === 0) return null;
-
-  // First section that actually exists in DOM
-  const firstExistingId = sections.find((s) =>
-    typeof document !== "undefined" ? !!document.getElementById(s.id) : false
-  )?.id;
-
-  const isAtTop = activeId === firstExistingId || activeId === "";
 
   return (
     <div
       className="fixed right-4 sm:right-6 xl:right-8 top-1/2 hidden lg:flex flex-col items-center z-[99] p-3 bg-[#091b29]/90 backdrop-blur-md rounded-full border border-white/10 shadow-2xl transition-all duration-500"
       style={{
-        transform: `translateY(-50%) translateX(${isAtTop ? "20px" : "0px"})`,
-        opacity: isAtTop ? 0 : 1,
-        pointerEvents: isAtTop ? "none" : "auto",
+        transform: `translateY(-50%) translateX(${!isScrolledPastHero ? "20px" : "0px"})`,
+        opacity: !isScrolledPastHero ? 0 : 1,
+        pointerEvents: !isScrolledPastHero ? "none" : "auto",
       }}
     >
       <div className="flex flex-col items-center gap-3.5 py-2">
@@ -86,7 +125,7 @@ export default function FloatingNav({ sections = GLOBAL_SECTIONS }: FloatingNavP
           return (
             <a
               key={sec.id}
-              href={prefix(`/#${sec.id}`)}
+              href={`#${sec.id}`}
               onClick={(e) => {
                 const el = document.getElementById(sec.id);
                 if (el) {

@@ -73,49 +73,38 @@ export default function BlogArchivePage() {
     <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header ctaText="Write Message" />
 
-      {/* ── HERO ── */}
-      <section className="relative min-h-[62vh] flex flex-col justify-end items-start pt-32 pb-0 overflow-hidden">
-        {/* Rich dark gradient background */}
-        <div className="absolute inset-0 bg-[#060d17]" />
-        {/* Radial glow orbs */}
-        <div className="absolute top-[-10%] right-[-5%] w-[700px] h-[700px] rounded-full bg-[#f37021]/12 blur-[160px] pointer-events-none" />
-        <div className="absolute top-[30%] left-[-5%] w-[500px] h-[500px] rounded-full bg-sky-500/8 blur-[130px] pointer-events-none" />
-        <div className="absolute bottom-[-10%] right-[25%] w-[400px] h-[400px] rounded-full bg-violet-600/10 blur-[120px] pointer-events-none" />
-        {/* Subtle noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.025]" style={{backgroundImage:"url('data:image/svg+xml,%3Csvg width=\"200\" height=\"200\" viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noise\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.9\" numOctaves=\"4\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noise)\" opacity=\"1\"/%3E%3C/svg%3E')"}} />
-
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 xl:px-16 pb-16">
+                  {/* ── LIGHT CLEAN HERO WITH BG IMAGE ── */}
+      <section className="relative min-h-[50vh] flex flex-col justify-end items-center pt-40 pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
+        <div className="absolute inset-0">
+          <Image src={prefix("/workspace-lounge.png")} alt="Blog background" fill className="object-cover" sizes="100vw" priority />
+          <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
+        </div>
+        
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center">
           {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-8">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#f37021]/15 border border-[#f37021]/25 text-[#f37021] text-[10px] font-semibold tracking-[0.2em] uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f37021] animate-pulse" />
+          <div className="flex justify-center items-center gap-3 mb-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-[10px] font-bold tracking-[0.2em] uppercase">
               CovaiTech Journal
             </span>
           </div>
 
-          <div className="max-w-3xl">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.05] mb-6">
-              Workspace{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f37021] via-orange-300 to-yellow-300">
-                Insights
-              </span>
-              <br />& Ideas
-            </h1>
-            <p className="text-slate-400 text-base sm:text-lg font-normal leading-relaxed max-w-xl">
-              Explore modern office design trends, startup strategies, remote infrastructure advice, and workspace management expertise from our team.
-            </p>
-          </div>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-sans font-bold tracking-tight text-white leading-[1.05] mb-6">
+            Workspace <span className="italic font-serif text-[#f37021] font-medium">Insights</span> & Ideas
+          </h1>
+          <p className="text-white/70 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
+            Explore modern office design trends, startup strategies, remote infrastructure advice, and workspace management expertise from our team.
+          </p>
 
           {/* Category filter pills */}
-          <div className="flex items-center gap-3 mt-10 flex-wrap">
+          <div className="flex items-center justify-center gap-3 mt-12 flex-wrap">
             {CATEGORIES.map(cat => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full text-[11px] font-semibold uppercase tracking-widest border transition-all duration-200 ${
+                className={`px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 ${
                   activeCategory === cat
-                    ? "bg-[#f37021] border-[#f37021] text-white shadow-lg shadow-[#f37021]/25"
-                    : "bg-white/5 border-white/10 text-white/60 hover:bg-white/10 hover:text-white hover:border-white/20"
+                    ? "bg-[#f37021] border-[#f37021] text-white shadow-lg shadow-[#f37021]/20"
+                    : "bg-white/10 border-white/20 text-white hover:border-white hover:bg-white/20"
                 }`}
               >
                 {cat}
@@ -123,9 +112,6 @@ export default function BlogArchivePage() {
             ))}
           </div>
         </div>
-
-        {/* Bottom fade to page bg */}
-        <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-[#fafafa] to-transparent pointer-events-none z-20" />
       </section>
 
       {/* ── ARTICLES ── */}

@@ -178,63 +178,61 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
 
       <Header ctaText="Book a Tour" />
 
-      {/* ── HERO BANNER ── */}
-      <section className="relative min-h-[72vh] flex flex-col justify-end items-start overflow-hidden pt-32">
-        {/* Dark background with rich gradient */}
-        <div className="absolute inset-0 bg-[#060d17]" />
-        <div className="absolute inset-0 overflow-hidden">
-          <Image
-            src={prefix(article.img)}
-            alt={article.title}
-            fill
-            className="object-cover opacity-25 scale-105"
-            sizes="100vw"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060d17] via-[#060d17]/70 to-[#060d17]/40" />
+                  {/* ── EDITORIAL MAGAZINE HERO ── */}
+      <section className="relative w-full pt-32 pb-16 bg-slate-900 overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src={prefix(article.img)} alt="Blog Details background" fill className="object-cover" sizes="100vw" priority />
+          <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-sm" />
         </div>
 
-        {/* Ambient glows */}
-        <div className="absolute top-[-5%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#f37021]/10 blur-[150px] pointer-events-none" />
-        <div className="absolute bottom-[10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-sky-500/8 blur-[120px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end relative z-10">
+          
+          {/* Typography side */}
+          <div className="lg:col-span-6 space-y-8 relative z-20">
+            {/* Back link */}
+            <a
+              href={prefix("/blog")}
+              className="inline-flex items-center gap-2 text-white/50 hover:text-[#f37021] text-xs font-bold uppercase tracking-widest mb-4 transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              </svg>
+              All Articles
+            </a>
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-10 xl:px-16 pb-16">
-          {/* Back link */}
-          <a
-            href={prefix("/blog")}
-            className="inline-flex items-center gap-2 text-white/50 hover:text-white text-xs font-medium uppercase tracking-widest mb-8 transition-colors"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            All Articles
-          </a>
-
-          <div className="max-w-3xl space-y-6">
-            {/* Category + meta */}
             <div className="flex items-center flex-wrap gap-3">
               <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
                 {article.category}
               </span>
-              <span className="text-white/40 text-xs">·</span>
-              <span className="text-white/50 text-xs font-medium">{article.readTime}</span>
-              <span className="text-white/40 text-xs">·</span>
-              <span className="text-white/50 text-xs font-medium">{article.date}</span>
+              <span className="text-white/30 text-xs">·</span>
+              <span className="text-white/60 text-xs font-medium">{article.readTime}</span>
+              <span className="text-white/30 text-xs">·</span>
+              <span className="text-white/60 text-xs font-medium">{article.date}</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08]">
+            {/* REDUCED FONT SIZE: changed from text-5xl sm:text-6xl md:text-7xl to text-4xl sm:text-5xl md:text-5xl */}
+            <h1 className="text-4xl sm:text-5xl md:text-5xl font-sans font-bold tracking-tight text-white leading-[1.1]">
               {article.title}
             </h1>
 
-            <p className="text-slate-400 text-base sm:text-lg font-normal leading-relaxed max-w-2xl">
+            <p className="text-white/70 text-base sm:text-lg font-normal leading-relaxed max-w-lg">
               {article.excerpt}
             </p>
           </div>
-        </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-[#fafafa] to-transparent pointer-events-none z-20" />
+          {/* Image side - Large and overlapping */}
+          <div className="lg:col-span-6 relative z-10 w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl lg:-translate-y-12">
+            <Image
+              src={prefix(article.img)}
+              alt={article.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+            />
+          </div>
+
+        </div>
       </section>
 
       {/* ── ARTICLE + SIDEBAR ── */}

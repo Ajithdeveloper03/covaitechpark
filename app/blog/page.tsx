@@ -50,9 +50,9 @@ const ARTICLES = [
 const CATEGORIES = ["All", "Workspace", "Productivity", "Business"];
 
 const categoryColors: Record<string, string> = {
-  Workspace: "bg-sky-50 text-sky-700 border-sky-200",
-  Productivity: "bg-emerald-50 text-emerald-700 border-emerald-200",
-  Business: "bg-violet-50 text-violet-700 border-violet-200",
+  Workspace: "bg-[#f37021]/10 text-[#f37021] border-[#f37021]/20",
+  Productivity: "bg-[#0a0f1a]/10 text-[#0a0f1a] border-[#0a0f1a]/20",
+  Business: "bg-slate-100 text-slate-700 border-slate-200",
 };
 
 export default function BlogArchivePage() {
@@ -74,7 +74,7 @@ export default function BlogArchivePage() {
       <Header ctaText="Write Message" />
 
                   {/* ── LIGHT CLEAN HERO WITH BG IMAGE ── */}
-      <section className="relative min-h-[50vh] flex flex-col justify-end items-center pt-40 pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
+      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex flex-col justify-end items-center pt-28 sm:pt-36 md:pt-40 pb-10 sm:pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
         <div className="absolute inset-0">
           <Image src={prefix("/workspace-lounge.png")} alt="Blog background" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
@@ -88,7 +88,7 @@ export default function BlogArchivePage() {
             </span>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-sans font-bold tracking-tight text-white leading-[1.05] mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold tracking-tight text-white leading-[1.05] mb-4 sm:mb-6">
             Workspace <span className="italic font-serif text-[#f37021] font-medium">Insights</span> & Ideas
           </h1>
           <p className="text-white/70 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
@@ -115,8 +115,8 @@ export default function BlogArchivePage() {
       </section>
 
       {/* ── ARTICLES ── */}
-      <section className="py-20 w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 space-y-16">
+      <section className="py-12 sm:py-16 md:py-20 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 xl:px-16 space-y-10 sm:space-y-16">
 
           {filtered.length === 0 && (
             <p className="text-slate-400 text-center py-24 text-sm">No articles in this category yet.</p>
@@ -144,7 +144,7 @@ export default function BlogArchivePage() {
               </div>
 
               {/* Content */}
-              <div className="p-10 lg:p-14 flex flex-col justify-between">
+              <div className="p-6 sm:p-8 lg:p-14 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-5">
                     <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryColors[featured.category] || "bg-slate-50 text-slate-600 border-slate-200"}`}>
@@ -242,36 +242,6 @@ export default function BlogArchivePage() {
       </section>
 
       {/* ── NEWSLETTER STRIP ── */}
-      <section className="py-20 bg-white border-t border-slate-100">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16">
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-[#060d17] via-[#0c1928] to-[#060d17] overflow-hidden p-12 md:p-16 flex flex-col md:flex-row items-center justify-between gap-10">
-            {/* Glow */}
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#f37021]/10 blur-[120px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-sky-500/8 blur-[100px] pointer-events-none" />
-
-            <div className="relative z-10 max-w-lg">
-              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f37021] mb-3 block">Stay in the know</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-3">
-                Get the latest workspace insights delivered to your inbox.
-              </h2>
-              <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                Join 2,000+ founders and enterprise leaders reading CovaiTech Park insights.
-              </p>
-            </div>
-
-            <div className="relative z-10 w-full md:w-auto flex flex-col sm:flex-row gap-3">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="w-full sm:w-72 px-5 py-4 rounded-xl bg-white/10 border border-white/15 text-white placeholder-white/40 text-sm focus:outline-none focus:border-[#f37021]/60 focus:bg-white/15 transition-all"
-              />
-              <button className="px-7 py-4 bg-[#f37021] hover:bg-white hover:text-[#f37021] text-white text-sm font-bold uppercase tracking-widest rounded-xl transition-all duration-300 whitespace-nowrap shadow-xl shadow-[#f37021]/20">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>

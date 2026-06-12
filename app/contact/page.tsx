@@ -10,11 +10,15 @@ const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 export default function ContactPage() {
   const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
+  const [phoneCode, setPhoneCode] = useState("+91");
+  const [phoneFlag, setPhoneFlag] = useState("🇮🇳");
+  const [showFlags, setShowFlags] = useState(false);
+  const [requirement, setRequirement] = useState("");
   const [success, setSuccess] = useState(false);
-  const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [selectedMap, setSelectedMap] = useState<"coimbatore" | "trichy">("coimbatore");
 
   useEffect(() => {
     document.title = "Contact Us | Premium Office Spaces & Ecosystem - CovaiTech Park";
@@ -22,25 +26,24 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (firstName && email && phone) {
+    if (firstName && lastName && email && phone) {
       setSuccess(true);
       setTimeout(() => {
         setFirstName("");
+        setLastName("");
         setEmail("");
         setPhone("");
-        setMessage("");
+        setRequirement("");
         setSuccess(false);
       }, 3000);
     }
   };
 
-
-
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
 
-      <section className="relative min-h-[60vh] flex items-center pt-32 pb-16 section-x overflow-hidden bg-brand-navy">
+      <section className="relative min-h-[45vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center pt-24 sm:pt-32 pb-12 sm:pb-16 section-x overflow-hidden bg-brand-navy">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -60,7 +63,7 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-[2px] border-b border-white/10 pointer-events-none z-0"></div>
         
         <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center text-center gap-4">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white flex items-center justify-center gap-2">
+          <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white flex items-center justify-center gap-2">
             Contact Us <span className="text-[#f37021] text-3xl animate-pulse mt-2">*</span>
           </h1>
           <p className="text-slate-300 text-sm sm:text-base max-w-md font-normal leading-relaxed mx-auto">
@@ -72,152 +75,338 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Form & Info Section */}
-      <section className="py-24 bg-white section-x w-full">
-        <div className="max-w-6xl mx-auto space-y-16">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block">
-              LOOKING FOR A WORKSPACE?
-            </span>
-            <h2 className="text-3xl sm:text-5xl font-sans font-medium text-slate-900 leading-[1.15]">
-              If your team needs to <br className="hidden sm:block" /> feel some love,
-            </h2>
-            <p className="text-slate-500 text-sm sm:text-base font-normal">
-              Get in Touch to see what we can do...
-            </p>
-          </div>
+      {/* Elegant Contact Portal Section */}
+      <section className="py-12 sm:py-16 md:py-24 bg-[#faf9f6] w-full relative overflow-hidden">
+        {/* Subtle background decoration */}
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[#f37021]/5 blur-[100px] pointer-events-none" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[45%] h-[45%] rounded-full bg-[#f37021]/5 blur-[120px] pointer-events-none" />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Contact Form */}
-            <div className="bg-white p-2">
-              <h3 className="font-sans font-bold text-2xl text-slate-900 mb-2">Send Us A Message</h3>
-              <p className="text-slate-500 text-sm font-normal mb-8">Feel some love, to see what we can do...</p>
+            {/* COLUMN 1: Form layout exactly as requested by user's screenshot */}
+            <div className="lg:col-span-7 bg-white border border-slate-100 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] p-5 sm:p-8 md:p-12 shadow-xl shadow-slate-200/40 relative overflow-hidden transition-all duration-500">
               
               {success ? (
-                <div className="py-12 text-center text-emerald-600 font-bold bg-emerald-50 rounded-2xl">
-                  Message sent successfully! We will get back to you soon.
+                <div className="py-16 text-center text-emerald-600 font-bold bg-emerald-50 rounded-3xl animate-fadeIn">
+                  <svg className="w-16 h-16 text-emerald-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Message sent successfully!<br />
+                  <span className="text-sm text-slate-500 font-normal mt-1 block">Our representative will call you shortly.</span>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      required
-                      placeholder="Complete Name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-full px-6 py-4 text-sm text-slate-800 focus:outline-none focus:border-brand-orange"
-                    />
-                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                    </span>
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Name field split into First/Last */}
+                  <div className="space-y-2">
+                    <label className="text-base font-normal text-slate-900 tracking-wide font-sans">
+                      Name <span className="text-red-500">*</span>
+                    </label>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3.5 text-base text-slate-800 focus:outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021] transition-all duration-300 shadow-sm"
+                        />
+                        <span className="text-xs text-slate-400 mt-1.5 block font-light">First</span>
+                      </div>
+                      <div>
+                        <input
+                          type="text"
+                          required
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3.5 text-base text-slate-800 focus:outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021] transition-all duration-300 shadow-sm"
+                        />
+                        <span className="text-xs text-slate-400 mt-1.5 block font-light">Last</span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="relative">
+
+                  {/* Phone field with custom flag selector */}
+                  <div className="space-y-2">
+                    <label className="text-base font-normal text-slate-900 tracking-wide font-sans">
+                      Phone <span className="text-red-500">*</span>
+                    </label>
+                    <div className="flex rounded-lg border border-slate-200 overflow-visible bg-white focus-within:border-[#f37021] focus-within:ring-1 focus-within:ring-[#f37021] transition-all duration-300 relative shadow-sm">
+                      <div className="relative flex items-center">
+                        <button
+                          type="button"
+                          onClick={() => setShowFlags(!showFlags)}
+                          className="flex items-center gap-1.5 px-4 py-3.5 text-slate-700 bg-slate-50 border-r border-slate-200 rounded-l-lg hover:bg-slate-100 transition-colors focus:outline-none"
+                        >
+                          <span className="text-xl leading-none">{phoneFlag}</span>
+                          <span className="text-sm font-medium text-slate-700">{phoneCode}</span>
+                          <span className="text-[8px] text-slate-400 ml-0.5">▼</span>
+                        </button>
+                        
+                        {showFlags && (
+                          <div className="absolute top-full left-0 mt-1.5 w-48 bg-white border border-slate-200 rounded-xl shadow-xl z-50 py-1 max-h-60 overflow-y-auto">
+                            {[
+                              { code: "+91", flag: "🇮🇳", name: "India" },
+                              { code: "+1", flag: "🇺🇸", name: "United States" },
+                              { code: "+44", flag: "🇬🇧", name: "United Kingdom" },
+                              { code: "+65", flag: "🇸🇬", name: "Singapore" },
+                              { code: "+971", flag: "🇦🇪", name: "UAE" },
+                            ].map((item) => (
+                              <button
+                                key={item.code}
+                                type="button"
+                                onClick={() => {
+                                  setPhoneCode(item.code);
+                                  setPhoneFlag(item.flag);
+                                  setShowFlags(false);
+                                }}
+                                className="w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                              >
+                                <span className="text-lg leading-none">{item.flag}</span>
+                                <span className="font-semibold">{item.code}</span>
+                                <span className="text-xs text-slate-400 ml-auto">{item.name}</span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                      <input
+                        type="tel"
+                        required
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className="flex-1 px-4 py-3.5 text-base text-slate-800 bg-transparent focus:outline-none rounded-r-lg"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Email field */}
+                  <div className="space-y-2">
+                    <label className="text-base font-normal text-slate-900 tracking-wide font-sans">
+                      Email <span className="text-red-500">*</span>
+                    </label>
                     <input
                       type="email"
                       required
-                      placeholder="Email Address"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-full px-6 py-4 text-sm text-slate-800 focus:outline-none focus:border-brand-orange"
-                    />
-                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Phone No"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-full px-6 py-4 text-sm text-slate-800 focus:outline-none focus:border-brand-orange"
-                    />
-                    <span className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400">
-                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                    </span>
-                  </div>
-                  <div className="relative">
-                    <textarea
-                      required
-                      rows={4}
-                      placeholder="Message"
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-3xl px-6 py-4 text-sm text-slate-800 focus:outline-none focus:border-brand-orange resize-none"
+                      className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3.5 text-base text-slate-800 focus:outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021] transition-all duration-300 shadow-sm"
                     />
                   </div>
-                  <button
-                    type="submit"
-                    className="px-8 py-3.5 bg-brand-orange hover:bg-slate-900 text-white text-sm font-bold rounded-full transition-all duration-300"
-                  >
-                    Send Message
-                  </button>
+
+                  {/* What are you looking for dropdown */}
+                  <div className="space-y-2">
+                    <label className="text-base font-normal text-slate-900 tracking-wide font-sans">
+                      What are you looking for?
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={requirement}
+                        onChange={(e) => setRequirement(e.target.value)}
+                        className="w-full bg-white border border-slate-200 rounded-lg px-4 py-3.5 text-base text-slate-800 focus:outline-none focus:border-[#f37021] focus:ring-1 focus:ring-[#f37021] transition-all duration-300 appearance-none cursor-pointer shadow-sm pr-10"
+                      >
+                        <option value="">-Select-</option>
+                        <option value="Private Cabins">Private Cabins</option>
+                        <option value="Hot Desk">Hot Desk</option>
+                        <option value="Dedicated Desk">Dedicated Desk</option>
+                        <option value="Meeting & Boardrooms">Meeting & Boardrooms</option>
+                        <option value="Custom Enterprise Suite">Custom Enterprise Suite</option>
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-slate-400">
+                        <svg className="fill-current h-4.5 w-4.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Submit Button */}
+                  <div className="pt-2">
+                    <button
+                      type="submit"
+                      className="w-full py-4 bg-[#f37021] hover:bg-[#e06216] text-white font-bold text-base rounded-md transition-all duration-300 cursor-pointer text-center select-none"
+                    >
+                      Submit
+                    </button>
+                  </div>
                 </form>
               )}
             </div>
 
-            {/* Dark Contact Card */}
-            <div className="bg-[#0f1115] text-white p-10 sm:p-12 rounded-2xl relative overflow-hidden shadow-2xl">
-              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: `url(${prefix("/pattern.png")})`, backgroundSize: '100px' }} />
-              <div className="relative z-10 space-y-12">
-                
-                <div className="space-y-4">
-                  <h4 className="font-bold text-lg">Get in touch</h4>
-                  <div className="space-y-1">
-                    <p className="text-slate-300 text-sm font-medium">+91 90420 65360</p>
-                    <p className="text-slate-300 text-sm font-medium">info@covaitechpark.com</p>
-                  </div>
-                  <div className="flex gap-3 pt-4">
-                    <a href="#" className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-brand-orange hover:border-brand-orange hover:text-white transition-colors text-xs font-bold text-slate-400">Fa</a>
-                    <a href="#" className="w-10 h-10 rounded-full bg-brand-orange border border-brand-orange flex items-center justify-center text-white text-xs font-bold shadow-[0_0_15px_rgba(243,112,33,0.4)]">Tw</a>
-                    <a href="#" className="w-10 h-10 rounded-full border border-slate-700 flex items-center justify-center hover:bg-brand-orange hover:border-brand-orange hover:text-white transition-colors text-xs font-bold text-slate-400">In</a>
-                  </div>
-                </div>
-
-                <div className="space-y-8">
-                  <div>
-                    <h4 className="font-bold text-lg mb-2">Coimbatore</h4>
-                    <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-normal">
-                      Covai Tech Park, 4th South Cross St,<br />
-                      Kovai Thirunagar, Nehru Nagar East,<br />
-                      Block D, IL 60614
-                    </p>
-                  </div>
-                  <div className="h-px w-full bg-slate-800" />
-                  <div>
-                    <h4 className="font-bold text-lg mb-2">Trichy</h4>
-                    <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-normal">
-                      2nd Floor, Bloom Plaza,<br />
-                      6th Cross North East Extension,<br />
-                      Block D, IL 60614
-                    </p>
-                  </div>
-                </div>
-
+            {/* COLUMN 2: Elegant Text-based Office Contacts */}
+            <div className="lg:col-span-5 space-y-12 pl-0 lg:pl-6">
+              
+              <div className="space-y-4">
+                <span className="text-xs font-bold text-[#f37021] uppercase tracking-[0.25em] block">LOCATE AN OFFICE</span>
+                <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 tracking-tight leading-tight">
+                  Premium Workspaces at prime hubs.
+                </h2>
+                {/* <p className="text-slate-500 text-sm leading-relaxed">
+                  Experience a curated network of workspaces designed for tech innovators, teams, and growing enterprises in Tamil Nadu.
+                </p> */}
               </div>
+
+              {/* Coimbatore contact details */}
+              <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-black uppercase tracking-wider inline-block">Coimbatore Headquarters</span>
+                <h3 className="text-xl font-bold text-slate-900">CovaiTech Park HQ</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore - 641 014.
+                </p>
+                <div className="pt-1.5 space-y-0.5 text-xs sm:text-sm font-medium text-slate-700">
+                  <p><span className="text-[#f37021] font-bold">P:</span> +91 93607 80768</p>
+                  <p><span className="text-[#f37021] font-bold">E:</span> info@covaitechpark.com</p>
+                </div>
+              </div>
+
+              {/* Trichy contact details */}
+              <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-black uppercase tracking-wider inline-block">Branch Office</span>
+                <h3 className="text-xl font-bold text-slate-900">Trichy Center</h3>
+                <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
+                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                </p>
+                <div className="pt-1.5 space-y-0.5 text-xs sm:text-sm font-medium text-slate-700">
+                  <p><span className="text-[#f37021] font-bold">P:</span> +91 96889 92210</p>
+                  <p><span className="text-[#f37021] font-bold">E:</span> info@covaitechpark.com</p>
+                </div>
+              </div>
+
+              {/* Direct Booking CTA */}
+             
+
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="w-full h-[400px] bg-slate-200 relative grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.143641267597!2d77.031952!3d11.027815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857a2bd66f649%3A0xc48c0827ea8061e8!2sCovai%20Tech%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0 }} 
-          allowFullScreen={false} 
-          loading="lazy" 
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+      {/* Separate, Full-width Interactive Map Section */}
+      <section className="w-full bg-slate-900 flex flex-col items-center relative z-20 border-t border-slate-800">
+        
+        {/* Toggle controls header container */}
+        <div className="w-full bg-slate-950 py-6 sm:py-10 border-b border-slate-800 px-4">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <span className="text-xs font-bold text-[#f37021] uppercase tracking-[0.2em] block mb-1">INTERACTIVE ECOSYSTEM MAP</span>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-sans font-bold text-white tracking-tight">Explore Our Locations</h2>
+            </div>
+            
+            <div className="flex bg-slate-900 border border-slate-800 p-1 rounded-xl shadow-lg shrink-0">
+              <button
+                type="button"
+                onClick={() => setSelectedMap("coimbatore")}
+                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer ${
+                  selectedMap === "coimbatore" 
+                    ? "bg-[#f37021] text-white shadow-md shadow-[#f37021]/10" 
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Coimbatore HQ
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedMap("trichy")}
+                className={`px-5 py-2.5 text-xs font-bold uppercase tracking-widest rounded-lg transition-all cursor-pointer ${
+                  selectedMap === "trichy" 
+                    ? "bg-[#f37021] text-white shadow-md shadow-[#f37021]/10" 
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                Trichy Center
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Map view container with overlay */}
+        <div className="w-full h-[350px] sm:h-[450px] md:h-[550px] relative overflow-hidden bg-slate-950 flex">
+          
+          {selectedMap === "coimbatore" ? (
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.143641267597!2d77.031952!3d11.027815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857a2bd66f649%3A0xc48c0827ea8061e8!2sCovai%20Tech%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0,  }} 
+              allowFullScreen={false} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0 w-full h-full"
+            />
+          ) : (
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9172089270634!2d78.6881744!3d10.8176587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf50ad5c0a373%3A0x63cd735d4fa36829!2sBloom%20Plaza!5e0!3m2!1sen!2sin!4v1718100000000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0,  }} 
+              allowFullScreen={false} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0 w-full h-full"
+            />
+          )}
+
+          {/* Glowing gradient overlay at edges to blend maps */}
+          {/* <div className="absolute inset-0 bg-gradient-to-r from-slate-950/20 via-transparent to-slate-950/20 pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" /> */}
+
+          {/* Floating glassmorphic location info panel */}
+          <div className="absolute bottom-4 left-3 right-3 sm:right-auto sm:bottom-8 sm:left-12 bg-slate-950/90 backdrop-blur-md text-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl shadow-2xl max-w-sm border border-white/10 z-20 transition-all duration-500 hover:border-[#f37021]/30">
+            {selectedMap === "coimbatore" ? (
+              <div className="space-y-4">
+                <div>
+                  <span className="text-[9px] font-bold text-[#f37021] uppercase tracking-[0.2em] block mb-1">MAIN HEADQUARTERS</span>
+                  <h3 className="text-xl font-bold font-sans">CovaiTech Park HQ</h3>
+                </div>
+                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore - 641 014.
+                </p>
+                <div className="text-xs text-slate-400 space-y-1">
+                  <p>Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>
+                  <p>Keycard Access: 24/7 for Members</p>
+                </div>
+                <div className="pt-2">
+                  <a 
+                    href="https://maps.app.goo.gl/T4HnE2Wn8nSjLptN8" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#f37021] uppercase tracking-wider hover:text-white transition-colors"
+                  >
+                    Open Google Maps &rarr;
+                  </a>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <div>
+                  <span className="text-[9px] font-bold text-[#f37021] uppercase tracking-[0.2em] block mb-1">TRICHY BRANCH</span>
+                  <h3 className="text-xl font-bold font-sans">Trichy Center</h3>
+                </div>
+                <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                </p>
+                <div className="text-xs text-slate-400 space-y-1">
+                  <p>Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>
+                  <p>Keycard Access: 24/7 for Members</p>
+                </div>
+                <div className="pt-2">
+                  <a 
+                    href="https://maps.google.com/?q=Bloom+Plaza+Trichy" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#f37021] uppercase tracking-wider hover:text-white transition-colors"
+                  >
+                    Open Google Maps &rarr;
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
+
+        </div>
+
       </section>
-
-
 
       <Footer />
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ImageLightbox from "./ImageLightbox";
 
@@ -28,6 +28,24 @@ export default function HomeGallery() {
   const [activeTab, setActiveTab] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState("");
+  const [numColumns, setNumColumns] = useState(4);
+
+  useEffect(() => {
+    const updateColumns = () => {
+      if (window.innerWidth < 640) {
+        setNumColumns(1);
+      } else if (window.innerWidth < 768) {
+        setNumColumns(2);
+      } else if (window.innerWidth < 1024) {
+        setNumColumns(3);
+      } else {
+        setNumColumns(4);
+      }
+    };
+    updateColumns();
+    window.addEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateColumns);
+  }, []);
 
   const filteredItems = activeTab === "All" 
     ? GALLERY_ITEMS 
@@ -37,6 +55,27 @@ export default function HomeGallery() {
     setLightboxImage(prefix(imgSrc));
     setLightboxOpen(true);
   };
+
+  const getFlexGrow = (aspect: string) => {
+    if (aspect.includes("3/5")) return 1.67;
+    if (aspect.includes("4/5")) return 1.25;
+    if (aspect.includes("9/16")) return 1.78;
+    if (aspect.includes("3/4")) return 1.33;
+    if (aspect.includes("1/1")) return 1.00;
+    if (aspect.includes("4/3")) return 0.75;
+    if (aspect.includes("3/2")) return 0.67;
+    if (aspect.includes("16/9")) return 0.56;
+    return 1.00;
+  };
+
+  // Partition items into columns
+  const columnsData = Array.from({ length: numColumns }, () => [] as typeof GALLERY_ITEMS);
+  filteredItems.forEach((item, idx) => {
+    columnsData[idx % numColumns].push(item);
+  });
+
+  const maxItemsInCol = Math.max(...columnsData.map(col => col.length), 1);
+  const containerHeight = maxItemsInCol * 280;
 
   return (
     <section id="gallery-works" className="bg-[#fcfbf9] w-full py-24 sm:py-32 px-4 sm:px-6 md:px-8 overflow-hidden relative border-t border-b border-slate-100">
@@ -68,26 +107,40 @@ export default function HomeGallery() {
         </div>
 
         {/* Masonry Layout Grid */}
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4 w-full mt-4">
-          {filteredItems.map((item, idx) => (
-            <div 
-              key={`${item.img}-${idx}`} 
-              className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm w-full break-inside-avoid ${item.aspect} cursor-pointer`}
-              onClick={() => openLightbox(item.img)}
-            >
-              <Image
-                src={prefix(item.img)}
-                alt={`${item.category} Gallery Image`}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold uppercase tracking-widest rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                  View
-                </span>
-              </div>
+        <div 
+          className="grid gap-4 w-full mt-4" 
+          style={{ 
+            gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))`,
+            height: `${containerHeight}px`
+          }}
+        >
+          {columnsData.map((colItems, colIdx) => (
+            <div key={colIdx} className="flex flex-col gap-4 h-full">
+              {colItems.map((item, idx) => {
+                const flexValue = getFlexGrow(item.aspect);
+                return (
+                  <div 
+                    key={`${item.img}-${idx}`} 
+                    className="group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm w-full cursor-pointer"
+                    style={{ flex: `${flexValue} 1 0%` }}
+                    onClick={() => openLightbox(item.img)}
+                  >
+                    <Image
+                      src={prefix(item.img)}
+                      alt={`${item.category} Gallery Image`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold uppercase tracking-widest rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                        View
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ))}
         </div>

@@ -229,12 +229,12 @@ function DeploymentPhaseContent({
 }) {
   return (
     <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
-      <span className="text-[10px] sm:text-sm font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
+      <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
         {phase.subtitle}
       </span>
       <h3
-        className={`font-outfit font-medium text-brand-navy tracking-tight leading-[1.05] ${
-          compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+        className={`font-outfit font-bold text-brand-navy tracking-tight leading-[1.05] ${
+          compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-4xl"
         }`}
       >
         {phase.title}
@@ -1145,11 +1145,11 @@ export default function Home() {
 
               {/* Right: Text Content */}
               <div className="flex flex-col justify-center space-y-4 sm:space-y-6">
-                <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.28em] block leading-none">
+                <span className="text-sm font-normal tracking-light text-brand-orange   block leading-none">
                   About Covai Tech Park (Unit of MAX OFFICE)
                 </span>
 
-                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
+                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
                   Business Ecosystem for<br />Collaboration & Growth
                 </h2>
 
@@ -1158,7 +1158,7 @@ export default function Home() {
                 </p>
 
                 {/* Stats row */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6 border-t border-slate-100">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-2 border-t border-slate-100">
                   {[
                     { val: "4,500+", label: "Seats", color: "text-brand-orange" },
                     { val: "650+", label: "Clients Served", color: "text-teal-500" },
@@ -1187,67 +1187,83 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AWARDS & RECOGNITION SECTION — Single Featured Award */}
-      <section className="relative w-full overflow-hidden bg-[#060c10] py-24 sm:py-32 border-t border-b border-white/5">
-        {/* Background elements */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(243,112,33,0.10),transparent_60%)]" />
+      {/* AWARDS & RECOGNITION SECTION — Prestigious Centerpiece Design */}
+      <section className="relative w-full overflow-hidden bg-[#060c10] py-14 sm:py-14 border-t border-b border-white/5">
+        {/* Background Image Layout */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src={prefix("/awards-bg.jpg")}
+            alt="Accolades Background"
+            fill
+            className="object-cover opacity-70 object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#060c10]/80 via-[#060c10]/50 to-[#060c10]/80" />
         </div>
-        <div className="absolute top-[10%] left-[5%] w-[400px] h-[400px] bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none z-0" />
-        <div className="absolute bottom-[5%] right-[5%] w-[350px] h-[350px] bg-brand-orange/4 rounded-full blur-[120px] pointer-events-none z-0" />
+        
+        {/* Ambient background glow */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_500px_at_50%_50%,rgba(243,112,33,0.08),transparent)]" />
+        </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto section-x">
-          {/* Header */}
-          <div className="text-center mb-10 reveal reveal-up">
-            <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none mb-5">
-              Awards &amp; Recogonitions
-            </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-tight">
-              Excellence in providing <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">office space solutions</span>
-            </h2>
+        <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
+          {/* Tag */}
+          <span className="text-[10px] font-bold text-[#f37021] uppercase tracking-[0.35em] block mb-8">
+            ★ HONORARY ACCOLADE ★
+          </span>
+
+          {/* Golden Badge Showcase Container */}
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 flex items-center justify-center mb-10 group">
+            {/* Outer spinning dashed ring */}
+            <div className="absolute inset-0 rounded-full border border-dashed border-amber-500/40 animate-[spin_40s_linear_infinite]" />
+            {/* Inner pulsing border */}
+            <div className="absolute inset-4 rounded-full border border-amber-500/20 group-hover:border-amber-500/40 transition-colors duration-500 animate-pulse" />
+            
+            {/* Glowing orb */}
+            <div className="absolute inset-8 rounded-full bg-gradient-to-tr from-amber-500/10 to-transparent blur-md group-hover:scale-110 transition-transform duration-500" />
+            {/* The Badge Image in a circular frame */}
+            <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-amber-500/40 shadow-2xl z-10">
+              <Image
+                src={prefix("/awards.png")}
+                alt="Times Business Awards Badge"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                sizes="150px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-amber-950/40 to-transparent" />
+            </div>
+            
+            {/* Decorative gold dots */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1 w-2 h-2 rounded-full bg-amber-500 shadow-lg" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1 w-2 h-2 rounded-full bg-amber-500 shadow-lg" />
           </div>
 
-          {/* Two-column Awards Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center text-left mt-16 max-w-6xl mx-auto reveal reveal-up">
-            {/* Left Column: gold.png */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative flex flex-col items-center select-none">
-                <Image src={prefix("/awards.png")} alt="Award Winner" width={320} height={320} className="w-44 sm:w-52 md:w-60 lg:w-72 h-auto object-contain drop-shadow-2xl"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
-              </div>
-            </div>
-
-            {/* Right Column: Details */}
-            <div className="lg:col-span-7 space-y-6">
-              <div className="group relative bg-[#0b1420] rounded-3xl border border-white/8 p-8 sm:p-10 flex flex-col sm:flex-row gap-6 hover:border-brand-orange/40 hover:-translate-y-1 transition-all duration-500 shadow-2xl overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent" />
-                <div className="absolute -bottom-12 -right-12 w-40 h-40 bg-brand-orange/5 rounded-full blur-3xl group-hover:bg-brand-orange/10 transition-all duration-700" />
-                
-                {/* Wreath trophy icon */}
-                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 relative flex items-center justify-center bg-white/5 rounded-2xl overflow-hidden border border-white/10">
-                  <Image src={prefix("/awards.jpg")} alt="Award Badge" fill className="w-full h-full object-cover"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
-                </div>
-                
-                <div className="space-y-4">
-                  <h3 className="font-outfit font-medium text-2xl sm:text-3xl text-white group-hover:text-brand-orange transition-colors duration-300 leading-snug">Times Business Awards</h3>
-                  <p className="text-slate-400 text-sm font-normal leading-relaxed">
-                    Recognized for excellence in providing state-of-the-art office space solutions, premium managed workspaces, and outstanding corporate environment standards.
-                  </p>
-                  <div className="pt-2">
-                    <button
-                      onClick={() => handleOpenBooking("Times Business Awards")}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg hover:scale-[1.03]"
-                    >
-                      Learn More &rarr;
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Award Info */}
+          <div className="space-y-4 max-w-2xl">
+            <h3 className="font-outfit font-medium text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight">
+              Times Business Awards
+            </h3>
+            
+            <p className="text-slate-400 text-sm sm:text-base font-normal leading-relaxed">
+              Recognized as the premier provider of state-of-the-art office spaces, managed corporate suites, and premium workspace ecosystems. This accolade reflects our commitment to creating high-performance environments for software developers and fast-scaling tech companies.
+            </p>
           </div>
+
+          {/* Interactive Accolade Link */}
+          <div className="mt-10">
+            <button
+              onClick={() => handleOpenBooking("Times Business Awards")}
+              className="group/btn relative px-8 py-3 bg-transparent text-xs font-bold uppercase tracking-widest text-amber-500 hover:text-white transition-colors duration-300 rounded-full border border-amber-500/30 hover:border-amber-500 overflow-hidden"
+            >
+              <span className="absolute inset-0 bg-amber-500 -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out -z-10" />
+              Learn More &rarr;
+            </button>
+          </div>
+
         </div>
       </section>
 {/* SERVICES GRID (Image 4 Style - 100vh) */}
-      <section id="locations" className="w-full min-h-[100vh] flex bg-white border-t border-slate-100 overflow-hidden">
+      <section id="locations" className="w-full min-h-[auto] lg:min-h-[100vh] flex bg-white border-t border-slate-100 overflow-hidden">
         <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
 
           {/* LEFT: Heading + Dropdowns + City Grid */}
@@ -1258,7 +1274,7 @@ export default function Home() {
               {/* Yellow decorative accent circle */}
               <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#ffe066]/80 -z-10" />
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
-              <h2 className="font-outfit font-medium text-4xl sm:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
+              <h2 className="font-outfit font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
                 Choose from <span className="text-brand-orange">100,000+</span><br />spaces to Work &amp; Live
               </h2>
               <p className="text-slate-500 text-md leading-relaxed max-w-md relative z-10 font-normal">
@@ -1499,31 +1515,19 @@ export default function Home() {
           style={{ height: `${DEPLOYMENT_PHASES.length * 100}vh` }}
           className="hidden lg:block relative w-full"
         >
-          <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#f8fafc]">
-            <div className="absolute top-10 left-0 right-0 flex flex-col items-center text-center section-x z-20 pointer-events-none">
-              <span className="text-[11px] font-medium text-slate-500 uppercase tracking-[0.3em] block">
+          <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-between py-10 bg-[#f8fafc] overflow-hidden">
+            {/* Header with neat spacing */}
+            <div className="flex flex-col items-center text-center section-x z-20 pointer-events-none mt-2">
+              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.3em] block">
                 OUR FACILITIES
               </span>
-              <h2 className="font-outfit font-medium text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2">
+              <h2 className="font-outfit font-bold text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2.5">
                 Premium facilities for modern teams.
               </h2>
             </div>
 
-            <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-3 z-20">
-              {DEPLOYMENT_PHASES.map((_, i) => (
-                <div
-                  key={i}
-                  className="rounded-full transition-all duration-500"
-                  style={{
-                    width: i === activePhase ? "32px" : "8px",
-                    height: "8px",
-                    background: i === activePhase ? "#f37021" : "rgba(15,23,42,0.15)",
-                  }}
-                />
-              ))}
-            </div>
-
-            <div className="relative w-full max-w-6xl mt-24 mx-auto section-x deployment-card-stack h-[65vh]">
+            {/* Card stack centered dynamically with larger height limit */}
+            <div className="relative w-full max-w-6xl mx-auto section-x deployment-card-stack flex-1 max-h-[66vh] h-[66vh] my-4">
               {DEPLOYMENT_PHASES.map((phase, idx) => {
                 const diff = idx - activePhase;
                 const isActive = diff === 0;
@@ -1570,6 +1574,21 @@ export default function Home() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Navigation Dots with bottom cushion */}
+            <div className="flex items-center gap-3 z-20 mb-2">
+              {DEPLOYMENT_PHASES.map((_, i) => (
+                <div
+                  key={i}
+                  className="rounded-full transition-all duration-500"
+                  style={{
+                    width: i === activePhase ? "32px" : "8px",
+                    height: "8px",
+                    background: i === activePhase ? "#f37021" : "rgba(15,23,42,0.15)",
+                  }}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -1657,11 +1676,11 @@ export default function Home() {
       <HomeGallery />   
 
       {/* FAQS SECTION */}
-      <section id="faqs" className="w-full bg-[#f8fafc] py-16 sm:py-24 relative overflow-hidden">
+      <section id="faqs" className="w-full bg-[#f8fafc] py-12 sm:py-16 md:py-24 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-12 reveal reveal-up">
             <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">FAQS</span>
-            <h2 className="font-outfit font-medium text-3xl sm:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
+            <h2 className="font-outfit font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
               Frequently Asked Questions
             </h2>
           </div>
@@ -1687,6 +1706,8 @@ export default function Home() {
         </div>
       </section>
 
+    
+
       {/* BOOKING/CONTACT SECTION */}
       <section id="booking" className="section-container h-auto py-12 sm:py-16 section-x bg-[#f8fafc] border-t border-b border-brand-orange/15 text-brand-navy relative overflow-hidden reveal reveal-up">
         
@@ -1707,7 +1728,7 @@ export default function Home() {
             <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
               CONNECT WITH US
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
               Establish your business at Coimbatore or Trichy
             </h2>
             <p className="text-sm sm:text-base text-brand-slate font-medium leading-relaxed">

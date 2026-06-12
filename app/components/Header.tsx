@@ -14,6 +14,8 @@ interface HeaderProps {
 export default function Header({ ctaText = "Write Message", ctaAction }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileLocationsOpen, setMobileLocationsOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -162,7 +164,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
             <a
-              href="https://wa.me/919042065360"
+              href="https://wa.me/919360780768"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-normal uppercase tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
@@ -170,7 +172,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" viewBox="0 0 32 32" fill="white">
                 <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
               </svg>
-              <span className="hidden lg:inline">+91 90420 65360</span>
+              <span className="hidden lg:inline">+91 93607 80768</span>
               <span className="hidden sm:inline lg:hidden">WhatsApp</span>
             </a>
 
@@ -203,12 +205,12 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
         </div>
 
         {/* Mobile menu drawer */}
-        <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-[#0a1828]/98 backdrop-blur-2xl z-50 flex flex-col justify-center items-center gap-6 xl:hidden transition-transform duration-500 shadow-2xl ${
+        <div className={`fixed inset-y-0 right-0 w-full max-w-xs bg-[#0a1828]/98 backdrop-blur-2xl z-50 flex flex-col justify-start items-stretch gap-6 xl:hidden transition-transform duration-500 shadow-2xl ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}>
           <button 
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 p-2 text-white/80 hover:text-white cursor-pointer transition-colors duration-250"
+            className="absolute top-6 right-6 p-2 text-white/80 hover:text-white cursor-pointer transition-colors duration-250 z-50"
             aria-label="Close Menu"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
@@ -216,28 +218,93 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             </svg>
           </button>
 
-          <nav className="flex flex-col items-center gap-6 text-[15px] font-bold text-white uppercase tracking-widest w-full px-8 overflow-y-auto max-h-[80vh] py-8">
-            <div className="flex flex-col items-center gap-2 w-full text-center">
-              <span className="text-white/45 text-[10px] tracking-widest uppercase mb-1">Locations</span>
-              <div className="flex flex-col gap-1 w-full">
-                <span className="text-brand-orange text-sm font-bold uppercase tracking-wider">Coimbatore</span>
-                <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Nehru Nagar</a>
-                <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Saravanampatti</a>
-                <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Peelamedu</a>
-                <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">RS Puram</a>
-              </div>
-              <div className="flex flex-col gap-1 w-full mt-3">
-                <span className="text-brand-orange text-sm font-bold uppercase tracking-wider">Trichy</span>
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Thillai Nagar</a>
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Cantonment</a>
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">Woraiyur</a>
-                <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-sm normal-case font-normal text-white/85">KK Nagar</a>
+          <nav className="flex flex-col items-stretch gap-6 text-[14px] font-bold text-white uppercase tracking-widest w-full px-6 overflow-y-auto max-h-[85vh] py-16 text-left">
+            
+            {/* Locations Menu */}
+            <div className="flex flex-col border-b border-white/5 pb-4">
+              <button
+                type="button"
+                onClick={() => setMobileLocationsOpen(!mobileLocationsOpen)}
+                className="flex items-center justify-between w-full hover:text-brand-orange transition-colors duration-200 text-left font-bold uppercase tracking-widest text-[14px] bg-transparent border-none cursor-pointer"
+              >
+                <span>Locations</span>
+                <span className="text-brand-orange text-lg leading-none">{mobileLocationsOpen ? "−" : "+"}</span>
+              </button>
+              
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  mobileLocationsOpen ? "max-h-[500px] mt-4 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="grid grid-cols-2 gap-4 pl-2 normal-case tracking-normal font-medium text-sm">
+                  {/* Coimbatore list */}
+                  <div className="flex flex-col gap-2">
+                    <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Coimbatore</span>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Saravanampatti</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Peelamedu</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">RS Puram</a>
+                  </div>
+                  {/* Trichy list */}
+                  <div className="flex flex-col gap-2">
+                    <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Trichy</span>
+                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Thillai Nagar</a>
+                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Cantonment</a>
+                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Woraiyur</a>
+                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">KK Nagar</a>
+                  </div>
+                </div>
               </div>
             </div>
-            <a href={prefix("/private-office-space")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-center w-full font-medium">Private Office</a>
-            <a href={prefix("/#services-dark")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-center w-full font-medium">Services</a>
-            <a href={prefix("/blog")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-center w-full font-medium">Blog</a>
-            <a href={prefix("/contact")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors text-center w-full font-medium">Contact</a>
+
+            {/* Services Menu */}
+            <div className="flex flex-col border-b border-white/5 pb-4">
+              <button
+                type="button"
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                className="flex items-center justify-between w-full hover:text-brand-orange transition-colors duration-200 text-left font-bold uppercase tracking-widest text-[14px] bg-transparent border-none cursor-pointer"
+              >
+                <span>Services</span>
+                <span className="text-brand-orange text-lg leading-none">{mobileServicesOpen ? "−" : "+"}</span>
+              </button>
+              
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  mobileServicesOpen ? "max-h-[300px] mt-4 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <div className="flex flex-col gap-3 pl-2 normal-case tracking-normal font-medium text-sm">
+                  <a href={prefix("/private-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Private Office</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
+                  <a href={prefix("/#services-dark")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Managed Office</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
+                  <a href={prefix("/#services-dark")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Virtual Office</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
+                  <a href={prefix("/#services-dark")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Meeting Rooms</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
+                  <a href={prefix("/#services-dark")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Event Space</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Static Links */}
+            <a href={prefix("/blog")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
+              Blog
+            </a>
+            <a href={prefix("/contact")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
+              Contact
+            </a>
           </nav>
         </div>
       </header>

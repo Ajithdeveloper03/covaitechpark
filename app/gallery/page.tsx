@@ -4,31 +4,32 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FloatingNav from "../components/FloatingNav";
 import ImageLightbox from "../components/ImageLightbox";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
+const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
-const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge", "Events", "Facilities"];
+const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge", "Common Areas", "Events", "Facilities"];
 
+// Default gallery items — only uses images confirmed to exist in /public
 const FULL_GALLERY_ITEMS = [
-  { img: "/hero1.jpg", category: "Facilities", aspect: "aspect-[16/9]" },
-  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[3/5]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[4/3]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[1/1]" },
-  { img: "/hero2.jpg", category: "Meeting Rooms", aspect: "aspect-[16/9]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[4/5]" },
-  { img: "/workspace-event.png", category: "Events", aspect: "aspect-[3/2]" },
-  { img: "/hero3.jpg", category: "Cabins", aspect: "aspect-[1/1]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[9/16]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[3/4]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
-  { img: "/hero11.jpg", category: "Facilities", aspect: "aspect-[16/9]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[16/9]" },
-  { img: "/workspace-event.png", category: "Events", aspect: "aspect-[3/4]" },
-  { img: "/hero13.jpg", category: "Facilities", aspect: "aspect-[4/3]" }
+  { img: "/hero1.jpg",               category: "Facilities",    aspect: "aspect-[16/9]" },
+  { img: "/workspace-cabin.png",     category: "Cabins",        aspect: "aspect-[3/5]"  },
+  { img: "/workspace-lounge.png",    category: "Lounge",        aspect: "aspect-[4/3]"  },
+  { img: "/workspace-cafe.png",      category: "Common Areas",  aspect: "aspect-[1/1]"  },
+  { img: "/amenities-community.png", category: "Common Areas",  aspect: "aspect-[16/9]" },
+  { img: "/workspace-meeting.png",   category: "Meeting Rooms", aspect: "aspect-[4/3]"  },
+  { img: "/workspace-hotdesk.png",   category: "Cabins",        aspect: "aspect-[4/5]"  },
+  { img: "/workspace-event.png",     category: "Events",        aspect: "aspect-[3/2]"  },
+  { img: "/hero-bg.png",             category: "Facilities",    aspect: "aspect-[16/9]" },
+  { img: "/workspace-lounge.png",    category: "Lounge",        aspect: "aspect-[9/16]" },
+  { img: "/workspace-cafe.png",      category: "Common Areas",  aspect: "aspect-[3/4]"  },
+  { img: "/workspace-meeting.png",   category: "Meeting Rooms", aspect: "aspect-[4/3]"  },
+  { img: "/hero13.jpg",              category: "Facilities",    aspect: "aspect-[4/3]"  },
+  { img: "/workspace-hotdesk.png",   category: "Cabins",        aspect: "aspect-[16/9]" },
+  { img: "/workspace-event.png",     category: "Events",        aspect: "aspect-[3/4]"  },
+  { img: "/workspace-cabin.png",     category: "Cabins",        aspect: "aspect-[1/1]"  },
 ];
 
 
@@ -38,9 +39,48 @@ export default function GalleryPage() {
   const [lightboxImage, setLightboxImage] = useState("");
   const [visibleCount, setVisibleCount] = useState(15);
   const [numColumns, setNumColumns] = useState(4);
+  const [galleryItems, setGalleryItems] = useState(FULL_GALLERY_ITEMS);
 
   useEffect(() => {
     document.title = "Gallery | Premium Office Spaces - CovaiTech Park";
+  }, []);
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/galleries");
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            const mapped = data.map((item: any) => {
+              const aspects = ["aspect-[16/9]", "aspect-[4/3]", "aspect-[1/1]", "aspect-[3/4]"];
+              const randomAspect = aspects[item.id % aspects.length];
+              const rawImg = item.image;
+              let resolvedImg = "/workspace-lounge.png";
+              if (rawImg) {
+                if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
+                  resolvedImg = rawImg;
+                } else if (rawImg.includes("/")) {
+                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
+                } else {
+                  resolvedImg = `/${rawImg}`;
+                }
+              }
+              return {
+                id: item.id,
+                img: resolvedImg,
+                category: item.title,
+                aspect: randomAspect
+              };
+            });
+            setGalleryItems(mapped);
+          }
+        }
+      } catch (e) {
+        console.error("Error fetching gallery from API", e);
+      }
+    };
+    fetchGallery();
   }, []);
 
   useEffect(() => {
@@ -66,13 +106,13 @@ export default function GalleryPage() {
   }, [activeTab]);
 
   const filteredItems = activeTab === "All" 
-    ? FULL_GALLERY_ITEMS 
-    : FULL_GALLERY_ITEMS.filter(item => item.category === activeTab);
+    ? galleryItems 
+    : galleryItems.filter(item => item.category === activeTab);
 
   const displayedItems = filteredItems.slice(0, visibleCount);
 
   const openLightbox = (imgSrc: string) => {
-    setLightboxImage(prefix(imgSrc));
+    setLightboxImage(getImgUrl(imgSrc));
     setLightboxOpen(true);
   };
 
@@ -89,7 +129,7 @@ export default function GalleryPage() {
   };
 
   // Partition items into columns
-  const columnsData = Array.from({ length: numColumns }, () => [] as typeof FULL_GALLERY_ITEMS);
+  const columnsData = Array.from({ length: numColumns }, () => [] as typeof galleryItems);
   displayedItems.forEach((item, idx) => {
     columnsData[idx % numColumns].push(item);
   });
@@ -100,7 +140,6 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-[#faf9f6] text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
-      <FloatingNav />
 
       {/* Hero Section */}
       <section 
@@ -128,7 +167,7 @@ export default function GalleryPage() {
         <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-4">
           <span className="text-sm font-bold text-[#f37021] uppercase tracking-[0.2em]">Our Spaces</span>
           <h1 className="text-5xl sm:text-6xl md:text-7xl tracking-tight text-white leading-[1.1] font-sans font-medium">
-            Explore <span className="font-serif italic text-white/90">CovaiTech</span>
+            Explore <span className="text-white/90">CovaiTech</span>
           </h1>
           <p className="text-white/60 max-w-2xl text-base sm:text-lg mt-4 font-light leading-relaxed mx-auto">
             Take a visual tour of our meticulously designed private cabins, meeting rooms, and collaborative organic lounges.
@@ -176,7 +215,7 @@ export default function GalleryPage() {
                     onClick={() => openLightbox(item.img)}
                   >
                     <Image
-                      src={prefix(item.img)}
+                      src={getImgUrl(item.img)}
                       alt={`${item.category} Gallery Image`}
                       fill
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"

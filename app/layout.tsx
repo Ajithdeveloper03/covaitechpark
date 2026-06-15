@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import FloatingNav from "./components/FloatingNav";
 import "./globals.css";
+import { contactInfo } from "./config/contactInfo";
 
 const BASE_URL = "https://covaitechpark.com/covaitechpark";
 
@@ -89,8 +90,8 @@ const jsonLd = {
   image: `${BASE_URL}/og-image.png`,
   description:
     "Premium managed coworking spaces, private cabins, hot desks, meeting rooms and virtual office in Coimbatore and Trichy.",
-  telephone: "+919360780768",
-  email: "info@covaitechpark.com",
+  telephone: contactInfo.phone1.raw,
+  email: contactInfo.email,
   priceRange: "₹₹",
   address: [
     {
@@ -157,7 +158,7 @@ export default function RootLayout({
         {/* Sticky Mobile Call Button */}
         <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-3 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
           <a
-            href="tel:+919360780768"
+            href={`tel:${contactInfo.phone1.raw}`}
             className="flex items-center justify-center w-full gap-2.5 py-3.5 bg-brand-orange text-white font-medium text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-brand-orange/30 transition-transform active:scale-[0.98]"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">

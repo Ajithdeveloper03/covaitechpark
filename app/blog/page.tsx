@@ -7,12 +7,14 @@ import Footer from "../components/Footer";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
+const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
+// Static fallback articles shown before API loads
 const ARTICLES = [
   {
     slug: "future-of-coworking-spaces-in-coimbatore",
     title: "The Future of Managed Coworking Spaces in Coimbatore",
-    category: "Workspace",
+    category: "Coworking Insights",
     date: "June 4, 2026",
     readTime: "5 min read",
     img: "/workspace-lounge.png",
@@ -24,7 +26,7 @@ const ARTICLES = [
   {
     slug: "maximizing-productivity-in-private-office-cabins",
     title: "Maximizing Productivity in Soundproof Private Cabins",
-    category: "Productivity",
+    category: "Workspace Tips",
     date: "May 28, 2026",
     readTime: "4 min read",
     img: "/workspace-cabin.png",
@@ -36,7 +38,7 @@ const ARTICLES = [
   {
     slug: "why-virtual-offices-are-essential-for-startups",
     title: "Why Virtual Offices are Essential for Modern Startups",
-    category: "Business",
+    category: "Business Growth",
     date: "May 15, 2026",
     readTime: "3 min read",
     img: "/workspace-meeting.png",
@@ -47,24 +49,77 @@ const ARTICLES = [
   }
 ];
 
-const CATEGORIES = ["All", "Workspace", "Productivity", "Business"];
+const CATEGORIES = ["All", "Coworking Insights", "Workspace Tips", "Business Growth", "Event Highlights", "Community Stories", "Industry News"];
 
 const categoryColors: Record<string, string> = {
-  Workspace: "bg-[#f37021]/10 text-[#f37021] border-[#f37021]/20",
-  Productivity: "bg-[#0a0f1a]/10 text-[#0a0f1a] border-[#0a0f1a]/20",
-  Business: "bg-slate-100 text-slate-700 border-slate-200",
+  "Coworking Insights": "bg-[#f37021]/10 text-[#f37021] border-[#f37021]/20",
+  "Workspace Tips":     "bg-[#0a0f1a]/10 text-[#0a0f1a] border-[#0a0f1a]/20",
+  "Business Growth":    "bg-emerald-50 text-emerald-700 border-emerald-200",
+  "Event Highlights":   "bg-purple-50 text-purple-700 border-purple-200",
+  "Community Stories":  "bg-blue-50 text-blue-700 border-blue-200",
+  "Industry News":      "bg-slate-100 text-slate-700 border-slate-200",
+  "Tech & Innovation":  "bg-cyan-50 text-cyan-700 border-cyan-200",
+  "Announcements":      "bg-rose-50 text-rose-700 border-rose-200",
 };
 
 export default function BlogArchivePage() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const [articles, setArticles] = useState(ARTICLES);
 
   useEffect(() => {
     document.title = "Insights & Workspace Advice | Blog - CovaiTech Park";
   }, []);
 
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/blogs");
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            const mapped = data.map((blog: any, i: number) => {
+              const rawImg = blog.image;
+              let resolvedImg = "/workspace-lounge.png";
+              if (rawImg) {
+                if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
+                  resolvedImg = rawImg;
+                } else if (rawImg.includes("/")) {
+                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
+                } else {
+                  resolvedImg = `/${rawImg}`;
+                }
+              }
+              return {
+                id: blog.id,
+                slug: blog.slug,
+                title: blog.title,
+                category: blog.category || "Coworking Insights",
+                date: new Date(blog.published_at || blog.created_at).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric"
+                }),
+                readTime: `${Math.max(3, Math.ceil(JSON.stringify(blog.content || "").length / 1000))} min read`,
+                img: resolvedImg,
+                featured: i === 0,
+                snippet: blog.excerpt ?? "",
+                author: "CovaiTech Team",
+                authorImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+              };
+            });
+            setArticles(mapped);
+          }
+        }
+      } catch (e) {
+        console.error("Error fetching blogs from API", e);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
   const filtered = activeCategory === "All"
-    ? ARTICLES
-    : ARTICLES.filter(a => a.category === activeCategory);
+    ? articles
+    : articles.filter(a => a.category === activeCategory);
 
   const featured = filtered.find(a => a.featured) || filtered[0];
   const rest = filtered.filter(a => a.slug !== featured?.slug);
@@ -89,7 +144,7 @@ export default function BlogArchivePage() {
           </div>
 
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-sans font-bold tracking-tight text-white leading-[1.05] mb-4 sm:mb-6">
-            Workspace <span className="italic font-serif text-[#f37021] font-medium">Insights</span> & Ideas
+            Workspace <span className="text-[#f37021] font-medium">Insights</span> & Ideas
           </h1>
           <p className="text-white/70 text-base sm:text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
             Explore modern office design trends, startup strategies, remote infrastructure advice, and workspace management expertise from our team.
@@ -130,7 +185,7 @@ export default function BlogArchivePage() {
               {/* Image */}
               <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:min-h-[420px] overflow-hidden">
                 <Image
-                  src={prefix(featured.img)}
+                  src={getImgUrl(featured.img)}
                   alt={featured.title}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -193,7 +248,7 @@ export default function BlogArchivePage() {
                   {/* Image */}
                   <div className="relative w-full aspect-[16/10] overflow-hidden">
                     <Image
-                      src={prefix(article.img)}
+                      src={getImgUrl(article.img)}
                       alt={article.title}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"

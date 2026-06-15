@@ -3,10 +3,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
-import FloatingNav from "./components/FloatingNav";
-import HomeGallery from "./components/HomeGallery";
+import dynamic from "next/dynamic";
+import { contactInfo } from "./config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+
+const HomeGallery = dynamic(() => import("./components/HomeGallery"), {
+  ssr: false,
+  loading: () => <div className="h-96 bg-slate-50 animate-pulse rounded-2xl flex items-center justify-center text-sm font-medium text-slate-400">Loading Gallery...</div>
+});
+
+const Footer = dynamic(() => import("./components/Footer"), {
+  ssr: false,
+  loading: () => <div className="h-60 bg-[#060c10] animate-pulse" />
+});
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -652,6 +661,37 @@ export default function Home() {
   // Hero carousel slider variables
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [heroSlides, setHeroSlides] = useState(HERO_SLIDES);
+
+  useEffect(() => {
+    const fetchHeroSlides = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/hero-slides");
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            const mapped = data.map((slide: any) => ({
+              id: slide.id,
+              title: slide.title,
+              subtitle: slide.subtitle ?? "",
+              image: slide.image 
+                ? (slide.image.startsWith("http") || slide.image.startsWith("/")
+                  ? slide.image
+                  : `http://localhost:8000/storage/${slide.image}`)
+                : prefix("/hero1.jpg"),
+              label: slide.label ?? "",
+              description: slide.description ?? "",
+              meta: slide.meta ?? ""
+            }));
+            setHeroSlides(mapped);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching hero slides", error);
+      }
+    };
+    fetchHeroSlides();
+  }, []);
 
   // Phases stacked scroll — active slide index
   const [activePhase, setActivePhase] = useState(0);
@@ -668,6 +708,7 @@ export default function Home() {
   const [contactPhoneCode, setContactPhoneCode] = useState("+91");
   const [contactLookingFor, setContactLookingFor] = useState("");
   const [contactSuccess, setContactSuccess] = useState(false);
+  const [botField, setBotField] = useState("");
 
   // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -723,12 +764,12 @@ export default function Home() {
 
   // Carousel slider auto-play
   useEffect(() => {
-    if (!isAutoPlay) return;
+    if (!isAutoPlay || heroSlides.length === 0) return;
     const interval = setInterval(() => {
-      setActiveHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length);
+      setActiveHeroSlide((prev) => (prev + 1) % heroSlides.length);
     }, 3500);
     return () => clearInterval(interval);
-  }, [isAutoPlay]);
+  }, [isAutoPlay, heroSlides.length]);
 
   // IntersectionObserver to sync vertical dot navigation
   useEffect(() => {
@@ -752,7 +793,7 @@ export default function Home() {
     }, observerOptions);
 
     const HOME_SECTION_IDS = [
-      "hero", "benefits-organic", "services-dark", "locations",
+      "hero", "benefits-organic", "locations", "services-dark",
       "deployment-track", "testimonials", "faqs", "booking"
     ];
 
@@ -814,37 +855,83 @@ export default function Home() {
     setBookingSuccess(false);
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
-      setBookingSuccess(true);
-      setTimeout(() => {
-        setBookingFirstName("");
-        setBookingLastName("");
-        setSelectedPlan("");
-        setBookingLookingFor("");
-        setBookingEmail("");
-        setBookingPhone("");
-        setBookingPhoneCode("+91");
-        setBookingOpen(false);
-        setBookingSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch("http://localhost:8000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${bookingFirstName} ${bookingLastName}`,
+            email: bookingEmail,
+            phone: `${bookingPhoneCode} ${bookingPhone}`,
+            company: "",
+            message: `Booking Inquiry for: ${bookingLookingFor || selectedPlan}`,
+            source: "popup",
+            bot_field: botField
+          }),
+        });
+
+        if (response.ok) {
+          setBookingSuccess(true);
+          setTimeout(() => {
+            setBookingFirstName("");
+            setBookingLastName("");
+            setSelectedPlan("");
+            setBookingLookingFor("");
+            setBookingEmail("");
+            setBookingPhone("");
+            setBookingPhoneCode("+91");
+            setBookingOpen(false);
+            setBookingSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Form submission error", error);
+      }
     }
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (contactFirstName && contactLastName && contactEmail && contactPhone) {
-      setContactSuccess(true);
-      setTimeout(() => {
-        setContactFirstName("");
-        setContactLastName("");
-        setContactEmail("");
-        setContactPhone("");
-        setContactPhoneCode("+91");
-        setContactLookingFor("");
-        setContactSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch("http://localhost:8000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${contactFirstName} ${contactLastName}`,
+            email: contactEmail,
+            phone: `${contactPhoneCode} ${contactPhone}`,
+            company: "",
+            message: `Contact Inquiry for: ${contactLookingFor}\nFrom footer form`,
+            source: "contact_page",
+            bot_field: botField
+          }),
+        });
+
+        if (response.ok) {
+          setContactSuccess(true);
+          setTimeout(() => {
+            setContactFirstName("");
+            setContactLastName("");
+            setContactEmail("");
+            setContactPhone("");
+            setContactPhoneCode("+91");
+            setContactLookingFor("");
+            setContactSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Form submission error", error);
+      }
     }
   };
 
@@ -864,7 +951,7 @@ export default function Home() {
             "image": "https://covaitechpark.com/covaitechpark/covai-tech-park-logo.png",
             "@id": "https://covaitechpark.com/covaitechpark/#coworkingspace",
             "url": "https://covaitechpark.com/covaitechpark",
-            "telephone": "+919360780768",
+            "telephone": contactInfo.phone1.raw,
             "priceRange": "₹1499 - ₹14999",
             "address": {
               "@type": "PostalAddress",
@@ -900,7 +987,6 @@ export default function Home() {
         }}
       />
       
-      <FloatingNav />
 
       <Header ctaText="Book Space" ctaAction={() => handleOpenBooking("Book Space")} />
 
@@ -910,13 +996,17 @@ export default function Home() {
         {/* Dynamic sliding backgrounds */}
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div 
-            className="flex w-[500%] h-full transition-transform duration-1000 ease-in-out"
-            style={{ transform: `translateX(-${activeHeroSlide * 20}%)` }}
+            className="flex h-full transition-transform duration-1000 ease-in-out"
+            style={{ 
+              width: `${heroSlides.length * 100}%`,
+              transform: `translateX(-${activeHeroSlide * (100 / heroSlides.length)}%)` 
+            }}
           >
-            {HERO_SLIDES.map((slide) => (
+            {heroSlides.map((slide) => (
               <div
                 key={slide.id}
-                className="relative w-1/5 h-full flex-shrink-0"
+                className="relative h-full flex-shrink-0"
+                style={{ width: `${100 / heroSlides.length}%` }}
               >
                 <Image
                   src={slide.image}
@@ -924,7 +1014,8 @@ export default function Home() {
                   fill
                   priority={slide.id === 0}
                   className="object-cover"
-                 sizes="(max-width: 768px) 100vw, 800px"/>
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
               </div>
             ))}
           </div>
@@ -974,14 +1065,14 @@ export default function Home() {
             <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl max-w-full">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
               <span className="text-[10px] font-normal tracking-widest leading-none uppercase">
-                {HERO_SLIDES[activeHeroSlide].meta}
+                {heroSlides[activeHeroSlide]?.meta}
               </span>
             </div>
 
             <h1 className="text-[2.25rem] min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-outfit font-medium tracking-tight text-white leading-[1.08] relative">
-              {HERO_SLIDES[activeHeroSlide].title} <br />
+              {heroSlides[activeHeroSlide]?.title} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">
-                {HERO_SLIDES[activeHeroSlide].subtitle}
+                {heroSlides[activeHeroSlide]?.subtitle}
               </span>
               {/* Short horizontal line accent */}
               <span className="block w-16 h-[3px] bg-brand-orange mt-6 rounded-full" />
@@ -989,7 +1080,7 @@ export default function Home() {
 
             <div className="flex flex-col gap-5 pt-1 text-left">
               <p className="text-sm sm:text-base md:text-lg text-white/80 font-normal leading-relaxed max-w-xl">
-                {HERO_SLIDES[activeHeroSlide].description}
+                {heroSlides[activeHeroSlide]?.description}
               </p>
               
               <div className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2">
@@ -1018,7 +1109,7 @@ export default function Home() {
               <div className="absolute left-1.5 top-[15%] bottom-[15%] w-[1px] bg-white/15 hidden lg:block z-0 pointer-events-none" />
 
               <div className="w-full flex flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-5 justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-4 lg:pb-0 px-4 lg:px-0 snap-x">
-                {HERO_SLIDES.map((slide, i) => {
+                {heroSlides.map((slide, i) => {
                   const isActive = activeHeroSlide === i;
 
                   return (
@@ -1245,7 +1336,7 @@ export default function Home() {
             </h3>
             
             <p className="text-slate-400 text-sm sm:text-base font-normal leading-relaxed">
-              Recognized as the premier provider of state-of-the-art office spaces, managed corporate suites, and premium workspace ecosystems. This accolade reflects our commitment to creating high-performance environments for software developers and fast-scaling tech companies.
+              Recognized as the premier provider of state-of-the-art office spaces, managed corporate suites, and premium workspace ecosystems.
             </p>
           </div>
 
@@ -1595,7 +1686,7 @@ export default function Home() {
       </section>
 
       {/* TESTIMONIALS SECTION */}
-      <section id="testimonials" className="section-container w-full flex flex-col justify-center py-16 sm:py-24 relative overflow-hidden bg-[#06090f]">
+      <section id="testimonials" className="section-container w-full flex flex-col justify-center py-10 sm:py-16 relative overflow-hidden bg-[#06090f]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 min-h-full">
           <Image
@@ -1614,16 +1705,16 @@ export default function Home() {
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-brand-orange/10 rounded-full blur-[120px] pointer-events-none z-[1]" />
         
         <div className="relative z-10 box-container w-full flex flex-col items-center justify-center gap-0">
-          <div className="text-center mb-10 reveal reveal-up">
-            <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">TESTIMONIALS</span>
-            <h2 className="font-outfit font-medium text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight leading-none">
+          <div className="text-center mb-6 reveal reveal-up">
+            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-3">TESTIMONIALS</span>
+            <h2 className="font-outfit font-medium text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-none">
               Trusted by Teams.
             </h2>
           </div>
 
-          <div className="w-full max-w-4xl p-4 sm:p-8 reveal reveal-up">
-            <div className="relative flex items-center justify-center gap-4 mb-10">
-              <button onClick={handlePrevTestimonial} className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center mr-2 cursor-pointer">
+          <div className="w-full max-w-4xl p-2 sm:p-4 reveal reveal-up">
+            <div className="relative flex items-center justify-center gap-3 mb-6">
+              <button onClick={handlePrevTestimonial} className="w-9 h-9 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center mr-2 cursor-pointer">
                 &larr;
               </button>
               
@@ -1633,38 +1724,38 @@ export default function Home() {
                   const order = [(activeTestimonial + TESTIMONIALS.length - 1) % TESTIMONIALS.length, activeTestimonial, (activeTestimonial + 1) % TESTIMONIALS.length];
                   const pos = order.indexOf(i);
                   return (
-                    <button key={t.id} onClick={() => setActiveTestimonial(i)} className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 flex-shrink-0 cursor-pointer ${isActive ? "w-28 h-28 sm:w-36 sm:h-36 border-brand-orange z-20 scale-110" : "w-20 h-20 sm:w-24 sm:h-24 border-white/15 z-10 opacity-50 hover:opacity-80"}`} style={{ order: pos }}>
+                    <button key={t.id} onClick={() => setActiveTestimonial(i)} className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 flex-shrink-0 cursor-pointer ${isActive ? "w-20 h-20 sm:w-28 sm:h-28 border-brand-orange z-20 scale-110" : "w-14 h-14 sm:w-20 sm:h-20 border-white/15 z-10 opacity-50 hover:opacity-80"}`} style={{ order: pos }}>
                       <Image src={t.image} alt={t.name} fill className="object-cover"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
                     </button>
                   );
                 })}
               </div>
 
-              <button onClick={handleNextTestimonial} className="w-11 h-11 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center ml-2 cursor-pointer">
+              <button onClick={handleNextTestimonial} className="w-9 h-9 rounded-full border border-white/20 bg-white/5 hover:bg-brand-orange/20 text-white flex items-center justify-center ml-2 cursor-pointer">
                 &rarr;
               </button>
             </div>
 
             <div className={`text-center transition-all duration-400 ease-in-out ${testifierTransition ? "opacity-0 translate-y-4" : "opacity-100 translate-y-0"}`}>
-              <span className="font-outfit font-medium text-6xl text-brand-orange/30 leading-none block -mb-4">&ldquo;</span>
-              <p className="font-outfit font-medium text-base sm:text-xl md:text-2xl lg:text-3xl text-white tracking-tight leading-snug px-1">
+              <span className="font-outfit font-medium text-4xl text-brand-orange/30 leading-none block -mb-3">&ldquo;</span>
+              <p className="font-outfit font-medium text-sm sm:text-lg md:text-xl lg:text-2xl text-white tracking-tight leading-snug px-1">
                 {TESTIMONIALS[activeTestimonial].quote}
               </p>
-              <div className="mt-6 flex flex-col items-center gap-1">
-                <div className="w-8 h-0.5 bg-brand-orange rounded-full mb-3" />
-                <span className="text-sm font-medium text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
-                <span className="text-sm font-medium text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
+              <div className="mt-4 flex flex-col items-center gap-1">
+                <div className="w-6 h-0.5 bg-brand-orange rounded-full mb-2" />
+                <span className="text-xs font-medium text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
+                <span className="text-[10px] font-medium text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
               </div>
             </div>
             
             {/* Dot indicators */}
-            <div className="flex items-center justify-center gap-3 mt-8">
+            <div className="flex items-center justify-center gap-2 mt-6">
               {TESTIMONIALS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveTestimonial(i)}
                   className="rounded-full transition-all duration-300 cursor-pointer"
-                  style={{ width: i === activeTestimonial ? "28px" : "8px", height: "8px", background: i === activeTestimonial ? "#f37021" : "rgba(255,255,255,0.20)" }}
+                  style={{ width: i === activeTestimonial ? "20px" : "6px", height: "6px", background: i === activeTestimonial ? "#f37021" : "rgba(255,255,255,0.20)" }}
                   aria-label={`Testimonial ${i + 1}`}
                 />
               ))}
@@ -1789,6 +1880,15 @@ export default function Home() {
                 </div>
               ) : (
                 <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-medium text-sm w-full">
+                  <input
+                    type="text"
+                    name="bot_field"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                    className="hidden"
+                    style={{ display: "none" }}
+                    autoComplete="off"
+                  />
                   {/* Name Row */}
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-brand-navy">
@@ -1804,7 +1904,7 @@ export default function Home() {
                           placeholder=""
                           className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
-                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                        <span className="text-[10px] text-slate-400 font-medium mt-1 block">First</span>
                       </div>
                       <div>
                         <input
@@ -1815,7 +1915,7 @@ export default function Home() {
                           placeholder=""
                           className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
-                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                        <span className="text-[10px] text-slate-400 font-medium mt-1 block">Last</span>
                       </div>
                     </div>
                   </div>
@@ -1948,6 +2048,15 @@ export default function Home() {
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-medium text-sm">
+                  <input
+                    type="text"
+                    name="bot_field"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                    className="hidden"
+                    style={{ display: "none" }}
+                    autoComplete="off"
+                  />
                 
                 {/* Name Row */}
                 <div className="space-y-1">
@@ -1964,7 +2073,7 @@ export default function Home() {
                         placeholder=""
                         className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                       />
-                      <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                      <span className="text-[10px] text-slate-400 font-medium mt-1 block">First</span>
                     </div>
                     <div>
                       <input
@@ -1975,7 +2084,7 @@ export default function Home() {
                         placeholder=""
                         className="w-full bg-white border border-slate-200/80 rounded-lg px-4 py-3 text-sm text-slate-800 focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                       />
-                      <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                      <span className="text-[10px] text-slate-400 font-medium mt-1 block">Last</span>
                     </div>
                   </div>
                 </div>

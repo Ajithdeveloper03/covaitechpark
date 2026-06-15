@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FloatingNav from "../components/FloatingNav";
+import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 
 const BASE_PATH = "/covaitechpark";
@@ -121,8 +121,6 @@ const IconHelper = ({ name, className }: { name: string; className?: string }) =
 };
 
 export default function PrivateOfficePage() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   // Carousel Testimonials
@@ -163,26 +161,9 @@ export default function PrivateOfficePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [botField, setBotField] = useState("");
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-    };
-    handleScroll();
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [mobileMenuOpen]);
 
   // Set page meta title for SEO
   useEffect(() => {
@@ -196,27 +177,48 @@ export default function PrivateOfficePage() {
     setBookingSuccess(false);
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
-      setBookingSuccess(true);
-      setTimeout(() => {
-        setBookingFirstName("");
-        setBookingLastName("");
-        setSelectedPlan("");
-        setBookingLookingFor("");
-        setBookingEmail("");
-        setBookingPhone("");
-        setBookingOpen(false);
-        setBookingSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch("http://localhost:8000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${bookingFirstName} ${bookingLastName}`,
+            email: bookingEmail,
+            phone: bookingPhone,
+            company: "",
+            message: `Booking Inquiry for: ${bookingLookingFor || selectedPlan}`,
+            source: "popup",
+            bot_field: botField
+          }),
+        });
+
+        if (response.ok) {
+          setBookingSuccess(true);
+          setTimeout(() => {
+            setBookingFirstName("");
+            setBookingLastName("");
+            setSelectedPlan("");
+            setBookingLookingFor("");
+            setBookingEmail("");
+            setBookingPhone("");
+            setBookingOpen(false);
+            setBookingSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Booking form error", error);
+      }
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-inter relative select-none antialiased">
-      <FloatingNav />
-      
       {/* ── HEADER / NAVBAR ── */}
       <Header />
 
@@ -389,10 +391,10 @@ export default function PrivateOfficePage() {
               Talk With Our Experts
             </button>
             <a
-              href="tel:+919360780768"
+              href={`tel:${contactInfo.phone1.raw}`}
               className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
             >
-              Call: +91 93607 80768
+              Call: {contactInfo.phone1.display}
             </a>
           </div>
         </div>
@@ -460,7 +462,7 @@ export default function PrivateOfficePage() {
                       <div className="flex gap-1 mb-4 text-brand-orange text-sm">
                         <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
                       </div>
-                      <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed -mt-1 italic">
+                      <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed -mt-1">
                         &ldquo;{testimonial.quote}&rdquo;
                       </p>
                     </div>
@@ -617,6 +619,15 @@ export default function PrivateOfficePage() {
               </div>
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4">
+                <input
+                  type="text"
+                  name="bot_field"
+                  value={botField}
+                  onChange={(e) => setBotField(e.target.value)}
+                  className="hidden"
+                  style={{ display: "none" }}
+                  autoComplete="off"
+                />
                 <h3 className="font-outfit font-medium text-2xl text-slate-900">Inquire Private Office</h3>
                 <p className="text-slate-500 text-sm">Fill out the details below to receive custom plan pricing and seating configurations.</p>
                 

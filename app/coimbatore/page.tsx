@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FloatingNav from "../components/FloatingNav";
+import { contactInfo } from "../config/contactInfo";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -73,6 +73,7 @@ export default function CoimbatorePage() {
   const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [botField, setBotField] = useState("");
 
   const handleOpenBooking = (plan: string) => {
     setBookingLookingFor(plan);
@@ -80,27 +81,50 @@ export default function CoimbatorePage() {
     setBookingSuccess(false);
   };
 
-  const handleBookingSubmit = (e: React.FormEvent) => {
+  const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
-      setBookingSuccess(true);
-      setTimeout(() => {
-        setBookingFirstName("");
-        setBookingLastName("");
-        setBookingLookingFor("");
-        setBookingEmail("");
-        setBookingPhone("");
-        setBookingPhoneCode("+91");
-        setBookingOpen(false);
-        setBookingSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch("http://localhost:8000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${bookingFirstName} ${bookingLastName}`,
+            email: bookingEmail,
+            phone: `${bookingPhoneCode} ${bookingPhone}`,
+            company: "",
+            message: `Booking Inquiry for: ${bookingLookingFor}`,
+            source: "popup",
+            bot_field: botField
+          }),
+        });
+
+        if (response.ok) {
+          setBookingSuccess(true);
+          setTimeout(() => {
+            setBookingFirstName("");
+            setBookingLastName("");
+            setBookingLookingFor("");
+            setBookingEmail("");
+            setBookingPhone("");
+            setBookingPhoneCode("+91");
+            setBookingOpen(false);
+            setBookingSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Booking form error", error);
+      }
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-brand-navy flex flex-col font-inter relative select-none font-medium text-base antialiased">
       
-      <FloatingNav />
+
       <Header />
 
       {/* ── 1. HERO SECTION ── */}
@@ -378,7 +402,7 @@ export default function CoimbatorePage() {
                 <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm font-medium text-slate-500">
                   <div className="space-y-1">
                     <p className="text-brand-navy font-bold">4th South Cross St, Coimbatore</p>
-                    <p className="text-xs">Phone: +91 93607 80768</p>
+                    <p className="text-xs">Phone: {contactInfo.phone1.display}</p>
                   </div>
                   <span className="text-brand-orange font-bold text-xs uppercase tracking-wider shrink-0">Currently Viewing</span>
                 </div>
@@ -477,6 +501,15 @@ export default function CoimbatorePage() {
                 </div>
               ) : (
                 <form onSubmit={handleBookingSubmit} className="space-y-4 text-left font-medium text-sm">
+                  <input
+                    type="text"
+                    name="bot_field"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                    className="hidden"
+                    style={{ display: "none" }}
+                    autoComplete="off"
+                  />
                   {/* Name Row */}
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-brand-navy">
@@ -492,7 +525,7 @@ export default function CoimbatorePage() {
                           placeholder=""
                           className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
-                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">First</span>
+                        <span className="text-[10px] text-slate-400 font-medium mt-1 block">First</span>
                       </div>
                       <div>
                         <input
@@ -503,7 +536,7 @@ export default function CoimbatorePage() {
                           placeholder=""
                           className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                         />
-                        <span className="text-[10px] text-slate-400 font-medium italic mt-1 block">Last</span>
+                        <span className="text-[10px] text-slate-400 font-medium mt-1 block">Last</span>
                       </div>
                     </div>
                   </div>

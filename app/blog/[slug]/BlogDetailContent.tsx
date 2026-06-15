@@ -7,6 +7,7 @@ import Footer from "../../components/Footer";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
+const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
 const ARTICLES_CONTENT: Record<string, {
   title: string;
@@ -120,8 +121,68 @@ interface BlogDetailContentProps {
 }
 
 export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
-  const article = ARTICLES_CONTENT[slug] || ARTICLES_CONTENT["future-of-coworking-spaces-in-coimbatore"];
-  const catColor = categoryColors[article.category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
+  const fallbackArticle = ARTICLES_CONTENT[slug] || ARTICLES_CONTENT["future-of-coworking-spaces-in-coimbatore"];
+  const [article, setArticle] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/blogs/${slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          const category = slug === "future-of-coworking-spaces-in-coimbatore" 
+            ? "Workspace" 
+            : (slug === "maximizing-productivity-in-private-office-cabins" ? "Productivity" : "Business");
+
+          setArticle({
+            title: data.title,
+            category: category,
+            date: new Date(data.published_at || data.created_at).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric"
+            }),
+            readTime: `${Math.max(3, Math.ceil(JSON.stringify(data.content || "").length / 1000))} min read`,
+            img: data.image 
+              ? (data.image.startsWith("http") || data.image.startsWith("/")
+                ? data.image
+                : (data.image.includes("/")
+                  ? `http://localhost:8000/storage/${data.image}`
+                  : `/${data.image}`))
+              : "/workspace-lounge.png",
+            excerpt: data.excerpt ?? "",
+            content: (data.content || []).map((sec: any) => {
+              const rawImg = sec.img;
+              let resolvedImg = "/workspace-lounge.png";
+              if (rawImg) {
+                if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
+                  resolvedImg = rawImg;
+                } else if (rawImg.includes("/")) {
+                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
+                } else {
+                  resolvedImg = `/${rawImg}`;
+                }
+              }
+              return {
+                heading: sec.heading,
+                text: sec.text,
+                img: resolvedImg
+              };
+            })
+          });
+        }
+      } catch (e) {
+        console.error("Error fetching article details", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchArticle();
+  }, [slug]);
+
+  const currentArticle = article || fallbackArticle;
+  const catColor = categoryColors[currentArticle.category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
 
   const [bookingFirstName, setBookingFirstName] = useState("");
   const [bookingLastName, setBookingLastName] = useState("");
@@ -131,8 +192,8 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
   const [readProgress, setReadProgress] = useState(0);
 
   useEffect(() => {
-    document.title = `${article.title} | Blog - CovaiTech Park`;
-  }, [article.title]);
+    document.title = `${currentArticle.title} | Blog - CovaiTech Park`;
+  }, [currentArticle.title]);
 
   // Read progress bar
   useEffect(() => {
@@ -143,7 +204,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
       setReadProgress(scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0);
 
       // Update active section
-      for (let i = article.content.length - 1; i >= 0; i--) {
+      for (let i = currentArticle.content.length - 1; i >= 0; i--) {
         const sec = document.getElementById(`section-${i}`);
         if (sec && sec.getBoundingClientRect().top <= 160) {
           setActiveSection(i);
@@ -153,7 +214,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [article.content.length]);
+  }, [currentArticle.content.length]);
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -181,7 +242,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                   {/* ── EDITORIAL MAGAZINE HERO ── */}
       <section className="relative w-full pt-32 pb-16 bg-slate-900 overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={prefix(article.img)} alt="Blog Details background" fill className="object-cover" sizes="100vw" priority />
+          <Image src={getImgUrl(currentArticle.img)} alt="Blog Details background" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-sm" />
         </div>
 
@@ -202,29 +263,29 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
 
             <div className="flex items-center flex-wrap gap-3">
               <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
-                {article.category}
+                {currentArticle.category}
               </span>
               <span className="text-white/30 text-xs">·</span>
-              <span className="text-white/60 text-xs font-medium">{article.readTime}</span>
+              <span className="text-white/60 text-xs font-medium">{currentArticle.readTime}</span>
               <span className="text-white/30 text-xs">·</span>
-              <span className="text-white/60 text-xs font-medium">{article.date}</span>
+              <span className="text-white/60 text-xs font-medium">{currentArticle.date}</span>
             </div>
 
             {/* REDUCED FONT SIZE: changed from text-5xl sm:text-6xl md:text-7xl to text-4xl sm:text-5xl md:text-5xl */}
             <h1 className="text-4xl sm:text-5xl md:text-5xl font-sans font-bold tracking-tight text-white leading-[1.1]">
-              {article.title}
+              {currentArticle.title}
             </h1>
 
             <p className="text-white/70 text-base sm:text-lg font-normal leading-relaxed max-w-lg">
-              {article.excerpt}
+              {currentArticle.excerpt}
             </p>
           </div>
 
           {/* Image side - Large and overlapping */}
-          <div className="lg:col-span-6 relative z-10 w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl lg:-translate-y-12">
+          <div className="lg:col-span-6 relative z-10 w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl">
             <Image
-              src={prefix(article.img)}
-              alt={article.title}
+              src={getImgUrl(currentArticle.img)}
+              alt={currentArticle.title}
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -246,8 +307,8 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               {/* Hero image */}
               <div className="relative w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-slate-200/80 shadow-xl shadow-slate-200/50 mb-14">
                 <Image
-                  src={prefix(article.img)}
-                  alt={article.title}
+                  src={getImgUrl(currentArticle.img)}
+                  alt={currentArticle.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 800px"
@@ -257,7 +318,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
 
               {/* Content sections */}
               <div className="space-y-20">
-                {article.content.map((section, index) => (
+                {currentArticle.content.map((section: any, index: number) => (
                   <div
                     key={index}
                     id={`section-${index}`}
@@ -276,7 +337,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                     {/* Section image */}
                     <div className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden shadow-md border border-slate-100">
                       <Image
-                        src={prefix(section.img)}
+                        src={getImgUrl(section.img)}
                         alt={section.heading}
                         fill
                         className="object-cover transition-transform duration-700 hover:scale-105"
@@ -290,7 +351,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                       {section.text}
                     </p>
 
-                    {index < article.content.length - 1 && (
+                    {index < currentArticle.content.length - 1 && (
                       <div className="w-full h-px bg-slate-100 mt-4" />
                     )}
                   </div>
@@ -309,7 +370,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                   Back to Articles
                 </a>
                 <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
-                  {article.category}
+                  {currentArticle.category}
                 </span>
               </div>
             </article>
@@ -321,7 +382,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               <div className="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm">
                 <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">In this Article</h3>
                 <ul className="space-y-1">
-                  {article.content.map((section, index) => (
+                  {currentArticle.content.map((section: any, index: number) => (
                     <li key={index}>
                       <a
                         href={`#section-${index}`}

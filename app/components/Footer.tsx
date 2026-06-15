@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useSettings } from "../hooks/useSettings";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -11,6 +12,7 @@ interface FooterProps {
 }
 
 export default function Footer({ onCtaClick }: FooterProps) {
+  const { settings } = useSettings();
   const handleCtaClick = () => {
     if (onCtaClick) {
       onCtaClick();
@@ -70,21 +72,21 @@ export default function Footer({ onCtaClick }: FooterProps) {
               <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em] mb-1">Registered Address</h5>
               <p className="text-white/70 font-bold text-sm uppercase tracking-wider mb-0.5">Max Office</p>
               <p className="text-white/45 text-sm font-normal leading-relaxed max-w-md">
-                2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                {settings.trichy_address}
               </p>
             </div>
 
             <div>
               <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em] mb-1">Address</h5>
               <p className="text-white/45 text-sm font-normal leading-relaxed max-w-md">
-                Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore- 641 014.
+                {settings.coimbatore_address}
               </p>
             </div>
 
             <div>
               <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em] mb-1">Email</h5>
-              <a href="mailto:info@covaitechpark.com" className="text-white/45 hover:text-brand-orange text-sm font-normal transition-colors whitespace-nowrap">
-                info@covaitechpark.com
+              <a href={`mailto:${settings.email}`} className="text-white/45 hover:text-brand-orange text-sm font-normal transition-colors whitespace-nowrap">
+                {settings.email}
               </a>
             </div>
           </div>
@@ -97,11 +99,10 @@ export default function Footer({ onCtaClick }: FooterProps) {
             {[
               { name: "Coworking Space", link: prefix("/#services-dark") },
               { name: "Private Office Space", link: prefix("/private-office-space") },
-              { name: "Managed Office", link: prefix("/#services-dark") },
-              { name: "Virtual Office", link: prefix("/#services-dark") },
-              { name: "Meeting Room", link: prefix("/#services-dark") },
-              { name: "Event Space", link: prefix("/#services-dark") },
-              { name: "Training Room", link: prefix("/#services-dark") }
+              { name: "Managed Office", link: prefix("/managed-office-space") },
+              { name: "Virtual Office", link: prefix("/virtual-office-space") },
+              { name: "Meeting Room", link: prefix("/meeting-rooms") },
+              { name: "Event Space", link: prefix("/event-space") }
             ].map(item => (
               <li key={item.name} className="flex items-center gap-2">
                 <span className="text-brand-orange text-sm">&rsaquo;</span>
@@ -113,9 +114,8 @@ export default function Footer({ onCtaClick }: FooterProps) {
           <div className="">
             <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em] mb-1.5 mt-2">Mobile</h5>
             <div className="flex flex-col gap-1.5 text-white/45 text-sm font-normal">
-              <a href="tel:+919360780768" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 93607 80768</a>
-              <a href="tel:+919003550455" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 900 355 0455</a>
-              <a href="tel:+919688992210" className="hover:text-brand-orange transition-colors whitespace-nowrap">+91 968 899 2210</a>
+              <a href={`tel:${settings.coimbatore_phone_raw}`} className="hover:text-brand-orange transition-colors whitespace-nowrap">{settings.coimbatore_phone_display}</a>
+              <a href={`tel:${settings.trichy_phone_raw}`} className="hover:text-brand-orange transition-colors whitespace-nowrap">{settings.trichy_phone_display}</a>
             </div>
           </div>
         </div>
@@ -143,9 +143,9 @@ export default function Footer({ onCtaClick }: FooterProps) {
             <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em]">Social Links</h5>
             <div className="flex gap-3">
               {[
-                { label: "Facebook", link: "https://www.facebook.com/coworkingspaceincoimbatore/", path: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" },
-                { label: "LinkedIn", link: "https://www.linkedin.com/company/covai-tech-park/", path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
-                { label: "Instagram", link: "https://www.instagram.com/covaitechpark/", path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
+                { label: "Facebook", link: settings.facebook_url, path: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" },
+                { label: "LinkedIn", link: settings.linkedin_url, path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
+                { label: "Instagram", link: settings.instagram_url, path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
               ].map(({ label, link, path }) => (
                 <a
                   key={label}

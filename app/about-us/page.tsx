@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import FloatingNav from "../components/FloatingNav";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -78,9 +77,8 @@ export default function AboutUsPage() {
 
   return (
     <div className="min-h-screen bg-black text-slate-900 flex flex-col font-sans relative select-none antialiased">
-      <Header />
 
-      <FloatingNav />
+      <Header />
 
       {/* HERO SECTION — responsive height, full bleed grid with glassy gradient background */}
       <section 
@@ -105,7 +103,7 @@ export default function AboutUsPage() {
         {/* Minimal Hero content (Title, description, button) */}
         <div className="relative z-10 max-w-5xl mx-auto flex flex-col items-center gap-3 sm:gap-2 px-4 text-center mt-4 sm:mt-10">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-[1.02] font-sans font-extrabold max-w-4xl">
-            <span className="font-serif italic font-medium pr-5 text-white">About</span>
+            <span className="font-medium pr-5 text-white">About</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f37021] via-orange-300 to-yellow-300">CovaiTechPark</span>
           </h1>
 
@@ -300,7 +298,7 @@ export default function AboutUsPage() {
       <section id="feeling" className="bg-brand-navy text-white pt-12 sm:pt-16 md:pt-24 pb-12 sm:pb-16 md:pb-24 overflow-hidden relative">
         <div className="max-w-4xl mx-auto text-center px-4 md:px-8 z-10 relative">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight mb-6 sm:mb-8 leading-tight">
-            More than just a space,<br/> <span className="font-serif italic font-normal">it&apos;s a feeling.</span>
+            More than just a space,<br/> <span className="font-normal">it&apos;s a feeling.</span>
           </h2>
           <p className="text-white/80 font-medium max-w-2xl mx-auto mb-16 text-sm sm:text-base leading-relaxed">
             CovaiTech is a fertile ground for nurturing your ideas and growing your business. Whether you're a solopreneur or a startup ready to bloom, we provide the space, community, and resources you need to thrive.

@@ -4,11 +4,13 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useSettings } from "../hooks/useSettings";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 export default function ContactPage() {
+  const { settings } = useSettings();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,23 +21,47 @@ export default function ContactPage() {
   const [requirement, setRequirement] = useState("");
   const [success, setSuccess] = useState(false);
   const [selectedMap, setSelectedMap] = useState<"coimbatore" | "trichy">("coimbatore");
+  const [botField, setBotField] = useState("");
 
   useEffect(() => {
     document.title = "Contact Us | Premium Office Spaces & Ecosystem - CovaiTech Park";
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (firstName && lastName && email && phone) {
-      setSuccess(true);
-      setTimeout(() => {
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setPhone("");
-        setRequirement("");
-        setSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch("http://localhost:8000/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${firstName} ${lastName}`,
+            email: email,
+            phone: `${phoneCode} ${phone}`,
+            company: "",
+            message: `Requirement: ${requirement}`,
+            source: "contact_page",
+            bot_field: botField
+          }),
+        });
+
+        if (response.ok) {
+          setSuccess(true);
+          setTimeout(() => {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPhone("");
+            setRequirement("");
+            setSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Contact form error", error);
+      }
     }
   };
 
@@ -97,6 +123,15 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  <input
+                    type="text"
+                    name="bot_field"
+                    value={botField}
+                    onChange={(e) => setBotField(e.target.value)}
+                    className="hidden"
+                    style={{ display: "none" }}
+                    autoComplete="off"
+                  />
                   {/* Name field split into First/Last */}
                   <div className="space-y-2">
                     <label className="text-base font-normal text-slate-900 tracking-wide font-sans">
@@ -234,46 +269,65 @@ export default function ContactPage() {
             </div>
 
             {/* COLUMN 2: Elegant Text-based Office Contacts */}
-            <div className="lg:col-span-5 space-y-12 pl-0 lg:pl-6">
+            <div className="lg:col-span-5 space-y-6 pl-0 lg:pl-6">
               
               <div className="space-y-4">
                 <span className="text-xs font-bold text-[#f37021] uppercase tracking-[0.25em] block">LOCATE AN OFFICE</span>
                 <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 tracking-tight leading-tight">
                   Premium Workspaces at prime hubs.
                 </h2>
-                {/* <p className="text-slate-500 text-sm leading-relaxed">
-                  Experience a curated network of workspaces designed for tech innovators, teams, and growing enterprises in Tamil Nadu.
-                </p> */}
               </div>
 
               {/* Coimbatore contact details */}
               <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-black uppercase tracking-wider inline-block">Coimbatore Headquarters</span>
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold uppercase tracking-wider inline-block">Coimbatore Headquarters</span>
                 <h3 className="text-xl font-bold text-slate-900">CovaiTech Park HQ</h3>
                 <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
-                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore - 641 014.
+                  {settings.coimbatore_address}
                 </p>
                 <div className="pt-1.5 space-y-0.5 text-xs sm:text-sm font-medium text-slate-700">
-                  <p><span className="text-[#f37021] font-bold">P:</span> +91 93607 80768</p>
-                  <p><span className="text-[#f37021] font-bold">E:</span> info@covaitechpark.com</p>
+                  <p><span className="text-[#f37021] font-bold">P:</span> {settings.coimbatore_phone_display}</p>
+                  <p><span className="text-[#f37021] font-bold">E:</span> {settings.email}</p>
                 </div>
               </div>
 
               {/* Trichy contact details */}
               <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-black uppercase tracking-wider inline-block">Branch Office</span>
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold uppercase tracking-wider inline-block">Branch Office</span>
                 <h3 className="text-xl font-bold text-slate-900">Trichy Center</h3>
                 <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
-                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                  {settings.trichy_address}
                 </p>
                 <div className="pt-1.5 space-y-0.5 text-xs sm:text-sm font-medium text-slate-700">
-                  <p><span className="text-[#f37021] font-bold">P:</span> +91 96889 92210</p>
-                  <p><span className="text-[#f37021] font-bold">E:</span> info@covaitechpark.com</p>
+                  <p><span className="text-[#f37021] font-bold">P:</span> {settings.trichy_phone_display}</p>
+                  <p><span className="text-[#f37021] font-bold">E:</span> {settings.email}</p>
                 </div>
               </div>
 
-              {/* Direct Booking CTA */}
-             
+              {/* Social Media Links Block */}
+              <div className="pt-2 border-t border-slate-200/60 space-y-4">
+               
+                <div className="flex gap-4">
+                  {[
+                    { label: "Facebook", link: settings.facebook_url, path: "M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" },
+                    { label: "LinkedIn", link: settings.linkedin_url, path: "M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z M4 6a2 2 0 100-4 2 2 0 000 4z" },
+                    { label: "Instagram", link: settings.instagram_url, path: "M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" }
+                  ].map(({ label, link, path }) => (
+                    <a
+                      key={label}
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="w-10 h-10 rounded-full border border-slate-200 bg-white hover:bg-[#f37021] hover:text-white flex items-center justify-center transition-all duration-300 cursor-pointer text-slate-500"
+                    >
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                        <path d={path} />
+                      </svg>
+                    </a>
+                  ))}
+                </div>
+              </div>
 
             </div>
 
@@ -324,7 +378,7 @@ export default function ContactPage() {
           
           {selectedMap === "coimbatore" ? (
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.143641267597!2d77.031952!3d11.027815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857a2bd66f649%3A0xc48c0827ea8061e8!2sCovai%20Tech%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+              src={settings.coimbatore_map_embed} 
               width="100%" 
               height="100%" 
               style={{ border: 0,  }} 
@@ -335,7 +389,7 @@ export default function ContactPage() {
             />
           ) : (
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9172089270634!2d78.6881744!3d10.8176587!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf50ad5c0a373%3A0x63cd735d4fa36829!2sBloom%20Plaza!5e0!3m2!1sen!2sin!4v1718100000000!5m2!1sen!2sin" 
+              src={settings.trichy_map_embed} 
               width="100%" 
               height="100%" 
               style={{ border: 0,  }} 
@@ -346,11 +400,6 @@ export default function ContactPage() {
             />
           )}
 
-          {/* Glowing gradient overlay at edges to blend maps */}
-          {/* <div className="absolute inset-0 bg-gradient-to-r from-slate-950/20 via-transparent to-slate-950/20 pointer-events-none" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
-          <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-slate-950 to-transparent pointer-events-none" /> */}
-
           {/* Floating glassmorphic location info panel */}
           <div className="absolute bottom-4 left-3 right-3 sm:right-auto sm:bottom-8 sm:left-12 bg-slate-950/90 backdrop-blur-md text-white p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl shadow-2xl max-w-sm border border-white/10 z-20 transition-all duration-500 hover:border-[#f37021]/30">
             {selectedMap === "coimbatore" ? (
@@ -360,7 +409,7 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold font-sans">CovaiTech Park HQ</h3>
                 </div>
                 <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                  Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore - 641 014.
+                  {settings.coimbatore_address}
                 </p>
                 <div className="text-xs text-slate-400 space-y-1">
                   <p>Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>
@@ -368,7 +417,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pt-2">
                   <a 
-                    href="https://maps.app.goo.gl/T4HnE2Wn8nSjLptN8" 
+                    href={settings.coimbatore_map_link}
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-bold text-[#f37021] uppercase tracking-wider hover:text-white transition-colors"
@@ -384,7 +433,7 @@ export default function ContactPage() {
                   <h3 className="text-xl font-bold font-sans">Trichy Center</h3>
                 </div>
                 <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                  2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018
+                  {settings.trichy_address}
                 </p>
                 <div className="text-xs text-slate-400 space-y-1">
                   <p>Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>
@@ -392,7 +441,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pt-2">
                   <a 
-                    href="https://maps.google.com/?q=Bloom+Plaza+Trichy" 
+                    href={settings.trichy_map_link}
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs font-bold text-[#f37021] uppercase tracking-wider hover:text-white transition-colors"

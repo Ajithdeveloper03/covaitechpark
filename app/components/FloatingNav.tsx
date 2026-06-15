@@ -1,9 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-
-const BASE_PATH = "/covaitechpark";
-const prefix = (url: string) => `${BASE_PATH}${url}`;
+import { usePathname } from "next/navigation";
 
 export interface NavSection {
   id: string;
@@ -13,8 +11,8 @@ export interface NavSection {
 export const GLOBAL_SECTIONS: NavSection[] = [
   { id: "hero", label: "Home" },
   { id: "benefits-organic", label: "About" },
-  { id: "services-dark", label: "Services" },
   { id: "locations", label: "Locations" },
+  { id: "services-dark", label: "Services" },
   { id: "deployment-track", label: "Facilities" },
   { id: "testimonials", label: "Testimonials" },
   { id: "faqs", label: "FAQs" },
@@ -25,16 +23,13 @@ export const ABOUT_SECTIONS: NavSection[] = [
   { id: "hero", label: "Hero" },
   { id: "who-we-are", label: "Who We Are" },
   { id: "our-story", label: "Our Story" },
-  { id: "feeling", label: "Feeling" },
-  { id: "exclusive-ecosystem", label: "Ecosystem" }
+  { id: "feeling", label: "Feeling" }
 ];
 
 export const COIMBATORE_SECTIONS: NavSection[] = [
   { id: "hero", label: "Hero" },
-  { id: "plans", label: "Plans" },
-  { id: "benefits", label: "Benefits" },
-  { id: "testimonials", label: "Testimonials" },
-  { id: "faqs", label: "FAQs" }
+  { id: "highlights", label: "Highlights" },
+  { id: "other-locations", label: "Locations" }
 ];
 
 export const PRIVATE_OFFICE_SECTIONS: NavSection[] = [
@@ -51,62 +46,84 @@ export const GALLERY_SECTIONS: NavSection[] = [
 ];
 
 export default function FloatingNav() {
+  const pathname = usePathname();
   const [activeId, setActiveId] = useState<string>("");
-  const [sections, setSections] = useState<NavSection[]>(GLOBAL_SECTIONS);
+  const [sections, setSections] = useState<NavSection[]>([]);
   const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
   const [hasAnySections, setHasAnySections] = useState(false);
 
   useEffect(() => {
-    // Determine the page sections based on current pathname
-    const path = window.location.pathname;
-    let selectedSections = GLOBAL_SECTIONS;
-    
-    if (path.includes("/about-us")) {
+    // Standardize pathname by removing the base path prefix if present
+    const cleanPath = pathname.replace(/^\/covaitechpark/, "");
+
+    let selectedSections: NavSection[] | null = null;
+
+    if (cleanPath === "/" || cleanPath === "") {
+      selectedSections = GLOBAL_SECTIONS;
+    } else if (cleanPath.startsWith("/about-us")) {
       selectedSections = ABOUT_SECTIONS;
-    } else if (path.includes("/coimbatore")) {
+    } else if (cleanPath.startsWith("/coimbatore")) {
       selectedSections = COIMBATORE_SECTIONS;
-    } else if (path.includes("/private-office-space")) {
+    } else if (cleanPath.startsWith("/private-office-space")) {
       selectedSections = PRIVATE_OFFICE_SECTIONS;
-    } else if (path.includes("/gallery")) {
+    } else if (cleanPath.startsWith("/gallery")) {
       selectedSections = GALLERY_SECTIONS;
+    }
+
+    if (!selectedSections) {
+      setSections([]);
+      setHasAnySections(false);
+      return;
     }
 
     setSections(selectedSections);
 
-    // Check if at least one section ID exists in the DOM on this page
-    const found = selectedSections.some((sec) => !!document.getElementById(sec.id));
-    setHasAnySections(found);
-    if (!found) return;
+    const checkSections = () => {
+      const found = selectedSections!.some((sec) => !!document.getElementById(sec.id));
+      setHasAnySections(found);
+      return found;
+    };
+
+    let scrollTimeout: NodeJS.Timeout;
 
     const handleScroll = () => {
       // Hide floating nav on all page hero sections
       setIsScrolledPastHero(window.scrollY > 220);
 
       let currentSection = "";
-      for (let i = selectedSections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(selectedSections[i].id);
+      // Check from bottom to top
+      for (let i = selectedSections!.length - 1; i >= 0; i--) {
+        const el = document.getElementById(selectedSections![i].id);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= window.innerHeight / 2) {
-            currentSection = selectedSections[i].id;
+          if (rect.top <= window.innerHeight / 3) {
+            currentSection = selectedSections![i].id;
             break;
           }
         }
       }
       // Fall back to first section that exists
       if (!currentSection) {
-        const first = selectedSections.find((s) => !!document.getElementById(s.id));
+        const first = selectedSections!.find((s) => !!document.getElementById(s.id));
         if (first) currentSection = first.id;
       }
       if (currentSection) setActiveId(currentSection);
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    // Initialize scroll state on mount
-    handleScroll();
+    // Use a small timeout to let the DOM paint after navigation
+    scrollTimeout = setTimeout(() => {
+      if (checkSections()) {
+        handleScroll();
+      }
+    }, 100);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(scrollTimeout);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pathname]);
 
   if (!hasAnySections || sections.length === 0) return null;
 

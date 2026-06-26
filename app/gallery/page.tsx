@@ -10,77 +10,76 @@ const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
-const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge", "Common Areas", "Events", "Facilities"];
+const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge"];
 
-// Default gallery items — only uses images confirmed to exist in /public
 const FULL_GALLERY_ITEMS = [
-  { img: "/hero1.jpg",               category: "Facilities",    aspect: "aspect-[16/9]" },
-  { img: "/workspace-cabin.png",     category: "Cabins",        aspect: "aspect-[3/5]"  },
-  { img: "/workspace-lounge.png",    category: "Lounge",        aspect: "aspect-[4/3]"  },
-  { img: "/workspace-cafe.png",      category: "Common Areas",  aspect: "aspect-[1/1]"  },
-  { img: "/amenities-community.png", category: "Common Areas",  aspect: "aspect-[16/9]" },
-  { img: "/workspace-meeting.png",   category: "Meeting Rooms", aspect: "aspect-[4/3]"  },
-  { img: "/workspace-hotdesk.png",   category: "Cabins",        aspect: "aspect-[4/5]"  },
-  { img: "/workspace-event.png",     category: "Events",        aspect: "aspect-[3/2]"  },
-  { img: "/hero-bg.png",             category: "Facilities",    aspect: "aspect-[16/9]" },
-  { img: "/workspace-lounge.png",    category: "Lounge",        aspect: "aspect-[9/16]" },
-  { img: "/workspace-cafe.png",      category: "Common Areas",  aspect: "aspect-[3/4]"  },
-  { img: "/workspace-meeting.png",   category: "Meeting Rooms", aspect: "aspect-[4/3]"  },
-  { img: "/hero13.jpg",              category: "Facilities",    aspect: "aspect-[4/3]"  },
-  { img: "/workspace-hotdesk.png",   category: "Cabins",        aspect: "aspect-[16/9]" },
-  { img: "/workspace-event.png",     category: "Events",        aspect: "aspect-[3/4]"  },
-  { img: "/workspace-cabin.png",     category: "Cabins",        aspect: "aspect-[1/1]"  },
+  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[3/5]" },
+  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[4/3]" },
+  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[1/1]" },
+  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[16/9]" },
+  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[4/5]" },
+  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/2]" },
+  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[1/1]" },
+  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[9/16]" },
+  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[3/4]" },
+  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
+  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[16/9]" },
+  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/4]" }
 ];
-
 
 export default function GalleryPage() {
   const [activeTab, setActiveTab] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState("");
-  const [visibleCount, setVisibleCount] = useState(15);
   const [numColumns, setNumColumns] = useState(4);
   const [galleryItems, setGalleryItems] = useState(FULL_GALLERY_ITEMS);
 
   useEffect(() => {
-    document.title = "Gallery | Premium Office Spaces - CovaiTech Park";
-  }, []);
-
-  useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/galleries");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/galleries`);
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
-            const mapped = data.map((item: any) => {
-              const aspects = ["aspect-[16/9]", "aspect-[4/3]", "aspect-[1/1]", "aspect-[3/4]"];
-              const randomAspect = aspects[item.id % aspects.length];
-              const rawImg = item.image;
-              let resolvedImg = "/workspace-lounge.png";
-              if (rawImg) {
-                if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
-                  resolvedImg = rawImg;
-                } else if (rawImg.includes("/")) {
-                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
-                } else {
-                  resolvedImg = `/${rawImg}`;
+            const mapped = data
+              .filter((item: any) => item.is_active)
+              .sort((a: any, b: any) => a.sort_order - b.sort_order)
+              .map((item: any) => {
+                const rawImg = item.image;
+                let resolvedImg = "/workspace-lounge.png";
+                if (rawImg) {
+                  if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
+                    resolvedImg = rawImg;
+                  } else if (rawImg.includes("/")) {
+                    resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
+                  } else {
+                    resolvedImg = `/${rawImg}`;
+                  }
                 }
-              }
-              return {
-                id: item.id,
-                img: resolvedImg,
-                category: item.title,
-                aspect: randomAspect
-              };
-            });
-            setGalleryItems(mapped);
+                
+                const aspects = ["aspect-[3/5]", "aspect-[4/3]", "aspect-[1/1]", "aspect-[16/9]", "aspect-[4/5]", "aspect-[3/2]", "aspect-[9/16]", "aspect-[3/4]"];
+                const aspect = aspects[item.id % aspects.length];
+
+                return {
+                  img: resolvedImg,
+                  category: item.title || "Lounge",
+                  aspect: aspect
+                };
+              });
+            if (mapped.length > 0) {
+              setGalleryItems(mapped);
+            }
           }
         }
-      } catch (e) {
-        console.error("Error fetching gallery from API", e);
+      } catch (error) {
+        console.error("Failed to fetch gallery:", error);
       }
     };
     fetchGallery();
+  }, []);
+
+  useEffect(() => {
+    document.title = "Gallery | Premium Office Spaces - CovaiTech Park";
   }, []);
 
   useEffect(() => {
@@ -100,42 +99,20 @@ export default function GalleryPage() {
     return () => window.removeEventListener("resize", updateColumns);
   }, []);
 
-  // Reset visible images count when active tab changes
-  useEffect(() => {
-    setVisibleCount(15);
-  }, [activeTab]);
-
   const filteredItems = activeTab === "All" 
     ? galleryItems 
     : galleryItems.filter(item => item.category === activeTab);
-
-  const displayedItems = filteredItems.slice(0, visibleCount);
 
   const openLightbox = (imgSrc: string) => {
     setLightboxImage(getImgUrl(imgSrc));
     setLightboxOpen(true);
   };
 
-  const getFlexGrow = (aspect: string) => {
-    if (aspect.includes("3/5")) return 1.67;
-    if (aspect.includes("4/5")) return 1.25;
-    if (aspect.includes("9/16")) return 1.78;
-    if (aspect.includes("3/4")) return 1.33;
-    if (aspect.includes("1/1")) return 1.00;
-    if (aspect.includes("4/3")) return 0.75;
-    if (aspect.includes("3/2")) return 0.67;
-    if (aspect.includes("16/9")) return 0.56;
-    return 1.00;
-  };
-
   // Partition items into columns
   const columnsData = Array.from({ length: numColumns }, () => [] as typeof galleryItems);
-  displayedItems.forEach((item, idx) => {
+  filteredItems.forEach((item, idx) => {
     columnsData[idx % numColumns].push(item);
   });
-
-  const maxItemsInCol = Math.max(...columnsData.map(col => col.length), 1);
-  const containerHeight = maxItemsInCol * 280;
 
   return (
     <div className="min-h-screen bg-[#faf9f6] text-slate-900 flex flex-col font-sans relative select-none antialiased">
@@ -176,7 +153,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Gallery Grid Section */}
-      <section id="gallery-grid" className="py-20 sm:py-28 px-4 sm:px-6 md:px-8 w-full max-w-[1400px] mx-auto min-h-screen">
+      <section id="gallery-grid" className="py-10 sm:py-20 md:py-28 px-4 sm:px-6 md:px-8 w-full max-w-[1400px] mx-auto min-h-screen">
         
         {/* Tabs */}
         <div className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mb-16">
@@ -197,21 +174,18 @@ export default function GalleryPage() {
 
         {/* Masonry Layout Grid */}
         <div 
-          className="grid gap-4 w-full" 
+          className="grid gap-4 w-full mb-24" 
           style={{ 
-            gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))`,
-            height: `${containerHeight}px`
+            gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))`
           }}
         >
           {columnsData.map((colItems, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-4 h-full">
+            <div key={colIdx} className="flex flex-col gap-4">
               {colItems.map((item, idx) => {
-                const flexValue = getFlexGrow(item.aspect);
                 return (
                   <div 
                     key={`${item.img}-${idx}`} 
-                    className="group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-xl w-full cursor-pointer"
-                    style={{ flex: `${flexValue} 1 0%` }}
+                    className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm w-full cursor-pointer ${item.aspect} shrink-0`}
                     onClick={() => openLightbox(item.img)}
                   >
                     <Image
@@ -234,17 +208,7 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        {/* Load More Option */}
-        {filteredItems.length > visibleCount && (
-          <div className="flex justify-center mt-16">
-            <button
-              onClick={() => setVisibleCount((prev) => prev + 15)}
-              className="px-8 py-3.5 bg-brand-navy hover:bg-brand-orange text-white font-bold text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl cursor-pointer"
-            >
-              Load More
-            </button>
-          </div>
-        )}
+
 
       </section>
 

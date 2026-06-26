@@ -81,11 +81,10 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                 {/* Coimbatore Card */}
                 <a href={prefix("/coimbatore")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
-                    <Image src={prefix("/coimbatore.png")} alt="Coimbatore" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={prefix("/coimbatore.jpg")} alt="CovaiTech Park Coimbatore Headquarters Workspace" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
                       <div>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-1.5 block drop-shadow-md">Primary Hub</span>
                         <h4 className="font-outfit font-medium text-[22px] text-white tracking-tight leading-none drop-shadow-md">Coimbatore</h4>
                       </div>
                       <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover/loc:bg-brand-orange group-hover/loc:border-brand-orange transition-colors duration-300">
@@ -94,7 +93,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                     </div>
                   </div>
                   <div className="p-6 flex-grow flex flex-col gap-3.5 bg-slate-50/50">
-                    {["Nehru Nagar", "Saravanampatti", "Peelamedu", "RS Puram"].map((area, idx) => (
+                    {["Nehru Nagar (SITRA)", "Kalapatti", "Saravanampatti"].map((area, idx) => (
                       <span key={idx} className="text-slate-600 text-[13px] group-hover/loc:text-slate-900 transition-colors flex items-center gap-3">
                         <span className="w-5 h-5 rounded-md bg-white border border-slate-200 flex items-center justify-center group-hover/loc:border-brand-orange/30 shadow-sm transition-colors">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/loc:bg-brand-orange transition-colors"></span>
@@ -108,11 +107,10 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                 {/* Trichy Card */}
                 <a href={prefix("/trichy")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
-                    <Image src={prefix("/workspace-meeting.png")} alt="Trichy" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={prefix("/trichy.png")} alt="CovaiTech Park Trichy Center Coworking Space" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
                       <div>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-brand-orange mb-1.5 block drop-shadow-md">New Hub</span>
                         <h4 className="font-outfit font-medium text-[22px] text-white tracking-tight leading-none drop-shadow-md">Trichy</h4>
                       </div>
                       <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover/loc:bg-brand-orange group-hover/loc:border-brand-orange transition-colors duration-300">
@@ -121,7 +119,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                     </div>
                   </div>
                   <div className="p-6 flex-grow flex flex-col gap-3.5 bg-slate-50/50">
-                    {["Thillai Nagar", "Cantonment", "Woraiyur", "KK Nagar"].map((area, idx) => (
+                    {["Thillai Nagar", "Kattur"].map((area, idx) => (
                       <span key={idx} className="text-slate-600 text-[13px] group-hover/loc:text-slate-900 transition-colors flex items-center gap-3">
                         <span className="w-5 h-5 rounded-md bg-white border border-slate-200 flex items-center justify-center group-hover/loc:border-brand-orange/30 shadow-sm transition-colors">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/loc:bg-brand-orange transition-colors"></span>
@@ -137,24 +135,24 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             <div className="relative group cursor-pointer h-full flex items-center">
               <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6">Services <span className="text-[8px]">▼</span></a>
               <div className="absolute top-[90%] left-0 w-[260px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
+                <a href={prefix("/coworking-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Coworking Space</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
+                </a>
                 <a href={prefix("/private-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office</span>
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
                 <a href={prefix("/managed-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Managed Office</span>
-                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
-                <a href={prefix("/virtual-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Virtual Office</span>
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Managed Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
                 <a href={prefix("/meeting-rooms")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Meeting Rooms</span>
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Meeting Room</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/event-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
-                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Event Space</span>
+                <a href={prefix("/virtual-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Virtual Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
               </div>
@@ -187,8 +185,8 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`xl:hidden p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-350 cursor-pointer shrink-0 ${
-                isScrolled ? "text-slate-855 hover:bg-slate-150" : "text-white hover:bg-white/10"
+              className={`xl:hidden p-1.5 sm:p-2 rounded-lg sm:rounded-xl transition-all duration-300 cursor-pointer shrink-0 ${
+                isScrolled ? "text-slate-800 hover:bg-slate-100" : "text-white hover:bg-white/10"
               }`}
               aria-label="Toggle Menu"
             >
@@ -241,18 +239,15 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                   {/* Coimbatore list */}
                   <div className="flex flex-col gap-2">
                     <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Coimbatore</span>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar (SITRA)</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Kalapatti</a>
                     <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Saravanampatti</a>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Peelamedu</a>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">RS Puram</a>
                   </div>
                   {/* Trichy list */}
                   <div className="flex flex-col gap-2">
                     <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Trichy</span>
-                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Thillai Nagar</a>
-                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Cantonment</a>
-                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Woraiyur</a>
-                    <a href="https://trichycoworks.com/" target="_blank" rel="noopener noreferrer" onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">KK Nagar</a>
+                    <a href={prefix("/trichy")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Thillai Nagar</a>
+                    <a href={prefix("/trichy")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Kattur</a>
                   </div>
                 </div>
               </div>
@@ -275,24 +270,24 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                 }`}
               >
                 <div className="flex flex-col gap-3 pl-2 normal-case tracking-normal font-medium text-sm">
+                  <a href={prefix("/coworking-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Coworking Space</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </a>
                   <a href={prefix("/private-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
-                    <span>Private Office</span>
+                    <span>Private Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
                   <a href={prefix("/managed-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
-                    <span>Managed Office</span>
-                    <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
-                  <a href={prefix("/virtual-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
-                    <span>Virtual Office</span>
+                    <span>Managed Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
                   <a href={prefix("/meeting-rooms")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
-                    <span>Meeting Rooms</span>
+                    <span>Meeting Room</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
-                  <a href={prefix("/event-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
-                    <span>Event Space</span>
+                  <a href={prefix("/virtual-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Virtual Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
                 </div>

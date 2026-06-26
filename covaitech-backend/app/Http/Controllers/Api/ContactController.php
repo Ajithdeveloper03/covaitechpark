@@ -34,6 +34,25 @@ class ContactController extends Controller
 
         $contact = Contact::create($data);
 
+        // Send Email Notification
+        try {
+            \Illuminate\Support\Facades\Mail::raw(
+                "New Contact Form Submission:\n\n" .
+                "Name: {$contact->name}\n" .
+                "Email: {$contact->email}\n" .
+                "Phone: {$contact->phone}\n" .
+                "Company: {$contact->company}\n" .
+                "Message: {$contact->message}\n" .
+                "Source: {$contact->source}",
+                function ($mail) use ($contact) {
+                    $mail->to('inymartlabs@gmail.com')
+                         ->subject('New Contact Inquiry: ' . $contact->name);
+                }
+            );
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('Mail sending failed: ' . $e->getMessage());
+        }
+
         return response()->json(['message' => 'Contact submitted successfully'], 201);
     }
 }

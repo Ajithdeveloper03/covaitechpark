@@ -42,3 +42,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/admin/settings', [SettingController::class, 'update']);
 });
 
+
+Route::get('/migrate-live-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate:fresh', ['--force' => true, '--seed' => true]);
+    return 'Migrations and Seeding completed successfully! Database is ready.';
+});

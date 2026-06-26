@@ -33,7 +33,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
       {/* Top CTA Strip */}
       <div className="border-b border-white/35 py-6 sm:py-8">
         <div className="box-container flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
-          <div className="text-left space-y-1">
+          <div className="text-center md:text-left space-y-1">
             <p className="font-sans font-bold text-2xl sm:text-3xl text-white tracking-tight">
               Ready to grow your team?
             </p>
@@ -41,7 +41,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
           </div>
           <button
             onClick={handleCtaClick}
-            className="px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
+            className="w-full md:w-auto px-8 py-3.5 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-bold text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer shadow-lg shrink-0"
           >
             Book a Free Tour &rarr;
           </button>

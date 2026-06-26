@@ -13,7 +13,7 @@ export const GLOBAL_SECTIONS: NavSection[] = [
   { id: "benefits-organic", label: "About" },
   { id: "locations", label: "Locations" },
   { id: "services-dark", label: "Services" },
-  { id: "deployment-track", label: "Facilities" },
+  { id: "gallery-works", label: "Gallery" },
   { id: "testimonials", label: "Testimonials" },
   { id: "faqs", label: "FAQs" },
   { id: "booking", label: "Book Space" }
@@ -26,10 +26,11 @@ export const ABOUT_SECTIONS: NavSection[] = [
   { id: "feeling", label: "Feeling" }
 ];
 
-export const COIMBATORE_SECTIONS: NavSection[] = [
-  { id: "hero", label: "Hero" },
-  { id: "highlights", label: "Highlights" },
-  { id: "other-locations", label: "Locations" }
+export const LOCATION_PAGES_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Home" },
+  { id: "locations", label: "Locations" },
+  { id: "cta", label: "Book Space" },
+  { id: "services", label: "Services" }
 ];
 
 export const PRIVATE_OFFICE_SECTIONS: NavSection[] = [
@@ -43,6 +44,17 @@ export const PRIVATE_OFFICE_SECTIONS: NavSection[] = [
 export const GALLERY_SECTIONS: NavSection[] = [
   { id: "gallery-hero", label: "Hero" },
   { id: "gallery-grid", label: "Gallery" }
+];
+
+export const CONTACT_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero" },
+  { id: "contact-portal", label: "Contact Us" },
+  { id: "ecosystem-map", label: "Locations Map" }
+];
+
+export const BLOG_SECTIONS: NavSection[] = [
+  { id: "hero", label: "Hero" },
+  { id: "articles", label: "Articles" }
 ];
 
 export default function FloatingNav() {
@@ -62,12 +74,23 @@ export default function FloatingNav() {
       selectedSections = GLOBAL_SECTIONS;
     } else if (cleanPath.startsWith("/about-us")) {
       selectedSections = ABOUT_SECTIONS;
-    } else if (cleanPath.startsWith("/coimbatore")) {
-      selectedSections = COIMBATORE_SECTIONS;
-    } else if (cleanPath.startsWith("/private-office-space")) {
+    } else if (cleanPath.startsWith("/coimbatore") || cleanPath.startsWith("/trichy")) {
+      selectedSections = LOCATION_PAGES_SECTIONS;
+    } else if (
+      cleanPath.startsWith("/coworking-space") ||
+      cleanPath.startsWith("/private-office-space") ||
+      cleanPath.startsWith("/managed-office-space") ||
+      cleanPath.startsWith("/meeting-rooms") ||
+      cleanPath.startsWith("/virtual-office-space") ||
+      cleanPath.startsWith("/event-space")
+    ) {
       selectedSections = PRIVATE_OFFICE_SECTIONS;
     } else if (cleanPath.startsWith("/gallery")) {
       selectedSections = GALLERY_SECTIONS;
+    } else if (cleanPath.startsWith("/contact")) {
+      selectedSections = CONTACT_SECTIONS;
+    } else if (cleanPath.startsWith("/blog")) {
+      selectedSections = BLOG_SECTIONS;
     }
 
     if (!selectedSections) {

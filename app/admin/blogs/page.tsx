@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import AdminLayout from "../../components/AdminLayout";
 import AdminConfirmModal from "../../components/AdminConfirmModal";
 import AdminToast, { ToastMessage } from "../../components/AdminToast";
+import { adminGet, adminDelete as apiDelete, adminPost, adminPut, adminUpload } from "../adminApi";
 
 /* ─── Types ─── */
 interface BlogSection {
@@ -47,7 +48,7 @@ const BLOG_CATEGORIES = [
 const getImgUrl = (path: string) => {
   if (!path) return "";
   if (path.startsWith("http") || path.startsWith("/")) return path;
-  return `http://localhost:8000/storage/${path}`;
+  return `${process.env.NEXT_PUBLIC_STORAGE_URL}/${path}`;
 };
 
 const formatDate = (iso: string | null) => {
@@ -83,27 +84,23 @@ function BlogListView({
   useEffect(() => { fetchBlogs(); }, []);
 
   const fetchBlogs = async () => {
-    const token = localStorage.getItem("admin_token");
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/admin/blogs", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) setBlogs(await res.json());
-      else showToast("error", "Failed to load blog posts.");
-    } catch { showToast("error", "Network error — could not reach the server."); }
+      const { ok, data } = await adminGet("/admin/blogs");
+      if (ok && Array.isArray(data)) {
+        setBlogs(data as Blog[]);
+      } else if (!ok) {
+        showToast("error", "✗ Failed to load blog posts. Please refresh or re-login.");
+      }
+    } catch { showToast("error", "✗ Network error — could not reach the server."); }
     finally { setLoading(false); }
   };
 
   const handleDelete = async () => {
     if (!deleteId) return;
-    const token = localStorage.getItem("admin_token");
     try {
-      const res = await fetch(`http://localhost:8000/api/admin/blogs/${deleteId}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      if (res.ok) { showToast("success", "✓ Blog post permanently deleted."); setDeleteId(null); fetchBlogs(); }
+      const { ok } = await apiDelete(`/admin/blogs/${deleteId}`);
+      if (ok) { showToast("success", "✓ Blog post permanently deleted."); setDeleteId(null); fetchBlogs(); }
       else showToast("error", "✗ Failed to delete blog post.");
     } catch { showToast("error", "✗ Network error."); }
   };
@@ -120,7 +117,7 @@ function BlogListView({
   return (
     <div className="space-y-6">
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
           { label: "Total Articles", value: stats.total, color: "bg-slate-800", icon: "📄" },
           { label: "Published Live", value: stats.published, color: "bg-emerald-600", icon: "✅" },
@@ -291,9 +288,17 @@ function BlogEditorView({
   const [image, setImage] = useState(editingBlog?.image ?? "");
   const [isPublished, setIsPublished] = useState(editingBlog?.is_published ?? false);
   const [sections, setSections] = useState<BlogSection[]>(() => {
-    if (editingBlog?.content?.length) {
+    let rawContent = editingBlog?.content;
+    if (typeof rawContent === "string") {
+      try {
+        rawContent = JSON.parse(rawContent);
+      } catch {
+        rawContent = [];
+      }
+    }
+    if (Array.isArray(rawContent) && rawContent.length) {
       // Normalise sections — old sections may not have `bullets` field
-      return editingBlog.content.map(s => ({
+      return rawContent.map(s => ({
         heading: s.heading ?? "",
         text: s.text ?? "",
         img: s.img ?? "",
@@ -302,9 +307,17 @@ function BlogEditorView({
     }
     return [emptySection()];
   });
-  const [faqs, setFaqs] = useState<FAQ[]>(() =>
-    editingBlog?.faqs?.length ? editingBlog.faqs : [emptyFaq()]
-  );
+  const [faqs, setFaqs] = useState<FAQ[]>(() => {
+    let rawFaqs = editingBlog?.faqs;
+    if (typeof rawFaqs === "string") {
+      try {
+        rawFaqs = JSON.parse(rawFaqs);
+      } catch {
+        rawFaqs = [];
+      }
+    }
+    return Array.isArray(rawFaqs) && rawFaqs.length ? rawFaqs : [emptyFaq()];
+  });
 
   /* Upload states */
   const [isUploadingCover, setIsUploadingCover] = useState(false);
@@ -322,15 +335,12 @@ function BlogEditorView({
 
   /* Upload helper */
   const uploadFile = async (file: File, folder: string): Promise<string> => {
-    const token = localStorage.getItem("admin_token");
     const fd = new FormData();
     fd.append("file", file);
     fd.append("folder", folder);
-    const res = await fetch("http://localhost:8000/api/admin/upload", {
-      method: "POST", headers: { Authorization: `Bearer ${token}` }, body: fd,
-    });
-    if (!res.ok) throw new Error("Upload failed");
-    return (await res.json()).path;
+    const { ok, path } = await adminUpload(fd);
+    if (!ok) throw new Error("Upload failed");
+    return path;
   };
 
   /* Cover upload */
@@ -386,7 +396,6 @@ function BlogEditorView({
     if (!category) { showToast("warning", "⚠ Please select a category."); return; }
 
     setIsSubmitting(true);
-    const token = localStorage.getItem("admin_token");
     const payload = {
       title: title.trim(), category, excerpt: excerpt.trim(), image,
       content: sections.filter(s => s.heading || s.text),
@@ -397,18 +406,17 @@ function BlogEditorView({
     };
 
     try {
-      const url = isEditing ? `http://localhost:8000/api/admin/blogs/${editingBlog.id}` : "http://localhost:8000/api/admin/blogs";
-      const res = await fetch(url, {
-        method: isEditing ? "PUT" : "POST",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}`, Accept: "application/json" },
-        body: JSON.stringify(payload),
-      });
-      if (res.ok) {
+      const { ok, data } = isEditing
+        ? await adminPut(`/admin/blogs/${editingBlog.id}`, payload)
+        : await adminPost("/admin/blogs", payload);
+
+      if (ok) {
         showToast("success", isEditing ? "✓ Article updated and live on the website." : "✓ New article created successfully!");
         setTimeout(() => onSaved(), 900);
       } else {
-        const err = await res.json().catch(() => ({}));
-        showToast("error", `✗ ${err.message || "Failed to save article."}`);
+        const errData = data as { message?: string; errors?: Record<string, string[]> } | null;
+        const msg = errData?.message || Object.values(errData?.errors ?? {})[0]?.[0] || "Failed to save article.";
+        showToast("error", `✗ ${msg}`);
       }
     } catch { showToast("error", "✗ Network error. Could not reach server."); }
     finally { setIsSubmitting(false); }
@@ -589,7 +597,7 @@ function BlogEditorView({
                               {sec.img && (
                                 <div className="relative shrink-0">
                                   <div className="w-24 h-16 rounded-xl overflow-hidden border border-slate-200 shadow-sm">
-                                    <img src={getImgUrl(sec.img)} alt="" className="object-cover w-full h-full" />
+                                    <img src={getImgUrl(sec.img)} alt="Section preview thumbnail" className="object-cover w-full h-full" />
                                   </div>
                                   <button onClick={() => updateSection(idx, "img", "")}
                                     className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-rose-500 text-white rounded-full flex items-center justify-center text-xs cursor-pointer hover:bg-rose-600">×</button>
@@ -851,7 +859,7 @@ export default function AdminBlogsPage() {
   const handleSaved = () => { setView("list"); setEditingBlog(null); };
 
   return (
-    <AdminLayout activeTab="blogs">
+    <AdminLayout activeTab="blogs" fullPage={view === "editor"}>
       {view === "list" ? (
         <BlogListView onEdit={handleEdit} onCreateNew={handleCreateNew} />
       ) : (

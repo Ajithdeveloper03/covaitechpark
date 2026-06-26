@@ -6,10 +6,8 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import { useSettings } from "../hooks/useSettings";
-
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
-
 const AmenityIcon = ({ name, className }: { name: string; className?: string }) => {
   const cls = className || "w-6 h-6";
   switch (name) {
@@ -88,7 +86,7 @@ export default function TrichyPage() {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -129,36 +127,32 @@ export default function TrichyPage() {
       <Header />
 
       {/* ── 1. HERO SECTION ── */}
-      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-24 sm:pt-28 pb-30 overflow-hidden text-white">
+      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-16 sm:pt-24 md:pt-28 pb-30 overflow-hidden text-white">
         
         {/* Full bleed background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/covaitechpark/workspace-meeting.png"
+            src="/covaitechpark/coimbatore.png"
             alt="Trichy coworking space"
             fill
             priority
             className="object-cover object-center"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#060d17] via-[#060d17]/80 to-transparent z-10" />
         </div>
-
         {/* Centered Hero Content */}
-        <div className="relative z-20 flex flex-col items-center text-center px-4 max-w-8xl mt-8 mx-auto w-full">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-white leading-[1.05] mb-4">
+        <div className="relative z-20 flex flex-col items-center text-center px-4 max-w-6xl mt-8 mx-auto w-full">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9853] leading-[1.05] mb-4">
             CovaiTech Park - Trichy Center
           </h1>
-
-          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-3xl mb-6 flex items-center justify-center gap-2">
-            <svg className="w-5 h-5 text-brand-orange shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-3xl mb-6 flex items-start justify-center gap-2">
+            <svg className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 mt-0.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>
-            {settings.trichy_address}
+            <span className="text-center">2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018</span>
           </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-2">
+          <div className="flex flex-wrap items-center justify-center gap-4 mt-2 hidden">
             <button
               onClick={() => handleOpenBooking("Trichy Tour")}
               className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
@@ -175,7 +169,6 @@ export default function TrichyPage() {
             </a>
           </div>
         </div>
-
         {/* Fan-out Arc of 5 workspace cards at bottom */}
         <div className="relative z-20 w-full max-w-5xl mx-auto mt-4 sm:mt-2 md:mt-2 lg:mt-6 px-4 flex-shrink-0 h-[220px] sm:h-[240px] md:h-[280px] justify-start">
           {/* Desktop/tablet view */}
@@ -203,12 +196,11 @@ export default function TrichyPage() {
                   }`}
                   style={{ height: '260px' }}
                 >
-                  <Image src={card.img} alt="Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
+                  <Image src={card.img} alt="CovaiTech Park Trichy Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
                 </div>
               </div>
             ))}
           </div>
-
           {/* Mobile view */}
           <div className="flex sm:hidden gap-3 overflow-x-auto pb-2 scrollbar-hide items-end justify-center">
             {[
@@ -219,249 +211,132 @@ export default function TrichyPage() {
               { img: "/covaitechpark/hero13.jpg" },
             ].map((card, i) => (
               <div key={i} className={`flex-shrink-0 w-28 relative rounded-[1rem] overflow-hidden ${card.active ? 'h-44' : 'h-36'}`}>
-                <Image src={card.img} alt="Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
+                <Image src={card.img} alt="CovaiTech Park Trichy Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
               </div>
             ))}
           </div>
         </div>
       </section>
-
-      {/* ── 2. LOCATION HIGHLIGHTS (Bento Grid Redesign) ── */}
-      <section id="highlights" className="py-24 sm:py-32 bg-white w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        
-        {/* Subtle decorative background blobs */}
-        <div className="absolute top-1/4 left-10 w-80 h-80 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-brand-navy/5 rounded-full blur-[120px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto space-y-16 relative z-10">
-          <div className="text-left space-y-4 max-w-3xl">
+      {/* ── 2. TRICHY COWORKS INFO ── */}
+      <section id="highlights" className="py-16 sm:py-24 bg-white w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="w-full lg:w-1/2 space-y-6">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-semibold uppercase tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
-              Campus Features
+              A Unit of Max Office
             </span>
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold text-brand-navy tracking-tight leading-none">
-              Strategic Branch Infrastructure <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9853]">
-                Designed For Growth
-              </span>
+            <h2 className="text-4xl sm:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-none">
+              Comprehensive Workspace Solutions in Tiruchirappalli
             </h2>
-            <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed max-w-xl">
-              Discover unique advantages that make our Trichy campus the ultimate environment for tech startups and remote corporate teams.
-            </p>
+            <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+              <p>
+                We provide comprehensive workspace solutions in Tiruchirappalli under our division <strong>Trichy Coworks (A unit of Max Office)</strong>. Our facilities offer fully furnished IT workspaces with modern infrastructure tailored for startups, tech teams, and remote professionals.
+              </p>
+              <p>
+                Equipped with high-speed internet, ergonomic seating, and essential amenities, we ensure a seamless and productive work environment. Whether you need hot desks, dedicated seats, or private office cabins, we provide flexible options to suit your business needs.
+              </p>
+            </div>
+            <div className="pt-4">
+              <a href="https://trichycoworks.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-[#e0661e] text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg">
+                Visit Trichy Coworks <span className="text-lg leading-none">&rarr;</span>
+              </a>
+            </div>
           </div>
-
-          {/* Unique Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto auto-rows-[minmax(180px,auto)]">
-            
-            {/* Feature 1: Large Card (Spans 2 columns) */}
-            <div className="md:col-span-2 bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200/80 rounded-3xl p-8 lg:p-10 flex flex-col justify-between hover:border-brand-orange/45 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-brand-orange/5 rounded-bl-[6rem] pointer-events-none" />
-              <div className="space-y-4 max-w-md">
-                <div className="w-14 h-14 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                  <AmenityIcon name="office" className="w-7 h-7 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-2xl text-brand-navy">Premium Fully Furnished Cabins</h3>
-                <p className="text-slate-500 text-sm sm:text-sm font-normal leading-relaxed">
-                  Move-in ready private cabins and premium ergonomic desk setups designed for maximum focus, comfort, and professional representation in Trichy.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-brand-orange">
-                <span>Flexible Seating Layouts</span>
-                <span className="group-hover:translate-x-1.5 transition-transform duration-300">&rarr;</span>
-              </div>
+          <div className="w-full lg:w-1/2 relative">
+            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
+              <Image src={prefix("/hero3.jpg")} alt="Trichy Coworks Facility" fill className="object-cover" />
             </div>
-
-            {/* Feature 2: High Card (Spans 1 column, height is double in rows) */}
-            <div className="md:col-span-1 md:row-span-2 relative border border-slate-800 rounded-3xl p-8 lg:p-10 flex flex-col justify-between hover:shadow-2xl hover:border-brand-orange/30 transition-all duration-500 group text-white overflow-hidden">
-              <Image
-                src={prefix("/hero11.jpg")}
-                alt="High-Speed Internet Infrastructure"
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105 z-0"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-[#091b29]/95 via-[#091b29]/80 to-[#091b29]/95 z-10" />
-              
-              <div className="relative z-20 space-y-6">
-                <div className="w-14 h-14 rounded-2xl bg-brand-orange text-white flex items-center justify-center shadow-lg">
-                  <AmenityIcon name="wifi" className="w-7 h-7 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-2xl">High-Speed Redundant Internet</h3>
-                <p className="text-slate-200 text-sm sm:text-sm font-normal leading-relaxed">
-                  High-performance corporate-level internet links backed by multiple ISPs to guarantee continuous operational connectivity.
-                </p>
-              </div>
-              <div className="relative z-20 mt-8 pt-4 border-t border-white/15 flex items-center justify-between text-xs font-medium uppercase tracking-wider text-brand-orange">
-                <span>99.9% Uptime Guarantee</span>
-              </div>
-            </div>
-
-            {/* Feature 3: Standard Card */}
-            <div className="bg-slate-50/80 border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between hover:border-brand-orange/45 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-brand-orange/10 group-hover:text-brand-orange flex items-center justify-center transition-all duration-300">
-                  <AmenityIcon name="ac" className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-lg text-brand-navy">Smart Climate Control</h3>
-                <p className="text-slate-500 text-sm font-normal leading-relaxed">
-                  Individually zoned climate control setups to keep the workspaces cool and ergonomic.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 4: Standard Card */}
-            <div className="bg-slate-50/80 border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between hover:border-brand-orange/45 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-brand-orange/10 group-hover:text-brand-orange flex items-center justify-center transition-all duration-300">
-                  <AmenityIcon name="generator" className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-lg text-brand-navy">Power Backup</h3>
-                <p className="text-slate-500 text-sm font-normal leading-relaxed">
-                  Heavy generator setups ensuring zero disruption in daily business functions.
-                </p>
-              </div>
-            </div>
-
-            {/* Feature 5: Large Card (Spans 2 columns) */}
-            <div className="md:col-span-2 bg-gradient-to-br from-slate-50 to-slate-100/50 border border-slate-200/80 rounded-3xl p-8 lg:p-10 flex flex-col justify-between hover:border-brand-orange/45 hover:shadow-2xl transition-all duration-500 group relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-48 h-48 bg-brand-orange/5 rounded-bl-[6rem] pointer-events-none" />
-              <div className="space-y-4 max-w-md">
-                <div className="w-14 h-14 rounded-2xl bg-brand-orange/15 text-brand-orange flex items-center justify-center group-hover:bg-brand-orange group-hover:text-white transition-colors duration-300">
-                  <AmenityIcon name="access" className="w-7 h-7 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-2xl text-brand-navy">Secure 24x7 Campus Access</h3>
-                <p className="text-slate-500 text-sm sm:text-sm font-normal leading-relaxed">
-                  Work on global hours with access controls, CCTV security protocols, and secure parking configurations.
-                </p>
-              </div>
-              <div className="mt-8 pt-4 border-t border-slate-200/60 flex items-center justify-between text-xs font-semibold uppercase tracking-wider text-brand-orange">
-                <span>Secure IT Infrastructure</span>
-              </div>
-            </div>
-
-            {/* Feature 6: Standard Card */}
-            <div className="bg-slate-50/80 border border-slate-200/80 rounded-3xl p-8 flex flex-col justify-between hover:border-brand-orange/45 hover:shadow-xl transition-all duration-500 group relative overflow-hidden">
-              <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-slate-100 text-slate-600 group-hover:bg-brand-orange/10 group-hover:text-brand-orange flex items-center justify-center transition-all duration-300">
-                  <AmenityIcon name="parking" className="w-6 h-6 stroke-[1.5]" />
-                </div>
-                <h3 className="font-outfit font-bold text-lg text-brand-navy">Ample Member Parking</h3>
-                <p className="text-slate-500 text-sm font-normal leading-relaxed">
-                  Safe designated parking slots for employee two-wheelers and client cars.
-                </p>
-              </div>
-            </div>
-
+            {/* Decorative element */}
+            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-orange/10 rounded-full blur-2xl pointer-events-none" />
           </div>
         </div>
       </section>
-
-      {/* ── 3. OTHER LOCATIONS ── */}
-      <section id="other-locations" className="py-24 sm:py-32 bg-slate-50 w-full relative overflow-hidden border-t border-slate-200">
-        <div className="max-w-7xl mx-auto space-y-16">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-xs font-bold text-brand-orange uppercase tracking-widest block">
-              OUR NETWORK
-            </span>
+ {/* ── 4. SHORTER CTA SECTION ── */}
+      <section className="py-16 bg-brand-navy text-white text-center">
+        <h2 className="text-3xl font-outfit font-bold mb-4">Ready to upgrade your workspace?</h2>
+        <p className="text-slate-400 mb-8 max-w-xl mx-auto">Join hundreds of growing businesses across our network.</p>
+        <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg">Book a Tour Today</button>
+      </section>
+      {/* ── 3. EXPLORE SERVICES ── */}
+      <section id="explore-services" className="py-12 sm:py-24 bg-slate-100 w-full relative overflow-hidden border-t border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 max-w-2xl mx-auto mb-12">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-outfit font-bold tracking-tight text-brand-navy leading-none">
-              Explore Our Strategic Locations
+              Explore Our Workspace Services
             </h2>
             <p className="text-slate-500 text-sm sm:text-base font-normal">
-              Establish your business across premium tech corridors in Tamil Nadu.
+              Tailored solutions for freelancers, startups, and enterprise teams.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto px-4">
-            
-            {/* Coimbatore Card */}
-            <a 
-              href={prefix("/coimbatore")} 
-              className="bg-white border border-slate-200/80 rounded-[2.5rem] overflow-hidden flex flex-col shadow-lg hover:shadow-2xl hover:border-brand-orange/30 transition-all duration-500 group"
-            >
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
-                <Image
-                  src="/covaitechpark/coimbatore.png"
-                  alt="Coimbatore headquarters"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <div className="absolute top-6 right-6">
-                  <span className="px-3.5 py-1 bg-brand-navy text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
-                    Explore Campus
-                  </span>
-                </div>
-                <div className="absolute bottom-6 left-8 text-white">
-                  <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">Headquarters</span>
-                  <h3 className="font-outfit font-bold text-3xl mt-1 group-hover:text-brand-orange transition-colors">Coimbatore HQ</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <a href={prefix("/coworking-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
+              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
+                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
+                  <Image src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=400&q=80" alt="Coworking Space" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
                 </div>
               </div>
-
-              <div className="p-8 sm:p-10 flex flex-col justify-between flex-grow space-y-6">
-                <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed">
-                  Our flagship business hub features ready-to-move cabins, premium coworking lounges, and modern meeting spaces.
-                </p>
-                <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm font-medium text-slate-500">
-                  <div className="space-y-1">
-                    <p className="text-brand-navy font-bold">4th South Cross St, Coimbatore</p>
-                    <p className="text-xs">Phone: {contactInfo.phone1.display}</p>
-                  </div>
-                  <span className="text-brand-orange font-bold text-xs uppercase tracking-wider shrink-0 group-hover:translate-x-1 transition-transform duration-300">Inquire Branch &rarr;</span>
-                </div>
+              <div className="p-5 flex flex-col flex-1 text-center">
+                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Coworking Space</h4>
+                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Flexible, dynamic shared spaces perfect for networking and productivity.</p>
               </div>
             </a>
-
-            {/* Trichy Card */}
-            <div className="bg-white border border-slate-200/80 rounded-[2.5rem] overflow-hidden flex flex-col shadow-lg hover:shadow-2xl transition-all duration-500 group">
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
-                <Image
-                  src="/covaitechpark/hero3.jpg"
-                  alt="Trichy Center workspace"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  loading="lazy"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
-                <div className="absolute top-6 right-6">
-                  <span className="px-3.5 py-1 bg-brand-orange text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
-                    Active Location
-                  </span>
-                </div>
-                <div className="absolute bottom-6 left-8 text-white">
-                  <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">Expansion Hub</span>
-                  <h3 className="font-outfit font-bold text-3xl mt-1">Trichy Center</h3>
+            <a href={prefix("/private-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
+              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
+                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
+                  <Image src="https://images.pexels.com/photos/386150/pexels-photo-386150.jpeg" alt="Private Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
                 </div>
               </div>
-
-              <div className="p-8 sm:p-10 flex flex-col justify-between flex-grow space-y-6">
-                <p className="text-slate-500 text-sm sm:text-base font-normal leading-relaxed">
-                  Located strategically in Thillai Nagar near Isha Yoga Center, offering complete IT infrastructure and on-site support.
-                </p>
-                <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-sm font-medium text-slate-500">
-                  <div className="space-y-1">
-                    <p className="text-brand-navy font-bold">Thillai Nagar, Tiruchirappalli</p>
-                    <p className="text-xs">Phone: +91 96889 92210</p>
-                  </div>
-                  <span className="text-brand-orange font-bold text-xs uppercase tracking-wider shrink-0">Currently Viewing</span>
+              <div className="p-5 flex flex-col flex-1 text-center">
+                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Private Office</h4>
+                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Secure, dedicated cabins designed for teams of all sizes.</p>
+              </div>
+            </a>
+            <a href={prefix("/managed-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
+              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
+                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
+                  <Image src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80" alt="Managed Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
                 </div>
               </div>
-            </div>
-
+              <div className="p-5 flex flex-col flex-1 text-center">
+                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Managed Office</h4>
+                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">End-to-end custom workspace solutions built for enterprise needs.</p>
+              </div>
+            </a>
+            <a href={prefix("/meeting-rooms")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
+              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
+                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
+                  <Image src="https://images.pexels.com/photos/20101490/pexels-photo-20101490.jpeg" alt="Meeting Rooms" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+                </div>
+              </div>
+              <div className="p-5 flex flex-col flex-1 text-center">
+                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Meeting Rooms</h4>
+                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">High-tech conference spaces for interviews, pitches, and training.</p>
+              </div>
+            </a>
+            <a href={prefix("/virtual-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
+              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
+                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
+                  <Image src="https://images.pexels.com/photos/36713181/pexels-photo-36713181.jpeg" alt="Virtual Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+                </div>
+              </div>
+              <div className="p-5 flex flex-col flex-1 text-center">
+                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Virtual Office</h4>
+                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Professional business address and mail handling services.</p>
+              </div>
+            </a>
           </div>
         </div>
       </section>
-
       <Footer />
-
       {/* ── IN-PAGE RESERVATION MODAL ── */}
       {bookingOpen && (
         <div className="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-[2rem] overflow-hidden w-full max-w-4xl shadow-2xl relative border border-brand-navy/10 flex flex-col md:flex-row">
-            
             <div className="relative w-full md:w-5/12 hidden md:block">
               <Image
                 src={prefix("/workspace-cabin.png")}
@@ -471,7 +346,6 @@ export default function TrichyPage() {
                 sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
               <div className="absolute inset-0 bg-brand-navy/20" />
             </div>
-
             <div className="w-full md:w-7/12 p-8 sm:p-10 relative bg-white">
               <button
                 onClick={() => setBookingOpen(false)}
@@ -481,7 +355,6 @@ export default function TrichyPage() {
                   <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
-
               <div className="mb-6 space-y-1 text-left">
                 <h3 className="font-outfit font-medium text-2xl text-brand-navy">
                   Reserve Your Space / Schedule Visit
@@ -490,7 +363,6 @@ export default function TrichyPage() {
                   Fill in the details below. Our space administration team will follow up.
                 </p>
               </div>
-
               {bookingSuccess ? (
                 <div className="py-10 text-center space-y-4">
                   <div className="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto text-brand-orange">
@@ -540,7 +412,6 @@ export default function TrichyPage() {
                       </div>
                     </div>
                   </div>
-
                   {/* Phone Number */}
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-brand-navy">
@@ -567,7 +438,6 @@ export default function TrichyPage() {
                       />
                     </div>
                   </div>
-
                   {/* Email Address */}
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-brand-navy">
@@ -581,7 +451,6 @@ export default function TrichyPage() {
                       className="w-full bg-white border border-brand-navy/15 rounded-xl px-4 py-3 text-sm text-brand-navy focus:outline-none focus:border-brand-orange font-medium shadow-sm"
                     />
                   </div>
-
                   {/* What are you looking for? */}
                   <div className="space-y-1">
                     <label className="block text-sm font-medium text-brand-navy">
@@ -602,7 +471,6 @@ export default function TrichyPage() {
                       <option value="Trichy Tour">Trichy Tour</option>
                     </select>
                   </div>
-
                   <button
                     type="submit"
                     className="w-full py-4 bg-[#091b29] text-white text-sm font-medium uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4"
@@ -615,7 +483,6 @@ export default function TrichyPage() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

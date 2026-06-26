@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Header from "./components/Header";
 import dynamic from "next/dynamic";
@@ -191,82 +191,82 @@ const DEPLOYMENT_PHASES = [
 
 type DeploymentPhase = (typeof DEPLOYMENT_PHASES)[number];
 
-const FacilitiesIcon = ({ name, className }: { name: string; className?: string }) => {
-  const cls = className || "w-6 h-6";
-  switch (name) {
-    case "office":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h.008v.008H9V6zm0 3h.008v.008H9V9zm0 3h.008v.008H9V12zm3-6h.008v.008H12V6zm0 3h.008v.008H12V9zm0 3h.008v.008H12V12zm3-6h.008v.008H15V6zm0 3h.008v.008H15V9zm0 3h.008v.008H15V12z" />
-        </svg>
-      );
-    case "support":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 015.636 5.636" />
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
-        </svg>
-      );
-    case "access":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-        </svg>
-      );
-    case "reception":
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
-        </svg>
-      );
-    default:
-      return (
-        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      );
-  }
-};
+// const FacilitiesIcon = ({ name, className }: { name: string; className?: string }) => {
+//   const cls = className || "w-6 h-6";
+//   switch (name) {
+//     case "office":
+//       return (
+//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h.008v.008H9V6zm0 3h.008v.008H9V9zm0 3h.008v.008H9V12zm3-6h.008v.008H12V6zm0 3h.008v.008H12V9zm0 3h.008v.008H12V12zm3-6h.008v.008H15V6zm0 3h.008v.008H15V9zm0 3h.008v.008H15V12z" />
+//         </svg>
+//       );
+//     case "support":
+//       return (
+//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 015.636 5.636" />
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
+//         </svg>
+//       );
+//     case "access":
+//       return (
+//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+//         </svg>
+//       );
+//     case "reception":
+//       return (
+//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+//         </svg>
+//       );
+//     default:
+//       return (
+//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+//           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+//         </svg>
+//       );
+//   }
+// };
 
-function DeploymentPhaseContent({
-  phase,
-  compact = false,
-}: {
-  phase: DeploymentPhase;
-  compact?: boolean;
-}) {
-  return (
-    <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
-      <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
-        {phase.subtitle}
-      </span>
-      <h3
-        className={`font-outfit font-bold text-brand-navy tracking-tight leading-[1.05] ${
-          compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-4xl"
-        }`}
-      >
-        {phase.title}
-      </h3>
-      <p className="text-brand-slate text-sm sm:text-base leading-relaxed max-w-md font-normal">
-        {phase.description}
-      </p>
-      <div className={`border-t border-slate-100 ${compact ? "space-y-2 pt-2" : "space-y-3 pt-3"}`}>
-        {phase.points.map((pt) => (
-          <div key={pt.label} className="flex gap-2.5 items-center">
-            <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-medium bg-brand-orange">
-              ✓
-            </span>
-            <div className="flex gap-1.5 items-baseline flex-wrap min-w-0">
-              <span className="font-medium text-sm sm:text-sm text-brand-navy">{pt.label}</span>
-              <span className="text-[11px] sm:text-sm text-brand-slate font-normal">{pt.desc}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+// function DeploymentPhaseContent({
+//   phase,
+//   compact = false,
+// }: {
+//   phase: DeploymentPhase;
+//   compact?: boolean;
+// }) {
+//   return (
+//     <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
+//       <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
+//         {phase.subtitle}
+//       </span>
+//       <h3
+//         className={`font-outfit font-bold text-brand-navy tracking-tight leading-[1.05] ${
+//           compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-4xl"
+//         }`}
+//       >
+//         {phase.title}
+//       </h3>
+//       <p className="text-brand-slate text-sm sm:text-base leading-relaxed max-w-md font-normal">
+//         {phase.description}
+//       </p>
+//       <div className={`border-t border-slate-100 ${compact ? "space-y-2 pt-2" : "space-y-3 pt-3"}`}>
+//         {phase.points.map((pt) => (
+//           <div key={pt.label} className="flex gap-2.5 items-center">
+//             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-medium bg-brand-orange">
+//               ✓
+//             </span>
+//             <div className="flex gap-1.5 items-baseline flex-wrap min-w-0">
+//               <span className="font-medium text-sm sm:text-sm text-brand-navy">{pt.label}</span>
+//               <span className="text-[11px] sm:text-sm text-brand-slate font-normal">{pt.desc}</span>
+//             </div>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
 
 // Interactive testimonial data
@@ -327,20 +327,13 @@ const FAQS = [
 ];
 
 const CITIES = [
-  // Coimbatore hub + sub-locations
-  { name: "Coimbatore", icon: "gopuram", image: "https://images.pexels.com/photos/13219418/pexels-photo-13219418.jpeg" },
-  { name: "Nehru Nagar", icon: "office-block", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Saravanampatti", icon: "tech-hub", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Peelamedu", icon: "airport-city", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80" },
-  { name: "RS Puram", icon: "boulevard", image: "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Gandhipuram", icon: "city-center", image: "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?auto=format&fit=crop&w=1200&q=80" },
-  // Trichy hub + sub-locations
-  { name: "Trichy", icon: "gopuram", image: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80" },
+  // Coimbatore sub-locations
+  { name: "Nehru Nagar (SITRA)", icon: "office-block", image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Kalapatti", icon: "tech-hub", image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80" },
+  { name: "Saravanampatti", icon: "airport-city", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80" },
+  // Trichy sub-locations
   { name: "Thillai Nagar", icon: "residential-biz", image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Cantonment", icon: "heritage-zone", image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Woraiyur", icon: "industry-park", image: "https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1200&q=80" },
-  { name: "KK Nagar", icon: "smart-zone", image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1200&q=80" },
-  { name: "Srirangam", icon: "temple-city", image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80" }
+  { name: "Kattur", icon: "heritage-zone", image: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=1200&q=80" }
 ];
 
 const CityIcon = ({ icon, className }: { icon: string; className?: string }) => {
@@ -666,7 +659,7 @@ export default function Home() {
   useEffect(() => {
     const fetchHeroSlides = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/hero-slides");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/hero-slides`);
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
@@ -677,7 +670,7 @@ export default function Home() {
               image: slide.image 
                 ? (slide.image.startsWith("http") || slide.image.startsWith("/")
                   ? slide.image
-                  : `http://localhost:8000/storage/${slide.image}`)
+                  : `${process.env.NEXT_PUBLIC_STORAGE_URL}/${slide.image}`)
                 : prefix("/hero1.jpg"),
               label: slide.label ?? "",
               description: slide.description ?? "",
@@ -771,6 +764,19 @@ export default function Home() {
     return () => clearInterval(interval);
   }, [isAutoPlay, heroSlides.length]);
 
+  // Auto-scroll thumbnails on mobile when active slide changes
+  const thumbContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (thumbContainerRef.current) {
+      const activeThumb = thumbContainerRef.current.children[activeHeroSlide] as HTMLElement;
+      if (activeThumb) {
+        const container = thumbContainerRef.current;
+        const scrollLeft = activeThumb.offsetLeft - (container.clientWidth / 2) + (activeThumb.clientWidth / 2);
+        container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+      }
+    }
+  }, [activeHeroSlide]);
+
   // IntersectionObserver to sync vertical dot navigation
   useEffect(() => {
     const observerOptions = {
@@ -782,9 +788,9 @@ export default function Home() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          // Keep deployment track as active ID during its scroll scroll track
-          if (entry.target.id === "deployment-track") {
-            setActiveSection("deployment-track");
+          // Keep gallery-works as active ID during its scroll scroll track
+          if (entry.target.id === "gallery-works") {
+            setActiveSection("gallery-works");
           } else {
             setActiveSection(entry.target.id);
           }
@@ -794,7 +800,7 @@ export default function Home() {
 
     const HOME_SECTION_IDS = [
       "hero", "benefits-organic", "locations", "services-dark",
-      "deployment-track", "testimonials", "faqs", "booking"
+      "gallery-works", "testimonials", "faqs", "booking"
     ];
 
     HOME_SECTION_IDS.forEach((id) => {
@@ -859,7 +865,7 @@ export default function Home() {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -900,7 +906,7 @@ export default function Home() {
     e.preventDefault();
     if (contactFirstName && contactLastName && contactEmail && contactPhone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -1020,8 +1026,8 @@ export default function Home() {
             ))}
           </div>
           {/* Vignette dark overlay for text contrast (left 80% opacity to right fully transparent) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/90 via-brand-navy/70 to-brand-navy/50 z-10 pointer-events-none lg:hidden" />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/80 to-transparent z-10 pointer-events-none hidden lg:block" />
+          <div className="absolute inset-0 bg-gradient-to-b from-brand-navy/95 via-brand-navy/80 to-brand-navy/40 z-10 pointer-events-none lg:hidden" />
+          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/80 to-brand-navy/20 z-10 pointer-events-none hidden lg:block" />
           
           {/* Elegant transparent architectural floor plan blueprint (coworking desks layout) */}
           <div className="absolute bottom-10 left-10 w-80 h-80 opacity-[0.02] text-white pointer-events-none select-none z-10 hidden md:block">
@@ -1056,10 +1062,10 @@ export default function Home() {
           COVAITECH
         </div>
 
-        <div className="w-full section-x grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-20 lg:flex-1">
+        <div className="w-full section-x grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-5 md:gap-8 lg:gap-12 items-center relative z-20 lg:flex-1">
           
           {/* Left info column */}
-          <div className="lg:col-span-7 text-left space-y-4 sm:mb-20 md:mb-0 sm:space-y-5 lg:space-y-7 max-w-2xl relative z-20 w-full">
+          <div className="lg:col-span-7 text-left space-y-4 mb-6 sm:mb-12 md:mb-0 sm:space-y-5 lg:space-y-7 max-w-2xl relative z-20 w-full">
             <div className="absolute -top-1/4 -left-4 sm:-left-12 w-[280px] sm:w-[400px] h-[280px] sm:h-[400px] bg-brand-orange/15 rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl max-w-full">
@@ -1083,17 +1089,17 @@ export default function Home() {
                 {heroSlides[activeHeroSlide]?.description}
               </p>
               
-              <div className="flex flex-wrap items-center gap-4 sm:gap-5 pt-2">
+              <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-5 pt-2 w-full sm:w-auto">
                 <button
                   onClick={() => handleOpenBooking("Get Quote (Hero)")}
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
                 >
                   Get Quote
                   <span className="text-sm font-medium">&rarr;</span>
                 </button>
                 <a
                   href="#locations"
-                  className="px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
+                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
                 >
                   Learn More
                 </a>
@@ -1102,20 +1108,20 @@ export default function Home() {
           </div>
 
           {/* Slide thumbnails — vertical list with vertical dot line on desktop */}
-          <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center mt-8 lg:mt-0">
+          <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center mt-4 sm:mt-6 lg:mt-0">
             <div className="relative flex items-stretch gap-6 w-full lg:max-w-[320px] xl:max-w-[360px]">
               
               {/* Vertical Timeline Dot Connector (Desktop only) */}
               <div className="absolute left-1.5 top-[15%] bottom-[15%] w-[1px] bg-white/15 hidden lg:block z-0 pointer-events-none" />
 
-              <div className="w-full flex flex-row lg:flex-col gap-3 sm:gap-4 lg:gap-5 justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-4 lg:pb-0 px-4 lg:px-0 snap-x">
+              <div ref={thumbContainerRef} className="w-full flex flex-row lg:flex-col gap-2 sm:gap-4 lg:gap-5 justify-start md:justify-center lg:justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-2 lg:pb-0 px-4 lg:px-0 scroll-smooth">
                 {heroSlides.map((slide, i) => {
                   const isActive = activeHeroSlide === i;
 
                   return (
                     <div 
                       key={slide.id} 
-                      className="flex-shrink-0 transition-all duration-700 ease-in-out snap-center w-[140px] sm:w-[160px] lg:w-full flex items-center gap-4 justify-center"
+                      className="flex-shrink-0 transition-all duration-700 ease-in-out w-[130px] sm:w-[150px] lg:w-full flex items-center gap-4 justify-center"
                     >
                       {/* Timeline Dot (Desktop only) */}
                       <div className="relative flex items-center justify-center shrink-0 w-4 h-4 hidden lg:flex">
@@ -1133,10 +1139,10 @@ export default function Home() {
                           setActiveHeroSlide(i);
                           setIsAutoPlay(false);
                         }}
-                        className={`relative rounded-xl sm:rounded-2xl border font-medium transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
+                        className={`group relative rounded-xl sm:rounded-2xl border font-medium transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${
                           isActive
-                            ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 lg:h-[100px] w-full"
-                            : "border-white/10 opacity-45 scale-90 lg:h-[80px] w-[70%]"
+                            ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 h-[65px] sm:h-[80px] lg:h-[100px] w-full"
+                            : "border-white/10 opacity-45 scale-90 h-[55px] sm:h-[70px] lg:h-[80px] w-[80%] lg:w-[70%]"
                         }`}
                         title={slide.label}
                         aria-label={`View slide: ${slide.label}`}
@@ -1149,7 +1155,8 @@ export default function Home() {
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                             sizes="(max-width: 1024px) 33vw, 360px"
-                           loading="lazy"/>
+                            priority
+                          />
                           <div className={`absolute inset-0 transition-colors duration-500 ${
                             isActive 
                               ? "bg-black/20" 
@@ -1221,7 +1228,7 @@ export default function Home() {
         {/* Natural Layout (No Box) */}
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="reveal reveal-up">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-6 md:gap-12 lg:gap-20 items-center">
 
               {/* Left: Image styled naturally */}
               <div className="relative w-full aspect-square sm:aspect-video lg:aspect-square rounded-[2rem] lg:rounded-[3rem] overflow-hidden">
@@ -1373,55 +1380,99 @@ export default function Home() {
               </p>
             </div>
 
-            {/* City Icon Grid — reference style with circular borders & realistic icons */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-x-3 gap-y-5 pt-4">
-              {CITIES.map((city) => {
-                const isActive = activeCity === city.name;
-                return (
-                  <button
-                    key={city.name}
-                    onClick={() => {
-                      if (city.name === "Coimbatore" || city.name === "Nehru Nagar" || city.name === "Saravanampatti" || city.name === "Peelamedu" || city.name === "RS Puram" || city.name === "Gandhipuram") {
-                        window.location.href = prefix("/coimbatore");
-                      } else if (city.name === "Trichy" || city.name === "Thillai Nagar" || city.name === "Cantonment" || city.name === "Woraiyur" || city.name === "KK Nagar" || city.name === "Srirangam") {
-                        window.open("https://trichycoworks.com/", "_blank");
-                      } else {
-                        setActiveCity(city.name);
-                      }
-                    }}
-                    className="flex flex-col items-center gap-2 group cursor-pointer focus:outline-none"
-                  >
-                    {/* Circle Container */}
-                    <div
-                      className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 relative shadow-sm ${
-                        isActive
-                          ? "bg-slate-800 border-2 border-slate-800 scale-105 shadow-md"
-                          : "bg-slate-50 border border-slate-200/80 hover:bg-slate-100 hover:scale-105"
-                      }`}
-                    >
-                      <CityIcon
-                        icon={city.icon}
-                        className={`w-9 h-9 fill-none transition-colors duration-300 ${
-                          isActive
-                            ? "text-white"
-                            : "text-slate-600 group-hover:text-brand-orange"
-                        }`}
-                      />
-                    </div>
+            {/* City Icon Grid — Two Rows */}
+            <div className="flex flex-col gap-6 pt-4">
+              
+              {/* Coimbatore Hub */}
+              <div className="space-y-3">
+                <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider block px-1">Coimbatore Hub</span>
+                <div className="flex flex-wrap gap-x-4 gap-y-5">
+                  {CITIES.slice(0, 3).map((city) => {
+                    const isActive = activeCity === city.name;
+                    return (
+                      <button
+                        key={city.name}
+                        onClick={() => {
+                          window.location.href = prefix("/coimbatore");
+                        }}
+                        className="flex flex-col items-center gap-2 group cursor-pointer focus:outline-none w-[70px] sm:w-[80px]"
+                      >
+                        <div
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300 relative shadow-sm ${
+                            isActive
+                              ? "bg-slate-800 border-2 border-slate-800 scale-105 shadow-md"
+                              : "bg-slate-50 border border-slate-200/80 hover:bg-slate-100 hover:scale-105"
+                          }`}
+                        >
+                          <CityIcon
+                            icon={city.icon}
+                            className={`w-7 h-7 sm:w-9 sm:h-9 fill-none transition-colors duration-300 ${
+                              isActive
+                                ? "text-white"
+                                : "text-slate-600 group-hover:text-brand-orange"
+                            }`}
+                          />
+                        </div>
+                        <span
+                          className={`text-[11px] sm:text-[12px] tracking-wide text-center leading-tight transition-colors duration-300  ${
+                            isActive
+                              ? "text-brand-orange font-normal"
+                              : "text-slate-500 group-hover:text-brand-orange font-normal"
+                          }`}
+                        >
+                          {city.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
 
-                    {/* City name — normal weight, bold only when active */}
-                    <span
-                      className={`text-[12px] tracking-wide text-center leading-none transition-colors duration-300  ${
-                        isActive
-                          ? "text-brand-orange font-normal"
-                          : "text-slate-500 group-hover:text-brand-orange font-normal"
-                      }`}
-                    >
-                      {city.name}
-                    </span>
-                  </button>
-                );
-              })}
+              {/* Trichy Hub */}
+              <div className="space-y-3">
+                <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider block px-1">Trichy Hub</span>
+                <div className="flex flex-wrap gap-x-4 gap-y-5">
+                  {CITIES.slice(3, 5).map((city) => {
+                    const isActive = activeCity === city.name;
+                    return (
+                      <button
+                        key={city.name}
+                        onClick={() => {
+                          window.location.href = prefix("/trichy");
+                        }}
+                        className="flex flex-col items-center gap-2 group cursor-pointer focus:outline-none w-[70px] sm:w-[80px]"
+                      >
+                        <div
+                          className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300 relative shadow-sm ${
+                            isActive
+                              ? "bg-slate-800 border-2 border-slate-800 scale-105 shadow-md"
+                              : "bg-slate-50 border border-slate-200/80 hover:bg-slate-100 hover:scale-105"
+                          }`}
+                        >
+                          <CityIcon
+                            icon={city.icon}
+                            className={`w-7 h-7 sm:w-9 sm:h-9 fill-none transition-colors duration-300 ${
+                              isActive
+                                ? "text-white"
+                                : "text-slate-600 group-hover:text-brand-orange"
+                            }`}
+                          />
+                        </div>
+                        <span
+                          className={`text-[11px] sm:text-[12px] tracking-wide text-center leading-tight transition-colors duration-300  ${
+                            isActive
+                              ? "text-brand-orange font-normal"
+                              : "text-slate-500 group-hover:text-brand-orange font-normal"
+                          }`}
+                        >
+                          {city.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -1535,163 +1586,17 @@ export default function Home() {
  
 
       {/* FACILITIES — ScrollTrigger Stacked Card Layout */}
-      <section id="deployment-track" className="relative w-full bg-[#f8fafc] section-x py-16 sm:py-24">
-        {/* Transparent Coworking Shapes (Floating) */}
-        <div className="absolute bottom-10 right-10 w-80 h-80 opacity-[0.03] text-slate-800 pointer-events-none select-none z-10 hidden md:block">
-          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.5">
-            <rect x="10" y="20" width="30" height="20" rx="2" />
-            <rect x="15" y="25" width="20" height="10" rx="1" />
-            <circle cx="25" cy="15" r="4" />
-            <line x1="20" y1="28" x2="30" y2="28" />
-            <rect x="60" y="50" width="30" height="20" rx="2" />
-            <rect x="65" y="55" width="20" height="10" rx="1" />
-            <circle cx="75" cy="45" r="4" />
-            <line x1="70" y1="58" x2="80" y2="58" />
-            <path d="M5 80h90v1H5z" />
-          </svg>
-        </div>
-        
-        {/* Additional Floating Shape */}
-        <div className="absolute top-20 left-10 w-40 h-40 opacity-[0.03] text-slate-800 pointer-events-none select-none z-10 hidden lg:block">
-          <svg className="w-full h-full" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.8">
-            <path d="M20 80 L50 20 L80 80 Z" strokeDasharray="2 2"/>
-            <circle cx="50" cy="50" r="30" strokeDasharray="4 4" />
-          </svg>
-        </div>
+     
 
-        {/* Mobile / tablet: natural height so image + content are fully visible */}
-        <div className="lg:hidden">
-          <div className="text-center mb-8 sm:mb-10 reveal reveal-up">
-            <span className="text-[10px] font-medium text-slate-500 uppercase tracking-[0.3em] block">
-              OUR FACILITIES
-            </span>
-            <h2 className="font-outfit font-medium text-2xl sm:text-3xl text-slate-800 leading-tight tracking-tight mt-1">
-              Premium facilities for modern teams.
-            </h2>
-          </div>
-
-          <div className="flex flex-col gap-6 sm:gap-8 max-w-2xl mx-auto z-20 relative reveal reveal-up delay-100">
-            {DEPLOYMENT_PHASES.map((phase) => (
-              <article
-                key={phase.id}
-                className="rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white"
-              >
-                <div className="relative w-full aspect-[16/10] sm:aspect-[5/3]">
-                  <Image
-                    src={phase.image}
-                    alt={phase.title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover"
-                   loading="lazy"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-4 text-[10px] font-medium uppercase tracking-[0.2em] text-white/90 drop-shadow-md">
-                    {phase.subtitle}
-                  </span>
-                </div>
-                <div className="bg-slate-50 p-5 sm:p-6">
-                  <DeploymentPhaseContent
-                    phase={phase}
-                    compact
-                  />
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        {/* Desktop: sticky scroll stacked cards */}
-        <div
-          id="deployment-track-desktop"
-          style={{ height: `${DEPLOYMENT_PHASES.length * 100}vh` }}
-          className="hidden lg:block relative w-full"
-        >
-          <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-between py-10 bg-[#f8fafc] overflow-hidden">
-            {/* Header with neat spacing */}
-            <div className="flex flex-col items-center text-center section-x z-20 pointer-events-none mt-2">
-              <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-[0.3em] block">
-                OUR FACILITIES
-              </span>
-              <h2 className="font-outfit font-bold text-3xl md:text-5xl text-slate-800 leading-none tracking-tight mt-2.5">
-                Premium facilities for modern teams.
-              </h2>
-            </div>
-
-            {/* Card stack centered dynamically with larger height limit */}
-            <div className="relative w-full max-w-6xl mx-auto section-x deployment-card-stack flex-1 max-h-[66vh] h-[66vh] my-4">
-              {DEPLOYMENT_PHASES.map((phase, idx) => {
-                const diff = idx - activePhase;
-                const isActive = diff === 0;
-                const isBehind = diff < 0;
-                const absDiff = Math.abs(diff);
-                const scale = isActive ? 1 : isBehind ? Math.max(1 - absDiff * 0.05, 0.85) : 0.95;
-                const opacity = isActive ? 1 : isBehind ? Math.max(0.6 - absDiff * 0.18, 0.08) : 0;
-                const translateY = isActive ? 0 : isBehind ? -(absDiff * 25) : 80;
-                const zIndex = isActive ? 20 : isBehind ? 20 - absDiff : 0;
-
-                return (
-                  <div
-                    key={phase.id}
-                    className="absolute inset-0 rounded-[2.5rem] overflow-hidden grid grid-cols-2 shadow-2xl bg-white border border-slate-100"
-                    style={{
-                      transform: `scale(${scale}) translateY(${translateY}px)`,
-                      opacity,
-                      zIndex,
-                      transition:
-                        "transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1)",
-                      pointerEvents: isActive ? "auto" : "none",
-                      transformOrigin: "center top",
-                    }}
-                  >
-                    <div className="relative min-h-0 overflow-hidden h-full">
-                      <Image
-                        src={phase.image}
-                        alt={phase.title}
-                        fill
-                        sizes="50vw"
-                        className="object-cover"
-                       loading="lazy"/>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-slate-900/10" />
-                    </div>
-                    <div className="bg-slate-50 p-10 lg:p-14 flex flex-col justify-center overflow-y-auto h-full relative">
-                      {/* Subtle watermark shape inside the card */}
-                      <div className="absolute top-0 right-0 p-8 opacity-[0.03] pointer-events-none">
-                         <svg width="120" height="120" viewBox="0 0 100 100" fill="currentColor">
-                           <rect x="20" y="20" width="60" height="60" rx="10" />
-                         </svg>
-                      </div>
-                      <DeploymentPhaseContent phase={phase} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Navigation Dots with bottom cushion */}
-            <div className="flex items-center gap-3 z-20 mb-2">
-              {DEPLOYMENT_PHASES.map((_, i) => (
-                <div
-                  key={i}
-                  className="rounded-full transition-all duration-500"
-                  style={{
-                    width: i === activePhase ? "32px" : "8px",
-                    height: "8px",
-                    background: i === activePhase ? "#f37021" : "rgba(15,23,42,0.15)",
-                  }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS SECTION */}
+     
+      <HomeGallery />   
+ {/* TESTIMONIALS SECTION */}
       <section id="testimonials" className="section-container w-full flex flex-col justify-center py-10 sm:py-16 relative overflow-hidden bg-[#06090f]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0 min-h-full">
           <Image
             src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
-            alt=""
+            alt="Client Testimonials Background showing architectural office details"
             fill
             priority={false}
             className="object-cover scale-105"
@@ -1763,8 +1668,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <HomeGallery />   
 
       {/* FAQS SECTION */}
       <section id="faqs" className="w-full bg-[#f8fafc] py-12 sm:py-16 md:py-24 relative overflow-hidden">

@@ -73,7 +73,7 @@ export default function BlogArchivePage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/blogs");
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`);
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
@@ -84,7 +84,7 @@ export default function BlogArchivePage() {
                 if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
                   resolvedImg = rawImg;
                 } else if (rawImg.includes("/")) {
-                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
+                  resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
                 } else {
                   resolvedImg = `/${rawImg}`;
                 }
@@ -129,7 +129,7 @@ export default function BlogArchivePage() {
       <Header ctaText="Write Message" />
 
                   {/* ── LIGHT CLEAN HERO WITH BG IMAGE ── */}
-      <section className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex flex-col justify-end items-center pt-28 sm:pt-36 md:pt-40 pb-10 sm:pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
+      <section id="hero" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex flex-col justify-end items-center pt-28 sm:pt-36 md:pt-40 pb-10 sm:pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
         <div className="absolute inset-0">
           <Image src={prefix("/workspace-lounge.png")} alt="Blog background" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
@@ -170,7 +170,7 @@ export default function BlogArchivePage() {
       </section>
 
       {/* ── ARTICLES ── */}
-      <section className="py-12 sm:py-16 md:py-20 w-full">
+      <section id="articles" className="py-12 sm:py-16 md:py-20 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 xl:px-16 space-y-10 sm:space-y-16">
 
           {filtered.length === 0 && (

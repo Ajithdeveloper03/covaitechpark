@@ -26,8 +26,8 @@ export default function AdminDashboard() {
 
       try {
         const [blogsRes, galleryRes] = await Promise.all([
-          fetch("http://localhost:8000/api/admin/blogs", { headers: { "Authorization": `Bearer ${token}` } }),
-          fetch("http://localhost:8000/api/admin/galleries", { headers: { "Authorization": `Bearer ${token}` } })
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs`, { headers: { "Authorization": `Bearer ${token}` } }),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/galleries`, { headers: { "Authorization": `Bearer ${token}` } })
         ]);
 
         if (blogsRes.ok && galleryRes.ok) {

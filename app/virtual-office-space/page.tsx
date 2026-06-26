@@ -180,7 +180,7 @@ export default function VirtualOfficePage() {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -223,7 +223,7 @@ export default function VirtualOfficePage() {
       {/* ── 1. HERO SECTION ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-28 pb-16 section-x gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -249,7 +249,7 @@ export default function VirtualOfficePage() {
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Secure a prestigious commercial address for your remote company in Nehru Nagar East, Coimbatore or Thillai Nagar, Trichy. Perfect for GST registry, statutory compliance, and mail handling at the best price.
+            Get a premium office address for your business at prime location in Coimbatore. Address that is suitable for company and GST registration purposes, as well as for mailing and other uses. With Covai Tech Park virtual office solution you can register an authentic office address for your professional and business needs. By choosing a virtual office you get to save huge upfront cost that is incurred when setting up a physical office space. Virtual office service provided by Covai Tech Park can be leveraged for company registration and GST registration purposes. The virtual office package at Covai Tech Park includes the mailing address service feature, which allows you to use the virtual office address for receiving business mails and packages. The received items will be secured at the facility for you to collect later.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
@@ -270,7 +270,7 @@ export default function VirtualOfficePage() {
 
         <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
-            src="https://images.pexels.com/photos/5920775/pexels-photo-5920775.jpeg"
+            src={prefix("/service3.png")}
             alt="Virtual Office Address Support"
             fill
             priority
@@ -300,7 +300,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 2. FEATURES & BENEFITS ── */}
-      <section id="features" className="py-20 sm:py-28 bg-white section-x w-full relative overflow-hidden">
+      <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
@@ -333,7 +333,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 3. AMENITIES SECTION ── */}
-      <section id="amenities" className="py-20 sm:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
+      <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
@@ -360,7 +360,7 @@ export default function VirtualOfficePage() {
 
       {/* ── 4. CTA PANEL ── */}
       <section 
-        className="relative w-full overflow-hidden py-24 bg-slate-950"
+        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
         style={{
           backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
           backgroundSize: "cover",
@@ -392,7 +392,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 5. TESTIMONIALS ── */}
-      <section id="testimonials" className="py-20 sm:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
+      <section id="testimonials" className="py-10 sm:py-20 md:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-14 relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-8">
             <div className="space-y-3 text-left">
@@ -447,7 +447,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 6. FAQS ── */}
-      <section id="faqs" className="py-20 sm:py-28 bg-white section-x w-full relative">
+      <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative">
         <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">

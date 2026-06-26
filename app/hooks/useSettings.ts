@@ -48,7 +48,7 @@ export function useSettings() {
   useEffect(() => {
     async function loadSettings() {
       try {
-        const res = await fetch("http://localhost:8000/api/settings");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`);
         if (res.ok) {
           const data = await res.json();
           setSettings(prev => ({

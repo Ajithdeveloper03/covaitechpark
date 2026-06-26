@@ -111,6 +111,15 @@ const ARTICLES_CONTENT: Record<string, {
 };
 
 const categoryColors: Record<string, { bg: string; text: string; border: string }> = {
+  "Coworking Insights": { bg: "bg-[#f37021]/10", text: "text-[#f37021]", border: "border-[#f37021]/20" },
+  "Workspace Tips":     { bg: "bg-[#0a0f1a]/10", text: "text-[#0a0f1a]", border: "border-[#0a0f1a]/20" },
+  "Business Growth":    { bg: "bg-emerald-50", text: "text-emerald-700", border: "border-emerald-200" },
+  "Event Highlights":   { bg: "bg-purple-50", text: "text-purple-700", border: "border-purple-200" },
+  "Community Stories":  { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
+  "Industry News":      { bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-200" },
+  "Tech & Innovation":  { bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200" },
+  "Announcements":      { bg: "bg-rose-50", text: "text-rose-700", border: "border-rose-200" },
+  // Fallbacks
   Workspace: { bg: "bg-[#f37021]/10", text: "text-[#f37021]", border: "border-[#f37021]/20" },
   Productivity: { bg: "bg-[#0a0f1a]/10", text: "text-[#0a0f1a]", border: "border-[#0a0f1a]/20" },
   Business: { bg: "bg-slate-100", text: "text-slate-700", border: "border-slate-200" },
@@ -122,18 +131,20 @@ interface BlogDetailContentProps {
 
 export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
   const fallbackArticle = ARTICLES_CONTENT[slug] || ARTICLES_CONTENT["future-of-coworking-spaces-in-coimbatore"];
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [article, setArticle] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/blogs/${slug}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`);
         if (response.ok) {
           const data = await response.json();
-          const category = slug === "future-of-coworking-spaces-in-coimbatore" 
-            ? "Workspace" 
-            : (slug === "maximizing-productivity-in-private-office-cabins" ? "Productivity" : "Business");
+          // Use data.category from database first; fall back to slug mapping if not present
+          const category = data.category || (slug === "future-of-coworking-spaces-in-coimbatore" 
+            ? "Workspace Insights" 
+            : (slug === "maximizing-productivity-in-private-office-cabins" ? "Workspace Tips" : "Business Growth"));
 
           setArticle({
             title: data.title,
@@ -148,7 +159,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               ? (data.image.startsWith("http") || data.image.startsWith("/")
                 ? data.image
                 : (data.image.includes("/")
-                  ? `http://localhost:8000/storage/${data.image}`
+                  ? `${process.env.NEXT_PUBLIC_STORAGE_URL}/${data.image}`
                   : `/${data.image}`))
               : "/workspace-lounge.png",
             excerpt: data.excerpt ?? "",
@@ -159,7 +170,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                 if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
                   resolvedImg = rawImg;
                 } else if (rawImg.includes("/")) {
-                  resolvedImg = `http://localhost:8000/storage/${rawImg}`;
+                  resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
                 } else {
                   resolvedImg = `/${rawImg}`;
                 }
@@ -167,9 +178,11 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               return {
                 heading: sec.heading,
                 text: sec.text,
-                img: resolvedImg
+                img: resolvedImg,
+                bullets: sec.bullets || []
               };
-            })
+            }),
+            faqs: data.faqs || []
           });
         }
       } catch (e) {
@@ -216,16 +229,38 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [currentArticle.content.length]);
 
-  const handleCallbackSubmit = (e: React.FormEvent) => {
+  const handleCallbackSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingPhone) {
-      setBookingSuccess(true);
-      setTimeout(() => {
-        setBookingFirstName("");
-        setBookingLastName("");
-        setBookingPhone("");
-        setBookingSuccess(false);
-      }, 3000);
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+            name: `${bookingFirstName} ${bookingLastName}`,
+            email: "N/A", // Not provided in callback form
+            phone: bookingPhone,
+            company: "",
+            message: `Callback Request from Blog: ${currentArticle.heading}`,
+            source: "popup",
+          }),
+        });
+
+        if (response.ok) {
+          setBookingSuccess(true);
+          setTimeout(() => {
+            setBookingFirstName("");
+            setBookingLastName("");
+            setBookingPhone("");
+            setBookingSuccess(false);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+      }
     }
   };
 
@@ -351,12 +386,66 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                       {section.text}
                     </p>
 
+                    {/* Section bullets */}
+                    {section.bullets && section.bullets.length > 0 && (
+                      <ul className="space-y-3 pl-0 sm:pl-15 mt-5 list-none">
+                        {section.bullets.map((bullet: string, bIdx: number) => (
+                          <li key={bIdx} className="flex items-start gap-3.5 text-slate-600 text-base sm:text-lg font-normal leading-relaxed">
+                            <span className="w-5.5 h-5.5 rounded-full bg-[#f37021]/10 text-[#f37021] flex items-center justify-center text-xs shrink-0 mt-1 font-bold">
+                              ✓
+                            </span>
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
                     {index < currentArticle.content.length - 1 && (
                       <div className="w-full h-px bg-slate-100 mt-4" />
                     )}
                   </div>
                 ))}
               </div>
+
+              {/* FAQs Accordion */}
+              {currentArticle.faqs && currentArticle.faqs.length > 0 && (
+                <div className="mt-20 pt-10 border-t border-slate-200 space-y-8">
+                  <div className="space-y-2">
+                    <span className="text-[10px] font-bold text-[#f37021] uppercase tracking-widest block">
+                      Common Questions
+                    </span>
+                    <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-sans tracking-tight">
+                      Frequently Asked Questions
+                    </h3>
+                  </div>
+                  <div className="space-y-4">
+                    {currentArticle.faqs.map((faq: any, idx: number) => {
+                      const isOpen = openFaq === idx;
+                      return (
+                        <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden transition-all duration-300">
+                          <button
+                            type="button"
+                            onClick={() => setOpenFaq(isOpen ? null : idx)}
+                            className="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition-colors text-left font-medium text-slate-800 text-sm sm:text-base font-sans cursor-pointer"
+                          >
+                            <span>{faq.question}</span>
+                            <span className="text-[#f37021] text-lg font-light leading-none">{isOpen ? "−" : "+"}</span>
+                          </button>
+                          <div 
+                            className={`transition-all duration-300 ease-in-out overflow-hidden ${
+                              isOpen ? "max-h-[300px] border-t border-slate-200" : "max-h-0"
+                            }`}
+                          >
+                            <p className="p-5 text-slate-500 text-sm leading-relaxed font-normal bg-white">
+                              {faq.answer}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               {/* Article footer */}
               <div className="mt-16 pt-8 border-t border-slate-100 flex items-center justify-between flex-wrap gap-4">

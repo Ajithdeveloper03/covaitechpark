@@ -181,7 +181,7 @@ export default function PrivateOfficePage() {
     e.preventDefault();
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -225,7 +225,7 @@ export default function PrivateOfficePage() {
       {/* ── 1. HERO SECTION WITH BACKGROUND IMAGE ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-28 pb-16 section-x gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
       >
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
@@ -258,7 +258,7 @@ export default function PrivateOfficePage() {
           </h1>
 
           <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Covai Tech Park offers soundproof private office cabins designed and equipped with all modern business essentials. Move in immediately, customize your branding, and scale your operations with maximum security and absolute peace of mind.
+            Covai Tech Park offers private office space designed and equipped with all the business essentials in mind for you and your team to be highly productive. The space is ready to move and flexible to make changes of your choice. Our private office space plans are highly flexible to the needs of your business.
           </p>
 
           <div className="flex flex-wrap gap-4 pt-2">
@@ -280,7 +280,7 @@ export default function PrivateOfficePage() {
         {/* Hero Visual Right */}
         <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
-            src="https://images.pexels.com/photos/7651627/pexels-photo-7651627.jpeg"
+            src={prefix("/service5.png")}
             alt="Private Cabin Office Space"
             fill
             priority
@@ -309,7 +309,7 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 2. FEATURES & BENEFITS ── */}
-      <section id="features" className="py-20 sm:py-28 bg-white section-x w-full relative overflow-hidden">
+      <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
@@ -342,7 +342,7 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 3. AMENITIES SECTION ── */}
-      <section id="amenities" className="py-20 sm:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
+      <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
@@ -369,7 +369,7 @@ export default function PrivateOfficePage() {
 
       {/* ── 4. SCHEDULE CONSULTATION CTA WITH BG IMAGE ── */}
       <section 
-        className="relative w-full overflow-hidden py-24 bg-slate-950"
+        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
         style={{
           backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
           backgroundSize: "cover",
@@ -401,7 +401,7 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 5. CLIENT TESTIMONIALS ── */}
-      <section id="testimonials" className="py-20 sm:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
+      <section id="testimonials" className="py-10 sm:py-20 md:py-28 bg-[#f1f3f6] section-x w-full relative overflow-hidden border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-14 relative z-10">
 
           {/* Section Header */}
@@ -502,7 +502,7 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 6. FAQ SECTION ── */}
-      <section id="faqs" className="py-20 sm:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
+      <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
@@ -553,7 +553,7 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 7. EXPLORE OTHER SOLUTIONS ── */}
-      <section className="py-20 sm:py-28 bg-white section-x w-full border-t border-slate-200">
+      <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">

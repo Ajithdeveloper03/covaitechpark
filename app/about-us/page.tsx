@@ -295,28 +295,28 @@ export default function AboutUsPage() {
       </section>
 
       {/* The CovaiTech Feeling Sub-Hero */}
-      <section id="feeling" className="bg-brand-navy text-white pt-12 sm:pt-16 md:pt-24 pb-12 sm:pb-16 md:pb-24 overflow-hidden relative">
-        <div className="max-w-4xl mx-auto text-center px-4 md:px-8 z-10 relative">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-sans font-medium tracking-tight mb-6 sm:mb-8 leading-tight">
-            More than just a space,<br/> <span className="font-normal">it&apos;s a feeling.</span>
+      <section id="feeling" className="bg-brand-navy text-white pt-12 sm:pt-16 md:pt-16 pb-12 sm:pb-16 md:pb-16 overflow-hidden relative">
+        <div className="max-w-6xl mx-auto text-center px-4 md:px-8 z-10 relative">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans font-medium tracking-tight mb-6 sm:mb-8 leading-tight">
+            More than just a space, <span className="font-normal text-brand-orange">it&apos;s a feeling.</span>
           </h2>
           <p className="text-white/80 font-medium max-w-2xl mx-auto mb-16 text-sm sm:text-base leading-relaxed">
             CovaiTech is a fertile ground for nurturing your ideas and growing your business. Whether you're a solopreneur or a startup ready to bloom, we provide the space, community, and resources you need to thrive.
           </p>
           <a href={prefix("/private-office-space")} className="text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 hover:text-brand-orange transition-colors">
-            Explore Full Story &rarr;
+            Explore Full Services &rarr;
           </a>
         </div>
 
         {/* Bottom Archways */}
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 px-4 md:px-8 translate-y-12 sm:translate-y-24">
-          <div className="relative rounded-t-full overflow-hidden aspect-[2/3] border-[6px] border-brand-navy shadow-2xl">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 px-4 md:px-8 translate-y-12 sm:translate-y-14">
+          <div className="relative rounded-t-full overflow-hidden aspect-[4/5] border-[6px] border-brand-navy shadow-2xl">
             <Image src={prefix("/workspace-event.png")} alt="Event Space" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
           </div>
-          <div className="relative rounded-t-full overflow-hidden aspect-[2/3] border-[6px] border-brand-navy shadow-2xl -translate-y-8 sm:-translate-y-16">
-            <Image src={prefix("/workspace-lounge.png")} alt="Lounge Space" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+          <div className="relative rounded-t-full overflow-hidden aspect-[3/4] border-[6px] border-brand-navy shadow-2xl -translate-y-8">
+            <Image src={prefix("/workspace-lounge.png")} alt="Lounge Space" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" /> 
           </div>
-          <div className="relative rounded-t-full overflow-hidden aspect-[2/3] border-[6px] border-brand-navy shadow-2xl">
+          <div className="relative rounded-t-full overflow-hidden aspect-[4/5] border-[6px] border-brand-navy shadow-2xl">
             <Image src={prefix("/workspace-cafe.png")} alt="Cafe Space" fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
           </div>
         </div>
@@ -345,7 +345,21 @@ export default function AboutUsPage() {
         </div>
 
         {/* Full-width stage: hand image + positioned cards */}
-        <div className="relative w-full flex justify-center items-end min-h-[380px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[680px]">
+        <div className="relative w-full flex justify-center items-end min-h-[380px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[680px] overflow-hidden">
+          
+          {/* Background Image for the hand section */}
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={prefix("/step-into-bg.png")}
+              alt="Workspace Background"
+              fill
+              className="object-cover opacity-100"
+              sizes="100vw"
+            />
+            {/* Gradient overlay to blend it cleanly */}
+           
+          </div>
+
 
           {/* Huge centered hand image */}
           <div className="relative z-10 w-[95vw] max-w-[420px] sm:max-w-none sm:w-[480px] md:w-[580px] lg:w-[700px] xl:w-[920px] h-[380px] sm:h-[500px] md:h-[600px] lg:h-[680px]">
@@ -372,7 +386,7 @@ export default function AboutUsPage() {
                 <Image src={prefix(card.img)} alt={card.title} fill className="object-cover" sizes="56px" />
               </div>
               <div className="flex-1">
-                <h4 className="text-[16px] font-black tracking-wider text-slate-800 uppercase mb-0.5">{card.title}</h4>
+                <h4 className="text-[16px] font-bold tracking-wider text-slate-800 uppercase mb-0.5">{card.title}</h4>
                 <p className="text-[14px] text-slate-500 leading-normal">{card.desc}</p>
               </div>
             </div>

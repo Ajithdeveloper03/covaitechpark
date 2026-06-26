@@ -31,7 +31,7 @@ export default function ContactPage() {
     e.preventDefault();
     if (firstName && lastName && email && phone) {
       try {
-        const response = await fetch("http://localhost:8000/api/contact", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
 
-      <section className="relative min-h-[45vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center pt-24 sm:pt-32 pb-12 sm:pb-16 section-x overflow-hidden bg-brand-navy">
+      <section id="hero" className="relative min-h-[45vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center pt-24 sm:pt-32 pb-12 sm:pb-16 section-x overflow-hidden bg-brand-navy">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -102,7 +102,7 @@ export default function ContactPage() {
       </section>
 
       {/* Elegant Contact Portal Section */}
-      <section className="py-12 sm:py-16 md:py-24 bg-[#faf9f6] w-full relative overflow-hidden">
+      <section id="contact-portal" className="py-12 sm:py-16 md:py-24 bg-[#faf9f6] w-full relative overflow-hidden">
         {/* Subtle background decoration */}
         <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-[#f37021]/5 blur-[100px] pointer-events-none" />
         <div className="absolute bottom-[20%] right-[-10%] w-[45%] h-[45%] rounded-full bg-[#f37021]/5 blur-[120px] pointer-events-none" />
@@ -336,7 +336,7 @@ export default function ContactPage() {
       </section>
 
       {/* Separate, Full-width Interactive Map Section */}
-      <section className="w-full bg-slate-900 flex flex-col items-center relative z-20 border-t border-slate-800">
+      <section id="ecosystem-map" className="w-full bg-slate-900 flex flex-col items-center relative z-20 border-t border-slate-800">
         
         {/* Toggle controls header container */}
         <div className="w-full bg-slate-950 py-6 sm:py-10 border-b border-slate-800 px-4">

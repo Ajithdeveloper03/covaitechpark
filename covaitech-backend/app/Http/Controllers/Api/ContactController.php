@@ -18,7 +18,7 @@ class ContactController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'nullable|email|max:255',
             'phone' => 'nullable|string|max:20',
             'company' => 'nullable|string|max:255',
             'message' => 'required|string',
@@ -46,6 +46,7 @@ class ContactController extends Controller
                 "Source: {$contact->source}",
                 function ($mail) use ($contact) {
                     $mail->to('inymartlabs@gmail.com')
+                         ->replyTo($contact->email ?: 'inymartlabs@gmail.com', $contact->name)
                          ->subject('New Contact Inquiry: ' . $contact->name);
                 }
             );

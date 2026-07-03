@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import dynamic from "next/dynamic";
 import { contactInfo } from "./config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "./config/testimonials";
 
 const HomeGallery = dynamic(() => import("./components/HomeGallery"), {
   ssr: false,
@@ -25,48 +26,48 @@ const prefix = (url: string) => `${BASE_PATH}${url}`;
 const HERO_SLIDES = [
   {
     id: 0,
-    title: "Work Smarter,",
-    subtitle: "Scale Faster.",
+    title: "Enterprise Ready",
+    subtitle: "Office Solutions.",
     image: prefix("/hero1.jpg"),
-    label: "PREMIUM OFFICES",
-    description: "Enterprise-grade managed tech park offices in Coimbatore and Trichy. Built for high-performance software teams.",
+    label: "MANAGED OFFICE SPACE",
+    description: "Move into fully managed office spaces equipped with premium infrastructure, business support services, and scalable solutions designed for growing organizations.",
     meta: "SEAMLESS BUSINESS OPERATIONS"
   },
   {
     id: 1,
-    title: "Fully Equipped",
-    subtitle: "Meeting Rooms.",
+    title: "Flexible Spaces",
+    subtitle: "For Growth.",
     image: prefix("/hero2.jpg"),
-    label: "MEETING ROOMS",
-    description: "Corporate-ready conference halls and boardrooms built with high-fidelity acoustic isolation and smart screens.",
+    label: "COWORKING SPACE",
+    description: "Work from vibrant coworking spaces that foster collaboration, networking, and productivity while offering the flexibility modern professionals need.",
     meta: "CONNECT • COLLABORATE • GROW"
   },
   {
     id: 2,
-    title: "Lockable Private",
-    subtitle: "Cabin Suites.",
+    title: "Work Your",
+    subtitle: "Way Today.",
     image: prefix("/hero3.jpg"),
-    label: "PRIVATE CABINS",
-    description: "Fully soundproofed lockable offices optimized for growing tech organizations and software teams.",
+    label: "DAY PASS",
+    description: "Access professional workspaces on demand with high-speed internet, comfortable seating, and all essential amenities for a productive day.",
     meta: "ACCESS ON YOUR TERMS"
   },
   {
     id: 3,
-    title: "Coworking &",
-    subtitle: "Hot Desk Plans.",
+    title: "Private Spaces",
+    subtitle: "For Success.",
     image: prefix("/hero13.jpg"),
-    label: "COWORKING SPACES",
-    description: "Flexible shared workspaces with dedicated community seating designed for freelancers, remote teams, and fast-scaling startups.",
-    meta: "COLLABORATE • CONNECT • GROW"
+    label: "PRIVATE OFFICE SPACE",
+    description: "Enjoy secure, fully furnished private offices that provide the focus, privacy, and professionalism required by ambitious teams and businesses.",
+    meta: "FOCUS WITHOUT DISTRACTIONS"
   },
   {
     id: 4,
-    title: "Virtual Office &",
-    subtitle: "GST Address.",
+    title: "Meetings Designed",
+    subtitle: "For Impact.",
     image: prefix("/workspace-meeting.png"),
-    label: "VIRTUAL OFFICE",
-    description: "Establish your business presence with a prime Coimbatore address for GST registration and professional mail handling.",
-    meta: "PROFESSIONAL BUSINESS ADDRESS"
+    label: "MEETING ROOM",
+    description: "Host client presentations, team discussions, and strategic meetings in professionally equipped spaces built to make every interaction productive.",
+    meta: "WHERE DECISIONS HAPPEN"
   }
 ];
 
@@ -75,58 +76,44 @@ const SERVICES_TAILORED = [
   {
     id: "01",
     title: "Private Office Space",
-    description: "Lockable and fully furnished office suites designed for security, team focus, and scalability.",
+    description: "Secure, dedicated cabins designed for teams of all sizes.",
     image: "https://images.pexels.com/photos/386150/pexels-photo-386150.jpeg",
-    linkText: "EXPLORE CABINS"
+    linkText: "Learn More"
   },
   {
     id: "02",
     title: "Managed Office Solutions",
-    description: "Bespoke corporate floor setups with custom branding and complete IT infrastructure.",
+    description: "End-to-end custom workspace solutions built for enterprise.",
     image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80",
-    linkText: "REQUEST DESIGN"
+    linkText: "Learn More"
   },
   {
     id: "03",
     title: "Virtual Office & GST Address",
-    description: "Professional business address, official GST registration support, and secure digital mail handling.",
+    description: "Professional business address and mail handling services.",
     image: "https://images.pexels.com/photos/36713181/pexels-photo-36713181.jpeg",
-    linkText: "REGISTER NOW"
+    linkText: "Learn More"
   },
   {
     id: "04",
     title: "Meeting & Conference Rooms",
-    description: "Soundproof boardrooms with smart 4K screens, video conference setups, and catering options.",
+    description: "High-tech conference spaces for interviews, pitches, and more.",
     image: "https://images.pexels.com/photos/20101490/pexels-photo-20101490.jpeg",
-    linkText: "BOOK ROOM"
+    linkText: "Learn More"
   },
   {
     id: "05",
-    title: "Event Space & Presentation Halls",
-    description: "Spacious hosting halls for product launches, tech meetups, and seminars with full AV support.",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=600&q=80",
-    linkText: "BOOK VENUE"
+    title: "Coworking Spaces",
+    description: "Flexible, dynamic shared spaces perfect for networking.",
+    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80",
+    linkText: "Learn More"
   },
   {
     id: "06",
-    title: "Training & Seminar Rooms",
-    description: "Fully equipped classroom setups, whiteboard installations, and boot camp training layouts.",
-    image: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=600&q=80",
-    linkText: "RESERVE SPACE"
-  },
-  {
-    id: "07",
-    title: "Coworking Spaces",
-    description: "Open-plan shared workspace community seating in prime business districts, designed for collaboration and networking.",
-    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80",
-    linkText: "JOIN NOW"
-  },
-  {
-    id: "08",
     title: "Hot Desks",
-    description: "Flexible day-pass or monthly drop-in desk access — perfect for freelancers, remote workers, and startup founders.",
+    description: "On-demand access to premium workspaces at any of our locations.",
     image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=600&q=80",
-    linkText: "GET PASS"
+    linkText: "Learn More"
   }
 ];
 
@@ -191,108 +178,193 @@ const DEPLOYMENT_PHASES = [
 
 type DeploymentPhase = (typeof DEPLOYMENT_PHASES)[number];
 
-// const FacilitiesIcon = ({ name, className }: { name: string; className?: string }) => {
-//   const cls = className || "w-6 h-6";
-//   switch (name) {
-//     case "office":
-//       return (
-//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h.008v.008H9V6zm0 3h.008v.008H9V9zm0 3h.008v.008H9V12zm3-6h.008v.008H12V6zm0 3h.008v.008H12V9zm0 3h.008v.008H12V12zm3-6h.008v.008H15V6zm0 3h.008v.008H15V9zm0 3h.008v.008H15V12z" />
-//         </svg>
-//       );
-//     case "support":
-//       return (
-//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 015.636 5.636" />
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
-//         </svg>
-//       );
-//     case "access":
-//       return (
-//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
-//         </svg>
-//       );
-//     case "reception":
-//       return (
-//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
-//         </svg>
-//       );
-//     default:
-//       return (
-//         <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-//           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-//         </svg>
-//       );
-//   }
-// };
-
-// function DeploymentPhaseContent({
-//   phase,
-//   compact = false,
-// }: {
-//   phase: DeploymentPhase;
-//   compact?: boolean;
-// }) {
-//   return (
-//     <div className={`flex flex-col ${compact ? "gap-2.5" : "gap-3 sm:gap-4"}`}>
-//       <span className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.22em] leading-none text-brand-orange">
-//         {phase.subtitle}
-//       </span>
-//       <h3
-//         className={`font-outfit font-bold text-brand-navy tracking-tight leading-[1.05] ${
-//           compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl md:text-4xl lg:text-4xl"
-//         }`}
-//       >
-//         {phase.title}
-//       </h3>
-//       <p className="text-brand-slate text-sm sm:text-base leading-relaxed max-w-md font-normal">
-//         {phase.description}
-//       </p>
-//       <div className={`border-t border-slate-100 ${compact ? "space-y-2 pt-2" : "space-y-3 pt-3"}`}>
-//         {phase.points.map((pt) => (
-//           <div key={pt.label} className="flex gap-2.5 items-center">
-//             <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full flex items-center justify-center shrink-0 text-white text-[9px] sm:text-[10px] font-medium bg-brand-orange">
-//               ✓
-//             </span>
-//             <div className="flex gap-1.5 items-baseline flex-wrap min-w-0">
-//               <span className="font-medium text-sm sm:text-sm text-brand-navy">{pt.label}</span>
-//               <span className="text-[11px] sm:text-sm text-brand-slate font-normal">{pt.desc}</span>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-
-// Interactive testimonial data
-const TESTIMONIALS = [
-  {
-    id: 1,
-    quote: "CovaiTech Park transformed our team's productivity. The infrastructure, community, and 24/7 support are second to none.",
-    name: "Desirae Culhane",
-    role: "Content Creator",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    id: 2,
-    quote: "We scaled from 4 to 24 developers in weeks with zero capital expenditure. The private cabins gave us exactly the privacy we needed.",
-    name: "Adhithya Sen",
-    role: "CTO, Covaitech Solutions",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&q=80"
-  },
-  {
-    id: 3,
-    quote: "Operating from Nehru Nagar East with lockable soundproof rooms was an absolute game-changer for our product launch.",
-    name: "K. Raghavan",
-    role: "Co-Founder, Inymart Group",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80"
+const FacilitiesIcon = ({ name, className }: { name: string; className?: string }) => {
+  const cls = className || "w-6 h-6";
+  switch (name) {
+    case "office":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 21V5.25A2.25 2.25 0 0017.25 3h-10.5A2.25 2.25 0 004.5 5.25V21m15 0h-15M19.5 21h-3v-3A2.25 2.25 0 0014.25 15h-4.5A2.25 2.25 0 007.5 17.25v3h-3" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M9 6h.008v.008H9V6zm0 3h.008v.008H9V9zm0 3h.008v.008H9V12zm3-6h.008v.008H12V6zm0 3h.008v.008H12V9zm0 3h.008v.008H12V12zm3-6h.008v.008H15V6zm0 3h.008v.008H15V9zm0 3h.008v.008H15V12z" />
+        </svg>
+      );
+    case "support":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728A9 9 0 015.636 5.636" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
+        </svg>
+      );
+    case "access":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+        </svg>
+      );
+    case "reception":
+      return (
+        <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5" />
+        </svg>
+      );
+    default:
+      return null;
   }
-];
+};
+
+/* ─────────────────────────────────────────────────────────────────────────
+   GSAP ScrollTrigger — Stacked Cards Section
+   One full-width card visible at a time; cards stack smoothly on scroll.
+   The section is pinned while scrolling through all cards.
+───────────────────────────────────────────────────────────────────────── */
+function StackedCardsSection() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Dynamic import to avoid SSR issues
+    let ctx: { revert?: () => void } = {};
+
+    const initGSAP = async () => {
+      const gsapModule = await import("gsap");
+      const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+      const gsap = gsapModule.default;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const cards = sectionRef.current?.querySelectorAll<HTMLElement>(".stacked-card");
+      if (!cards || cards.length === 0) return;
+
+      ctx = gsap.context(() => {
+        const totalCards = cards.length;
+        
+        // Ensure cards have correct initial state
+        cards.forEach((card, i) => {
+          gsap.set(card, {
+            y: i === 0 ? 0 : "100%", // First card is visible at y=0, others are offscreen below
+            zIndex: i, // New cards must have higher zIndex to slide OVER previous cards
+          });
+        });
+
+        // Pin the trigger container while we scroll through all cards
+        ScrollTrigger.create({
+          trigger: triggerRef.current,
+          start: "top top",
+          end: `+=${totalCards * 100}%`,
+          pin: sectionRef.current,
+          pinSpacing: true,
+          anticipatePin: 1,
+        });
+
+        // Animate each card in sequence
+        cards.forEach((card, i) => {
+          if (i === 0) return;
+
+          ScrollTrigger.create({
+            trigger: triggerRef.current,
+            start: `${(i / totalCards) * 100}% top`,
+            end: `${((i + 1) / totalCards) * 100}% top`,
+            scrub: 0.6,
+            onEnter: () => {
+              // Slide new card up into view, landing lower to create a tab effect
+              gsap.to(card, { y: i * 20, duration: 0.6, ease: "power3.out" });
+            },
+            onLeaveBack: () => {
+              // Slide it back down
+              gsap.to(card, { y: "100%", duration: 0.5, ease: "power3.in" });
+            },
+          });
+        });
+      }, sectionRef);
+    };
+
+    initGSAP();
+
+    return () => {
+      if (ctx.revert) ctx.revert();
+    };
+  }, []);
+
+  return (
+    <div ref={triggerRef} id="deployment-section" style={{ height: `${(DEPLOYMENT_PHASES.length + 1) * 100}vh` }}>
+      {/* Pinned sticky frame */}
+      <div ref={sectionRef} className="w-full h-[100dvh] overflow-hidden relative bg-[#f0f3f6] flex flex-col py-6 lg:py-12">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between">
+
+        {/* Section Header */}
+        <div className="text-center shrink-0 z-50 relative mb-4 lg:mb-6">
+          <h2 className="font-outfit font-bold text-2xl sm:text-3xl text-brand-navy tracking-tight leading-tight">
+            Facilities
+          </h2>
+          <p className="text-slate-500 text-xs sm:text-sm mt-1 lg:mt-2 max-w-xl mx-auto leading-relaxed">
+            Premium amenities designed to support modern businesses and teams.
+          </p>
+        </div>
+
+        {/* Card stack area */}
+        <div className="relative flex-1 w-full mx-auto my-4 lg:my-6">
+          {DEPLOYMENT_PHASES.map((phase, idx) => {
+            return (
+              <div
+                key={phase.id}
+                className="stacked-card absolute inset-0 mx-auto rounded-2xl md:rounded-3xl overflow-hidden bg-white shadow-[0_15px_50px_rgba(0,0,0,0.1)] border border-slate-100 will-change-transform"
+              >
+                {/* Full-width card: left image, right content */}
+                <div className="flex flex-col lg:flex-row h-full">
+                  {/* Image half */}
+                  <div className="relative w-full lg:w-[40%] h-32 lg:h-full overflow-hidden shrink-0">
+                    <Image
+                      src={phase.image}
+                      alt={phase.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 50vw"
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/5" />
+                  </div>
+
+                  {/* Content half */}
+                  <div className="flex-1 flex flex-col justify-center px-5 sm:px-8 lg:px-10 py-4 lg:py-6 gap-3 overflow-y-auto bg-white">
+                    {/* Yellow Circular Icon Header */}
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-full bg-[#ffb700] flex items-center justify-center shrink-0 shadow-lg shadow-[#ffb700]/30 mb-1">
+                      <FacilitiesIcon name={phase.icon} className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
+                    </div>
+
+                    <div>
+                      <h3 className="font-outfit font-bold text-lg sm:text-xl lg:text-2xl text-slate-900 leading-tight mb-1 lg:mb-2">
+                        {phase.title}
+                      </h3>
+                      <p className="text-slate-500 text-[13px] sm:text-sm leading-relaxed max-w-2xl">
+                        {phase.description}
+                      </p>
+                    </div>
+
+                    <ul className="flex flex-col gap-2 mt-1">
+                      {phase.points.map((point) => (
+                        <li key={point.label} className="flex items-start gap-2.5">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#ffb700] shrink-0 mt-1.5" />
+                          <div>
+                            <span className="text-[12px] sm:text-[13px] font-semibold text-slate-800 block">{point.label}</span>
+                            <span className="text-[11px] sm:text-[12px] text-slate-500 leading-relaxed hidden sm:block">{point.desc}</span>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+// TESTIMONIALS now imported from config
 
 // Gallery Showcase Images
 const GALLERY_ITEMS = [
@@ -309,20 +381,24 @@ const GALLERY_ITEMS = [
 // FAQ Data
 const FAQS = [
   {
-    question: "What are your operating hours?",
-    answer: "Our workspaces are accessible 24/7 for dedicated desk and private cabin members. Day pass users and visitors can access the space from 8:00 AM to 8:00 PM on weekdays."
+    question: "WHY SHOULD I CHOOSE A FLEXIBLE WORKSPACE OVER A TRADITIONAL OFFICE?",
+    answer: "A flexible workspace eliminates the hassle of setting up and managing an office. With fully furnished spaces, business amenities, and flexible lease terms, you can focus on growing your business while we take care of the infrastructure."
   },
   {
-    question: "Is high-speed internet included?",
-    answer: "Yes! All our workspaces come with enterprise-grade, high-speed dual-fiber SLA backup internet to ensure uninterrupted connectivity."
+    question: "CAN I CUSTOMIZE MY OFFICE TO MATCH MY BRAND?",
+    answer: "Yes. Depending on the workspace selected, branding, cabin layouts, seating arrangements, and office configurations can be customized to reflect your company's identity and operational needs."
   },
   {
-    question: "Can I upgrade my workspace as my team grows?",
-    answer: "Absolutely. We offer flexible scalability, allowing you to transition from hot desks to private cabins or even managed enterprise suites as your team expands."
+    question: "WHAT AMENITIES ARE INCLUDED IN YOUR WORKSPACE SOLUTIONS?",
+    answer: "Our workspaces include high-speed internet, power backup, air conditioning, housekeeping, security, reception services, pantry access, meeting room facilities, and ample parking, ensuring a productive work environment."
   },
   {
-    question: "Do you provide business registration (GST) services?",
-    answer: "Yes, our Virtual Office plans include an official business address which can be used for company registration and GST purposes."
+    question: "HOW QUICKLY CAN WE MOVE INTO A READY TO USE OFFICE?",
+    answer: "Ready to use office spaces can typically be occupied shortly after the documentation is completed. For customized managed office spaces, the fit-out and handover process generally takes 20–30 working days, depending on the scope of customization and infrastructure requirements."
+  },
+  {
+    question: "CAN YOUR WORKSPACE SUPPORT OUR BUSINESS AS IT EXPANDS?",
+    answer: "Yes. Our flexible office solutions are designed to accommodate business growth. Whether you need additional workstations, a larger office, or multiple office units, we can help you scale with minimal disruption."
   }
 ];
 
@@ -686,8 +762,7 @@ export default function Home() {
     fetchHeroSlides();
   }, []);
 
-  // Phases stacked scroll — active slide index
-  const [activePhase, setActivePhase] = useState(0);
+
 
   // Testimonials slider variables
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -722,6 +797,18 @@ export default function Home() {
     }, 200);
   };
 
+  // Auto-play testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTestifierTransition(true);
+      setTimeout(() => {
+        setActiveTestimonial((prev) => (prev + 1) % TESTIMONIALS.length);
+        setTestifierTransition(false);
+      }, 200);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   // Booking states
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState("");
@@ -732,6 +819,7 @@ export default function Home() {
   const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Track scroll position for navbar styling
   useEffect(() => {
@@ -811,30 +899,8 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  // Stacked card scroll tracker for phases section (desktop only)
-  useEffect(() => {
-    const handlePhaseScroll = () => {
-      if (window.innerWidth < 1024) return;
-      const section = document.getElementById("deployment-track-desktop");
-      if (!section) return;
-      const rect = section.getBoundingClientRect();
-      const scrolled = -rect.top;
-      const totalScrollable = rect.height - window.innerHeight;
-      if (totalScrollable <= 0) return;
-      const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
-      const newIndex = Math.min(
-        Math.floor(progress * DEPLOYMENT_PHASES.length),
-        DEPLOYMENT_PHASES.length - 1
-      );
-      setActivePhase(newIndex);
-    };
-    window.addEventListener("scroll", handlePhaseScroll, { passive: true });
-    window.addEventListener("resize", handlePhaseScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handlePhaseScroll);
-      window.removeEventListener("resize", handlePhaseScroll);
-    };
-  }, []);
+
+
 
   // Scroll reveal IntersectionObserver (handles fade-in animation triggers once)
   useEffect(() => {
@@ -994,7 +1060,7 @@ export default function Home() {
       />
       
 
-      <Header ctaText="Book Space" ctaAction={() => handleOpenBooking("Book Space")} />
+      <Header ctaAction={() => handleOpenBooking("Get Quote")} />
 
       {/* HERO SECTION DESIGN CAROUSEL (100vh) */}
       <section id="hero" className="relative min-h-[100dvh] sm:h-screen w-full flex flex-col justify-center lg:justify-center pt-[3.5rem] sm:pt-16 md:pt-20 pb-5 sm:pb-8 lg:pb-0 overflow-hidden bg-brand-navy text-white herosmall" >
@@ -1059,10 +1125,10 @@ export default function Home() {
 
         {/* Backdrop outlined watermark text */}
         <div className="absolute top-[35%] left-1/2 -translate-x-1/2 -translate-y-1/2 select-none text-[15vw] font-medium leading-none text-outline-white opacity-[0.05] z-10 font-outfit tracking-widest uppercase pointer-events-none text-center w-full">
-          COVAITECH
+          COVAITECHPARK
         </div>
 
-        <div className="w-full section-x grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-5 md:gap-8 lg:gap-12 items-center relative z-20 lg:flex-1">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-5 md:gap-8 lg:gap-12 items-center relative z-20 lg:flex-1">
           
           {/* Left info column */}
           <div className="lg:col-span-7 text-left space-y-4 mb-6 sm:mb-12 md:mb-0 sm:space-y-5 lg:space-y-7 max-w-2xl relative z-20 w-full">
@@ -1349,43 +1415,43 @@ export default function Home() {
 
           {/* Interactive Accolade Link */}
           <div className="mt-10">
-            <button
-              onClick={() => handleOpenBooking("Times Business Awards")}
-              className="group/btn relative px-8 py-3 bg-transparent text-xs font-bold uppercase tracking-widest text-amber-500 hover:text-white transition-colors duration-300 rounded-full border border-amber-500/30 hover:border-amber-500 overflow-hidden"
+            <a
+              href="https://timesofindia.indiatimes.com/life-style/events/first-ever-times-business-awards-madurai-2023-honouring-the-best-in-business-in-tamil-nadus-southern-districts/articleshow/98014003.cms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/btn relative px-8 py-3 bg-transparent text-xs font-bold uppercase tracking-widest text-amber-500 hover:text-white transition-colors duration-300 rounded-full border border-amber-500/30 hover:border-amber-500 overflow-hidden inline-block"
             >
               <span className="absolute inset-0 bg-amber-500 -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out -z-10" />
-              Learn More &rarr;
-            </button>
+              View Award &rarr;
+            </a>
           </div>
-
         </div>
       </section>
 {/* SERVICES GRID (Image 4 Style - 100vh) */}
-      <section id="locations" className="w-full min-h-[auto] lg:min-h-[100vh] flex bg-white border-t border-slate-100 overflow-hidden">
-        <div className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
-
+      <section id="locations" className="section-container w-full min-h-[auto] lg:min-h-[auto] flex bg-white border-t border-slate-100 overflow-hidden">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
           {/* LEFT: Heading + Dropdowns + City Grid */}
-          <div className="col-span-1 lg:col-span-7 xl:col-span-7 pl-4 sm:pl-6 md:pl-10 lg:pl-12 xl:pl-16 pr-4 sm:pr-6 md:pr-10 lg:pr-12 xl:pr-16 py-10 sm:py-14 lg:py-16 space-y-8 relative z-10">
-
+          <div className="col-span-1 lg:col-span-7 xl:col-span-7 py-10 sm:py-14 lg:py-16 pr-4 sm:pr-6 md:pr-10 lg:pr-12 xl:pr-16 space-y-8 relative z-10">
             {/* Heading block with yellow circle decoration */}
             <div className="space-y-4 relative">
               {/* Yellow decorative accent circle */}
               <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#ffe066]/80 -z-10" />
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
               <h2 className="font-outfit font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
-                Choose from <span className="text-brand-orange">100,000+</span><br />spaces to Work &amp; Live
+                Find the Ideal Workspace <span className="text-brand-orange">for Your Business</span>
               </h2>
               <p className="text-slate-500 text-md leading-relaxed max-w-md relative z-10 font-normal">
-                Explore tech-ready coworking hubs in prime business districts across major Indian cities.
+                Choose from a range of workspace solutions across our centers, designed to support startups, growing teams, and established businesses with flexible office options.
               </p>
             </div>
-
-            {/* City Icon Grid — Two Rows */}
-            <div className="flex flex-col gap-6 pt-4">
-              
+            {/* City Icon Grid — Side by Side with vertical divider */}
+            <div className="flex flex-row gap-0 pt-4 divide-x divide-slate-200">
               {/* Coimbatore Hub */}
-              <div className="space-y-3">
-                <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider block px-1">Coimbatore Hub</span>
+              <div className="flex-1 space-y-3 pr-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <svg className="w-3.5 h-3.5 text-brand-orange shrink-0" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/></svg>
+                  <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider leading-none">Coimbatore Hub</span>
+                </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-5">
                   {CITIES.slice(0, 3).map((city) => {
                     const isActive = activeCity === city.name;
@@ -1427,10 +1493,12 @@ export default function Home() {
                   })}
                 </div>
               </div>
-
               {/* Trichy Hub */}
-              <div className="space-y-3">
-                <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider block px-1">Trichy Hub</span>
+              <div className="flex-1 space-y-3 pl-6">
+                <div className="flex items-center gap-2 mb-1">
+                  <svg className="w-3.5 h-3.5 text-teal-500 shrink-0" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/></svg>
+                  <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider leading-none">Trichy Hub</span>
+                </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-5">
                   {CITIES.slice(3, 5).map((city) => {
                     const isActive = activeCity === city.name;
@@ -1472,123 +1540,128 @@ export default function Home() {
                   })}
                 </div>
               </div>
-
             </div>
           </div>
-
           {/* RIGHT: Large full-height image with round bottom-left corner */}
-          <div className="col-span-1 lg:col-span-5 xl:col-span-5 relative w-full min-h-[400px] sm:min-h-[500px] lg:min-h-0 lg:h-full">
+          <div className="col-span-1 lg:col-span-5 xl:col-span-5 relative w-full min-h-[200px] sm:min-h-[300px] lg:min-h-0 lg:h-full">
             <div className="relative w-full h-full lg:absolute lg:inset-0 overflow-hidden ">
               <Image
-                src={CITIES.find(c => c.name === activeCity)?.image || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80"}
+                src={CITIES.find(c => c.name === activeCity)?.image || "https://images.pexels.com/photos/7651627/pexels-photo-7651627.jpeg"}
                 alt={`${activeCity} Coworking Office`}
                 fill
                 className="object-cover transition-all duration-700 rounded-bl-[6rem] sm:rounded-bl-[10rem] lg:rounded-bl-[12rem] lg:rounded-tl-none lg:rounded-tr-none lg:rounded-br-none"
               />
             </div>
           </div>
-
         </div>
       </section>
-
       {/* ABOUT COMPANY SECTION — NATURAL LAYOUT */}
       <section id="services-dark" className="section-container h-auto min-h-0 py-12 sm:py-16 section-x bg-[#060c10] text-white w-full">
-        
-        <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-brand-orange/5 rounded-full ambient-glow" />
-        <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-navy/5 rounded-full ambient-glow" />
-        
-        {/* Transparent abstract tech/office architectural grid */}
-        <div className="absolute left-8 top-1/3 w-80 h-80 opacity-[0.015] text-white pointer-events-none select-none z-0 hidden xl:block">
-          <svg className="w-full h-full" viewBox="0 0 120 120" fill="none" stroke="currentColor" strokeWidth="0.5">
-            <line x1="10" y1="10" x2="110" y2="10" />
-            <line x1="10" y1="30" x2="110" y2="30" />
-            <line x1="10" y1="50" x2="110" y2="50" />
-            <line x1="10" y1="70" x2="110" y2="70" />
-            <line x1="10" y1="90" x2="110" y2="90" />
-            <line x1="10" y1="110" x2="110" y2="110" />
-            
-            <line x1="10" y1="10" x2="10" y2="110" />
-            <line x1="30" y1="10" x2="30" y2="110" />
-            <line x1="50" y1="10" x2="50" y2="110" />
-            <line x1="70" y1="10" x2="70" y2="110" />
-            <line x1="90" y1="10" x2="90" y2="110" />
-            <line x1="110" y1="10" x2="110" y2="110" />
-            
-            <circle cx="50" cy="50" r="15" />
-            <circle cx="50" cy="50" r="30" />
-          </svg>
-        </div>
-
-        <div className="space-y-10 sm:space-y-12 relative z-10 w-full">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 relative">
           
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 border-b border-white/10 pb-8 reveal reveal-up">
-            <div className="space-y-3 text-left">
-              <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
-                CORE OFFERINGS
-              </span>
-              <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-medium tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
-                Our Services. Built for Teams.
-              </h2>
+          <div className="absolute top-1/4 right-0 w-[400px] h-[400px] bg-brand-orange/5 rounded-full ambient-glow pointer-events-none" />
+          <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-brand-navy/5 rounded-full ambient-glow pointer-events-none" />
+          
+          {/* Transparent abstract tech/office architectural grid */}
+          <div className="absolute left-8 top-1/3 w-80 h-80 opacity-[0.015] text-white pointer-events-none select-none z-0 hidden xl:block">
+            <svg className="w-full h-full" viewBox="0 0 120 120" fill="none" stroke="currentColor" strokeWidth="0.5">
+              <line x1="10" y1="10" x2="110" y2="10" />
+              <line x1="10" y1="30" x2="110" y2="30" />
+              <line x1="10" y1="50" x2="110" y2="50" />
+              <line x1="10" y1="70" x2="110" y2="70" />
+              <line x1="10" y1="90" x2="110" y2="90" />
+              <line x1="10" y1="110" x2="110" y2="110" />
+              
+              <line x1="10" y1="10" x2="10" y2="110" />
+              <line x1="30" y1="10" x2="30" y2="110" />
+              <line x1="50" y1="10" x2="50" y2="110" />
+              <line x1="70" y1="10" x2="70" y2="110" />
+              <line x1="90" y1="10" x2="90" y2="110" />
+              <line x1="110" y1="10" x2="110" y2="110" />
+              
+              <circle cx="50" cy="50" r="15" />
+              <circle cx="50" cy="50" r="30" />
+            </svg>
+          </div>
+  
+          <div className="space-y-10 sm:space-y-12 relative z-10 w-full">
+            
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 border-b border-white/10 pb-8 reveal reveal-up">
+              <div className="space-y-3 text-left">
+                <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
+                  OUR SERVICES
+                </span>
+                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-medium tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
+                  Our Services. Built for Teams.
+                </h2>
+              </div>
+              <p className="text-white/75 text-base max-w-sm leading-relaxed text-left">
+                Tailored solutions for freelancers, startups, and enterprise teams.
+              </p>
             </div>
-            <p className="text-white/75 text-base max-w-sm leading-relaxed text-left">
-              We certify and handle all logistics for high-compliance enterprise offices, so that your tech organization handles nothing but actual coding tasks.
-            </p>
-          </div>
-
-          {/* Large Services Grid — 4-col on xl, 3-col on lg, 2-col on tablet */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-8 lg:gap-10 mt-12">
-            {SERVICES_TAILORED.map((service, idx) => {
-              return (
-                <div
-                  key={service.id}
-                  className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-brand-orange/45 transition-all duration-500 flex flex-col justify-end text-left p-6 sm:p-8 cursor-pointer reveal reveal-up h-64 sm:h-72"
-                  style={{ transitionDelay: `${idx * 60}ms` }}
-                >
-                  <Image
-                    src={service.image}
-                    alt={service.title}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
-                   loading="lazy"/>
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/90 via-[#2b3748]/30 to-transparent z-10" />
-
-                  <div className="relative z-20 space-y-3">
-                    <h4 className="font-outfit font-medium text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
-                      {service.title}
-                    </h4>
-                    <div className="pt-1.5 shrink-0">
-                      <span className="text-[10px] sm:text-sm font-medium text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
-                        {service.linkText} <span className="text-sm sm:text-sm">&rarr;</span>
-                      </span>
+  
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-12">
+              {SERVICES_TAILORED.map((service, idx) => {
+                const serviceLinks: Record<string, string> = {
+                  "01": prefix("/private-office-space"),
+                  "02": prefix("/managed-office-space"),
+                  "03": prefix("/virtual-office-space"),
+                  "04": prefix("/meeting-rooms"),
+                  "05": prefix("/coworking-space"),
+                  "06": prefix("/coworking-space"),
+                };
+                return (
+                  <a
+                    href={serviceLinks[service.id] || "#"}
+                    key={service.id}
+                    className="group relative rounded-3xl overflow-hidden border border-white/10 hover:border-brand-orange/45 transition-all duration-500 flex flex-col justify-end text-left p-6 sm:p-8 cursor-pointer reveal reveal-up h-64 sm:h-72 block"
+                    style={{ transitionDelay: `${idx * 60}ms` }}
+                  >
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105 opacity-75 group-hover:opacity-90"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#2b3748]/90 via-[#2b3748]/30 to-transparent z-10" />
+  
+                    <div className="relative z-20 space-y-3">
+                      <h4 className="font-outfit font-medium text-lg sm:text-xl text-white tracking-tight leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                        {service.title}
+                      </h4>
+                      <div className="pt-1.5 shrink-0">
+                        <span className="text-[10px] sm:text-sm font-medium text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
+                          {service.linkText} <span className="text-sm sm:text-sm">&rarr;</span>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              );
-            })}
+                  </a>
+                );
+              })}
+            </div>
+  
+            <div className="flex justify-center pt-10 sm:pt-14 reveal reveal-up">
+              <button
+                onClick={() => handleOpenBooking("Custom Workspace Consultation")}
+                className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+              >
+                Request Custom Office Solution
+                <span className="text-sm font-medium">&rarr;</span>
+              </button>
+            </div>
+  
           </div>
-
-          {/* Bottom CTA for Services */}
-          <div className="flex justify-center pt-10 sm:pt-14 reveal reveal-up">
-            <button
-              onClick={() => handleOpenBooking("Custom Workspace Consultation")}
-              className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
-            >
-              Request Custom Office Solution
-              <span className="text-sm font-medium">&rarr;</span>
-            </button>
-          </div>
-
         </div>
       </section>
 
 
  
 
-      {/* FACILITIES — ScrollTrigger Stacked Card Layout */}
-     
+      {/* FACILITIES — GSAP ScrollTrigger Stacked Cards */}
+      <StackedCardsSection />
 
-     
       <HomeGallery />   
  {/* TESTIMONIALS SECTION */}
       <section id="testimonials" className="section-container w-full flex flex-col justify-center py-10 sm:py-16 relative overflow-hidden bg-[#06090f]">
@@ -1628,9 +1701,14 @@ export default function Home() {
                   const isActive = i === activeTestimonial;
                   const order = [(activeTestimonial + TESTIMONIALS.length - 1) % TESTIMONIALS.length, activeTestimonial, (activeTestimonial + 1) % TESTIMONIALS.length];
                   const pos = order.indexOf(i);
+                  if (pos === -1) return null; // Only show 3 images
+
+                  const bgColors = ["bg-[#f37021]", "bg-[#3b82f6]", "bg-[#10b981]", "bg-[#8b5cf6]", "bg-[#ec4899]", "bg-[#14b8a6]", "bg-[#eab308]", "bg-[#f43f5e]"];
+                  const bgColor = bgColors[i % bgColors.length];
+
                   return (
                     <button key={t.id} onClick={() => setActiveTestimonial(i)} className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 flex-shrink-0 cursor-pointer ${isActive ? "w-20 h-20 sm:w-28 sm:h-28 border-brand-orange z-20 scale-110" : "w-14 h-14 sm:w-20 sm:h-20 border-white/15 z-10 opacity-50 hover:opacity-80"}`} style={{ order: pos }}>
-                      <Image src={t.image} alt={t.name} fill className="object-cover"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
+                      <div className={`w-full h-full flex items-center justify-center text-white text-2xl sm:text-4xl font-outfit font-medium ${bgColor}`}>{t.name.charAt(0)}</div>
                     </button>
                   );
                 })}
@@ -1685,7 +1763,7 @@ export default function Home() {
               return (
                 <div key={idx} className="bg-white rounded-2xl border border-slate-200 overflow-hidden transition-all duration-300">
                   <button onClick={() => setOpenFaq(isOpen ? null : idx)} className="w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none cursor-pointer">
-                    <span className="font-outfit font-medium text-lg text-brand-navy">{faq.question}</span>
+                    <span className="font-outfit font-medium text-lg text-brand-navy capitalize">{faq.question}</span>
                     <span className={`text-brand-orange transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                     </span>
@@ -1738,8 +1816,8 @@ export default function Home() {
                   </svg>
                 </span>
                 <div className="text-left">
-                  <h4 className="font-outfit font-medium text-base text-brand-navy">Coimbatore Main Hub</h4>
-                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Nehru Nagar East, Near Saravanampatti Road, Civil Aerodrome Post, Coimbatore - 641014</p>
+                  <h4 className="font-outfit font-medium text-base text-brand-navy">Address</h4>
+                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Covai Tech Park, 4th South Cross St, Kovai Thirunagar, Nehru Nagar East, Coimbatore- 641 014.</p>
                 </div>
               </div>
 
@@ -1751,8 +1829,8 @@ export default function Home() {
                   </svg>
                 </span>
                 <div className="text-left">
-                  <h4 className="font-outfit font-medium text-base text-brand-navy">Trichy Satellite Campus</h4>
-                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Thillai Nagar Main Road, West Boulevard, Trichy - 620018</p>
+                  <h4 className="font-outfit font-medium text-base text-brand-navy">Registered Address</h4>
+                  <p className="text-sm sm:text-sm text-slate-500 font-medium">Max Office<br/>2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018</p>
                 </div>
               </div>
             </div>
@@ -1767,7 +1845,7 @@ export default function Home() {
                   Get in Touch
                 </h3>
                 <p className="text-sm text-brand-slate font-medium">
-                  Leave your details and we'll reach out shortly.
+                  Leave your details and we&apos;ll reach out shortly.
                 </p>
               </div>
 

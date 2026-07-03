@@ -12,7 +12,7 @@ interface HeaderProps {
   ctaAction?: () => void;
 }
 
-export default function Header({ ctaText = "Write Message", ctaAction }: HeaderProps) {
+export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileLocationsOpen, setMobileLocationsOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             : "absolute top-0 lg:top-4 bg-transparent border-none py-3 lg:py-4"
         }`}
       >
-        <div className="w-full px-4 sm:px-6 md:px-8 xl:px-12 flex justify-between items-center gap-2 sm:gap-3 lg:gap-4">
+        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-2 sm:gap-3 lg:gap-4">
           
           <a
             href={prefix("/")}
@@ -76,7 +76,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             }`}
           >
             <div className="relative group cursor-pointer h-full flex items-center">
-              <a href={prefix("/#locations")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6">Locations <span className="text-[8px]">▼</span></a>
+              <a href={prefix("/#locations")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Locations <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></a>
               <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-[700px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out grid grid-cols-2 p-6 text-sm normal-case tracking-normal font-medium z-50 gap-6 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
                 {/* Coimbatore Card */}
                 <a href={prefix("/coimbatore")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
@@ -93,7 +93,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                     </div>
                   </div>
                   <div className="p-6 flex-grow flex flex-col gap-3.5 bg-slate-50/50">
-                    {["Nehru Nagar (SITRA)", "Kalapatti", "Saravanampatti"].map((area, idx) => (
+                    {["Nehru Nagar (SITRA)", "Saravanampatti", "Broadview"].map((area, idx) => (
                       <span key={idx} className="text-slate-600 text-[13px] group-hover/loc:text-slate-900 transition-colors flex items-center gap-3">
                         <span className="w-5 h-5 rounded-md bg-white border border-slate-200 flex items-center justify-center group-hover/loc:border-brand-orange/30 shadow-sm transition-colors">
                           <span className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover/loc:bg-brand-orange transition-colors"></span>
@@ -133,7 +133,7 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
             </div>
             
             <div className="relative group cursor-pointer h-full flex items-center">
-              <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6">Services <span className="text-[8px]">▼</span></a>
+              <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Services <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></a>
               <div className="absolute top-[90%] left-0 w-[260px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
                 <a href={prefix("/coworking-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Coworking Space</span>
@@ -157,8 +157,8 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                 </a>
               </div>
             </div>
-            <a href={prefix("/blog")} className="hover:text-brand-orange transition-colors font-medium">Blog</a>
-            <a href={prefix("/contact")} className="hover:text-brand-orange transition-colors font-medium">Contact</a>
+            <a href={prefix("/blog")} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Blog</a>
+            <a href={prefix("/contact")} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Contact</a>
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
@@ -240,8 +240,8 @@ export default function Header({ ctaText = "Write Message", ctaAction }: HeaderP
                   <div className="flex flex-col gap-2">
                     <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Coimbatore</span>
                     <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar (SITRA)</a>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Kalapatti</a>
                     <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Saravanampatti</a>
+                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Broadview</a>
                   </div>
                   {/* Trichy list */}
                   <div className="flex flex-col gap-2">

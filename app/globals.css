@@ -57,6 +57,12 @@ p {
   line-height: 1.7;
 }
 
+/* ── Disable all italic text site-wide ── */
+*, *::before, *::after,
+em, i, cite, dfn, address, var, .italic {
+  font-style: normal !important;
+}
+
 /* ── Responsive gap between stacked / side-by-side columns ── */
 .gap-columns {
   row-gap: 2.5rem;

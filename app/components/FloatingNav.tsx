@@ -16,7 +16,7 @@ export const GLOBAL_SECTIONS: NavSection[] = [
   { id: "gallery-works", label: "Gallery" },
   { id: "testimonials", label: "Testimonials" },
   { id: "faqs", label: "FAQs" },
-  { id: "booking", label: "Book Space" }
+  { id: "booking", label: "Get Quote" }
 ];
 
 export const ABOUT_SECTIONS: NavSection[] = [
@@ -29,7 +29,7 @@ export const ABOUT_SECTIONS: NavSection[] = [
 export const LOCATION_PAGES_SECTIONS: NavSection[] = [
   { id: "hero", label: "Home" },
   { id: "locations", label: "Locations" },
-  { id: "cta", label: "Book Space" },
+  { id: "cta", label: "Get Quote" },
   { id: "services", label: "Services" }
 ];
 

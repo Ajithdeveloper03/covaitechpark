@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import AdminLayout from "../components/AdminLayout";
+import { useAdminAuth } from "./hooks/useAdminAuth";
+import { adminGet } from "./adminApi";
 
 interface Activity {
   type: string;
@@ -12,57 +14,39 @@ interface Activity {
 }
 
 export default function AdminDashboard() {
-  const [stats, setStats] = useState({
-    blogs: 0,
-    gallery: 0
-  });
+  const { user, loading: authLoading, logout } = useAdminAuth();
+  const [stats, setStats] = useState({ blogs: 0, gallery: 0 });
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchDashboardData = async () => {
-      const token = localStorage.getItem("admin_token");
-      if (!token) return;
+    if (authLoading) return; // Wait for auth to resolve
+    if (!user) return;       // useAdminAuth will redirect if no user
 
+    const fetchDashboardData = async () => {
       try {
         const [blogsRes, galleryRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/blogs`, { headers: { "Authorization": `Bearer ${token}` } }),
-          fetch(`${process.env.NEXT_PUBLIC_API_URL}/admin/galleries`, { headers: { "Authorization": `Bearer ${token}` } })
+          adminGet("/admin/blogs"),
+          adminGet("/admin/galleries"),
         ]);
 
-        if (blogsRes.ok && galleryRes.ok) {
-          const blogs = await blogsRes.json();
-          const gallery = await galleryRes.json();
+        if (blogsRes.ok) {
+          const blogs = blogsRes.data as Record<string, any>[];
+          const gallery = galleryRes.ok ? (galleryRes.data as Record<string, any>[]) : [];
 
           setStats({
             blogs: blogs.length,
-            gallery: gallery.length
+            gallery: gallery.length,
           });
 
-          // Compile recent activities
           const logs: Activity[] = [];
-
-          blogs.slice(0, 5).forEach((b: any) => {
-            logs.push({
-              type: "Blog Post",
-              title: b.title,
-              action: "Updated / Saved",
-              time: new Date(b.updated_at).toLocaleDateString(),
-              timestamp: new Date(b.updated_at).getTime()
-            });
+          blogs.slice(0, 5).forEach((b: Record<string, any>) => {
+            logs.push({ type: "Blog Post", title: String(b.title), action: "Updated / Saved", time: new Date(String(b.updated_at)).toLocaleDateString(), timestamp: new Date(String(b.updated_at)).getTime() });
+          });
+          gallery.slice(0, 5).forEach((g: Record<string, any>) => {
+            logs.push({ type: "Gallery Item", title: String(g.title), action: "Added / Saved", time: new Date(String(g.updated_at)).toLocaleDateString(), timestamp: new Date(String(g.updated_at)).getTime() });
           });
 
-          gallery.slice(0, 5).forEach((g: any) => {
-            logs.push({
-              type: "Gallery Item",
-              title: g.title,
-              action: "Added / Saved",
-              time: new Date(g.updated_at).toLocaleDateString(),
-              timestamp: new Date(g.updated_at).getTime()
-            });
-          });
-
-          // Sort descending
           logs.sort((a, b) => b.timestamp - a.timestamp);
           setActivities(logs.slice(0, 8));
         }
@@ -74,7 +58,7 @@ export default function AdminDashboard() {
     };
 
     fetchDashboardData();
-  }, []);
+  }, [user, authLoading]);
 
   return (
     <AdminLayout activeTab="dashboard">
@@ -89,10 +73,10 @@ export default function AdminDashboard() {
           {/* ── STATS CARDS ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
             {[
-              { label: "Blog Articles", val: stats.blogs, color: "text-[#f37021] bg-[#f37021]/10", desc: "Live articles on site" },
-              { label: "Gallery Photos", val: stats.gallery, color: "text-indigo-500 bg-indigo-50", desc: "Display portfolio items" }
+              { label: "Blog Articles", val: stats.blogs, color: "text-[#f37021] bg-[#f37021]/10", desc: "Live articles on site", href: "/covaitechpark/admin/blogs" },
+              { label: "Gallery Photos", val: stats.gallery, color: "text-indigo-500 bg-indigo-50", desc: "Display portfolio items", href: "/covaitechpark/admin/gallery" }
             ].map((card, i) => (
-              <div key={i} className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow">
+              <a key={i} href={card.href} className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm hover:shadow-md hover:border-[#f37021]/40 transition-all duration-300 block cursor-pointer">
                 <div className="flex items-center justify-between gap-4">
                   <span className="text-slate-400 text-xs font-medium uppercase tracking-wider">{card.label}</span>
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-medium text-xs ${card.color}`}>
@@ -103,7 +87,7 @@ export default function AdminDashboard() {
                   <span className="text-3xl font-medium text-slate-800">{card.val}</span>
                   <p className="text-[11px] text-slate-400 font-normal mt-1.5">{card.desc}</p>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
 

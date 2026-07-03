@@ -78,9 +78,7 @@ export default function GalleryPage() {
     fetchGallery();
   }, []);
 
-  useEffect(() => {
-    document.title = "Gallery | Premium Office Spaces - CovaiTech Park";
-  }, []);
+  
 
   useEffect(() => {
     const updateColumns = () => {

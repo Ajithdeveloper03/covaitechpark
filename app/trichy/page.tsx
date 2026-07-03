@@ -61,9 +61,7 @@ export default function TrichyPage() {
   const { settings } = useSettings();
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Book a Shared Office For Rent in Trichy | Coworking Space";
-  }, []);
+  
 
   // Booking Modal States
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -74,6 +72,7 @@ export default function TrichyPage() {
   const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
   const handleOpenBooking = (plan: string) => {
@@ -84,6 +83,8 @@ export default function TrichyPage() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -118,6 +119,8 @@ export default function TrichyPage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -126,209 +129,97 @@ export default function TrichyPage() {
     <div className="min-h-screen bg-slate-50 text-brand-navy flex flex-col font-inter relative select-none font-medium text-base antialiased">
       <Header />
 
-      {/* ── 1. HERO SECTION ── */}
-      <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-16 sm:pt-24 md:pt-28 pb-30 overflow-hidden text-white">
+
+      {/* ── 1. NEW DARK HERO SECTION (Formerly Info Section) ── */}
+      <section id="highlights" className="relative pt-32 pb-16 sm:pt-40 sm:pb-24 w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#0f172a]">
         
-        {/* Full bleed background */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/covaitechpark/coimbatore.png"
-            alt="Trichy coworking space"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
+        {/* Glow effect background */}
+        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-brand-orange/20 blur-[120px]" />
+          <div className="absolute bottom-[10%] right-[5%] w-[40%] h-[40%] rounded-full bg-brand-orange/10 blur-[100px]" />
         </div>
-        {/* Centered Hero Content */}
-        <div className="relative z-20 flex flex-col items-center text-center px-4 max-w-6xl mt-8 mx-auto w-full">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9853] leading-[1.05] mb-4">
-            CovaiTech Park - Trichy Center
-          </h1>
-          <p className="text-slate-200 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-3xl mb-6 flex items-start justify-center gap-2">
-            <svg className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 mt-0.5 text-brand-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span className="text-center">2nd Floor, Old No. C-63, New No. C-50, Bloom Plaza, 6th Cross North East Extension, Near to Isha Yoga Center, Thillai Nagar, Tiruchirappalli, Tamil Nadu, 620018</span>
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-2 hidden">
-            <button
-              onClick={() => handleOpenBooking("Trichy Tour")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
-            >
-              Schedule Visit
-            </button>
-            <a
-              href="https://maps.google.com/?q=Bloom+Plaza+Trichy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border border-white/30 hover:border-brand-orange text-white hover:bg-brand-orange/15 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
-            >
-              Get Directions &rarr;
-            </a>
-          </div>
-        </div>
-        {/* Fan-out Arc of 5 workspace cards at bottom */}
-        <div className="relative z-20 w-full max-w-5xl mx-auto mt-4 sm:mt-2 md:mt-2 lg:mt-6 px-4 flex-shrink-0 h-[220px] sm:h-[240px] md:h-[280px] justify-start">
-          {/* Desktop/tablet view */}
-          <div className="hidden sm:block relative w-full h-full">
-            {[
-              { img: "/covaitechpark/hero1.jpg", rotate: -36, offset: "-300px", translateY: "60px", active: false },
-              { img: "/covaitechpark/hero2.jpg", rotate: -18, offset: "-160px", translateY: "15px", active: false },
-              { img: "/covaitechpark/hero3.jpg", rotate: 0, offset: "0px", translateY: "0px", active: true },
-              { img: "/covaitechpark/hero11.jpg", rotate: 18, offset: "160px", translateY: "15px", active: false },
-              { img: "/covaitechpark/hero13.jpg", rotate: 36, offset: "300px", translateY: "60px", active: false },
-            ].map((card, i) => (
-              <div
-                key={i}
-                className="absolute bottom-0 left-1/2"
-                style={{
-                  transform: `translateX(calc(-50% + ${card.offset})) translateY(${card.translateY}) rotate(${card.rotate}deg)`,
-                  transformOrigin: 'bottom center',
-                  zIndex: card.active ? 30 : 20 - Math.abs(i - 2),
-                  transition: 'transform 0.5s ease',
-                }}
-              >
-                <div
-                  className={`relative w-48 sm:w-52 md:w-52 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${
-                    card.active ? 'scale-105' : 'scale-95'
-                  }`}
-                  style={{ height: '260px' }}
-                >
-                  <Image src={card.img} alt="CovaiTech Park Trichy Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
-                </div>
-              </div>
-            ))}
-          </div>
-          {/* Mobile view */}
-          <div className="flex sm:hidden gap-3 overflow-x-auto pb-2 scrollbar-hide items-end justify-center">
-            {[
-              { img: "/covaitechpark/hero1.jpg" },
-              { img: "/covaitechpark/hero2.jpg" },
-              { img: "/covaitechpark/hero3.jpg", active: true },
-              { img: "/covaitechpark/hero11.jpg" },
-              { img: "/covaitechpark/hero13.jpg" },
-            ].map((card, i) => (
-              <div key={i} className={`flex-shrink-0 w-28 relative rounded-[1rem] overflow-hidden ${card.active ? 'h-44' : 'h-36'}`}>
-                <Image src={card.img} alt="CovaiTech Park Trichy Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      {/* ── 2. TRICHY COWORKS INFO ── */}
-      <section id="highlights" className="py-16 sm:py-24 bg-white w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           <div className="w-full lg:w-1/2 space-y-6">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/20 text-brand-orange rounded-full text-xs font-bold uppercase tracking-widest border border-brand-orange/20">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
               A Unit of Max Office
             </span>
-            <h2 className="text-4xl sm:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-none">
-              Comprehensive Workspace Solutions in Tiruchirappalli
-            </h2>
-            <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-outfit font-bold text-white tracking-tight leading-[1.1]">
+              Trichy Coworks <br />
+              <span className="text-3xl sm:text-4xl text-slate-300 font-medium">(Unit of Max Office) - Locations</span>
+            </h1>
+            <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
               <p>
-                We provide comprehensive workspace solutions in Tiruchirappalli under our division <strong>Trichy Coworks (A unit of Max Office)</strong>. Our facilities offer fully furnished IT workspaces with modern infrastructure tailored for startups, tech teams, and remote professionals.
+                Conveniently located in the heart of Trichy, <strong className="text-white">Trichy Coworks</strong> offers modern and flexible workspaces with excellent connectivity to key commercial areas and essential amenities. Designed for startups, professionals, and growing businesses, our locations provide a productive and collaborative work environment.
               </p>
               <p>
-                Equipped with high-speed internet, ergonomic seating, and essential amenities, we ensure a seamless and productive work environment. Whether you need hot desks, dedicated seats, or private office cabins, we provide flexible options to suit your business needs.
+                Covai Tech Park and Trichy Coworks are trade names of <strong className="text-white">MAX OFFICE</strong>. Established in 2017, Trichy Coworks pioneered the concept of shared office spaces in Trichy, becoming the city&apos;s first coworking space provider.
               </p>
             </div>
-            <div className="pt-4">
-              <a href="https://trichycoworks.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-[#e0661e] text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg">
-                Visit Trichy Coworks <span className="text-lg leading-none">&rarr;</span>
+            <div className="pt-6">
+              <a
+                href="https://trichycoworks.com/locations/?utm_source=ctp_website&utm_medium=navigation&utm_campaign=nav_bar"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg shadow-brand-orange/20"
+              >
+                Explore Trichy Location <span className="text-lg leading-none">&rarr;</span>
               </a>
             </div>
           </div>
+          
           <div className="w-full lg:w-1/2 relative">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border border-slate-100">
-              <Image src={prefix("/hero3.jpg")} alt="Trichy Coworks Facility" fill className="object-cover" />
+            <div className="relative aspect-[4/3] rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-2xl shadow-black/50 border border-slate-700/50">
+              <Image src={prefix("/hero3.jpg")} alt="Trichy Coworks Facility" fill className="object-cover" priority sizes="(max-width: 1024px) 100vw, 50vw" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
             </div>
-            {/* Decorative element */}
-            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-brand-orange/10 rounded-full blur-2xl pointer-events-none" />
           </div>
         </div>
       </section>
  {/* ── 4. SHORTER CTA SECTION ── */}
-      <section className="py-16 bg-brand-navy text-white text-center">
-        <h2 className="text-3xl font-outfit font-bold mb-4">Ready to upgrade your workspace?</h2>
-        <p className="text-slate-400 mb-8 max-w-xl mx-auto">Join hundreds of growing businesses across our network.</p>
-        <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg">Book a Tour Today</button>
-      </section>
-      {/* ── 3. EXPLORE SERVICES ── */}
-      <section id="explore-services" className="py-12 sm:py-24 bg-slate-100 w-full relative overflow-hidden border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-outfit font-bold tracking-tight text-brand-navy leading-none">
-              Explore Our Workspace Services
-            </h2>
-            <p className="text-slate-500 text-sm sm:text-base font-normal">
-              Tailored solutions for freelancers, startups, and enterprise teams.
-            </p>
+      <section className="relative py-16 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black text-white text-center overflow-hidden">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-2xl sm:text-3xl font-outfit font-bold mb-0 md:w-1/2">Need help with finding the right workspace solution?</h2>
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
+            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <a href={prefix("/coworking-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=400&q=80" alt="Coworking Space" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+        </div>
+      </section>
+      {/* ── 3. EXPLORE OTHER LOCATIONS ── */}
+      <section className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+              ADDITIONAL LOCATIONS
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">Need help with finding the right workspace solution?</h2>
+          </div>
+
+          <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
+            {[
+              { name: "Coimbatore Hub", desc: "Premium Workspaces in Well-Connected Hubs across Coimbatore.", link: prefix("/coimbatore"), img: "/covaitechpark/hero1.jpg" }
+            ].map((sol, idx) => (
+              <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
+                <div className="relative w-full aspect-[4/3] overflow-hidden">
+                  <Image src={sol.img} alt={sol.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Coworking Space</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Flexible, dynamic shared spaces perfect for networking and productivity.</p>
-              </div>
-            </a>
-            <a href={prefix("/private-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/386150/pexels-photo-386150.jpeg" alt="Private Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
+                    {sol.name}
+                  </h4>
+                  
+                  <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
+                    Learn More <span>&rarr;</span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Private Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Secure, dedicated cabins designed for teams of all sizes.</p>
-              </div>
-            </a>
-            <a href={prefix("/managed-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80" alt="Managed Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Managed Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">End-to-end custom workspace solutions built for enterprise needs.</p>
-              </div>
-            </a>
-            <a href={prefix("/meeting-rooms")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/20101490/pexels-photo-20101490.jpeg" alt="Meeting Rooms" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Meeting Rooms</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">High-tech conference spaces for interviews, pitches, and training.</p>
-              </div>
-            </a>
-            <a href={prefix("/virtual-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/36713181/pexels-photo-36713181.jpeg" alt="Virtual Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Virtual Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Professional business address and mail handling services.</p>
-              </div>
-            </a>
+              </a>
+            ))}
           </div>
         </div>
       </section>

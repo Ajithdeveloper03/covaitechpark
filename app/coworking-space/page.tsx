@@ -6,73 +6,71 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
 const COWORKING_DETAILS = [
-  { title: "Ready to Move", desc: "Fully furnished workspace available to move in immediately and start operating with zero lead time.", icon: "zap", image: "/workspace-cabin.png" },
-  { title: "Cost-Effective", desc: "No upfront capital expenditure for fit-outs. Inclusive pricing covers housekeeping, utilities, and support.", icon: "trend", image: "/workspace-lounge.png" },
-  { title: "Customisable", desc: "Custom layouts, dedicated branding, and modular furniture setups tailored to your brand identity.", icon: "adjust", image: "/workspace-meeting.png" },
-  { title: "Scalable", desc: "Add seats or expand your space footprint effortlessly as your team and operations grow.", icon: "scale", image: "/workspace-hotdesk.png" },
-  { title: "Fully Serviced", desc: "Dedicated facility managers, daily professional cleaning, mail handling, and front desk hospitality.", icon: "heart", image: "/workspace-event.png" },
-  { title: "Enterprise IT Setup", desc: "Dual fiber lines with SLA backup, enterprise firewalls, and dedicated server rack space options.", icon: "shield", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/workspace-cabin.png" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "heart", image: "/workspace-lounge.png" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/workspace-meeting.png" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "office", image: "/workspace-hotdesk.png" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "shield", image: "/workspace-event.png" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/workspace-cafe.png" }
 ];
 
 const COWORKING_AMENITIES = [
-  { name: "Lockable Cabin Suites", icon: "lock", desc: "Completely private, acoustic-insulated office cabins." },
-  { name: "SLA Business Internet", icon: "wifi", desc: "Dual-fiber high-speed connectivity with automatic failover." },
-  { name: "Smart Climate Control", icon: "ac", desc: "Individually controlled AC units in every cabin." },
-  { name: "Front Desk & Mail", icon: "reception", desc: "Professional reception presence and mail management." },
-  { name: "Housekeeping & Cleaning", icon: "cleaning", desc: "Daily maintenance and sanitation services." },
-  { name: "24/7 Security & CCTV", icon: "security", desc: "Continuous surveillance and security guards on duty." },
-  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backed by auto-trigger DG sets." },
-  { name: "Meeting Room Credits", icon: "office", desc: "Monthly complimentary meeting room and boardroom credits." },
-  { name: "RO Drinking Water", icon: "water", desc: "Pure drinking water stations distributed across the floor." },
-  { name: "Cafeteria Access", icon: "food", desc: "Lounge area and cafeteria for meals, coffee, and tea." },
-  { name: "Gym Facility", icon: "gym", desc: "In-house fitness studio for client and employee wellness." },
-  { name: "Networking Lounges", icon: "breakout", desc: "Collaborative breakout zones for community engagement." }
+  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
+  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
+  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
+  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
+  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
+  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
+  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "trend", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
+  { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Saravanan",
-    role: "Tech Lead",
-    quote: "Moving to a coworking space at Covai Tech Park was seamless. Ready to move office space at the best price. Highly recommended!"
-  },
-  {
-    name: "Vivek Anand",
-    role: "Founder, Startup Firm",
-    quote: "Our team loves the acoustic privacy of the cabin suites. Having 24/7 access and fully-managed operations allows us to focus entirely on product building."
-  },
-  {
-    name: "Dhanush",
-    role: "Operations Manager",
-    quote: "Excellent IT infrastructure and back-office support. The boardroom is state-of-the-art, and the team is highly professional."
-  }
-];
+
 
 const FAQS = [
   {
-    question: "What is a coworking Space?",
-    answer: "A coworking space is a lockable, fully furnished office suite located within a shared business park. It gives your team complete acoustic and visual privacy while allowing you to enjoy shared common amenities like the reception, cafeteria, gym, and meeting rooms."
+    question: "Is there an option to book a coworking space for one day in Coimbatore?",
+    answer: "Yes, the shared workspace can be booked for a day in Coimbatore. The terms for using the workspace are highly flexible to meet your short-term and long-term office space needs."
   },
   {
-    question: "How many desks can we get in a coworking cabin?",
-    answer: "Our coworking cabins are highly flexible and customizable. We offer configurations starting from small 4-seater cabins up to large custom enterprise layouts with 30+ desks designed to your specifications."
+    question: "How is dedicated desk different from hot desk plan?",
+    answer: "The main difference between a dedicated desk plan and a hot desk is that with a dedicated desk plan, you get a specific spot to work during your membership period at the coworking space. On the other hand, with a hot desk, you get a work desk in an unreserved spot."
   },
   {
-    question: "Is there 24x7 access to our coworking desk?",
-    answer: "Yes, all coworking members get 24/7 access to the facility with secure keycard systems, allowing your team to operate on any timezone."
+    question: "What are the types of workspace available at Covai Tech Park in Coimbatore?",
+    answer: "Dedicated desk and hot desk are the two primary coworking space options available in Coimbatore. Further, there are other options like private office space, virtual office, and much more at Covai Tech Park."
   },
   {
-    question: "What is the minimum contract term?",
-    answer: "We offer highly flexible membership terms. While we recommend a 3-month commitment for planning, you can configure custom terms according to your startup or enterprise roadmap."
+    question: "Is there 24/7 access to the coworking space facility?",
+    answer: "Yes, the Covai Tech Park’s coworking space facility is accessible 24/7."
   },
   {
-    question: "What amenities are included in the price?",
-    answer: "The price includes ergonomic furniture, dual high-speed SLA Wi-Fi, air conditioning, daily housekeeping, electricity backup, reception support, meeting room credits, and access to all common amenities including the cafeteria, lounges, and gym."
+    question: "Who can benefit from coworking space?",
+    answer: "Coworking spaces in Coimbatore are best suited for entrepreneurs, remote workers, freelancers, small-medium enterprises, startups, businesses, and professionals who want to be part of a dynamic community."
+  },
+
+  {
+    question: "What are the benefits of choosing a shared office space in Coimbatore?",
+    answer: "Professional working environment at affordable price. Opportunities to network and collaborate. Workspace that is flexible and can be adjusted according to your requirements."
+  },
+  {
+    question: "Why do people prefer coworking space for their office setup?",
+    answer: "By choosing a coworking space, one can set up an office space instantly without the need to invest in setting up and maintaining the infrastructure. Furthermore, a coworking space comes with flexible plans that can be customized according to your needs. The rich ecosystem of professionals, freelancers, businesses, startups, and corporations in a coworking space provides an opportunity to collaborate and grow. The pricing of the coworking space is affordable, considering the inclusion of amenities, and it allows for scalability."
+  },
+  {
+    question: "Can we access the coworking space on Sundays?",
+    answer: "Certainly! Our coworking space is open throughout the entire week, including Sundays."
   }
 ];
 
@@ -161,24 +159,27 @@ export default function CoworkingSpacePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Vibrant Coworking Space for Rent - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
     setBookingLookingFor(plan);
     setBookingOpen(true);
     setBookingSuccess(false);
+    setBookingError(false);
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -200,6 +201,7 @@ export default function CoworkingSpacePage() {
 
         if (response.ok) {
           setBookingSuccess(true);
+          setBookingError(false);
           setTimeout(() => {
             setBookingFirstName("");
             setBookingLastName("");
@@ -210,9 +212,18 @@ export default function CoworkingSpacePage() {
             setBookingOpen(false);
             setBookingSuccess(false);
           }, 3000);
+        } else {
+          setBookingError(true);
+          setTimeout(() => {
+            setBookingError(false);
+          }, 4000);
         }
       } catch (error) {
         console.error("Booking form error", error);
+        setBookingError(true);
+        setTimeout(() => {
+          setBookingError(false);
+        }, 4000);
       }
     }
   };
@@ -223,9 +234,9 @@ export default function CoworkingSpacePage() {
       <Header />
 
       {/* ── 1. HERO SECTION WITH BACKGROUND IMAGE ── */}
-      <section 
-        id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+      <section
+        id="hero"
+        className="relative min-h-[100vh] flex flex-col justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
@@ -238,55 +249,59 @@ export default function CoworkingSpacePage() {
             sizes="100vw"
           />
         </div>
-        {/* Hero Content Left */}
-        <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-            Premium Managed Suites &middot; Coimbatore
-          </span>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
-            Vibrant <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
-              Coworking Space
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+          {/* Hero Content Left */}
+          <div className="lg:w-1/2 text-left flex flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+              Premium Coworking Spaces &middot; Coimbatore
             </span>
-          </h1>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Dedicated or flexible desks in a vibrant shared workspace. Daily, weekly, monthly. No lock-in.
-          </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+              Coworking Space in <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
+                Coimbatore
+              </span>
+            </h1>
 
-          <div className="flex flex-wrap gap-4 pt-2">
-            <button
-              onClick={() => handleOpenBooking("Coworking Space Quote")}
-              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
-            >
-              Get Quote &rarr;
-            </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-            >
-              Explore Features
-            </a>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+              Covai Tech Park coworking space offers you a vibrant and dynamic working environment in Coimbatore. Get connected with the network of professionals and businesses by joining Covai Tech Park’s coworking community.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <button
+                onClick={() => handleOpenBooking("Coworking Space Quote")}
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+              >
+                Get Quote &rarr;
+              </button>
+              <a
+                href="#features"
+                className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
+              >
+                Explore Features
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* Hero Visual Right */}
-        <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
-          <Image
-            src={prefix("/service5.png")}
-            alt="Coworking Space"
-            fill
-            priority
-            className="object-cover "
-           sizes="(max-width: 768px) 100vw, 800px"/>
+          {/* Hero Visual Right */}
+          <div className="relative lg:w-1/2 w-full aspect-[16/9] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
+            <Image
+              src={prefix("/service5.png")}
+              alt="Coworking Space"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
         </div>
       </section>
 
       {/* Floating Product Details Bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full section-x">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-4">
+      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-4">
           {[
             { label: "Term", val: "Monthly" },
             { label: "Setup", val: "Fully Furnished" },
@@ -344,7 +359,7 @@ export default function CoworkingSpacePage() {
               SERVICES INCLUDED
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
-              Workspace Infrastructure Built For Success
+              Amenities
             </h2>
           </div>
 
@@ -363,31 +378,26 @@ export default function CoworkingSpacePage() {
       </section>
 
       {/* ── 4. SCHEDULE CONSULTATION CTA WITH BG IMAGE ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Need a customised seating layout or dedicated branding?
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+            Need help with finding the right workspace solution?
           </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Our enterprise planning team can customize private suites to fit your exact operational requirements. Let's design the perfect environment for your brand.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+          
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
-              onClick={() => handleOpenBooking("Custom Consultation")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              onClick={() => handleOpenBooking("Coworking Space Tour")}
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
-              Talk With Our Experts
+              Talk to our Expert
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -464,7 +474,7 @@ export default function CoworkingSpacePage() {
 
                     {/* Member profile */}
                     <div className="mt-8 pt-5 border-t border-slate-100 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center text-white font-medium text-sm shrink-0 border-2 border-brand-orange/20">
+                      <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center text-white font-medium text-sm shrink-0 border-none">
                         {testimonial.name.split(' ').map((n) => n[0]).join('').substring(0, 2)}
                       </div>
                       <div className="text-left">
@@ -559,25 +569,27 @@ export default function CoworkingSpacePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
               { name: "Managed Office", desc: "Enterprise scale fully managed spaces designed exclusively for large organizations.", link: prefix("/#services-dark"), img: "/workspace-meeting.png" },
               { name: "Dedicated Desk", desc: "A permanent desk reserved for you in a collaborative sharing workspace.", link: prefix("/coimbatore"), img: "/workspace-hotdesk.png" },
               { name: "Virtual Office", desc: "Prestigious corporate addresses for GST registration and mail handling.", link: prefix("/#services-dark"), img: "/workspace-lounge.png" }
             ].map((sol, idx) => (
-              <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
-                  </div>
+              <a href={sol.link} key={idx} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
+                <div className="relative w-full aspect-[16/9] overflow-hidden">
+                  <Image src={prefix(sol.img)} alt={sol.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
-                  <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
+                    {sol.name}
+                  </h4>
+                  <p className="text-slate-500 text-[13px] leading-relaxed line-clamp-2 font-normal flex-1">
+                    {sol.desc}
+                  </p>
+                  <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
+                    Learn More <span>&rarr;</span>
                   </div>
-                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
                 </div>
               </a>
             ))}
@@ -604,13 +616,23 @@ export default function CoworkingSpacePage() {
 
             {bookingSuccess ? (
               <div className="text-center py-12 space-y-4">
-                <div className="w-16 h-16 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center mx-auto">
+                <div className="w-16 h-16 bg-brand-orange/20 text-brand-orange rounded-full flex items-center justify-center mx-auto animate-bounce">
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <h4 className="font-outfit font-medium text-lg text-slate-900">Request Submitted!</h4>
                 <p className="text-slate-500 text-sm max-w-xs mx-auto">Our workspace expert will reach out to you within the next 2 hours to confirm your private suite consultation.</p>
+              </div>
+            ) : bookingError ? (
+              <div className="text-center py-12 space-y-4">
+                <div className="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto animate-pulse">
+                  <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </div>
+                <h4 className="font-outfit font-medium text-lg text-red-600">Submission Failed</h4>
+                <p className="text-slate-500 text-sm max-w-xs mx-auto">There was an error submitting your request. Please try again or contact us directly.</p>
               </div>
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4">

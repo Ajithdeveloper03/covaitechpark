@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -34,23 +35,7 @@ const EVENT_SPACE_AMENITIES = [
   { name: "Breakout Lounges Access", icon: "breakout", desc: "Breakout soft-seating lounges for networking gaps." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Naveen Kumar",
-    role: "Organizer, TechMeetup CBE",
-    quote: "We hosted our developer meetup at Covai Tech Park's event space. The AV setup was top-notch, microphones were crisp, and the catering coordination was excellent."
-  },
-  {
-    name: "Anjali Menon",
-    role: "HR Director, TalentGrid",
-    quote: "The classroom layout was ideal for our 2-day employee onboarding workshop. Having ample parking and on-site tech support made the logistics completely stress-free."
-  },
-  {
-    name: "Suresh G",
-    role: "Founder, Growth Summit",
-    quote: "Highly recommended for corporate events! We booked a half-day slot for our client demo. Modern interiors, great acoustic isolation, and excellent hospitality."
-  }
-];
+
 
 const FAQS = [
   {
@@ -160,14 +145,13 @@ export default function EventSpacePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Corporate Training Hall & Event Space for Rent - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
@@ -178,6 +162,8 @@ export default function EventSpacePage() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -212,6 +198,8 @@ export default function EventSpacePage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -223,7 +211,7 @@ export default function EventSpacePage() {
       {/* ── 1. HERO SECTION ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col justify-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -235,6 +223,8 @@ export default function EventSpacePage() {
             sizes="100vw"
           />
         </div>
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
@@ -277,6 +267,7 @@ export default function EventSpacePage() {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />
+        </div>
         </div>
       </section>
 
@@ -359,31 +350,26 @@ export default function EventSpacePage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Schedule a Layout Consultation for Your Event
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+            Need help with finding the right workspace solution?
           </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Share your seat count and presentation requirements. Our site team will lay out floor designs and help coordinate logistics.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+          
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
-              onClick={() => handleOpenBooking("Event Space Quote")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              onClick={() => handleOpenBooking("Event Space Booking")}
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
-              Consult Venue Manager
+              Talk to our Expert
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -430,7 +416,7 @@ export default function EventSpacePage() {
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange font-outfit font-medium">
+                      <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-outfit font-medium">
                         {t.name.charAt(0)}
                       </div>
                       <div className="text-left">

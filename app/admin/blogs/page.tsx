@@ -32,6 +32,14 @@ interface Blog {
   is_published: boolean;
   published_at: string | null;
   created_at: string;
+  schema?: string;
+  // SEO fields
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
+  og_image?: string;
+  canonical_url?: string;
+  focus_keyword?: string;
 }
 
 const BLOG_CATEGORIES = [
@@ -81,7 +89,7 @@ function BlogListView({
     setToast({ id: Date.now().toString(), type, text });
   }, []);
 
-  useEffect(() => { fetchBlogs(); }, []);
+  
 
   const fetchBlogs = async () => {
     setLoading(true);
@@ -95,6 +103,8 @@ function BlogListView({
     } catch { showToast("error", "✗ Network error — could not reach the server."); }
     finally { setLoading(false); }
   };
+
+  useEffect(() => { fetchBlogs(); }, []);
 
   const handleDelete = async () => {
     if (!deleteId) return;
@@ -287,6 +297,15 @@ function BlogEditorView({
   const [excerpt, setExcerpt] = useState(editingBlog?.excerpt ?? "");
   const [image, setImage] = useState(editingBlog?.image ?? "");
   const [isPublished, setIsPublished] = useState(editingBlog?.is_published ?? false);
+  const [schema, setSchema] = useState(editingBlog?.schema ?? "");
+
+  /* SEO fields */
+  const [metaTitle, setMetaTitle] = useState(editingBlog?.meta_title ?? "");
+  const [metaDescription, setMetaDescription] = useState(editingBlog?.meta_description ?? "");
+  const [metaKeywords, setMetaKeywords] = useState(editingBlog?.meta_keywords ?? "");
+  const [ogImage, setOgImage] = useState(editingBlog?.og_image ?? "");
+  const [canonicalUrl, setCanonicalUrl] = useState(editingBlog?.canonical_url ?? "");
+  const [focusKeyword, setFocusKeyword] = useState(editingBlog?.focus_keyword ?? "");
   const [sections, setSections] = useState<BlogSection[]>(() => {
     let rawContent = editingBlog?.content;
     if (typeof rawContent === "string") {
@@ -324,7 +343,7 @@ function BlogEditorView({
   const [uploadingSectionIdx, setUploadingSectionIdx] = useState<number | null>(null);
 
   /* UI */
-  const [activePanel, setActivePanel] = useState<"content" | "faqs" | "settings">("content");
+  const [activePanel, setActivePanel] = useState<"content" | "faqs" | "seo" | "settings" | "schema">("content");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [toast, setToast] = useState<ToastMessage | null>(null);
@@ -403,6 +422,14 @@ function BlogEditorView({
       faqs: faqs.filter(f => f.question.trim() && f.answer.trim()),
       is_published: isPublished,
       published_at: isPublished ? new Date().toISOString() : null,
+      schema: schema.trim(),
+      // SEO
+      meta_title: metaTitle.trim() || null,
+      meta_description: metaDescription.trim() || null,
+      meta_keywords: metaKeywords.trim() || null,
+      og_image: ogImage.trim() || null,
+      canonical_url: canonicalUrl.trim() || null,
+      focus_keyword: focusKeyword.trim() || null,
     };
 
     try {
@@ -469,13 +496,15 @@ function BlogEditorView({
 
       {/* ── Panel Tabs ── */}
       <div className="bg-white border-b border-slate-100 px-6">
-        <div className="flex items-center gap-0">
+        <div className="flex items-center gap-0 overflow-x-auto">
           {([
             { key: "content", label: `Content (${sections.length} sections, ${totalBullets} bullets)` },
             { key: "faqs", label: `FAQs (${faqs.filter(f => f.question).length})` },
-            { key: "settings", label: "Article Settings" },
+            { key: "seo", label: "🔍 SEO Meta" },
+            { key: "settings", label: "Settings & Cover" },
+            { key: "schema", label: "JSON-LD Schema" },
           ] as const).map(tab => (
-            <button key={tab.key} onClick={() => setActivePanel(tab.key)}
+            <button key={tab.key} onClick={() => setActivePanel(tab.key as "content" | "faqs" | "seo" | "settings" | "schema")}
               className={`px-5 py-3.5 text-sm font-medium border-b-2 transition-all cursor-pointer whitespace-nowrap ${
                 activePanel === tab.key ? "border-[#f37021] text-[#f37021]" : "border-transparent text-slate-400 hover:text-slate-700"
               }`}>{tab.label}</button>
@@ -753,6 +782,16 @@ function BlogEditorView({
                   </div>
                 </div>
 
+                {/* Schema */}
+                <div className="p-6 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">SEO JSON-LD Schema</h4>
+                  <textarea rows={6} placeholder="Paste JSON-LD schema here..." value={schema}
+                    onChange={e => setSchema(e.target.value)}
+                    className="w-full font-mono bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all font-normal leading-relaxed resize-none"
+                  />
+                  <p className="text-[11px] text-slate-400">Add custom Schema markup for SEO. This will be automatically injected into the head of the article page.</p>
+                </div>
+
                 {/* Summary */}
                 <div className="p-6 border border-slate-200 rounded-2xl bg-slate-50 space-y-3">
                   <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Article Summary</h4>
@@ -768,6 +807,231 @@ function BlogEditorView({
                         <p className="text-xs text-slate-400 mt-0.5">{item.label}</p>
                       </div>
                     ))}
+                  </div>
+                </div>
+              </div>
+            )}
+            {/* SEO META PANEL */}
+            {activePanel === "seo" && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-sm font-medium text-slate-700 mb-1">SEO Meta Settings</h3>
+                  <p className="text-xs text-slate-400">Control how this article appears in Google search results and social media shares.</p>
+                </div>
+
+                {/* Google Preview */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+                    <svg className="w-3.5 h-3.5 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                    Google Search Preview
+                  </h4>
+                  <div className="bg-white border border-slate-100 rounded-xl p-4 space-y-1">
+                    <p className="text-[13px] text-[#1a0dab] font-medium line-clamp-1">
+                      {metaTitle || title || "Your article title will appear here"}
+                    </p>
+                    <p className="text-[11px] text-[#006621]">
+                      covaitechpark.com/blog/{editingBlog?.slug || "article-slug"}
+                    </p>
+                    <p className="text-[12px] text-[#545454] line-clamp-2 leading-snug">
+                      {metaDescription || excerpt || "Your meta description will appear here. Write a compelling 120-160 character summary."}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Focus Keyword */}
+                <div className="p-5 border border-[#f37021]/20 rounded-2xl bg-orange-50/30 space-y-3">
+                  <h4 className="text-xs font-medium text-[#f37021] uppercase tracking-widest">🎯 Focus Keyword</h4>
+                  <input
+                    type="text"
+                    placeholder="e.g. coworking space coimbatore"
+                    value={focusKeyword}
+                    onChange={e => setFocusKeyword(e.target.value)}
+                    maxLength={100}
+                    className="w-full bg-white border border-[#f37021]/20 rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
+                  />
+                  <p className="text-[11px] text-slate-400">The primary keyword this article should rank for. Use it naturally in the title and first paragraph.</p>
+                </div>
+
+                {/* Meta Title */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Meta Title</h4>
+                    <span className={`text-xs font-mono font-medium px-2 py-0.5 rounded-lg ${
+                      metaTitle.length > 60 ? "bg-rose-50 text-rose-500" :
+                      metaTitle.length > 50 ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"
+                    }`}>{metaTitle.length}/70</span>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder={title || "Custom meta title (leave blank to use article title)"}
+                    value={metaTitle}
+                    onChange={e => setMetaTitle(e.target.value.slice(0, 70))}
+                    maxLength={70}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
+                  />
+                  <div className="flex items-center justify-between">
+                    <p className="text-[11px] text-slate-400">Ideal length: 50–60 chars. Leave blank to auto-use article title.</p>
+                    <div className="h-1.5 w-32 bg-slate-100 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full transition-all ${
+                        metaTitle.length > 60 ? "bg-rose-400" : metaTitle.length > 50 ? "bg-amber-400" : "bg-emerald-400"
+                      }`} style={{ width: `${Math.min((metaTitle.length / 70) * 100, 100)}%` }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Meta Description */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Meta Description</h4>
+                    <span className={`text-xs font-mono font-medium px-2 py-0.5 rounded-lg ${
+                      metaDescription.length > 155 ? "bg-rose-50 text-rose-500" :
+                      metaDescription.length > 120 ? "bg-amber-50 text-amber-600" : "bg-emerald-50 text-emerald-600"
+                    }`}>{metaDescription.length}/160</span>
+                  </div>
+                  <textarea
+                    rows={3}
+                    placeholder={excerpt || "Write a compelling 120–160 character summary for search results..."}
+                    value={metaDescription}
+                    onChange={e => setMetaDescription(e.target.value.slice(0, 160))}
+                    maxLength={160}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all resize-none"
+                  />
+                  <div className="flex items-center justify-between">
+                    <p className="text-[11px] text-slate-400">Ideal: 120–155 chars. Leave blank to auto-use excerpt.</p>
+                    <div className="h-1.5 w-32 bg-slate-100 rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full transition-all ${
+                        metaDescription.length > 155 ? "bg-rose-400" : metaDescription.length > 120 ? "bg-amber-400" : "bg-emerald-400"
+                      }`} style={{ width: `${Math.min((metaDescription.length / 160) * 100, 100)}%` }} />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Meta Keywords */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Meta Keywords</h4>
+                  <input
+                    type="text"
+                    placeholder="coworking coimbatore, office space, managed office"
+                    value={metaKeywords}
+                    onChange={e => setMetaKeywords(e.target.value)}
+                    maxLength={255}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
+                  />
+                  <p className="text-[11px] text-slate-400">Comma-separated keywords. Less critical for modern SEO but helpful for content strategy.</p>
+                  {metaKeywords && (
+                    <div className="flex flex-wrap gap-1.5 mt-1">
+                      {metaKeywords.split(",").map((kw, i) => kw.trim() && (
+                        <span key={i} className="px-2.5 py-1 bg-[#f37021]/8 text-[#f37021] text-xs font-medium rounded-lg">{kw.trim()}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Open Graph Image */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Open Graph Image URL</h4>
+                  <input
+                    type="url"
+                    placeholder="https://covaitechpark.com/images/blog-og.jpg"
+                    value={ogImage}
+                    onChange={e => setOgImage(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
+                  />
+                  <p className="text-[11px] text-slate-400">Used when sharing on Facebook, LinkedIn, WhatsApp. Recommended size: 1200×630px. Leave blank to use cover image.</p>
+                  {ogImage && (
+                    <div className="mt-2">
+                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1.5">Preview</p>
+                      <div className="aspect-[1200/630] w-full max-w-xs rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
+                        <img src={ogImage} alt="OG preview" className="w-full h-full object-cover" onError={e => (e.currentTarget.style.display = 'none')} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Canonical URL */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Canonical URL</h4>
+                  <input
+                    type="url"
+                    placeholder="https://covaitechpark.com/blog/article-slug (leave blank for auto)"
+                    value={canonicalUrl}
+                    onChange={e => setCanonicalUrl(e.target.value)}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
+                  />
+                  <p className="text-[11px] text-slate-400">Set only if this content is duplicated elsewhere. Prevents duplicate-content penalties. Leave blank in most cases.</p>
+                </div>
+
+                {/* SEO Score Checklist */}
+                <div className="p-5 border border-slate-200 rounded-2xl bg-slate-50 space-y-3">
+                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">SEO Checklist</h4>
+                  <div className="space-y-2">
+                    {[
+                      { label: "Focus keyword set", ok: focusKeyword.trim().length > 0 },
+                      { label: "Meta title filled (50–60 chars)", ok: metaTitle.length >= 20 && metaTitle.length <= 70 },
+                      { label: "Meta description filled (120–155 chars)", ok: metaDescription.length >= 80 && metaDescription.length <= 160 },
+                      { label: "Meta keywords added", ok: metaKeywords.trim().length > 0 },
+                      { label: "Cover image uploaded", ok: image.trim().length > 0 },
+                      { label: "Article has 3+ content sections", ok: sections.filter(s => s.heading || s.text).length >= 3 },
+                      { label: "FAQs added (boosts featured snippets)", ok: faqs.filter(f => f.question.trim()).length > 0 },
+                      { label: "Article published", ok: isPublished },
+                    ].map(item => (
+                      <div key={item.label} className="flex items-center gap-2.5">
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+                          item.ok ? "bg-emerald-500" : "bg-slate-200"
+                        }`}>
+                          {item.ok && <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>}
+                        </div>
+                        <span className={`text-xs ${item.ok ? "text-emerald-700 font-medium" : "text-slate-400"}`}>{item.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-slate-200">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[11px] text-slate-500 font-medium">SEO Score</span>
+                      <span className="text-sm font-bold text-[#f37021]">
+                        {[focusKeyword.trim().length > 0, metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, metaKeywords.trim().length > 0, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length}/8
+                      </span>
+                    </div>
+                    <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full bg-gradient-to-r from-[#f37021] to-emerald-500 transition-all duration-500"
+                        style={{ width: `${([focusKeyword.trim().length > 0, metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, metaKeywords.trim().length > 0, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length / 8) * 100}%` }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activePanel === "schema" && (
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-sm font-medium text-slate-700 mb-1">SEO JSON-LD Schema</h3>
+                  <p className="text-xs text-slate-400">Paste your JSON-LD structured data markup below. It will be automatically injected into the &lt;head&gt; of this article&apos;s page for SEO.</p>
+                </div>
+                <div className="p-6 border border-[#f37021]/30 rounded-2xl bg-orange-50/30 space-y-3">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">🔍</span>
+                    <h4 className="text-xs font-medium text-slate-700 uppercase tracking-widest">JSON-LD Structured Data</h4>
+                  </div>
+                  <textarea
+                    rows={16}
+                    placeholder={`{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Your article title",
+  "author": {
+    "@type": "Organization",
+    "name": "Covai Tech Park"
+  }
+}`}
+                    value={schema}
+                    onChange={e => setSchema(e.target.value)}
+                    className="w-full font-mono bg-white border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-700 placeholder-slate-300 focus:outline-none focus:border-[#f37021]/50 transition-all leading-relaxed resize-none"
+                  />
+                  <div className="flex items-start gap-2 text-[11px] text-slate-400 bg-white rounded-lg p-3 border border-slate-100">
+                    <span className="text-[#f37021] mt-0.5">ℹ</span>
+                    <span>Use <strong className="text-slate-600">Article</strong>, <strong className="text-slate-600">FAQPage</strong>, or <strong className="text-slate-600">BlogPosting</strong> schema types. Must be valid JSON. Leave blank to skip.</span>
                   </div>
                 </div>
               </div>

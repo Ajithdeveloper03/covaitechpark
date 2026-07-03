@@ -66,9 +66,7 @@ export default function BlogArchivePage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [articles, setArticles] = useState(ARTICLES);
 
-  useEffect(() => {
-    document.title = "Insights & Workspace Advice | Blog - CovaiTech Park";
-  }, []);
+  
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -126,7 +124,7 @@ export default function BlogArchivePage() {
 
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col font-sans relative select-none antialiased">
-      <Header ctaText="Write Message" />
+      <Header />
 
                   {/* ── LIGHT CLEAN HERO WITH BG IMAGE ── */}
       <section id="hero" className="relative min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh] flex flex-col justify-end items-center pt-28 sm:pt-36 md:pt-40 pb-10 sm:pb-16 overflow-hidden bg-slate-900 border-b border-slate-800">
@@ -135,7 +133,7 @@ export default function BlogArchivePage() {
           <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
         </div>
         
-        <div className="relative z-10 w-full max-w-5xl mx-auto px-6 text-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Eyebrow */}
           <div className="flex justify-center items-center gap-3 mb-6">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-[10px] font-bold tracking-[0.2em] uppercase">
@@ -150,8 +148,16 @@ export default function BlogArchivePage() {
             Explore modern office design trends, startup strategies, remote infrastructure advice, and workspace management expertise from our team.
           </p>
 
+
+        </div>
+      </section>
+
+      {/* ── ARTICLES ── */}
+      <section id="articles" className="py-12 sm:py-16 md:py-20 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 xl:px-16 space-y-10 sm:space-y-16">
+
           {/* Category filter pills */}
-          <div className="flex items-center justify-center gap-3 mt-12 flex-wrap">
+          <div className="flex items-center justify-center gap-3 flex-wrap">
             {CATEGORIES.map(cat => (
               <button
                 key={cat}
@@ -159,19 +165,13 @@ export default function BlogArchivePage() {
                 className={`px-6 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest border transition-all duration-300 ${
                   activeCategory === cat
                     ? "bg-[#f37021] border-[#f37021] text-white shadow-lg shadow-[#f37021]/20"
-                    : "bg-white/10 border-white/20 text-white hover:border-white hover:bg-white/20"
+                    : "bg-white border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50"
                 }`}
               >
                 {cat}
               </button>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── ARTICLES ── */}
-      <section id="articles" className="py-12 sm:py-16 md:py-20 w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 xl:px-16 space-y-10 sm:space-y-16">
 
           {filtered.length === 0 && (
             <p className="text-slate-400 text-center py-24 text-sm">No articles in this category yet.</p>

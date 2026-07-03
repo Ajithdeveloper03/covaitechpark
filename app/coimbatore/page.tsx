@@ -60,9 +60,7 @@ const AmenityIcon = ({ name, className }: { name: string; className?: string }) 
 
 export default function CoimbatorePage() {
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Book a Shared Office For Rent in Coimbatore | Coworking Space";
-  }, []);
+  
 
   // Booking Modal States
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -73,6 +71,7 @@ export default function CoimbatorePage() {
   const [bookingPhoneCode, setBookingPhoneCode] = useState("+91");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
   const handleOpenBooking = (plan: string) => {
@@ -83,6 +82,8 @@ export default function CoimbatorePage() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -117,6 +118,8 @@ export default function CoimbatorePage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -143,7 +146,7 @@ export default function CoimbatorePage() {
         </div>
 
         {/* Centered Hero Content */}
-        <div className="relative z-20 flex flex-col items-center text-center px-4 max-w-8xl mt-8 mx-auto w-full">
+        <div className="relative z-20 flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 max-w-7xl mt-8 mx-auto w-full">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9853] leading-[1.05] mb-4">
             Covai Tech Park Locations
           </h1>
@@ -280,59 +283,12 @@ export default function CoimbatorePage() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto">
                   <button onClick={() => handleOpenBooking("Nehru Nagar Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.app.goo.gl/T4HnE2Wn8nSjLptN8" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                  <a href="https://maps.app.goo.gl/MiaMTyTwTWYpsQot9" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
                 </div>
               </div>
             </div>
 
-            {/* Listing 2 - Kalapatti */}
-            <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
-              <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
-                <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/hero2.jpg")} alt="Covai Tech Park, Kalapatti" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
-                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
-                    EAST ZONE
-                  </div>
-                </div>
-              </div>
-              <div className="p-6 md:p-8 flex flex-col flex-1 relative z-10 bg-white">
-                <h3 className="text-xl md:text-2xl font-outfit font-bold text-brand-navy mb-2 group-hover:text-brand-orange transition-colors duration-300">Covai Tech Park, Kalapatti</h3>
-                <p className="text-slate-500 font-medium text-xs mb-6 flex items-start gap-1.5">
-                  <svg className="w-4 h-4 shrink-0 text-brand-orange mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="line-clamp-2 leading-relaxed">1A1, Vilankuruchi Road, East Zone, Coimbatore-641048</span>
-                </p>
-                <div className="space-y-3 mb-8 flex-1">
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
-                      <span className="text-brand-orange text-[10px]">✓</span>
-                    </div>
-                    <p className="text-slate-600 text-[13px] leading-relaxed">Prime location in Kalapatti with easy access to Avinashi Road and major IT and industrial hubs.</p>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
-                      <span className="text-brand-orange text-[10px]">✓</span>
-                    </div>
-                    <p className="text-slate-600 text-[13px] leading-relaxed">Well-connected to Coimbatore International Airport, educational institutions, hotels, and healthcare facilities.</p>
-                  </div>
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
-                      <span className="text-brand-orange text-[10px]">✓</span>
-                    </div>
-                    <p className="text-slate-600 text-[13px] leading-relaxed">Surrounded by essential amenities, offering a convenient and business-friendly environment.</p>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                  <button onClick={() => handleOpenBooking("Kalapatti Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
-                </div>
-              </div>
-            </div>
-
-            {/* Listing 3 - Saravanampatti */}
+            {/* Listing 2 - Saravanampatti */}
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
@@ -374,7 +330,54 @@ export default function CoimbatorePage() {
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto">
                   <button onClick={() => handleOpenBooking("Saravanampatti Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                  <a href="https://maps.app.goo.gl/rVBpynqALh8ShqYQA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                </div>
+              </div>
+            </div>
+
+            {/* Listing 3 - Broadview */}
+            <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
+              <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
+                <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
+                  <Image src={prefix("/hero2.jpg")} alt="Covai Tech Park, Broadview" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                    EAST ZONE
+                  </div>
+                </div>
+              </div>
+              <div className="p-6 md:p-8 flex flex-col flex-1 relative z-10 bg-white">
+                <h3 className="text-xl md:text-2xl font-outfit font-bold text-brand-navy mb-2 group-hover:text-brand-orange transition-colors duration-300">Covai Tech Park, Broadview</h3>
+                <p className="text-slate-500 font-medium text-xs mb-6 flex items-start gap-1.5">
+                  <svg className="w-4 h-4 shrink-0 text-brand-orange mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="line-clamp-2 leading-relaxed">1A1, Vilankuruchi Road, East Zone, Coimbatore-641048</span>
+                </p>
+                <div className="space-y-3 mb-8 flex-1">
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
+                      <span className="text-brand-orange text-[10px]">✓</span>
+                    </div>
+                    <p className="text-slate-600 text-[13px] leading-relaxed">Prime location in Broadview with easy access to Avinashi Road and major IT and industrial hubs.</p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
+                      <span className="text-brand-orange text-[10px]">✓</span>
+                    </div>
+                    <p className="text-slate-600 text-[13px] leading-relaxed">Well-connected to Coimbatore International Airport, educational institutions, hotels, and healthcare facilities.</p>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-5 h-5 rounded-full bg-brand-orange/10 flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-brand-orange/20 transition-colors">
+                      <span className="text-brand-orange text-[10px]">✓</span>
+                    </div>
+                    <p className="text-slate-600 text-[13px] leading-relaxed">Surrounded by essential amenities, offering a convenient and business-friendly environment.</p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                  <button onClick={() => handleOpenBooking("Broadview Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
+                  <a href="https://maps.app.goo.gl/kjPJpoRqvqdS6axeA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
                 </div>
               </div>
             </div>
@@ -385,90 +388,50 @@ export default function CoimbatorePage() {
 
 
 {/* ── 4. SHORTER CTA SECTION ── */}
-      <section className="py-16 bg-brand-navy text-white text-center">
-        <h2 className="text-3xl font-outfit font-bold mb-4">Ready to upgrade your workspace?</h2>
-        <p className="text-slate-400 mb-8 max-w-xl mx-auto">Join hundreds of growing businesses across our network.</p>
-        <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg">Book a Tour Today</button>
+      <section className="relative py-16 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black text-white text-center overflow-hidden">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-2xl sm:text-3xl font-outfit font-bold mb-0 md:w-1/2">Need help with finding the right workspace solution?</h2>
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
+            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
+          </div>
+        </div>
       </section>
 
 
-      {/* ── 3. EXPLORE SERVICES ── */}
-      <section id="explore-services" className="py-12 sm:py-24 bg-slate-100 w-full relative overflow-hidden border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center space-y-4 max-w-2xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-outfit font-bold tracking-tight text-brand-navy leading-none">
-              Explore Our Workspace Services
-            </h2>
-            <p className="text-slate-500 text-sm sm:text-base font-normal">
-              Tailored solutions for freelancers, startups, and enterprise teams.
-            </p>
+      {/* ── 3. EXPLORE OTHER LOCATIONS ── */}
+      <section className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+              ADDITIONAL LOCATIONS
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">Need help with finding the right workspace solution?</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            <a href={prefix("/coworking-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=400&q=80" alt="Coworking Space" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+          <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
+            {[
+              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/coimbatore.png" }
+            ].map((sol, idx) => (
+              <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
+                <div className="relative w-full aspect-[4/3] overflow-hidden">
+                  <Image src={sol.img} alt={sol.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Coworking Space</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Flexible, dynamic shared spaces perfect for networking and productivity.</p>
-              </div>
-            </a>
-
-            <a href={prefix("/private-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/386150/pexels-photo-386150.jpeg" alt="Private Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
+                <div className="p-5 flex flex-col gap-2 flex-1">
+                  <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
+                    {sol.name}
+                  </h4>
+                  
+                  <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
+                    Learn More <span>&rarr;</span>
+                  </div>
                 </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Private Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Secure, dedicated cabins designed for teams of all sizes.</p>
-              </div>
-            </a>
-
-            <a href={prefix("/managed-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=400&q=80" alt="Managed Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Managed Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">End-to-end custom workspace solutions built for enterprise needs.</p>
-              </div>
-            </a>
-
-            <a href={prefix("/meeting-rooms")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/20101490/pexels-photo-20101490.jpeg" alt="Meeting Rooms" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Meeting Rooms</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">High-tech conference spaces for interviews, pitches, and training.</p>
-              </div>
-            </a>
-
-            <a href={prefix("/virtual-office-space")} className="group bg-white rounded-[1.5rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.04)] hover:shadow-xl transition-all duration-300 flex flex-col border border-slate-100 hover:-translate-y-1">
-              <div className="relative h-40 w-full overflow-hidden p-2 pb-0">
-                <div className="relative w-full h-full rounded-t-xl rounded-b-sm overflow-hidden shadow-sm">
-                  <Image src="https://images.pexels.com/photos/36713181/pexels-photo-36713181.jpeg" alt="Virtual Office" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-brand-navy/5 group-hover:bg-transparent transition-colors duration-300" />
-                </div>
-              </div>
-              <div className="p-5 flex flex-col flex-1 text-center">
-                <h4 className="font-outfit font-bold text-lg text-brand-navy group-hover:text-brand-orange transition-colors mb-2">Virtual Office</h4>
-                <p className="text-slate-500 text-xs leading-relaxed line-clamp-2">Professional business address and mail handling services.</p>
-              </div>
-            </a>
+              </a>
+            ))}
           </div>
         </div>
       </section>

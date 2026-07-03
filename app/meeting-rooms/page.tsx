@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -34,44 +35,28 @@ const MEETING_ROOM_AMENITIES = [
   { name: "Breakout Lounges Access", icon: "breakout", desc: "Soft seating breakout zones for post-meeting chats." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Karthik Raja",
-    role: "VP of Product, CloudTech",
-    quote: "We hosted our quarterly board review in the executive boardroom at Covai Tech Park. The video conferencing equipment worked flawlessly and the support team was highly responsive."
-  },
-  {
-    name: "Divya Bharathi",
-    role: "Regional HR Manager",
-    quote: "Perfect for recruiting drives! We booked the 6-seater interview rooms for three days. Great reception presence, professional ambiance, and excellent coffee service."
-  },
-  {
-    name: "Mohamed Riaz",
-    role: "Independent Consultant",
-    quote: "Very easy to book hourly. The pricing is completely transparent. Perfect location to meet clients and pitch proposals with smart displays and whiteboard setups."
-  }
-];
+
 
 const FAQS = [
   {
-    question: "What types of meeting rooms are available?",
-    answer: "We offer professional corporate spaces including 4-seater discussion rooms, 6-seater interview suites, and premium 12 to 14-seater boardrooms and conference layouts."
+    question: "HOW CAN I BOOK A MEETING ROOM IN COIMBATORE?",
+    answer: "You can book a meeting room at Covai Tech Park by contacting our team through phone, email, or the enquiry form on our website. We offer flexible booking options based on availability."
   },
   {
-    question: "How do I book a meeting room?",
-    answer: "You can book easily by calling our administration desk or sharing your request details through our website. Members can book instantly using their monthly complimentary credits."
+    question: "WHAT FACILITIES ARE INCLUDED IN THE MEETING ROOMS?",
+    answer: "Our meeting rooms are equipped with high-speed Wi-Fi, TV, whiteboards, air conditioning, comfortable seating, and power backup to ensure productive meetings."
   },
   {
-    question: "Is video conferencing equipment included?",
-    answer: "Yes, our boardrooms and conference rooms include HD cameras, smart TV screens, omni-directional conference microphones, and high-speed SLA-backed internet at no extra cost."
+    question: "CAN NON-MEMBERS BOOK A MEETING ROOM?",
+    answer: "Yes. Our meeting rooms are available for both members and non-members, subject to availability. Advance booking is recommended to secure your preferred time slot."
   },
   {
-    question: "Can we order refreshments?",
-    answer: "Yes, we can serve premium tea, coffee, and pure drinking water directly to your guests during the session. Catering options for working lunches are also available on request."
+    question: "WHAT ARE THE MEETING ROOM RENTAL CHARGES?",
+    answer: "Meeting room charges vary depending on the room capacity, booking duration, and specific requirements. Contact our team for the latest pricing and availability."
   },
   {
-    question: "What is the cancellation policy?",
-    answer: "We offer highly flexible scheduling. Cancellations or modifications made up to 24 hours prior to the slot get full credit adjustments."
+    question: "WHAT ARE THE OPERATING HOURS FOR THE MEETING ROOMS?",
+    answer: "Meeting rooms are available during business hours, with extended or after-hours access available upon prior request and approval, depending on availability."
   }
 ];
 
@@ -160,14 +145,13 @@ export default function MeetingRoomsPage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Executive Boardrooms & Meeting Rooms for Rent - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
@@ -178,6 +162,8 @@ export default function MeetingRoomsPage() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -212,6 +198,8 @@ export default function MeetingRoomsPage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -223,7 +211,7 @@ export default function MeetingRoomsPage() {
       {/* ── 1. HERO SECTION ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col justify-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -235,6 +223,8 @@ export default function MeetingRoomsPage() {
             sizes="100vw"
           />
         </div>
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
@@ -277,6 +267,7 @@ export default function MeetingRoomsPage() {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />
+        </div>
         </div>
       </section>
 
@@ -359,31 +350,27 @@ export default function MeetingRoomsPage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Reserve Your Meeting Room Session
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+            Need help with finding the right workspace solution?
           </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Choose your branch, date, room capacity, and duration. Secure your slot at the best price with zero booking hassles.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+          
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
-              onClick={() => handleOpenBooking("Reserve Room Booking")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              onClick={() => handleOpenBooking("Meeting Room Booking")}
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
-              Book Hourly Slot
+              Talk to our Expert
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -430,7 +417,7 @@ export default function MeetingRoomsPage() {
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange font-outfit font-medium">
+                      <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-outfit font-medium">
                         {t.name.charAt(0)}
                       </div>
                       <div className="text-left">

@@ -73,7 +73,7 @@ function GalleryListView({
     setToast({ id: Date.now().toString(), type, text });
   }, []);
 
-  useEffect(() => { fetchGallery(); }, []);
+  
 
   const fetchGallery = async () => {
     setLoading(true);
@@ -84,6 +84,8 @@ function GalleryListView({
     } catch { showToast("error", "✗ Network error — could not reach server."); }
     finally { setLoading(false); }
   };
+
+  useEffect(() => { fetchGallery(); }, []);
 
   const handleDelete = async () => {
     if (!deleteId) return;

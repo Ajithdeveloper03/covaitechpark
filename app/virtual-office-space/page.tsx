@@ -6,72 +6,53 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const VIRTUAL_OFFICE_DETAILS = [
-  { title: "GST & Business Registry", desc: "Obtain dynamic company registration and GST registration in a prime IT park location with all documentation.", icon: "shield", image: "/workspace-cabin.png" },
-  { title: "Prestigious Address", desc: "Use our premium corporate addresses on your business cards, website, letterheads, and official documents.", icon: "zap", image: "/workspace-lounge.png" },
-  { title: "Mail Handling & Scanning", desc: "Daily mail and courier receipt, scanning notifications, and secure forwarding directly to your remote location.", icon: "heart", image: "/workspace-meeting.png" },
-  { title: "Meeting Room Credits", icon: "office", desc: "Complimentary monthly credits to use our premium boardrooms and conference slots for client reviews.", image: "/workspace-hotdesk.png" },
-  { title: "On-Demand Hot Desking", desc: "Book physically workspace seating and professional desks on-demand when traveling or visiting headquarters.", icon: "scale", image: "/workspace-event.png" },
-  { title: "Dedicated Call Routing", desc: "Add a local phone line with custom professional reception greeting and automated call-forwarding.", icon: "adjust", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/workspace-cabin.png" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "heart", image: "/workspace-lounge.png" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/workspace-meeting.png" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "office", image: "/workspace-hotdesk.png" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "shield", image: "/workspace-event.png" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/workspace-cafe.png" }
 ];
 
 const VIRTUAL_OFFICE_AMENITIES = [
-  { name: "GST Registration Support", icon: "shield", desc: "All legal papers, NOC, utility bills, and agreements." },
-  { name: "Mail Scanning & Forward", icon: "reception", desc: "Immediate scanning notifications and mail sorting." },
-  { name: "Prime Hub Addresses", icon: "lock", desc: "Addresses in Nehru Nagar East (CBE) & Thillai Nagar (Trichy)." },
-  { name: "Complimentary Boardroom", icon: "office", desc: "Book corporate meeting rooms on-demand." },
-  { name: "High-Speed SLA WiFi", icon: "wifi", desc: "High-speed SLA-backed internet access during onsite visits." },
-  { name: "Breakout Lounges", icon: "breakout", desc: "Access premium breakout lounges for casual client meets." },
-  { name: "Uninterrupted Backup Power", icon: "generator", desc: "100% generator power backup during onsite visits." },
-  { name: "In-house Gym Studio", icon: "gym", desc: "Employee fitness studio access during physical stays." },
-  { name: "RO Pure Drinking Water", icon: "water", desc: "Purified RO water dispenser availability across corridors." },
-  { name: "Cafeteria Refreshments", icon: "food", desc: "Premium tea, coffee, and cafeteria access for members." },
-  { name: "Smart Key Access Control", icon: "security", desc: "Authorized keycard system security for onsite bookings." },
-  { name: "Housekeeping Support", icon: "cleaning", desc: "Clean and sanitised workspaces for drop-in desks." }
+  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
+  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
+  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
+  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
+  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
+  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
+  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "breakout", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
+  { name: "Break-Out Area", icon: "water", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Arun Prasath",
-    role: "Co-Founder, DevStudio",
-    quote: "Registering our technology firm for GST through Covai Tech Park's Virtual Office plan was seamless. The document package was verified immediately by authorities."
-  },
-  {
-    name: "Meera Nair",
-    role: "Consultant, HR Link",
-    quote: "An incredible service for remote professionals. Having a premium commercial address in Coimbatore instantly improved client trust in our services."
-  },
-  {
-    name: "Siddharth Sen",
-    role: "Proprietor, Apex Solutions",
-    quote: "Very cost-effective. We pay a fraction of standard office leases but enjoy mail handling, call routing, and executive boardroom bookings. Outstanding value!"
-  }
-];
+
 
 const FAQS = [
   {
-    question: "What is a Virtual Office?",
-    answer: "A virtual office gives your business a professional corporate address and mail handling services without the high cost of leasing a physical office. It is ideal for remote startups, freelancers, and businesses expanding into new cities."
+    question: "What are the documents required to book a virtual office in Coimbatore?",
+    answer: "The documents required to get a virtual office space at Covai Tech Park in Coimbatore include the authorised person’s KYC (PAN, Aadhaar, photo, mobile number, email address) and company documents (if available) such as registration certificate, TAN, PAN, email address and registered phone number."
   },
   {
-    question: "Can I use this address for GST registration?",
-    answer: "Yes, our Virtual Office for GST plan provides all necessary documents including the Lease Agreement, No Objection Certificate (NOC), and Electricity Bill required for official government registry."
+    question: "How will the mails and packages handled?",
+    answer: "The receptionist at Covai Tech Park will receive your mail and packages and keep them safely secured at the facility for you to collect later."
   },
   {
-    question: "How is our incoming mail handled?",
-    answer: "Our front desk team receives all your mail and couriers. We notify you via email/WhatsApp, and can scan the contents or forward the packages to your physical home address on request."
+    question: "Can the mail and packages received at Covai Tech Park be forwarded to another address?",
+    answer: "Yes, Mail and packages received at your virtual office address by Covai Tech Park can be forwarded to your preferred address. However, mail forwarding charges will apply as per the mailing service provider."
   },
   {
-    question: "Do I get physical space to work?",
-    answer: "Yes, our plans include complimentary credits for meeting rooms and shared coworking hot desks, allowing you to run physical meetings or work from the campus when needed."
-  },
-  {
-    question: "What is the minimum tenure for registration?",
-    answer: "We offer flexible terms. Standard business registration plans are available on 1-year terms to align with legal compliance and company registry standards."
+    question: "What are the benefits of choosing a virtual office in Coimbatore?",
+    answer: "Establish your business presence at prime location in coimbatore. Get a mailing address for your business communication. Access to ready to use office space. Center to host meeting, training and team gathering. Authentic address for company registration and GST registration."
   }
 ];
 
@@ -146,6 +127,7 @@ export default function VirtualOfficePage() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    // eslint-disable-next-line
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
     onSelect();
@@ -160,24 +142,27 @@ export default function VirtualOfficePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Virtual Office Address for GST & Company Registration - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
     setBookingLookingFor(plan);
     setBookingOpen(true);
     setBookingSuccess(false);
+    setBookingError(false);
   };
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -199,6 +184,7 @@ export default function VirtualOfficePage() {
 
         if (response.ok) {
           setBookingSuccess(true);
+          setBookingError(false);
           setTimeout(() => {
             setBookingFirstName("");
             setBookingLastName("");
@@ -209,9 +195,18 @@ export default function VirtualOfficePage() {
             setBookingOpen(false);
             setBookingSuccess(false);
           }, 3000);
+        } else {
+          setBookingError(true);
+          setTimeout(() => {
+            setBookingError(false);
+          }, 4000);
         }
       } catch (error) {
         console.error("Booking form error", error);
+        setBookingError(true);
+        setTimeout(() => {
+          setBookingError(false);
+        }, 4000);
       }
     }
   };
@@ -221,9 +216,9 @@ export default function VirtualOfficePage() {
       <Header />
 
       {/* ── 1. HERO SECTION ── */}
-      <section 
-        id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+      <section
+        id="hero"
+        className="relative min-h-[100vh] flex flex-col justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -235,54 +230,57 @@ export default function VirtualOfficePage() {
             sizes="100vw"
           />
         </div>
-        <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-            Statutory Company Addresses
-          </span>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
-            Premium Virtual <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
-              Office Plans
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+          <div className="lg:w-1/2 text-left flex flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+              Premium Business Address &middot; Coimbatore
             </span>
-          </h1>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Get a premium office address for your business at prime location in Coimbatore. Address that is suitable for company and GST registration purposes, as well as for mailing and other uses. With Covai Tech Park virtual office solution you can register an authentic office address for your professional and business needs. By choosing a virtual office you get to save huge upfront cost that is incurred when setting up a physical office space. Virtual office service provided by Covai Tech Park can be leveraged for company registration and GST registration purposes. The virtual office package at Covai Tech Park includes the mailing address service feature, which allows you to use the virtual office address for receiving business mails and packages. The received items will be secured at the facility for you to collect later.
-          </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+              Virtual Office Space in <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
+                Coimbatore
+              </span>
+            </h1>
 
-          <div className="flex flex-wrap gap-4 pt-2">
-            <button
-              onClick={() => handleOpenBooking("Virtual Office Quote")}
-              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
-            >
-              Get Started &rarr;
-            </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-            >
-              Explore Features
-            </a>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+              Premium office address suitable for company and GST registration purposes, mailing and other uses in coimbatore.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <button
+                onClick={() => handleOpenBooking("Virtual Office Quote")}
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+              >
+                Get Started &rarr;
+              </button>
+              <a
+                href="#features"
+                className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
+              >
+                Explore Features
+              </a>
+            </div>
           </div>
-        </div>
 
-        <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
-          <Image
-            src={prefix("/service3.png")}
-            alt="Virtual Office Address Support"
-            fill
-            priority
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
-          />
+          <div className="relative lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
+            <Image
+              src={prefix("/service3.png")}
+              alt="Virtual Office Address Support"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
         </div>
       </section>
 
       {/* Floating details bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full section-x">
-        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-4">
+      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-4">
           {[
             { label: "Purpose", val: "GST & Registry" },
             { label: "Duration", val: "1 Year Contract" },
@@ -299,35 +297,150 @@ export default function VirtualOfficePage() {
         </div>
       </section>
 
-      {/* ── 2. FEATURES & BENEFITS ── */}
-      <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
-        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
-          <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
-              VIRTUAL OFFICE CAPABILITIES
+      {/* ── 2. VIRTUAL OFFICE PLANS ── */}
+      <section id="plans" className="py-16 sm:py-24 bg-white section-x w-full relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-block text-[10px] font-bold text-brand-orange uppercase tracking-[0.2em] bg-brand-orange/10 px-4 py-2 rounded-full mb-4">
+              Pricing Plans
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
-              Establish Credibility &amp; Professionalism
+              Virtual Office Plans
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
-            {VIRTUAL_OFFICE_DETAILS.map((feat, idx) => (
-              <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Basic Plan */}
+            <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-lg hover:shadow-xl hover:border-brand-orange/50 transition-all duration-500 relative flex flex-col group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-orange/5 to-transparent rounded-bl-3xl pointer-events-none" />
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-brand-navy/5 text-brand-navy flex items-center justify-center shrink-0">
+                  <IconHelper name="office" className="w-7 h-7" />
                 </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4.5 h-4.5" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
-                  <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
+                <div>
+                  <h3 className="text-2xl font-outfit font-medium text-slate-900">Virtual Office Basic</h3>
+                  <p className="text-brand-orange font-medium mt-1">INR 1000 per month</p>
                 </div>
               </div>
-            ))}
+              <ul className="space-y-4 mb-8 flex-grow">
+                {[
+                  "Premium Office Address for Business Communication",
+                  "Mail Handling Service",
+                  "Booking and Renewal at a Phone Call"
+                ].map((feat, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-600 font-normal">
+                    <span className="w-5 h-5 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleOpenBooking("Virtual Office Basic")}
+                className="w-full py-4 bg-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300"
+              >
+                Choose Basic
+              </button>
+            </div>
+
+            {/* Premium Plan */}
+            <div className="bg-brand-navy border border-brand-navy rounded-3xl p-8 sm:p-10 shadow-2xl relative flex flex-col transform md:-translate-y-4 group overflow-hidden">
+              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 pointer-events-none" />
+              <div className="absolute top-4 right-4 bg-brand-orange text-white text-[10px] uppercase tracking-widest font-bold px-3 py-1 rounded-full">
+                Most Popular
+              </div>
+              <div className="flex items-center gap-4 mb-6 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange text-white flex items-center justify-center shrink-0 shadow-lg shadow-brand-orange/20">
+                  <IconHelper name="shield" className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-outfit font-medium text-white">Virtual Office Premium</h3>
+                  <p className="text-brand-orange font-medium mt-1">INR 3500 per month <span className="text-white/60 text-xs">(Billed Annually)</span></p>
+                </div>
+              </div>
+              <ul className="space-y-4 mb-8 flex-grow relative z-10">
+                {[
+                  "Premium Office Address for Business Communication",
+                  "Documents for Company & TAX Registration",
+                  "Signage",
+                  "Booking and Renewal at Phone Call",
+                  "Dedicated Desk Allotment"
+                ].map((feat, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-300 font-normal">
+                    <span className="w-5 h-5 rounded-full bg-brand-orange/20 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleOpenBooking("Virtual Office Premium")}
+                className="w-full py-4 bg-brand-orange text-white font-medium text-sm uppercase tracking-widest rounded-xl hover:bg-white hover:text-brand-navy transition-colors duration-300 shadow-xl shadow-brand-orange/20 relative z-10"
+              >
+                Choose Premium
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2B. DETAILED BENEFITS (REPLACES OLD GENERIC BENEFITS) ── */}
+      <section className="py-16 sm:py-20 bg-slate-50 section-x w-full relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left Col */}
+            <div className="space-y-12">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-brand-orange mb-4">
+                  <IconHelper name="scale" className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-outfit font-medium text-slate-900 leading-tight">
+                  Authentic address for company and GST Registration
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-normal">
+                  With Covai Tech Park virtual office solution you can register an authentic office address for your professional and business needs. By choosing a virtual office you get to save huge upfront cost that is incurred when setting up a physical office space. Virtual office service provided by Covai Tech Park can be leveraged for company registration and GST registration purposes.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-brand-orange mb-4">
+                  <IconHelper name="heart" className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-outfit font-medium text-slate-900 leading-tight">
+                  Mailing and Package Handling
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-normal">
+                  The virtual office package at Covai Tech Park includes the mailing address service feature, which allows you to use the virtual office address for receiving business mails and packages. The received items will be secured at the facility for you to collect later.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Col */}
+            <div className="space-y-12">
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-brand-navy mb-4">
+                  <IconHelper name="breakout" className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-outfit font-medium text-slate-900 leading-tight">
+                  A place to connect
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-normal">
+                  Covai Tech Park business center offers you the facility to get connected with your remote team, clients, and stakeholders. Covai Tech Park's on-demand services enable you to host business meetings, client presentations, and team gathering effortlessly. The meeting space at Covai Tech Park is well equipped with essentials and managed so that it's always ready to use. The virtual office premium plan comes with credits that allows you to utilize meeting room twice a year.
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center text-brand-navy mb-4">
+                  <IconHelper name="office" className="w-6 h-6" />
+                </div>
+                <h3 className="text-2xl font-outfit font-medium text-slate-900 leading-tight">
+                  Get access to ready to use workspace
+                </h3>
+                <p className="text-slate-600 leading-relaxed font-normal">
+                  You can use the coworking space at Covai Tech Park whenever you need a workspace in Coimbatore. The virtual office premium plan includes a 3-day pass to access the hot desk on any days for a month.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -337,10 +450,10 @@ export default function VirtualOfficePage() {
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
-              ON-DEMAND FACILITIES
+              SERVICES INCLUDED
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
-              Full Access To Our Physical Spaces
+              Amenities
             </h2>
           </div>
 
@@ -359,31 +472,27 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Register for GST &amp; Business Address Today
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+            Need help with finding the right workspace solution?
           </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Our legal compliance team delivers property documents, NOC letters, and utility receipts within 48 hours. Let's get registered.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+          
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
               onClick={() => handleOpenBooking("GST Address Registration")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
-              Sign Up Now
+              Talk to our Expert
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -430,7 +539,7 @@ export default function VirtualOfficePage() {
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange font-outfit font-medium">
+                      <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-outfit font-medium">
                         {t.name.charAt(0)}
                       </div>
                       <div className="text-left">
@@ -503,9 +612,15 @@ export default function VirtualOfficePage() {
 
             {bookingSuccess ? (
               <div className="py-12 text-center flex flex-col items-center gap-4">
-                <span className="w-12 h-12 rounded-full bg-green-500/10 text-green-500 flex items-center justify-center text-2xl">&check;</span>
+                <span className="w-12 h-12 rounded-full bg-green-500/10 text-green-500 flex items-center justify-center text-2xl animate-bounce">&check;</span>
                 <h4 className="font-outfit font-medium text-lg text-slate-800">Registration Inquiry Submitted!</h4>
                 <p className="text-slate-400 text-sm font-normal">Our compliance office will contact you immediately.</p>
+              </div>
+            ) : bookingError ? (
+              <div className="py-12 text-center flex flex-col items-center gap-4">
+                <span className="w-12 h-12 rounded-full bg-red-500/10 text-red-500 flex items-center justify-center text-2xl animate-pulse">!</span>
+                <h4 className="font-outfit font-medium text-lg text-red-600">Submission Failed</h4>
+                <p className="text-slate-400 text-sm font-normal">There was an error submitting your request. Please try again or contact us directly.</p>
               </div>
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4 text-left">

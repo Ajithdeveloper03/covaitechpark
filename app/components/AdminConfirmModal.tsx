@@ -10,7 +10,6 @@ interface AdminConfirmModalProps {
   onConfirm: () => void;
   onCancel: () => void;
 }
-
 export default function AdminConfirmModal({
   isOpen,
   title,
@@ -22,7 +21,6 @@ export default function AdminConfirmModal({
   onCancel
 }: AdminConfirmModalProps) {
   if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
       {/* Backdrop */}
@@ -30,7 +28,6 @@ export default function AdminConfirmModal({
         className="absolute inset-0 bg-[#060d17]/80 backdrop-blur-sm"
         onClick={onCancel}
       />
-      
       {/* Modal Content */}
       <div className="relative w-full max-w-md bg-white border border-slate-100 rounded-3xl p-8 shadow-2xl z-10 animate-scaleIn">
         <div className="flex items-center gap-4 mb-4">
@@ -43,11 +40,9 @@ export default function AdminConfirmModal({
             {title}
           </h3>
         </div>
-
         <p className="text-slate-500 text-sm font-normal leading-relaxed mb-8">
           {description}
         </p>
-
         <div className="flex items-center justify-end gap-3">
           <button
             type="button"

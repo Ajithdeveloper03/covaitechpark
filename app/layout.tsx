@@ -8,11 +8,7 @@ const BASE_URL = "https://covaitechpark.com/covaitechpark";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://covaitechpark.com"),
-  icons: {
-    icon: "/covai-tech-park-logo.png",
-    shortcut: "/covai-tech-park-logo.png",
-    apple: "/covai-tech-park-logo.png",
-  },
+
   title: {
     default: "CovaiTech Park | Premium Coworking Space & Offices in Coimbatore",
     template: "%s | CovaiTech Park",
@@ -156,16 +152,24 @@ export default function RootLayout({
         <FloatingNav />
         {children}
         {/* Sticky Mobile Call Button */}
-        <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-3 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
-          <a
-            href={`tel:${contactInfo.phone1.raw}`}
-            className="flex items-center justify-center w-full gap-2.5 py-3.5 bg-brand-orange text-white font-medium text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-brand-orange/30 transition-transform active:scale-[0.98]"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
-            </svg>
-            Call Now
-          </a>
+        <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-2.5 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
+          <div className="grid grid-cols-2 gap-3">
+            <a
+              href="/covaitechpark/contact"
+              className="flex items-center justify-center w-full gap-2 py-3 bg-slate-800 text-white font-medium text-[13px] uppercase tracking-wider rounded-lg shadow-md transition-transform active:scale-[0.98]"
+            >
+              Get Quote
+            </a>
+            <a
+              href={`tel:${contactInfo.phone1.raw}`}
+              className="flex items-center justify-center w-full gap-2 py-3 bg-brand-orange text-white font-medium text-[13px] uppercase tracking-wider rounded-lg shadow-lg shadow-brand-orange/30 transition-transform active:scale-[0.98]"
+            >
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+              </svg>
+              Call Now
+            </a>
+          </div>
         </div>
       </body>
     </html>

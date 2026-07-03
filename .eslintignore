@@ -1,0 +1,6 @@
+covaitech-backend/
+node_modules/
+.next/
+extract.js
+extract_footer.js
+scrape.js

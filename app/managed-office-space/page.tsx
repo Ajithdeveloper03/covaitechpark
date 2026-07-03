@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -34,44 +35,24 @@ const MANAGED_OFFICE_AMENITIES = [
   { name: "Breakout Lounges", icon: "breakout", desc: "Collaborative soft-seating zones for casual discussions." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Ramesh Kumar",
-    role: "Director of Engineering",
-    quote: "The built-to-suit managed suite delivered by Covai Tech Park is exceptional. It fits our corporate branding perfectly and saved us millions in upfront setup costs."
-  },
-  {
-    name: "Priyanka Sen",
-    role: "HR Head, Tech Startup",
-    quote: "Our employees love the amenities here. The cafeteria, gym access, and professional reception desk make a massive difference in our recruitment and retention."
-  },
-  {
-    name: "Aditya Hegde",
-    role: "Country Manager",
-    quote: "Managed office solution at the absolute best price in Coimbatore. The IT setup is highly secure with robust backup systems. Zero operational downtime."
-  }
-];
+
 
 const FAQS = [
   {
-    question: "What is a Managed Office Space?",
-    answer: "A managed office space is a turnkey, fully outsourced workspace solution where a third-party operator (like Covai Tech Park) handles everything—from design layout, construction, fit-outs, and utilities to day-to-day facilities management—under a single monthly invoice."
+    question: "IS THERE A MINIMUM SIZE REQUIREMENT TO TAKE UP A MANAGED OFFICE SPACE?",
+    answer: "Yes, the minimum seating requirement for a managed office space at Covai Tech Park is 30 seats. If your requirement is for fewer than 30 seats, our team will help you identify the most suitable workspace solution based on your business needs."
   },
   {
-    question: "How does 'Built-to-Suit' work?",
-    answer: "You share your team size, spatial requirements (number of cabins, conference rooms, phone booths), and brand guidelines with us. We design and build out the workspace, allowing you to move in with zero setup effort."
+    question: "HOW MUCH IS THE SECURITY DEPOSIT FOR A MANAGED OFFICE SPACE?",
+    answer: "At Covai Tech Park, the standard security deposit for a managed office space under the basic plan is equivalent to three months' rent. The deposit amount may vary depending on the office configuration and specific requirements."
   },
   {
-    question: "What is the minimum seat requirement?",
-    answer: "Our managed offices are ideal for teams of 15 to 100+ seats looking for a dedicated enterprise layout with private branding and custom workspaces."
+    question: "WHAT IS THE MINIMUM TENURE FOR LEASING A MANAGED OFFICE SPACE?",
+    answer: "The standard minimum lease tenure for a managed office space at Covai Tech Park is 24 months. However, flexible lease terms may be available based on your workspace requirements."
   },
   {
-    question: "Are security deposits high?",
-    answer: "No, our terms are highly flexible compared to traditional commercial leases. Security deposits are minimal, helping you maintain optimal capital liquidity."
-  },
-  {
-    question: "Is IT infrastructure customizable?",
-    answer: "Yes, we support private bandwidth allocations, dedicated firewalls, private server racks, biometric doors, and localized security systems to match your enterprise compliance requirements."
+    question: "WHAT KIND OF SUPPORT DO YOU PROVIDE IF WE NEED A LARGER SPACE?",
+    answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
   }
 ];
 
@@ -160,14 +141,13 @@ export default function ManagedOfficePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Fully Managed Corporate Office Spaces for Rent - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
@@ -178,6 +158,8 @@ export default function ManagedOfficePage() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -212,6 +194,8 @@ export default function ManagedOfficePage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -223,7 +207,7 @@ export default function ManagedOfficePage() {
       {/* ── 1. HERO SECTION ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col justify-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         <div className="absolute inset-0 z-0">
           <Image
@@ -235,6 +219,8 @@ export default function ManagedOfficePage() {
             sizes="100vw"
           />
         </div>
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
           <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
@@ -277,6 +263,7 @@ export default function ManagedOfficePage() {
             className="object-cover"
             sizes="(max-width: 768px) 100vw, 800px"
           />
+        </div>
         </div>
       </section>
 
@@ -359,31 +346,27 @@ export default function ManagedOfficePage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Schedule an Office Layout Planning Session
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+            Need help with finding the right workspace solution?
           </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Bring your layout requirements. Our engineering team will layout floorplans and deliver custom designs at the best price.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+          
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
-              onClick={() => handleOpenBooking("Custom Layout Consultation")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              onClick={() => handleOpenBooking("Managed Office Inquiry")}
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
-              Consult Space Planner
+              Talk to our Expert
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -430,7 +413,7 @@ export default function ManagedOfficePage() {
                       &ldquo;{t.quote}&rdquo;
                     </p>
                     <div className="flex items-center gap-4">
-                      <div className="w-10 h-10 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange font-outfit font-medium">
+                      <div className="w-10 h-10 rounded-full bg-brand-orange flex items-center justify-center text-white font-outfit font-medium">
                         {t.name.charAt(0)}
                       </div>
                       <div className="text-left">

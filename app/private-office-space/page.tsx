@@ -6,6 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
+import { TESTIMONIALS } from "../config/testimonials";
 
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
@@ -35,23 +36,7 @@ const PRIVATE_OFFICE_AMENITIES = [
   { name: "Networking Lounges", icon: "breakout", desc: "Collaborative breakout zones for community engagement." }
 ];
 
-const TESTIMONIALS = [
-  {
-    name: "Saravanan",
-    role: "Tech Lead",
-    quote: "Moving to a private office space at Covai Tech Park was seamless. Ready to move office space at the best price. Highly recommended!"
-  },
-  {
-    name: "Vivek Anand",
-    role: "Founder, Startup Firm",
-    quote: "Our team loves the acoustic privacy of the cabin suites. Having 24/7 access and fully-managed operations allows us to focus entirely on product building."
-  },
-  {
-    name: "Dhanush",
-    role: "Operations Manager",
-    quote: "Excellent IT infrastructure and back-office support. The boardroom is state-of-the-art, and the team is highly professional."
-  }
-];
+
 
 const FAQS = [
   {
@@ -147,6 +132,7 @@ export default function PrivateOfficePage() {
 
   useEffect(() => {
     if (!emblaApi) return;
+    // eslint-disable-next-line
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
     onSelect();
@@ -161,14 +147,13 @@ export default function PrivateOfficePage() {
   const [bookingPhone, setBookingPhone] = useState("");
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [botField, setBotField] = useState("");
 
 
 
   // Set page meta title for SEO
-  useEffect(() => {
-    document.title = "Ready-to-use Private Office Cabin Space for Rent - Covai Tech Park";
-  }, []);
+  
 
   const handleOpenBooking = (plan: string) => {
     setSelectedPlan(plan);
@@ -213,6 +198,8 @@ export default function PrivateOfficePage() {
         }
       } catch (error) {
         console.error("Booking form error", error);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -278,7 +265,7 @@ export default function PrivateOfficePage() {
         </div>
 
         {/* Hero Visual Right */}
-        <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
+        <div className="relative z-10 lg:w-1/2 w-full aspect-[16/9] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
             src={prefix("/service5.png")}
             alt="Private Cabin Office Space"
@@ -368,31 +355,30 @@ export default function PrivateOfficePage() {
       </section>
 
       {/* ── 4. SCHEDULE CONSULTATION CTA WITH BG IMAGE ── */}
-      <section 
-        className="relative w-full overflow-hidden py-12 md:py-24 bg-slate-950"
-        style={{
-          backgroundImage: `linear-gradient(rgba(10, 15, 26, 0.8), rgba(10, 15, 26, 0.9)), url(${prefix("/awards-bg.jpg")})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="relative z-10 max-w-4xl mx-auto section-x text-center flex flex-col items-center gap-6">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-            Need a customised seating layout or dedicated branding?
-          </h2>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed font-normal">
-            Our enterprise planning team can customize private suites to fit your exact operational requirements. Let's design the perfect environment for your brand.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4 pt-4">
+      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
+        {/* Lightened glowing orb 1 */}
+        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
+        {/* Lightened glowing orb 2 */}
+        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
+          <div className="md:w-1/2 space-y-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
+              Need a customised seating layout or dedicated branding?
+            </h2>
+            <p className="text-slate-300 text-sm leading-relaxed font-normal">
+              Our enterprise planning team can customize private suites to fit your exact operational requirements. Let&apos;s design the perfect environment for your brand.
+            </p>
+          </div>
+          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
             <button
               onClick={() => handleOpenBooking("Custom Consultation")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
             >
               Talk With Our Experts
             </button>
             <a
               href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
+              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
             >
               Call: {contactInfo.phone1.display}
             </a>
@@ -411,7 +397,7 @@ export default function PrivateOfficePage() {
                 WHAT OUR MEMBERS SAY
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
-                Here's what our happy customers say!
+                Here&apos;s what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
                 <div className="text-brand-orange flex items-center gap-0.5 text-base">
@@ -469,7 +455,7 @@ export default function PrivateOfficePage() {
 
                     {/* Member profile */}
                     <div className="mt-8 pt-5 border-t border-slate-100 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-full bg-brand-navy flex items-center justify-center text-white font-medium text-sm shrink-0 border-2 border-brand-orange/20">
+                      <div className="w-12 h-12 rounded-full bg-brand-orange flex items-center justify-center text-white font-medium text-sm shrink-0 border-none">
                         {testimonial.name.split(' ').map((n) => n[0]).join('').substring(0, 2)}
                       </div>
                       <div className="text-left">
@@ -564,14 +550,14 @@ export default function PrivateOfficePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
               { name: "Managed Office", desc: "Enterprise scale fully managed spaces designed exclusively for large organizations.", link: prefix("/#services-dark"), img: "/workspace-meeting.png" },
               { name: "Dedicated Desk", desc: "A permanent desk reserved for you in a collaborative sharing workspace.", link: prefix("/coimbatore"), img: "/workspace-hotdesk.png" },
               { name: "Virtual Office", desc: "Prestigious corporate addresses for GST registration and mail handling.", link: prefix("/#services-dark"), img: "/workspace-lounge.png" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
-                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">

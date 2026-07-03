@@ -23,9 +23,7 @@ export default function ContactPage() {
   const [selectedMap, setSelectedMap] = useState<"coimbatore" | "trichy">("coimbatore");
   const [botField, setBotField] = useState("");
 
-  useEffect(() => {
-    document.title = "Contact Us | Premium Office Spaces & Ecosystem - CovaiTech Park";
-  }, []);
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,7 +67,7 @@ export default function ContactPage() {
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans relative select-none antialiased">
       <Header />
 
-      <section id="hero" className="relative min-h-[45vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center pt-24 sm:pt-32 pb-12 sm:pb-16 section-x overflow-hidden bg-brand-navy">
+      <section id="hero" className="relative min-h-[45vh] sm:min-h-[55vh] md:min-h-[60vh] flex items-center pt-24 sm:pt-32 pb-12 sm:pb-16 overflow-hidden bg-brand-navy">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image 
@@ -88,7 +86,7 @@ export default function ContactPage() {
         <div className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-full bg-sky-500/15 blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none z-0"></div>
         <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-[2px] border-b border-white/10 pointer-events-none z-0"></div>
         
-        <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col items-center text-center gap-4">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center text-center gap-4">
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tight text-white flex items-center justify-center gap-2">
             Contact Us <span className="text-[#f37021] text-3xl animate-pulse mt-2">*</span>
           </h1>

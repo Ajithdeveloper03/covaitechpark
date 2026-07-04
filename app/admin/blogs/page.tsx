@@ -789,15 +789,7 @@ function BlogEditorView({
                   </div>
                 </div>
 
-                {/* Schema */}
-                <div className="p-6 border border-slate-200 rounded-2xl bg-white space-y-3">
-                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">SEO JSON-LD Schema</h4>
-                  <textarea rows={6} placeholder="Paste JSON-LD schema here..." value={schema}
-                    onChange={e => setSchema(e.target.value)}
-                    className="w-full font-mono bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all font-normal leading-relaxed resize-none"
-                  />
-                  <p className="text-[11px] text-slate-400">Add custom Schema markup for SEO. This will be automatically injected into the head of the article page.</p>
-                </div>
+
 
                 {/* Summary */}
                 <div className="p-6 border border-slate-200 rounded-2xl bg-slate-50 space-y-3">
@@ -843,20 +835,6 @@ function BlogEditorView({
                       {metaDescription || excerpt || "Your meta description will appear here. Write a compelling 120-160 character summary."}
                     </p>
                   </div>
-                </div>
-
-                {/* Focus Keyword */}
-                <div className="p-5 border border-[#f37021]/20 rounded-2xl bg-orange-50/30 space-y-3">
-                  <h4 className="text-xs font-medium text-[#f37021] uppercase tracking-widest">🎯 Focus Keyword</h4>
-                  <input
-                    type="text"
-                    placeholder="e.g. coworking space coimbatore"
-                    value={focusKeyword}
-                    onChange={e => setFocusKeyword(e.target.value)}
-                    maxLength={100}
-                    className="w-full bg-white border border-[#f37021]/20 rounded-xl px-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
-                  />
-                  <p className="text-[11px] text-slate-400">The primary keyword this article should rank for. Use it naturally in the title and first paragraph.</p>
                 </div>
 
                 {/* Meta Title */}
@@ -913,70 +891,15 @@ function BlogEditorView({
                   </div>
                 </div>
 
-                {/* Meta Keywords */}
-                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
-                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Meta Keywords</h4>
-                  <input
-                    type="text"
-                    placeholder="coworking coimbatore, office space, managed office"
-                    value={metaKeywords}
-                    onChange={e => setMetaKeywords(e.target.value)}
-                    maxLength={255}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
-                  />
-                  <p className="text-[11px] text-slate-400">Comma-separated keywords. Less critical for modern SEO but helpful for content strategy.</p>
-                  {metaKeywords && (
-                    <div className="flex flex-wrap gap-1.5 mt-1">
-                      {metaKeywords.split(",").map((kw, i) => kw.trim() && (
-                        <span key={i} className="px-2.5 py-1 bg-[#f37021]/8 text-[#f37021] text-xs font-medium rounded-lg">{kw.trim()}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
 
-                {/* Open Graph Image */}
-                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
-                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Open Graph Image URL</h4>
-                  <input
-                    type="url"
-                    placeholder="https://covaitechpark.com/images/blog-og.jpg"
-                    value={ogImage}
-                    onChange={e => setOgImage(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
-                  />
-                  <p className="text-[11px] text-slate-400">Used when sharing on Facebook, LinkedIn, WhatsApp. Recommended size: 1200×630px. Leave blank to use cover image.</p>
-                  {ogImage && (
-                    <div className="mt-2">
-                      <p className="text-[10px] text-slate-400 tracking-widest mb-1.5">Preview</p>
-                      <div className="aspect-[1200/630] w-full max-w-xs rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
-                        <img src={ogImage} alt="OG preview" className="w-full h-full object-cover" onError={e => (e.currentTarget.style.display = 'none')} />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Canonical URL */}
-                <div className="p-5 border border-slate-200 rounded-2xl bg-white space-y-3">
-                  <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">Canonical URL</h4>
-                  <input
-                    type="url"
-                    placeholder="https://covaitechpark.com/blog/article-slug (leave blank for auto)"
-                    value={canonicalUrl}
-                    onChange={e => setCanonicalUrl(e.target.value)}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all"
-                  />
-                  <p className="text-[11px] text-slate-400">Set only if this content is duplicated elsewhere. Prevents duplicate-content penalties. Leave blank in most cases.</p>
-                </div>
 
                 {/* SEO Score Checklist */}
                 <div className="p-5 border border-slate-200 rounded-2xl bg-slate-50 space-y-3">
                   <h4 className="text-xs font-medium text-slate-500 uppercase tracking-widest">SEO Checklist</h4>
                   <div className="space-y-2">
                     {[
-                      { label: "Focus keyword set", ok: focusKeyword.trim().length > 0 },
                       { label: "Meta title filled (50–60 chars)", ok: metaTitle.length >= 20 && metaTitle.length <= 70 },
                       { label: "Meta description filled (120–155 chars)", ok: metaDescription.length >= 80 && metaDescription.length <= 160 },
-                      { label: "Meta keywords added", ok: metaKeywords.trim().length > 0 },
                       { label: "Cover image uploaded", ok: image.trim().length > 0 },
                       { label: "Article has 3+ content sections", ok: sections.filter(s => s.heading || s.text).length >= 3 },
                       { label: "FAQs added (boosts featured snippets)", ok: faqs.filter(f => f.question.trim()).length > 0 },
@@ -996,13 +919,13 @@ function BlogEditorView({
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-[11px] text-slate-500 font-medium">SEO Score</span>
                       <span className="text-sm font-bold text-[#f37021]">
-                        {[focusKeyword.trim().length > 0, metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, metaKeywords.trim().length > 0, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length}/8
+                        {[metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length}/6
                       </span>
                     </div>
                     <div className="h-2 w-full bg-slate-200 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-[#f37021] to-emerald-500 transition-all duration-500"
-                        style={{ width: `${([focusKeyword.trim().length > 0, metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, metaKeywords.trim().length > 0, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length / 8) * 100}%` }}
+                        style={{ width: `${([metaTitle.length >= 20 && metaTitle.length <= 70, metaDescription.length >= 80, image.trim().length > 0, sections.filter(s => s.heading || s.text).length >= 3, faqs.filter(f => f.question.trim()).length > 0, isPublished].filter(Boolean).length / 6) * 100}%` }}
                       />
                     </div>
                   </div>

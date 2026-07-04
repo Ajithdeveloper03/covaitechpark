@@ -16,13 +16,13 @@ interface GalleryItem {
 }
 
 const GALLERY_CATEGORIES = [
-  "Cabins",
-  "Meeting Rooms",
-  "Lounge",
-  "Common Areas",
-  "Events",
-  "Facilities",
-  "Exterior",
+  "Virtual Office Space",
+  "Coworking Space",
+  "Private Office Space",
+  "Meeting Room",
+  "Managed Office Space",
+  "Furnished Office Space",
+  "Commercial Space",
 ];
 
 const getImgUrl = (path: string) => {
@@ -131,10 +131,6 @@ function GalleryListView({
   };
 
   const sortedFiltered = filtered.sort((a, b) => a.sort_order - b.sort_order);
-  const columnsData = Array.from({ length: numColumns }, () => [] as typeof items);
-  sortedFiltered.forEach((item, idx) => {
-    columnsData[idx % numColumns].push(item);
-  });
 
   return (
     <div className="space-y-6">
@@ -229,24 +225,12 @@ function GalleryListView({
         </div>
       ) : viewMode === "grid" ? (
         /* ── GRID VIEW ── */
-        <div 
-          className="grid gap-4 w-full mt-4" 
-          style={{ 
-            gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))`
-          }}
-        >
-          {columnsData.map((colItems, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-4 h-full">
-              {colItems.map(item => {
-                const aspects = ["aspect-[16/9]", "aspect-[4/3]", "aspect-[1/1]", "aspect-[3/4]"];
-                const itemAspect = aspects[item.id % aspects.length];
-                const flexValue = getFlexGrow(itemAspect);
-                
-                return (
-                  <div key={item.id} className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col"
-                       style={{ flex: `${flexValue} 1 0%` }}>
-                    {/* Image */}
-                    <div className={`relative ${itemAspect} w-full bg-slate-100 overflow-hidden cursor-pointer`} onClick={() => setLightboxImg(item)}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mt-4">
+          {sortedFiltered.map(item => {
+            return (
+              <div key={item.id} className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col h-full">
+                {/* Image */}
+                <div className={`relative aspect-[4/3] w-full bg-slate-100 overflow-hidden cursor-pointer`} onClick={() => setLightboxImg(item)}>
                       {item.image ? (
                         <img src={getImgUrl(item.image)} alt={item.title} className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500" />
                       ) : (
@@ -298,8 +282,6 @@ function GalleryListView({
                   </div>
                 );
               })}
-            </div>
-          ))}
         </div>
       ) : (
         /* ── LIST VIEW ── */
@@ -617,7 +599,7 @@ function GalleryEditorView({
                       title === cat ? "bg-[#f37021] text-white border-[#f37021] shadow-md" : "bg-white text-slate-600 border-slate-200 hover:border-[#f37021]/30 hover:bg-slate-50"
                     }`}>
                     <span className="text-lg">{
-                      { Cabins: "🏠", "Meeting Rooms": "💼", Lounge: "☕", "Common Areas": "🤝", Events: "🎪", Facilities: "🏢", Exterior: "🌿" }[cat] || "📷"
+                      { "Virtual Office Space": "🏢", "Coworking Space": "🤝", "Private Office Space": "🏠", "Meeting Room": "💼", "Managed Office Space": "🎪", "Furnished Office Space": "🛋️", "Commercial Space": "🏬" }[cat] || "📷"
                     }</span>
                     {cat}
                   </button>

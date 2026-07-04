@@ -10,7 +10,7 @@ const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
-const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge"];
+const TABS = ["All", "Virtual Office Space", "Coworking Space", "Private Office Space", "Meeting Room", "Managed Office Space", "Furnished Office Space", "Commercial Space"];
 
 const FULL_GALLERY_ITEMS = [
   { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[3/5]" },
@@ -106,11 +106,7 @@ export default function GalleryPage() {
     setLightboxOpen(true);
   };
 
-  // Partition items into columns
-  const columnsData = Array.from({ length: numColumns }, () => [] as typeof galleryItems);
-  filteredItems.forEach((item, idx) => {
-    columnsData[idx % numColumns].push(item);
-  });
+  // Items are rendered directly to a CSS Grid
 
   return (
     <div className="min-h-screen bg-[#faf9f6] text-slate-900 flex flex-col font-sans relative select-none antialiased">
@@ -169,44 +165,35 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        {/* Masonry Layout Grid */}
-        <div
-          className="grid gap-4 w-full mb-24"
-          style={{
-            gridTemplateColumns: `repeat(${numColumns}, minmax(0, 1fr))`
-          }}
-        >
-          {columnsData.map((colItems, colIdx) => (
-            <div key={colIdx} className="flex flex-col gap-4">
-              {colItems.map((item, idx) => {
-                return (
-                  <div
-                    key={`${item.img}-${idx}`}
-                    className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm w-full cursor-pointer ${item.aspect} shrink-0`}
-                    onClick={() => openLightbox(item.img)}
-                  >
-                    <Image
-                      src={getImgUrl(item.img)}
-                      alt={`${item.category} Gallery Image`}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                      onError={(e) => {
-                        e.currentTarget.src = "/covaitechpark/covai-tech-park-logo.png";
-                        e.currentTarget.className = "object-contain p-8 opacity-20";
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold tracking-widest rounded-full shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                        View Full
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          ))}
+        {/* Flat Grid Layout */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mb-24">
+          {filteredItems.map((item, idx) => {
+            return (
+              <div
+                key={`${item.img}-${idx}`}
+                className={`group relative rounded-xl overflow-hidden bg-white border border-slate-100 shadow-sm w-full cursor-pointer aspect-[4/3] shrink-0 h-full`}
+                onClick={() => openLightbox(item.img)}
+              >
+                <Image
+                  src={getImgUrl(item.img)}
+                  alt={`${item.category} Gallery Image`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = "/covaitechpark/covai-tech-park-logo.png";
+                    e.currentTarget.className = "object-contain p-8 opacity-20";
+                  }}
+                />
+                <div className="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold tracking-widest rounded-full shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                    View Full
+                  </span>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
 

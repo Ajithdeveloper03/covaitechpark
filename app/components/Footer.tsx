@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { useSettings } from "../hooks/useSettings";
 
@@ -51,7 +52,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
         {/* Column 1 — Brand (Covai Tech Park + Addresses) */}
         <div className="space-y-6 text-left">
           <div className="flex items-center">
-            <a href={prefix("/")} className="inline-block p-2 bg-white rounded-xl shadow-md border border-slate-200 hover:scale-[1.01] transition-transform">
+            <Link href={"/"} className="inline-block p-2 bg-white rounded-xl shadow-md border border-slate-200 hover:scale-[1.01] transition-transform">
               <Image
                 src={prefix("/covai-tech-park-logo.png")}
                 alt="Covai Tech Park"
@@ -61,7 +62,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
                 sizes="(max-width: 768px) 100vw, 800px" 
                 loading="lazy"
               />
-            </a>
+            </Link>
           </div>
           
           <div className="space-y-4">

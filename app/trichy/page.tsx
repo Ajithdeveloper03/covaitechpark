@@ -197,7 +197,7 @@ export default function TrichyPage() {
 
           <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
             {[
-              { name: "Coimbatore Hub", desc: "Premium Workspaces in Well-Connected Hubs across Coimbatore.", link: prefix("/coimbatore"), img: "/covaitechpark/hero1.jpg" }
+              { name: "Coimbatore Hub", desc: "Premium Workspaces in Well-Connected Hubs across Coimbatore.", link: prefix("/coimbatore"), img: "/covaitechpark/trichy.jpg" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
@@ -368,4 +368,11 @@ export default function TrichyPage() {
       )}
     </div>
   );
-}
+}\n
+export const metadata = {
+  title: "Trichy Coworks by Max Office | Premium Coworking in Trichy",
+  description: "Premium coworking space, private cabins, and virtual offices in Thillai Nagar, Trichy. A unit of Max Office offering top-tier workspace solutions.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/trichy",
+  }
+};

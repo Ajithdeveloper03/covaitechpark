@@ -409,7 +409,7 @@ export default function CoimbatorePage() {
 
           <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
             {[
-              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/coimbatore.png" }
+              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/coimbatore.jpg" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
@@ -598,3 +598,11 @@ export default function CoimbatorePage() {
     </div>
   );
 }
+\n
+export const metadata = {
+  title: "CovaiTech Park Branches in Coimbatore | Nehru Nagar & More",
+  description: "Explore CovaiTech Park's premium workspace locations across Coimbatore, including Nehru Nagar (SITRA), Saravanampatti, and Broadview.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/coimbatore",
+  }
+};

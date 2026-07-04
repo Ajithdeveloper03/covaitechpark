@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { contactInfo } from "../config/contactInfo";
 
@@ -52,8 +53,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
       >
         <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center gap-2 sm:gap-3 lg:gap-4">
           
-          <a
-            href={prefix("/")}
+          <Link href={"/"}
             className={`flex items-center shrink-0 transition-all duration-300 hover:scale-[1.01] min-w-0 p-1 sm:p-1.5 md:p-2 rounded-lg sm:rounded-xl ${
               isScrolled
                 ? "bg-white"
@@ -68,7 +68,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
               priority
               className="object-contain h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto max-w-[120px] sm:max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[200px]"
             />
-          </a>
+          </Link>
 
           <nav
             className={`hidden xl:flex items-center gap-8 text-[12px] font-medium tracking-widest uppercase mx-auto transition-colors duration-300 ${
@@ -76,10 +76,10 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
             }`}
           >
             <div className="relative group cursor-pointer h-full flex items-center">
-              <a href={prefix("/#locations")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Locations <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></a>
+              <Link href={"/#locations"} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Locations <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></Link>
               <div className="absolute top-[90%] left-1/2 -translate-x-1/2 w-[700px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out grid grid-cols-2 p-6 text-sm normal-case tracking-normal font-medium z-50 gap-6 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
                 {/* Coimbatore Card */}
-                <a href={prefix("/coimbatore")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                <Link href={"/coimbatore"} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
                     <Image src={prefix("/coimbatore.jpg")} alt="CovaiTech Park Coimbatore Headquarters Workspace" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
@@ -102,10 +102,10 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                       </span>
                     ))}
                   </div>
-                </a>
+                </Link>
                 
                 {/* Trichy Card */}
-                <a href={prefix("/trichy")} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+                <Link href={"/trichy"} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
                     <Image src={prefix("/trichy.png")} alt="CovaiTech Park Trichy Center Coworking Space" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
@@ -128,37 +128,37 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                       </span>
                     ))}
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
             
             <div className="relative group cursor-pointer h-full flex items-center">
-              <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Services <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></a>
+              <Link href={"/#services-dark"} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Services <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></Link>
               <div className="absolute top-[90%] left-0 w-[260px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
-                <a href={prefix("/coworking-space-in-coimbatore")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                <Link href={"/coworking-space-in-coimbatore"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Coworking Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
-                <a href={prefix("/private-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                </Link>
+                <Link href={"/private-office-space"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
-                <a href={prefix("/managed-office")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                </Link>
+                <Link href={"/managed-office"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Managed Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
-                <a href={prefix("/meeting-room")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                </Link>
+                <Link href={"/meeting-room"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Meeting Room</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
-                <a href={prefix("/virtual-office")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                </Link>
+                <Link href={"/virtual-office"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Virtual Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
-                </a>
+                </Link>
               </div>
             </div>
-            <a href={prefix("/blog")} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Blog</a>
-            <a href={prefix("/contact")} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Contact</a>
+            <Link href={"/blog"} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Blog</Link>
+            <Link href={"/contact"} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Contact</Link>
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
@@ -231,15 +231,15 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                   {/* Coimbatore list */}
                   <div className="flex flex-col gap-2">
                     <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Coimbatore</span>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar (SITRA)</a>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Saravanampatti</a>
-                    <a href={prefix("/coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Broadview</a>
+                    <Link href={"/coimbatore"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Nehru Nagar (SITRA)</Link>
+                    <Link href={"/coimbatore"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Saravanampatti</Link>
+                    <Link href={"/coimbatore"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Broadview</Link>
                   </div>
                   {/* Trichy list */}
                   <div className="flex flex-col gap-2">
                     <span className="text-brand-orange text-[11px] font-black uppercase tracking-wider">Trichy</span>
-                    <a href={prefix("/trichy")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Thillai Nagar</a>
-                    <a href={prefix("/trichy")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Kattur</a>
+                    <Link href={"/trichy"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Thillai Nagar</Link>
+                    <Link href={"/trichy"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors">Kattur</Link>
                   </div>
                 </div>
               </div>
@@ -262,37 +262,37 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                 }`}
               >
                 <div className="flex flex-col gap-3 pl-2 normal-case tracking-normal font-medium text-sm">
-                  <a href={prefix("/coworking-space-in-coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  <Link href={"/coworking-space-in-coimbatore"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Coworking Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
-                  <a href={prefix("/private-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  </Link>
+                  <Link href={"/private-office-space"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Private Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
-                  <a href={prefix("/managed-office")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  </Link>
+                  <Link href={"/managed-office"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Managed Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
-                  <a href={prefix("/meeting-room")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  </Link>
+                  <Link href={"/meeting-room"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Meeting Room</span>
                     <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
-                  <a href={prefix("/virtual-office")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  </Link>
+                  <Link href={"/virtual-office"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Virtual Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
 
             {/* Static Links */}
-            <a href={prefix("/blog")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
+            <Link href={"/blog"} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
               Blog
-            </a>
-            <a href={prefix("/contact")} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
+            </Link>
+            <Link href={"/contact"} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
               Contact
-            </a>
+            </Link>
           </nav>
         </div>
       </header>

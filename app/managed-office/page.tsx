@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -52,7 +53,15 @@ const FAQS = [
   },
   {
     question: "What kind of support do you provide if we need a larger space?",
-    answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
+    answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\n
+export const metadata = {
+  title: "Managed Office Space for Rent in Coimbatore | CovaiTech Park",
+  description: "Customizable, enterprise-grade managed office spaces in Coimbatore. Let CovaiTech Park handle your workspace setup, IT, and maintenance.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/managed-office",
+  }
+};
+\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
   }
 ];
 
@@ -459,12 +468,12 @@ export default function ManagedOfficePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
-              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
-              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
-              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: prefix("/virtual-office"), img: "/workspace-lounge.png" },
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: "/coworking-space-in-coimbatore", img: "/workspace-hotdesk.png" },
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: "/private-office-space", img: "/workspace-cabin.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: "/meeting-room", img: "/workspace-event.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: "/virtual-office", img: "/workspace-lounge.png" },
             ].map((sol, idx) => (
-              <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+              <Link href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
@@ -478,7 +487,7 @@ export default function ManagedOfficePage() {
                   </div>
                   <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         </div>

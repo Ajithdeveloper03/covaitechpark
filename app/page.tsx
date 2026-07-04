@@ -316,13 +316,13 @@ function StackedCardsSection() {
                 <div className="flex flex-col lg:flex-row h-full">
                   {/* Image half */}
                   <div className="relative w-full lg:w-[40%] h-32 lg:h-full overflow-hidden shrink-0">
-                    <Image
+                    <Image priority={true}
                       src={phase.image}
                       alt={phase.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 50vw"
                       className="object-cover"
-                      loading="lazy"
+                     
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/5" />
                   </div>

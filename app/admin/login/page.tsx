@@ -302,9 +302,6 @@ export default function AdminLoginPage() {
             </div>
           </form>
 
-          <p className="text-center text-[11px] text-white/20 font-normal">
-            Session expires after 8 hours of inactivity. All access is logged.
-          </p>
         </div>
       </div>
     </main>

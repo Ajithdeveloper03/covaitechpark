@@ -28,7 +28,7 @@ const HERO_SLIDES = [
     id: 0,
     title: "Enterprise Ready",
     subtitle: "Office Solutions.",
-    image: prefix("/hero1.jpg"),
+    image: prefix("/managed office/CTP-4.jpg"),
     label: "MANAGED OFFICE SPACE",
     description: "Move into fully managed office spaces equipped with premium infrastructure, business support services, and scalable solutions designed for growing organizations.",
     meta: "SEAMLESS BUSINESS OPERATIONS"
@@ -37,7 +37,7 @@ const HERO_SLIDES = [
     id: 1,
     title: "Flexible Spaces",
     subtitle: "For Growth.",
-    image: prefix("/hero2.jpg"),
+    image: prefix("/coworking space/CTP-2.jpg"),
     label: "COWORKING SPACE",
     description: "Work from vibrant coworking spaces that foster collaboration, networking, and productivity while offering the flexibility modern professionals need.",
     meta: "CONNECT • COLLABORATE • GROW"
@@ -46,7 +46,7 @@ const HERO_SLIDES = [
     id: 2,
     title: "Work Your",
     subtitle: "Way Today.",
-    image: prefix("/hero3.jpg"),
+    image: prefix("/service1.png"),
     label: "DAY PASS",
     description: "Access professional workspaces on demand with high-speed internet, comfortable seating, and all essential amenities for a productive day.",
     meta: "ACCESS ON YOUR TERMS"
@@ -55,7 +55,7 @@ const HERO_SLIDES = [
     id: 3,
     title: "Private Spaces",
     subtitle: "For Success.",
-    image: prefix("/hero13.jpg"),
+    image: prefix("/private office/CTP-4.jpg"),
     label: "PRIVATE OFFICE SPACE",
     description: "Enjoy secure, fully furnished private offices that provide the focus, privacy, and professionalism required by ambitious teams and businesses.",
     meta: "FOCUS WITHOUT DISTRACTIONS"
@@ -64,7 +64,7 @@ const HERO_SLIDES = [
     id: 4,
     title: "Meetings Designed",
     subtitle: "For Impact.",
-    image: prefix("/workspace-meeting.png"),
+    image: prefix("/meeting rooms/CTP-3.jpg"),
     label: "MEETING ROOM",
     description: "Host client presentations, team discussions, and strategic meetings in professionally equipped spaces built to make every interaction productive.",
     meta: "WHERE DECISIONS HAPPEN"
@@ -77,42 +77,42 @@ const SERVICES_TAILORED = [
     id: "01",
     title: "Private Office Space",
     description: "Secure, dedicated cabins designed for teams of all sizes.",
-    image: "https://images.pexels.com/photos/386150/pexels-photo-386150.jpeg",
+    image: prefix("/private office/CTP-1.jpg"),
     linkText: "Learn More"
   },
   {
     id: "02",
     title: "Managed Office Solutions",
     description: "End-to-end custom workspace solutions built for enterprise.",
-    image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80",
+    image: prefix("/managed office/CTP-5.jpg"),
     linkText: "Learn More"
   },
   {
     id: "03",
     title: "Virtual Office & GST Address",
     description: "Professional business address and mail handling services.",
-    image: "https://images.pexels.com/photos/36713181/pexels-photo-36713181.jpeg",
+    image: prefix("/managed office/CTP-2.jpg"),
     linkText: "Learn More"
   },
   {
     id: "04",
     title: "Meeting & Conference Rooms",
     description: "High-tech conference spaces for interviews, pitches, and more.",
-    image: "https://images.pexels.com/photos/20101490/pexels-photo-20101490.jpeg",
+    image: prefix("/meeting rooms/CTP-1.jpg"),
     linkText: "Learn More"
   },
   {
     id: "05",
     title: "Coworking Spaces",
     description: "Flexible, dynamic shared spaces perfect for networking.",
-    image: "https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?auto=format&fit=crop&w=600&q=80",
+    image: prefix("/coworking space/CTP-3.jpg"),
     linkText: "Learn More"
   },
   {
     id: "06",
     title: "Hot Desks",
     description: "On-demand access to premium workspaces at any of our locations.",
-    image: "https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=600&q=80",
+    image: prefix("/coworking space/CTP-1.jpg"),
     linkText: "Learn More"
   }
 ];
@@ -236,6 +236,8 @@ function StackedCardsSection() {
       if (!cards || cards.length === 0) return;
 
       ctx = gsap.context(() => {
+        if (window.innerWidth < 1024) return;
+        
         const totalCards = cards.length;
         
         // Ensure cards have correct initial state
@@ -286,31 +288,28 @@ function StackedCardsSection() {
   }, []);
 
   return (
-    <div ref={triggerRef} id="deployment-section" style={{ height: `${(DEPLOYMENT_PHASES.length + 1) * 100}vh` }}>
+    <div ref={triggerRef} id="deployment-section" className="max-lg:!h-auto" style={{ height: `${(DEPLOYMENT_PHASES.length + 1) * 100}vh` }}>
       {/* Pinned sticky frame */}
-      <div ref={sectionRef} className="w-full h-[100dvh] overflow-hidden relative bg-[#f0f3f6] flex flex-col py-6 lg:py-12">
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between">
+      <div ref={sectionRef} className="w-full lg:h-[100dvh] lg:overflow-hidden relative bg-[#f0f3f6] flex flex-col pt-24 lg:pt-28 pb-6 lg:pb-12">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col lg:justify-between">
 
         {/* Section Header */}
         <div className="text-center space-y-4 max-w-4xl mx-auto shrink-0 z-50 relative mb-4 lg:mb-6">
           <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
             FACILITIES INCLUDED
           </span>
-          {/* <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
-            Facilities
-          </h2> */}
           <h3 className="text-black  text-4xl font-bold ">
             Premium amenities designed to support modern businesses and teams.
           </h3>
         </div>
 
         {/* Card stack area */}
-        <div className="relative flex-1 w-full mx-auto my-4 lg:my-6">
+        <div className="relative flex-1 w-full mx-auto my-4 lg:my-6 flex flex-col gap-6 lg:block">
           {DEPLOYMENT_PHASES.map((phase, idx) => {
             return (
               <div
                 key={phase.id}
-                className="stacked-card absolute inset-0 mx-auto rounded-2xl md:rounded-3xl overflow-hidden bg-white shadow-[0_15px_50px_rgba(0,0,0,0.1)] border border-slate-100 will-change-transform"
+                className="stacked-card relative lg:absolute inset-0 mx-auto rounded-2xl md:rounded-3xl overflow-hidden bg-white shadow-[0_15px_50px_rgba(0,0,0,0.1)] border border-slate-100 will-change-transform"
               >
                 {/* Full-width card: left image, right content */}
                 <div className="flex flex-col lg:flex-row h-full">
@@ -1313,7 +1312,7 @@ export default function Home() {
                   About Covai Tech Park (Unit of MAX OFFICE)
                 </span>
 
-                <h2 className="text-4xl sm:text-5xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
+                <h2 className="text-3xl sm:text-3xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
                   Business Ecosystem for<br />Collaboration & Growth
                 </h2>
 
@@ -1437,7 +1436,7 @@ export default function Home() {
               </p>
             </div>
             {/* City Icon Grid — Side by Side with vertical divider */}
-            <div className="flex flex-row gap-0 pt-4 divide-x divide-slate-200">
+            <div className="flex flex-col sm:flex-row gap-6 sm:gap-0 pt-4 sm:divide-x divide-slate-200">
               {/* Coimbatore Hub */}
               <div className="flex-1 space-y-3 pr-6">
                 <div className="flex items-center gap-2 mb-1">

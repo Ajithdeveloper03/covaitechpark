@@ -286,7 +286,7 @@ export default function CoworkingSpacePage() {
           {/* Hero Visual Right */}
           <div className="relative lg:w-1/2 w-full aspect-[16/9] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
             <Image
-              src={prefix("/service5.png")}
+              src={prefix("/coworking space/CTP-1.jpg")}
               alt="Coworking Space"
               fill
               priority
@@ -297,24 +297,7 @@ export default function CoworkingSpacePage() {
         </div>
       </section>
 
-      {/* Floating Product Details Bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-4">
-          {[
-            { label: "Term", val: "Monthly" },
-            { label: "Setup", val: "Fully Furnished" },
-            { label: "Security", val: "Lockable Cabin" },
-            { label: "Access", val: "24/7 Operations" },
-            { label: "Meeting Room", val: "4 Hours/Month" },
-            { label: "Amenities", val: "Common Access" }
-          ].map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center text-center justify-center p-2">
-              <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest mb-1">{item.label}</span>
-              <span className="text-sm font-medium text-slate-800">{item.val}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+
 
       {/* ── 2. FEATURES & BENEFITS ── */}
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">

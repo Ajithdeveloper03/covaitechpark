@@ -338,7 +338,7 @@ export default function VirtualOfficePage() {
                 onClick={() => handleOpenBooking("Virtual Office Basic")}
                 className="w-full py-4 bg-brand-navy text-white font-medium text-sm tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300"
               >
-                Choose Basic
+                Learn More
               </button>
             </div>
 
@@ -353,8 +353,8 @@ export default function VirtualOfficePage() {
                   <IconHelper name="shield" className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-outfit font-bold text-white">Virtual Office Premium</h3>
-                  <p className="text-brand-orange font-medium mt-1">INR 3500 per month <span className="text-white/60 text-xs">(Billed Annually)</span></p>
+                  <h3 className="text-2xl font-outfit font-bold text-white">Office for Registration</h3>
+                  <p className="text-brand-orange font-medium mt-1">INR 1500 per month <span className="text-white/60 text-xs">(Billed Annually)</span></p>
                 </div>
               </div>
               <ul className="space-y-4 mb-8 flex-grow relative z-10">
@@ -374,10 +374,10 @@ export default function VirtualOfficePage() {
                 ))}
               </ul>
               <button
-                onClick={() => handleOpenBooking("Virtual Office Premium")}
+                onClick={() => handleOpenBooking("Office for Registration")}
                 className="w-full py-4 bg-brand-orange text-white font-medium text-sm tracking-widest rounded-xl hover:bg-white hover:text-brand-navy transition-colors duration-300 shadow-xl shadow-brand-orange/20 relative z-10"
               >
-                Choose Premium
+                Learn More
               </button>
             </div>
           </div>

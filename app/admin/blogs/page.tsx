@@ -11,6 +11,7 @@ interface BlogSection {
   heading: string;
   text: string;
   img: string;
+  imgCaption?: string;
   bullets: string[]; // bullet points live inside each section
 }
 
@@ -64,7 +65,7 @@ const formatDate = (iso: string | null) => {
   return new Date(iso).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
 };
 
-const emptySection = (): BlogSection => ({ heading: "", text: "", img: "", bullets: [""] });
+const emptySection = (): BlogSection => ({ heading: "", text: "", img: "", imgCaption: "", bullets: [""] });
 const emptyFaq = (): FAQ => ({ question: "", answer: "" });
 
 /* ══════════════════════════════════════════════════
@@ -320,6 +321,7 @@ function BlogEditorView({
         heading: s.heading ?? "",
         text: s.text ?? "",
         img: s.img ?? "",
+        imgCaption: s.imgCaption ?? "",
         bullets: Array.isArray(s.bullets) && s.bullets.length ? s.bullets : [],
       }));
     }
@@ -385,7 +387,7 @@ function BlogEditorView({
   /* Section helpers */
   const addSection = () => setSections([...sections, emptySection()]);
   const removeSection = (i: number) => setSections(sections.filter((_, idx) => idx !== i));
-  const updateSection = (i: number, f: "heading" | "text" | "img", v: string) => {
+  const updateSection = (i: number, f: "heading" | "text" | "img" | "imgCaption", v: string) => {
     const u = [...sections]; u[i][f] = v; setSections(u);
   };
 
@@ -641,6 +643,14 @@ function BlogEditorView({
                                 )}
                                 <input type="file" accept="image/*" onChange={e => handleSectionImg(e, idx)} className="hidden" />
                               </label>
+                            </div>
+                            {/* Image Caption */}
+                            <div className="mt-2 space-y-1.5">
+                              <label className="text-xs font-medium text-slate-400 uppercase tracking-widest">Image Caption (Optional)</label>
+                              <input type="text" placeholder="Enter image caption..." value={sec.imgCaption || ""}
+                                onChange={e => updateSection(idx, "imgCaption", e.target.value)}
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 focus:bg-white transition-all"
+                              />
                             </div>
                           </div>
                         </div>

@@ -134,13 +134,23 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [article, setArticle] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [liveBlogs, setLiveBlogs] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchArticle = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`);
-        if (response.ok) {
-          const data = await response.json();
+        const [articleRes, allBlogsRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs/${slug}`),
+          fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`)
+        ]);
+
+        if (allBlogsRes.ok) {
+          const allBlogsData = await allBlogsRes.json();
+          setLiveBlogs(allBlogsData.filter((b: any) => b.slug !== slug));
+        }
+
+        if (articleRes.ok) {
+          const data = await articleRes.json();
           // Use data.category from database first; fall back to slug mapping if not present
           const category = data.category || (slug === "future-of-coworking-spaces-in-coimbatore" 
             ? "Workspace Insights" 
@@ -179,6 +189,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                 heading: sec.heading,
                 text: sec.text,
                 img: resolvedImg,
+                imgCaption: sec.imgCaption || "",
                 bullets: sec.bullets || []
               };
             }),
@@ -264,7 +275,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
       }
     }
   };
-  const otherArticles = Object.entries(ARTICLES_CONTENT).filter(([key]) => key !== slug);
+
   return (
     <div className="min-h-screen bg-[#fafafa] text-slate-900 flex flex-col font-sans relative select-none antialiased">
       {currentArticle.schema && (
@@ -367,6 +378,11 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                         loading="lazy"
                       />
                     </div>
+                    {section.imgCaption && (
+                      <p className="text-center text-sm text-slate-500 italic mt-2">
+                        {section.imgCaption}
+                      </p>
+                    )}
                     {/* Section text */}
                     <p className="text-slate-600 text-base sm:text-lg leading-[1.85] font-normal pl-0 sm:pl-15">
                       {section.text}
@@ -539,29 +555,39 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               </div>
 
               {/* Other Articles */}
-              {otherArticles.length > 0 && (
+              {liveBlogs.length > 0 && (
                 <div className="bg-white border border-slate-200/80 rounded-2xl p-7 shadow-sm">
                   <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-5">More Articles</h3>
                   <div className="space-y-4">
-                    {otherArticles.map(([key, item]) => {
-                      const c = categoryColors[item.category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
+                    {liveBlogs.map((blog) => {
+                      const category = blog.category || "Workspace";
+                      const c = categoryColors[category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
+                      const readTime = `${Math.max(3, Math.ceil(JSON.stringify(blog.content || "").length / 1000))} min read`;
+                      const rawImg = blog.image;
+                      let resolvedImg = "/workspace-lounge.png";
+                      if (rawImg) {
+                        if (rawImg.startsWith("http") || rawImg.startsWith("/")) resolvedImg = rawImg;
+                        else if (rawImg.includes("/")) resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
+                        else resolvedImg = `/${rawImg}`;
+                      }
+
                       return (
                         <a
-                          key={key}
-                          href={prefix(`/blog/${key}`)}
+                          key={blog.slug}
+                          href={prefix(`/blog/${blog.slug}`)}
                           className="group flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all"
                         >
                           <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
-                            <Image src={prefix(item.img)} alt={item.title} fill className="object-cover" sizes="56px" />
+                            <Image src={getImgUrl(resolvedImg)} alt={blog.title} fill className="object-cover" sizes="56px" />
                           </div>
                           <div className="space-y-1.5 min-w-0">
                             <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border ${c.bg} ${c.text} ${c.border}`}>
-                              {item.category}
+                              {category}
                             </span>
                             <p className="text-sm font-semibold text-slate-700 leading-snug group-hover:text-[#f37021] transition-colors line-clamp-2">
-                              {item.title}
+                              {blog.title}
                             </p>
-                            <p className="text-[11px] text-slate-400">{item.readTime}</p>
+                            <p className="text-[11px] text-slate-400">{readTime}</p>
                           </div>
                         </a>
                       );
@@ -570,29 +596,6 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                 </div>
               )}
             </aside>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA SECTION ── */}
-      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800 mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <h2 className="text-xl sm:text-2xl font-outfit font-medium text-white m-0">
-            Need help with finding the right workspace solution?
-          </h2>
-          <div className="flex gap-4">
-            <a
-              href={prefix("/private-office-space")}
-              className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
-            >
-              Explore Memberships
-            </a>
-            <a
-              href={prefix("/contact")}
-              className="px-6 py-2.5 border border-slate-700 hover:border-[#f03a17] text-white hover:bg-slate-900 font-semibold text-sm rounded-md transition-all whitespace-nowrap cursor-pointer"
-            >
-              Contact Us
-            </a>
           </div>
         </div>
       </section>

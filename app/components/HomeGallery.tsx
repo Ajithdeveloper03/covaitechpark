@@ -7,21 +7,23 @@ import ImageLightbox from "./ImageLightbox";
 const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
-const TABS = ["All", "Cabins", "Meeting Rooms", "Lounge"];
+const TABS = ["All", "Private Office", "Managed Office", "Meeting Rooms", "Coworking Space"];
 
 const GALLERY_ITEMS = [
-  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[3/5]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[4/3]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[1/1]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[16/9]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[4/5]" },
-  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/2]" },
-  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[1/1]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[9/16]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[3/4]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[16/9]" },
-  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/4]" }
+  { img: "/private office/CTP-1.jpg", category: "Private Office", aspect: "aspect-[3/5]" },
+  { img: "/managed office/CTP-1.jpg", category: "Managed Office", aspect: "aspect-[4/3]" },
+  { img: "/coworking space/CTP-1.jpg", category: "Coworking Space", aspect: "aspect-[1/1]" },
+  { img: "/meeting rooms/CTP-1.jpg", category: "Meeting Rooms", aspect: "aspect-[16/9]" },
+  
+  { img: "/private office/CTP-2.jpg", category: "Private Office", aspect: "aspect-[4/5]" },
+  { img: "/managed office/CTP-2.jpg", category: "Managed Office", aspect: "aspect-[3/2]" },
+  { img: "/private office/CTP-3.jpg", category: "Private Office", aspect: "aspect-[1/1]" },
+  { img: "/managed office/CTP-3.jpg", category: "Managed Office", aspect: "aspect-[9/16]" },
+  
+  { img: "/coworking space/CTP-2.jpg", category: "Coworking Space", aspect: "aspect-[3/4]" },
+  { img: "/meeting rooms/CTP-2.jpg", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
+  { img: "/private office/CTP-4.jpg", category: "Private Office", aspect: "aspect-[16/9]" },
+  { img: "/managed office/CTP-4.jpg", category: "Managed Office", aspect: "aspect-[3/4]" }
 ];
 
 export default function HomeGallery() {

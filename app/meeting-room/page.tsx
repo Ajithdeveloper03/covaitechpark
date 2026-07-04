@@ -258,7 +258,7 @@ export default function MeetingRoomsPage() {
 
         <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
-            src={prefix("/service2.png")}
+            src={prefix("/meeting rooms/CTP-1.jpg")}
             alt="Meeting Room Layout"
             fill
             priority

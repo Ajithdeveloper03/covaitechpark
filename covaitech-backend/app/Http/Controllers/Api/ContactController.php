@@ -57,7 +57,7 @@ class ContactController extends Controller
                 "==================================================\n";
 
             Mail::raw($body, function ($mail) use ($contact) {
-                $mail->to('inymart@gmail.com')
+                $mail->to(['inymart@gmail.com', 'info@covaitechpark.com'])
                      ->replyTo($contact->email ?: 'inymart@gmail.com', $contact->name)
                      ->subject('[CovaiTechPark] New Enquiry: ' . $contact->name);
             });

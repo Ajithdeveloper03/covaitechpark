@@ -1,9 +1,22 @@
+import Image from "next/image";
+
+const BASE_PATH = "/covaitechpark";
+const prefix = (url: string) => `${BASE_PATH}${url}`;
+
 export default function Loading() {
   return (
     <div className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center p-4">
       <div className="w-full max-w-sm flex flex-col items-center gap-6 animate-pulse">
         {/* Logo Placeholder */}
-        <div className="w-48 h-12 bg-slate-200 rounded-lg"></div>
+        <div className="w-48 h-16 relative">
+          <Image
+            src={prefix("/covai-tech-park-logo.png")}
+            alt="CovaiTech Park Logo"
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
         
         {/* Loading Spinner / Bar */}
         <div className="w-full space-y-4">

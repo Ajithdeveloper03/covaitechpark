@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -136,7 +137,7 @@ export default function BlogArchivePage() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Eyebrow */}
           <div className="flex justify-center items-center gap-3 mb-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-[10px] font-bold tracking-[0.2em] uppercase">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-[10px] font-bold tracking-[0.2em] ">
               CovaiTech Journal
             </span>
           </div>
@@ -178,8 +179,8 @@ export default function BlogArchivePage() {
           )}
 
           {featured && (
-            <a
-              href={prefix(`/blog/${featured.slug}`)}
+            <Link
+              href={`/blog/${featured.slug}`}
               className="group grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white border border-slate-200/80 rounded-[2rem] overflow-hidden hover:border-[#f37021]/30 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 block"
             >
               {/* Image */}
@@ -193,7 +194,7 @@ export default function BlogArchivePage() {
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#060d17]/30 via-transparent to-transparent" />
-                <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-[#f37021] text-white text-[10px] font-bold uppercase tracking-widest shadow">
+                <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-[#f37021] text-white text-[10px] font-bold tracking-widest shadow">
                   Featured
                 </span>
               </div>
@@ -202,7 +203,7 @@ export default function BlogArchivePage() {
               <div className="p-6 sm:p-8 lg:p-14 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-3 mb-5">
-                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryColors[featured.category] || "bg-slate-50 text-slate-600 border-slate-200"}`}>
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold tracking-wider border ${categoryColors[featured.category] || "bg-slate-50 text-slate-600 border-slate-200"}`}>
                       {featured.category}
                     </span>
                     <span className="text-slate-400 text-xs font-medium">{featured.readTime}</span>
@@ -233,16 +234,16 @@ export default function BlogArchivePage() {
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
           )}
 
           {/* Grid cards */}
           {rest.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {rest.map(article => (
-                <a
+                <Link
                   key={article.slug}
-                  href={prefix(`/blog/${article.slug}`)}
+                  href={`/blog/${article.slug}`}
                   className="group bg-white border border-slate-200/80 rounded-[1.5rem] overflow-hidden hover:border-[#f37021]/30 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1.5 transition-all duration-400 flex flex-col"
                 >
                   {/* Image */}
@@ -261,7 +262,7 @@ export default function BlogArchivePage() {
                   <div className="p-7 flex flex-col flex-1 justify-between">
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border ${categoryColors[article.category] || "bg-slate-50 text-slate-600 border-slate-200"}`}>
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold tracking-wider border ${categoryColors[article.category] || "bg-slate-50 text-slate-600 border-slate-200"}`}>
                           {article.category}
                         </span>
                         <span className="text-slate-400 text-[11px]">{article.readTime}</span>
@@ -289,7 +290,7 @@ export default function BlogArchivePage() {
                       </span>
                     </div>
                   </div>
-                </a>
+                </Link>
               ))}
             </div>
           )}

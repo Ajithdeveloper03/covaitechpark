@@ -13,18 +13,22 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Check authentication
-    const token = localStorage.getItem("admin_token");
-    const userJson = localStorage.getItem("admin_user");
+    // Check authentication — token is stored in sessionStorage by login page
+    const token = sessionStorage.getItem("admin_token");
+    const userJson = sessionStorage.getItem("admin_user");
     if (!token || !userJson) {
       window.location.href = "/covaitechpark/admin/login";
       return;
     }
-    setAdminUser(JSON.parse(userJson));
+    try {
+      setAdminUser(JSON.parse(userJson));
+    } catch {
+      window.location.href = "/covaitechpark/admin/login";
+    }
   }, []);
 
   const handleLogout = async () => {
-    const token = localStorage.getItem("admin_token");
+    const token = sessionStorage.getItem("admin_token");
     try {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
         method: "POST",
@@ -36,6 +40,9 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
     } catch (e) {
       console.error("Logout error", e);
     }
+    sessionStorage.removeItem("admin_token");
+    sessionStorage.removeItem("admin_user");
+    // Also clear any legacy localStorage entries
     localStorage.removeItem("admin_token");
     localStorage.removeItem("admin_user");
     window.location.href = "/covaitechpark/admin/login";
@@ -140,21 +147,13 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
           </div>
           
           <div className="space-y-2 w-full">
-            <a
-              href="/covaitechpark"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/20 hover:text-emerald-500 rounded-xl text-xs font-medium uppercase tracking-widest transition-all cursor-pointer"
-            >
+            <a href="/covaitechpark" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/20 hover:text-emerald-500 rounded-xl text-xs font-medium tracking-widest transition-all cursor-pointer" >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>
               View Live Site
             </a>
-            <button
-              onClick={handleLogout}
-              className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/20 hover:text-rose-500 rounded-xl text-xs font-medium uppercase tracking-widest transition-all cursor-pointer"
-            >
+            <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-rose-500/15 border border-white/10 hover:border-rose-500/20 hover:text-rose-500 rounded-xl text-xs font-medium tracking-widest transition-all cursor-pointer" >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>

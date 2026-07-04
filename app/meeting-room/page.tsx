@@ -12,50 +12,50 @@ const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const MEETING_ROOM_DETAILS = [
-  { title: "Smart AV Equipment", desc: "Equipped with 4K display monitors, smart wireless presenters, and dedicated HDMI interface lines.", icon: "zap", image: "/workspace-cabin.png" },
-  { title: "HD Video Conference", desc: "Equipped with HD wide-angle cameras, omni-directional conference microphones, and high-speed SLA lines.", icon: "shield", image: "/workspace-lounge.png" },
-  { title: "Acoustic Insulation", desc: "Insulated double-glazed glass dividers to maintain high security, visual privacy, and quiet.", icon: "lock", image: "/workspace-meeting.png" },
-  { title: "Ergonomic Layouts", desc: "Curated ergonomic seating arrangements, writing whiteboards, and localized AC control units.", icon: "adjust", image: "/workspace-hotdesk.png" },
-  { title: "On-Demand Booking", desc: "Reserve boardrooms and interview suites hourly or daily. Pay only for the duration you need.", icon: "scale", image: "/workspace-event.png" },
-  { title: "Hospitality & Support", desc: "Includes reception presence, tea/coffee service, and on-site IT technicians for setup assistance.", icon: "heart", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/meeting rooms/CTP-1.jpg" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/meeting rooms/CTP-2.jpg" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/meeting rooms/CTP-3.jpg" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/meeting rooms/CTP-4.jpg" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/meeting rooms/CTP-5.jpg" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/meeting rooms/CTP-1.jpg" }
 ];
 
 const MEETING_ROOM_AMENITIES = [
-  { name: "Smart 4K Monitors", icon: "zap", desc: "Plug-and-play TV screens and projector displays." },
-  { name: "Dedicated HD Cameras", icon: "shield", desc: "Full coverage cameras for hybrid Zoom/Teams calls." },
-  { name: "Double-Glazed Acoustics", icon: "lock", desc: "Acoustically isolated glass dividers for privacy." },
-  { name: "On-site IT Technicians", icon: "reception", desc: "Instant technician setup support for presenters." },
-  { name: "RO Pure Drinking Water", icon: "water", desc: "Purified RO water dispenser availability in rooms." },
-  { name: "Generator Power Backup", icon: "generator", desc: "100% DG backup ensuring meetings never cut off." },
-  { name: "High-Speed SLA WiFi", icon: "wifi", desc: "Dedicated high-performance fiber internet lanes." },
-  { name: "Tea & Coffee Service", icon: "food", desc: "Hot refreshments served directly to guests on request." },
-  { name: "Whiteboard Writing Setup", icon: "adjust", desc: "Wall-mounted glass writing boards and markers." },
-  { name: "Flexible Hour Booking", icon: "scale", desc: "Custom hourly pricing options to fit schedules." },
-  { name: "Visitor Lobby Reception", icon: "reception", desc: "A sleek welcoming reception area for your arriving guests." },
-  { name: "Breakout Lounges Access", icon: "breakout", desc: "Soft seating breakout zones for post-meeting chats." }
+  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
+  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
+  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
+  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
+  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
+  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
+  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
+  { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
 
 
 
 const FAQS = [
   {
-    question: "HOW CAN I BOOK A MEETING ROOM IN COIMBATORE?",
+    question: "How can I book a meeting room in Coimbatore?",
     answer: "You can book a meeting room at Covai Tech Park by contacting our team through phone, email, or the enquiry form on our website. We offer flexible booking options based on availability."
   },
   {
-    question: "WHAT FACILITIES ARE INCLUDED IN THE MEETING ROOMS?",
+    question: "What facilities are included in the meeting rooms?",
     answer: "Our meeting rooms are equipped with high-speed Wi-Fi, TV, whiteboards, air conditioning, comfortable seating, and power backup to ensure productive meetings."
   },
   {
-    question: "CAN NON-MEMBERS BOOK A MEETING ROOM?",
+    question: "Can non-members book a meeting room?",
     answer: "Yes. Our meeting rooms are available for both members and non-members, subject to availability. Advance booking is recommended to secure your preferred time slot."
   },
   {
-    question: "WHAT ARE THE MEETING ROOM RENTAL CHARGES?",
+    question: "What are the meeting room rental charges?",
     answer: "Meeting room charges vary depending on the room capacity, booking duration, and specific requirements. Contact our team for the latest pricing and availability."
   },
   {
-    question: "WHAT ARE THE OPERATING HOURS FOR THE MEETING ROOMS?",
+    question: "What are the operating hours for the meeting rooms?",
     answer: "Meeting rooms are available during business hours, with extended or after-hours access available upon prior request and approval, depending on availability."
   }
 ];
@@ -226,12 +226,12 @@ export default function MeetingRoomsPage() {
         {/* Container wrapper */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
             Corporate Meeting &amp; Conference Rooms
           </span>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
             Premium Meeting <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
               Rooms &amp; Boardrooms
@@ -245,14 +245,11 @@ export default function MeetingRoomsPage() {
           <div className="flex flex-wrap gap-4 pt-2">
             <button
               onClick={() => handleOpenBooking("Meeting Room Booking")}
-              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
             >
               Book Room Now &rarr;
             </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-            >
+            <a href="#features" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
               Explore Features
             </a>
           </div>
@@ -294,10 +291,10 @@ export default function MeetingRoomsPage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               MEETING CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Engineered For High-Performance Collaboration
             </h2>
           </div>
@@ -305,16 +302,11 @@ export default function MeetingRoomsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {MEETING_ROOM_DETAILS.map((feat, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4.5 h-4.5" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -327,10 +319,10 @@ export default function MeetingRoomsPage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               MEETING ROOM SERVICES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Professional Utilities For Seamless Sessions
             </h2>
           </div>
@@ -350,31 +342,17 @@ export default function MeetingRoomsPage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
             Need help with finding the right workspace solution?
           </h2>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Meeting Room Booking")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk to our Expert
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+          <button
+            onClick={() => handleOpenBooking("Meeting Room Booking")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk to our Expert
+          </button>
         </div>
       </section>
 
@@ -386,7 +364,7 @@ export default function MeetingRoomsPage() {
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">
                 COLLABORATIVE COMMENTS
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Highly Rated by Host Teams
               </h2>
             </div>
@@ -437,10 +415,10 @@ export default function MeetingRoomsPage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative">
         <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               COMMON QUESTIONS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Meeting Rooms FAQ
             </h2>
           </div>
@@ -470,6 +448,46 @@ export default function MeetingRoomsPage() {
         </div>
       </section>
 
+      
+      {/* ── EXPLORE OTHER SOLUTIONS ── */}
+      <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
+              ADDITIONAL WORKSPACES
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
+              Explore Other Workspace Solutions
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {[
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
+              { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: prefix("/managed-office"), img: "/workspace-meeting.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: prefix("/virtual-office"), img: "/workspace-lounge.png" },
+            ].map((sol, idx) => (
+              <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
+                  </div>
+                </div>
+                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
+                  <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                  </div>
+                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* ── BOOKING INQUIRY POPUP MODAL ── */}
@@ -483,8 +501,8 @@ export default function MeetingRoomsPage() {
               &times;
             </button>
             <div className="space-y-2 text-left mb-6">
-              <span className="text-[10px] font-medium text-brand-orange uppercase tracking-wider">Meeting Space Booking</span>
-              <h3 className="font-outfit font-medium text-2xl text-slate-950">Book a Slot</h3>
+              <span className="text-[10px] font-medium text-brand-orange tracking-wider">Meeting Space Booking</span>
+              <h3 className="font-outfit font-bold text-2xl text-slate-950">Book a Slot</h3>
               <p className="text-slate-400 text-xs font-normal">Please specify meeting duration and expected seat capacity.</p>
             </div>
 
@@ -499,25 +517,25 @@ export default function MeetingRoomsPage() {
                 <input type="text" className="hidden" value={botField} onChange={(e) => setBotField(e.target.value)} />
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">First Name</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">First Name</label>
                     <input required type="text" value={bookingFirstName} onChange={(e) => setBookingFirstName(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Last Name</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Last Name</label>
                     <input required type="text" value={bookingLastName} onChange={(e) => setBookingLastName(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Corporate Email</label>
+                  <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Corporate Email</label>
                   <input required type="email" value={bookingEmail} onChange={(e) => setBookingEmail(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Contact Phone</label>
+                  <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Contact Phone</label>
                   <input required type="tel" value={bookingPhone} onChange={(e) => setBookingPhone(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Seats Capacity</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Seats Capacity</label>
                     <select value={bookingLookingFor} onChange={(e) => setBookingLookingFor(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors">
                       <option value="4-Seat Room">4-Seat Room</option>
                       <option value="6-Seat Room">6-Seat Room</option>
@@ -525,7 +543,7 @@ export default function MeetingRoomsPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Session Duration</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Session Duration</label>
                     <select value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors">
                       <option value="2 Hours Slot">2 Hours Slot</option>
                       <option value="Half Day (4h)">Half Day (4h)</option>
@@ -533,7 +551,7 @@ export default function MeetingRoomsPage() {
                     </select>
                   </div>
                 </div>
-                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-xs uppercase tracking-widest rounded-full transition-all duration-300 mt-2 cursor-pointer">
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-xs tracking-widest rounded-full transition-all duration-300 mt-2 cursor-pointer">
                   Reserve Booking Slot
                 </button>
               </form>

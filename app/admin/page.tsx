@@ -110,7 +110,7 @@ export default function AdminDashboard() {
                 activities.map((act, idx) => (
                   <div key={idx} className="py-4 flex items-center justify-between gap-4">
                     <div className="flex items-start gap-4 min-w-0">
-                      <span className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-medium uppercase tracking-wider shrink-0
+                      <span className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-medium tracking-wider shrink-0
                         ${act.type === 'Blog Post' ? 'bg-[#f37021]/10 text-[#f37021]' : ''}
                         ${act.type === 'Gallery Item' ? 'bg-indigo-500/10 text-indigo-500' : ''}
                       `}>

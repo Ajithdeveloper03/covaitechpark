@@ -284,11 +284,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="pt-2">
-              <button
-                type="submit"
-                disabled={loading || isLocked}
-                className="w-full py-4 bg-[#f37021] hover:bg-[#d55c14] disabled:bg-[#f37021]/40 text-white text-xs font-bold uppercase tracking-widest rounded-2xl transition-all duration-300 shadow-xl shadow-[#f37021]/15 hover:shadow-[#f37021]/25 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed select-none"
-              >
+              <button type="submit" disabled={loading || isLocked} className="w-full py-4 bg-[#f37021] hover:bg-[#d55c14] disabled:bg-[#f37021]/40 text-white text-xs font-bold tracking-widest rounded-2xl transition-all duration-300 shadow-xl shadow-[#f37021]/15 hover:shadow-[#f37021]/25 flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed select-none" >
                 {loading ? (
                   <>
                     <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">

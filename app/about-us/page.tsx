@@ -37,21 +37,21 @@ const ECOSYSTEM_CARDS = [
     img: "/workspace-lounge.png",
     desc: "Flexible hot desks for collaborative teams.",
     pos: "top-[8%] left-[2%] md:left-[4%] lg:left-[8%] xl:left-[12%]",
-    href: "/coworking-space"
+    href: "/coworking-space-in-coimbatore"
   },
   {
     title: "Meeting Rooms",
     img: "/workspace-meeting.png",
     desc: "Fully-equipped spaces for presentations.",
     pos: "top-[44%] left-[1%] md:left-[2%] lg:left-[5%] xl:left-[9%]",
-    href: "/meeting-rooms"
+    href: "/meeting-room"
   },
   {
     title: "Virtual Office",
     img: "/workspace-cafe.png",
     desc: "Breakout zones with premium coffee.",
     pos: "bottom-[12%] left-[2%] md:left-[4%] lg:left-[8%] xl:left-[12%]",
-    href: "/virtual-office-space"
+    href: "/virtual-office"
   },
   {
     title: "Private Cabins",
@@ -65,7 +65,7 @@ const ECOSYSTEM_CARDS = [
     img: "/workspace-event.png",
     desc: "Versatile areas for workshops & meetups.",
     pos: "bottom-[22%] right-[2%] md:right-[4%] lg:right-[8%] xl:right-[12%]",
-    href: "/event-space"
+    href: "/event-space-in-coimbatore"
   }
 ];
 
@@ -100,11 +100,12 @@ export default function AboutUsPage() {
 
         {/* Minimal Hero content (Title, description, button) */}
         <div className="relative z-10 max-w-7xl mx-auto flex flex-col items-center gap-3 sm:gap-2 px-4 sm:px-6 lg:px-8 text-center mt-4 sm:mt-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl tracking-tight text-white leading-[1.02] font-sans font-extrabold max-w-4xl">
-            <span className="font-medium pr-5 text-white">About</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight text-white leading-[1.02] font-sans font-extrabold max-w-4xl">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#f37021] via-orange-300 to-yellow-300">Covai Tech Park</span>
           </h1>
-
+          <p className="text-white/80 tracking-[0.2em] uppercase mt-4 text-sm md:text-base font-semibold">
+            Unit of Max Office
+          </p>
         </div>
 
         {/* Full-width image grid block at bottom, aligned in 2 rows, with staggered translation and glassy overlay on 2nd row */}
@@ -161,7 +162,7 @@ export default function AboutUsPage() {
             />
           </div>
           <div className="space-y-6 order-1 lg:order-2">
-            <span className="inline-block text-sm font-bold text-brand-orange uppercase tracking-[0.2em] bg-brand-orange/10 px-4 py-2 rounded-full">About Us</span>
+            <span className="inline-block text-sm font-bold text-brand-orange tracking-[0.2em] bg-brand-orange/10 px-4 py-2 rounded-full">About Us</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-slate-900 tracking-tight leading-tight">
               Building Workspaces That Help Businesses Grow
             </h2>
@@ -377,51 +378,57 @@ export default function AboutUsPage() {
 
       {/* FOUNDER SECTION */}
       <section id="founder" className="py-12 sm:py-16 md:py-24 bg-white w-full relative overflow-hidden border-b border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-16 items-start">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
           
-          <div className="lg:col-span-4 relative aspect-square sm:aspect-[3/4] lg:aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100 sticky top-24">
-            <Image 
-              src={prefix("/founder.jpeg")} 
-              alt="Manoj Prabahar Asokan" 
-              fill 
-              className="object-cover object-top"
-              sizes="(max-width: 1024px) 100vw, 33vw"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-            <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-white text-2xl font-bold">Manoj Prabahar Asokan</h3>
-              <p className="text-brand-orange font-medium mt-1">Founder & Managing Director</p>
-            </div>
-          </div>
-          
-          <div className="lg:col-span-8 space-y-6">
-            <span className="inline-block px-4 py-1.5 bg-[#f37021]/10 text-brand-orange text-xs font-bold uppercase tracking-widest rounded-full mb-2">Leadership</span>
-            <h2 className="text-3xl sm:text-4xl font-sans font-bold text-slate-900 tracking-tight leading-tight">
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="inline-block px-4 py-1.5 bg-[#f37021]/10 text-brand-orange text-xs font-bold uppercase tracking-widest rounded-full mb-4">Leadership</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-sans font-bold text-slate-900 tracking-tight leading-tight max-w-4xl mx-auto">
               TEDx Speaker | Entrepreneur | Workspace Innovator
             </h2>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 sm:gap-12 lg:gap-10 items-stretch min-h-[500px]">
             
-            <div className="space-y-5 text-slate-600 text-sm sm:text-base leading-relaxed">
-              <p>
-                In 2017, Manoj Prabahar Asokan recognized a significant gap in Trichy's business ecosystem. While startups, freelancers, and growing businesses were emerging, there were no organized coworking or managed office spaces that offered the flexibility and professional infrastructure they needed. Businesses had limited options beyond traditional office leases, making it difficult to establish and scale their operations efficiently.
+            {/* Left Content */}
+            <div className="space-y-5 text-slate-600 text-sm sm:text-base leading-relaxed text-justify flex flex-col justify-center">
+              <p className="bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-sm">
+                In 2017, Manoj Prabahar Asokan recognized a significant gap in Trichy's business ecosystem. While startups, freelancers, and growing businesses were emerging, there were no organized coworking or managed office spaces that offered the flexibility and professional infrastructure they needed.
               </p>
-              <p>
-                Seeing this opportunity, Manoj founded Trichy Coworks, one of the city's first organized coworking space providers, with a vision to make premium workspaces accessible to businesses of every size. What started as a modest 500 sq. ft. workspace soon transformed the way companies worked in Trichy, offering flexible office solutions backed by professional services and a thriving business environment.
+              <p className="px-2">
+                Seeing this opportunity, Manoj founded Trichy Coworks, one of the city's first organized coworking space providers, with a vision to make premium workspaces accessible to businesses of every size. What started as a modest 500 sq. ft. workspace soon transformed the way companies worked in Trichy.
               </p>
-              <p>
-                As demand grew, so did the vision. Under his leadership, MAX OFFICE expanded beyond Trichy with the launch of Covai Tech Park in Coimbatore. Today, the company manages over 1.5 lakh square feet of premium office space across 8 business centres, serving more than 650+ businesses from India, the USA, Europe, the GCC, and other global markets.
+            </div>
+            
+            {/* Center Image */}
+            <div className="relative w-full h-[400px] lg:h-auto rounded-[2rem] overflow-hidden shadow-2xl border border-slate-100">
+              <Image 
+                src={prefix("/founder.jpeg")} 
+                alt="Manoj Prabahar Asokan" 
+                fill 
+                className="object-cover object-top"
+                sizes="(max-width: 1024px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
+              <div className="absolute bottom-8 left-0 right-0 text-center px-4">
+                <h3 className="text-white text-2xl font-bold">Manoj Prabahar Asokan</h3>
+                <p className="text-brand-orange font-medium mt-1">Founder & Managing Director</p>
+              </div>
+            </div>
+
+            {/* Right Content */}
+            <div className="space-y-5 text-slate-600 text-sm sm:text-base leading-relaxed text-justify flex flex-col justify-center">
+              <p className="px-2">
+                As demand grew, so did the vision. Under his leadership, MAX OFFICE expanded beyond Trichy with the launch of Covai Tech Park in Coimbatore. Today, the company manages over 1.5 lakh square feet of premium office space across 8 business centres.
               </p>
-              <p>
-                Driven by a passion for enabling business growth, Manoj also founded Talentztech Solution, helping organizations around the world build and manage remote teams in India.
+              <p className="bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-sm">
+                Driven by a passion for enabling business growth, Manoj also founded Talentztech Solution, helping organizations around the world build and manage remote teams in India. A Civil Engineer and Master's graduate from the University of Greenwich, UK.
               </p>
-              <p>
-                A Civil Engineer and Master's graduate from the University of Greenwich, United Kingdom, Manoj combines technical expertise with a customer-first approach to business.
-              </p>
-              <p className="font-semibold text-slate-800 text-lg italic border-l-4 border-brand-orange pl-4 mt-6">
+              <p className="font-semibold text-slate-800 text-base italic border-l-4 border-brand-orange pl-4 mt-2">
                 "His vision continues to guide MAX OFFICE today: to build inspiring workspaces that empower businesses, foster collaboration, and create opportunities for growth."
               </p>
             </div>
+            
           </div>
-          
         </div>
       </section>
 
@@ -508,7 +515,7 @@ export default function AboutUsPage() {
                 <Image src={prefix(card.img)} alt={card.title} fill className="object-cover" sizes="64px" />
               </div>
               <div>
-                <h4 className="text-[10px] font-black tracking-[0.18em] text-slate-800 uppercase mb-1">{card.title}</h4>
+                <h4 className="text-[10px] font-black tracking-[0.18em] text-slate-800 mb-1">{card.title}</h4>
                 <p className="text-[11px] text-slate-500 leading-relaxed mb-2">{card.desc}</p>
                 <a href={prefix(card.href)} className="text-[11px] font-bold text-slate-900 underline underline-offset-2">See details</a>
               </div>

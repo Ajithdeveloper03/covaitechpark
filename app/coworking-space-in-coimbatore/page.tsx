@@ -13,12 +13,12 @@ const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
 const COWORKING_DETAILS = [
-  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/workspace-cabin.png" },
-  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "heart", image: "/workspace-lounge.png" },
-  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/workspace-meeting.png" },
-  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "office", image: "/workspace-hotdesk.png" },
-  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "shield", image: "/workspace-event.png" },
-  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/coworking space/CTP-1.jpg" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/coworking space/CTP-2.jpg" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/coworking space/CTP-3.jpg" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/coworking space/CTP-4.jpg" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/coworking space/CTP-5.jpg" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/coworking space/CTP-1.jpg" }
 ];
 
 const COWORKING_AMENITIES = [
@@ -30,7 +30,7 @@ const COWORKING_AMENITIES = [
   { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
   { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
   { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
-  { name: "Facility Manager Support", icon: "trend", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on-site facility management for day-to-day operational support." },
   { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
   { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
   { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
@@ -253,12 +253,12 @@ export default function CoworkingSpacePage() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           {/* Hero Content Left */}
           <div className="lg:w-1/2 text-left flex flex-col items-start gap-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
               Premium Coworking Spaces &middot; Coimbatore
             </span>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
               Coworking Space in <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
                 Coimbatore
@@ -272,14 +272,11 @@ export default function CoworkingSpacePage() {
             <div className="flex flex-wrap gap-4 pt-2">
               <button
                 onClick={() => handleOpenBooking("Coworking Space Quote")}
-                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
               >
                 Get Quote &rarr;
               </button>
-              <a
-                href="#features"
-                className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-              >
+              <a href="#features" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
                 Explore Features
               </a>
             </div>
@@ -322,10 +319,10 @@ export default function CoworkingSpacePage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               BENEFITS & CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Why Choose Our Coworking Spaces?
             </h2>
           </div>
@@ -333,16 +330,11 @@ export default function CoworkingSpacePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {COWORKING_DETAILS.map((feat, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4.5 h-4.5" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -355,10 +347,10 @@ export default function CoworkingSpacePage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               SERVICES INCLUDED
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Amenities
             </h2>
           </div>
@@ -377,31 +369,18 @@ export default function CoworkingSpacePage() {
         </div>
       </section>
 
-      {/* ── 4. SCHEDULE CONSULTATION CTA WITH BG IMAGE ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+      {/* ── 4. SCHEDULE CONSULTATION CTA ── */}
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
             Need help with finding the right workspace solution?
           </h2>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Coworking Space Tour")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk to our Expert
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+          <button
+            onClick={() => handleOpenBooking("Coworking Space Tour")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk to our Expert
+          </button>
         </div>
       </section>
 
@@ -415,7 +394,7 @@ export default function CoworkingSpacePage() {
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">
                 WHAT OUR MEMBERS SAY
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Here's what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
@@ -510,10 +489,10 @@ export default function CoworkingSpacePage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               QUESTIONS &amp; ANSWERS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight">
               Frequently Asked Questions
             </h2>
           </div>
@@ -561,19 +540,20 @@ export default function CoworkingSpacePage() {
       <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
               ADDITIONAL WORKSPACES
             </span>
-            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
               Explore Other Workspace Solutions
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: "Managed Office", desc: "Enterprise scale fully managed spaces designed exclusively for large organizations.", link: prefix("/#services-dark"), img: "/workspace-meeting.png" },
-              { name: "Dedicated Desk", desc: "A permanent desk reserved for you in a collaborative sharing workspace.", link: prefix("/coimbatore"), img: "/workspace-hotdesk.png" },
-              { name: "Virtual Office", desc: "Prestigious corporate addresses for GST registration and mail handling.", link: prefix("/#services-dark"), img: "/workspace-lounge.png" }
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
+              { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: prefix("/managed-office"), img: "/workspace-meeting.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: prefix("/virtual-office"), img: "/workspace-lounge.png" },
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[16/9] overflow-hidden">
@@ -645,7 +625,7 @@ export default function CoworkingSpacePage() {
                   style={{ display: "none" }}
                   autoComplete="off"
                 />
-                <h3 className="font-outfit font-medium text-2xl text-slate-900">Inquire Coworking Space</h3>
+                <h3 className="font-outfit font-bold text-2xl text-slate-900">Inquire Coworking Space</h3>
                 <p className="text-slate-500 text-sm">Fill out the details below to receive custom plan pricing and seating configurations.</p>
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -704,10 +684,7 @@ export default function CoworkingSpacePage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4"
-                >
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4" >
                   Submit Inquiry
                 </button>
               </form>

@@ -135,7 +135,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
             <div className="relative group cursor-pointer h-full flex items-center">
               <a href={prefix("/#services-dark")} className="hover:text-brand-orange transition-colors flex items-center gap-1 font-medium py-6 relative after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Services <span className="text-[8px] transition-transform duration-300 group-hover:rotate-180">▼</span></a>
               <div className="absolute top-[90%] left-0 w-[260px] bg-white/98 backdrop-blur-2xl text-slate-800 rounded-3xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] border border-slate-100 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 invisible group-hover:visible transition-all duration-500 ease-out flex flex-col p-3 text-sm normal-case tracking-normal font-medium z-50 pointer-events-none group-hover:pointer-events-auto before:content-[''] before:absolute before:-top-6 before:left-0 before:w-full before:h-6">
-                <a href={prefix("/coworking-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                <a href={prefix("/coworking-space-in-coimbatore")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Coworking Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
@@ -143,15 +143,15 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/managed-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                <a href={prefix("/managed-office")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Managed Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/meeting-rooms")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                <a href={prefix("/meeting-room")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Meeting Room</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
-                <a href={prefix("/virtual-office-space")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                <a href={prefix("/virtual-office")} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Virtual Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </a>
@@ -162,12 +162,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
           </nav>
 
           <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 shrink-0">
-            <a
-              href={contactInfo.whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-normal uppercase tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
+            <a href={contactInfo.whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-normal tracking-widest bg-[#25d366] text-white hover:bg-[#1da851] transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap" >
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" viewBox="0 0 32 32" fill="white">
                 <path d="M16 2C8.268 2 2 8.268 2 16c0 2.49.648 4.828 1.781 6.858L2 30l7.352-1.758A13.918 13.918 0 0016 30c7.732 0 14-6.268 14-14S23.732 2 16 2zm0 25.5a11.46 11.46 0 01-5.844-1.598l-.42-.25-4.36 1.043 1.074-4.248-.277-.438A11.46 11.46 0 014.5 16C4.5 9.648 9.648 4.5 16 4.5S27.5 9.648 27.5 16 22.352 27.5 16 27.5zm6.29-8.524c-.344-.172-2.035-1.004-2.349-1.118-.314-.115-.543-.172-.771.172-.229.344-.88 1.118-1.079 1.347-.199.229-.397.257-.741.086-.344-.172-1.453-.535-2.766-1.707-1.022-.913-1.713-2.04-1.912-2.384-.199-.344-.021-.53.15-.7.154-.153.344-.4.516-.6.172-.2.229-.344.344-.572.114-.229.057-.43-.029-.601-.086-.172-.771-1.858-1.057-2.546-.278-.668-.56-.578-.771-.588l-.657-.011c-.229 0-.6.086-.914.43-.314.344-1.2 1.176-1.2 2.865s1.228 3.325 1.4 3.554c.171.229 2.42 3.695 5.863 5.182.82.354 1.46.566 1.959.724.824.262 1.574.225 2.167.136.66-.098 2.035-.831 2.32-1.634.286-.803.286-1.49.2-1.634-.086-.143-.314-.229-.657-.4z" />
               </svg>
@@ -175,10 +170,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
               <span className="hidden sm:inline lg:hidden">WhatsApp</span>
             </a>
 
-            <button
-              onClick={handleCtaClick}
-              className="hidden md:flex px-4 py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-bold uppercase tracking-widest bg-gradient-to-r from-brand-orange to-[#ffaa66] text-white hover:scale-103 transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap items-center gap-2"
-            >
+            <button onClick={handleCtaClick} className="hidden md:flex px-4 py-2.5 lg:px-6 lg:py-3 rounded-full text-[10px] sm:text-[11px] font-bold tracking-widest bg-gradient-to-r from-brand-orange to-[#ffaa66] text-white hover:scale-103 transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap items-center gap-2" >
               {ctaText}
               <span className="text-sm font-bold">&rarr;</span>
             </button>
@@ -270,7 +262,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                 }`}
               >
                 <div className="flex flex-col gap-3 pl-2 normal-case tracking-normal font-medium text-sm">
-                  <a href={prefix("/coworking-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  <a href={prefix("/coworking-space-in-coimbatore")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Coworking Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
@@ -278,15 +270,15 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                     <span>Private Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
-                  <a href={prefix("/managed-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  <a href={prefix("/managed-office")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Managed Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
-                  <a href={prefix("/meeting-rooms")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  <a href={prefix("/meeting-room")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Meeting Room</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>
-                  <a href={prefix("/virtual-office-space")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                  <a href={prefix("/virtual-office")} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Virtual Office Space</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </a>

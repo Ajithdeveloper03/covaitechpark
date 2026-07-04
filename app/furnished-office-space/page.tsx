@@ -198,12 +198,12 @@ export default function FurnishedOfficePage() {
         </div>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
               Fully Furnished &middot; Coimbatore
             </span>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
               Furnished Office in{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
                 Coimbatore
@@ -217,14 +217,11 @@ export default function FurnishedOfficePage() {
             <div className="flex flex-wrap gap-4 pt-2">
               <button
                 onClick={() => handleOpenBooking("Furnished Office Quote")}
-                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
               >
                 Get Quote &rarr;
               </button>
-              <a
-                href="#features"
-                className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-              >
+              <a href="#features" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
                 Explore Amenities
               </a>
             </div>
@@ -266,10 +263,10 @@ export default function FurnishedOfficePage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               BENEFITS &amp; CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Fully Serviced Office Space With All Essentials
             </h2>
           </div>
@@ -277,16 +274,11 @@ export default function FurnishedOfficePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {FEATURES.map((feat, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4 h-4" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -299,10 +291,10 @@ export default function FurnishedOfficePage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               SERVICES INCLUDED
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Workspace Infrastructure Built For Success
             </h2>
           </div>
@@ -322,30 +314,17 @@ export default function FurnishedOfficePage() {
       </section>
 
       {/* ── 4. CTA SECTION ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
             Need help with finding the right workspace solution?
           </h2>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Furnished Office Space Inquiry")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk to our Expert
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+          <button
+            onClick={() => handleOpenBooking("Furnished Office Space Inquiry")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk to our Expert
+          </button>
         </div>
       </section>
 
@@ -355,7 +334,7 @@ export default function FurnishedOfficePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-8">
             <div className="space-y-3 text-left">
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">WHAT OUR MEMBERS SAY</span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Here&apos;s what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
@@ -420,10 +399,10 @@ export default function FurnishedOfficePage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-4xl mx-auto space-y-12 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               QUESTIONS &amp; ANSWERS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight">
               Frequently Asked Questions
             </h2>
           </div>
@@ -457,17 +436,18 @@ export default function FurnishedOfficePage() {
       <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">ADDITIONAL WORKSPACES</span>
-            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">ADDITIONAL WORKSPACES</span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
               Explore Other Workspace Solutions
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: "Private Office Space", desc: "Lockable, fully furnished office suites for teams seeking complete privacy and acoustic insulation.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
-              { name: "Managed Office", desc: "End-to-end custom workspace solutions built and managed exclusively for enterprise needs.", link: prefix("/managed-office-space"), img: "/workspace-meeting.png" },
-              { name: "Commercial Space", desc: "Ready-to-use commercial office spaces in Coimbatore designed for startups, SMEs, and corporates.", link: prefix("/commercial-space-for-rent"), img: "/workspace-lounge.png" }
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
+              { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: prefix("/managed-office"), img: "/workspace-meeting.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[16/9] overflow-hidden">
@@ -512,7 +492,7 @@ export default function FurnishedOfficePage() {
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 <input type="text" name="bot_field" value={botField} onChange={(e) => setBotField(e.target.value)} className="hidden" style={{ display: "none" }} autoComplete="off" />
-                <h3 className="font-outfit font-medium text-2xl text-slate-900">Inquire Furnished Office</h3>
+                <h3 className="font-outfit font-bold text-2xl text-slate-900">Inquire Furnished Office</h3>
                 <p className="text-slate-500 text-sm">Fill out the details below to receive custom plan pricing.</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
@@ -536,7 +516,7 @@ export default function FurnishedOfficePage() {
                   <label className="block text-sm font-medium text-slate-600">Inquiry Purpose</label>
                   <input type="text" disabled value={bookingLookingFor} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-500" />
                 </div>
-                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4">
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4">
                   Submit Inquiry
                 </button>
               </form>

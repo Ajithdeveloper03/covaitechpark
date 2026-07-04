@@ -198,12 +198,12 @@ export default function CommercialOfficePage() {
         </div>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
           <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
               Commercial Space &middot; Coimbatore
             </span>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
               Commercial Space in{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
                 Coimbatore
@@ -217,14 +217,11 @@ export default function CommercialOfficePage() {
             <div className="flex flex-wrap gap-4 pt-2">
               <button
                 onClick={() => handleOpenBooking("Commercial Space Quote")}
-                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
               >
                 Get Quote &rarr;
               </button>
-              <a
-                href="#amenities"
-                className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-              >
+              <a href="#amenities" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
                 Explore Amenities
               </a>
             </div>
@@ -263,84 +260,87 @@ export default function CommercialOfficePage() {
       </section>
 
       {/* ── 2. ABOUT SECTION (UNIQUE UI/UX DESIGN) ── */}
-      <section className="py-16 sm:py-24 bg-white section-x w-full relative overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-slate-50/50 pointer-events-none" />
-        <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-orange/5 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-navy/5 rounded-full blur-[100px] pointer-events-none" />
+      <section className="py-16 sm:py-24 bg-slate-50 section-x w-full relative overflow-hidden border-t border-slate-200">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-brand-navy/5 skew-x-12 translate-x-1/2" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block text-[10px] font-bold text-brand-orange uppercase tracking-[0.2em] bg-brand-orange/10 px-4 py-2 rounded-full mb-4">
+            <span className="inline-block text-[10px] font-bold text-brand-orange tracking-[0.2em] bg-brand-orange/10 px-4 py-2 rounded-full mb-4 border border-brand-orange/20">
               Why Choose Us
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Elevate your business with our commercial spaces
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {/* Card 1 */}
-            <div className="group bg-white p-8 sm:p-10 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-brand-orange/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-navy/[0.03] to-transparent rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110" />
-              <div className="relative z-10 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-brand-navy text-white flex items-center justify-center mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                  <IconHelper name="office" className="w-7 h-7" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+            {/* Wide Card 1: Text + Image Split */}
+            <div className="md:col-span-2 group relative bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 transition-all duration-500 hover:shadow-xl flex flex-col sm:flex-row">
+              <div className="p-8 sm:p-10 flex-1 flex flex-col justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-6">
+                  <IconHelper name="office" className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-outfit font-medium text-slate-900 mb-4 leading-tight group-hover:text-brand-orange transition-colors">
-                  Find the ideal commercial office space with us
+                <h3 className="text-2xl font-outfit font-bold text-slate-900 mb-4 leading-tight">
+                  Find the ideal space
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal">
-                  Commercial office space at Covai Tech Park is feasible for start-ups, SME's, freelancers and corporates. This commercial space in Coimbatore is fully furnished and comes with managed services. Setting up an office space at a commercial location in Coimbatore requires a significant upfront investment and incurs substantial overhead expenses for maintenance. By choosing the ready-to-use commercial office space at Covai Tech Park, you can save lot of time and money.
+                <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                  Setting up an office requires significant upfront investment and maintenance overheads. Our fully furnished, managed commercial spaces save you time and money.
                 </p>
+              </div>
+              <div className="w-full sm:w-2/5 relative min-h-[200px] sm:min-h-full bg-slate-200">
+                 <Image src={prefix("/hero1.jpg")} alt="Ideal Commercial Space" fill className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                 <div className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-r from-slate-50 via-slate-50/60 to-transparent z-10" />
               </div>
             </div>
 
-            {/* Card 2 */}
-            <div className="group bg-brand-navy p-8 sm:p-10 rounded-[2rem] border border-slate-800 shadow-xl hover:shadow-2xl hover:shadow-brand-navy/50 transition-all duration-500 relative overflow-hidden flex flex-col justify-between mt-0 md:mt-12">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-brand-orange/10 to-transparent rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-110" />
-              <div className="relative z-10 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-brand-orange text-white flex items-center justify-center mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                  <IconHelper name="adjust" className="w-7 h-7" />
+            {/* Square Card 2: Minimal Solid Color */}
+            <div className="md:col-span-1 group relative bg-brand-navy rounded-3xl p-8 sm:p-10 border border-slate-800 transition-all duration-500 hover:shadow-xl overflow-hidden flex flex-col justify-between min-h-[300px]">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-white/10 text-white flex items-center justify-center mb-6">
+                  <IconHelper name="adjust" className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-outfit font-medium text-white mb-4 leading-tight">
-                  Commercial space that is flexible
+                <h3 className="text-xl sm:text-2xl font-outfit font-bold text-white mb-4 leading-tight">
+                  Flexible terms
                 </h3>
-                <p className="text-slate-300 leading-relaxed font-normal">
-                  The terms in the rental agreement are highly flexible, allowing you to scale up or down the workspace as per your business demands. Further this commercial property in Coimbatore can be accessed 24/7 throughout the year.
-                </p>
               </div>
+              <p className="text-slate-300 leading-relaxed text-sm">
+                The terms in the rental agreement are highly flexible, allowing you to scale up or down the workspace as per your business demands with 24/7 access throughout the year.
+              </p>
             </div>
 
-            {/* Card 3 */}
-            <div className="group bg-brand-orange p-8 sm:p-10 rounded-[2rem] shadow-xl hover:shadow-2xl hover:shadow-brand-orange/50 transition-all duration-500 relative overflow-hidden flex flex-col justify-between mt-0 md:-mt-12">
-              <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
-              <div className="relative z-10 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-white text-brand-orange flex items-center justify-center mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                  <IconHelper name="trend" className="w-7 h-7" />
+            {/* Square Card 3: Image Background */}
+            <div className="md:col-span-1 group relative rounded-3xl transition-all duration-500 hover:shadow-xl overflow-hidden min-h-[300px]">
+              <Image src={prefix("/hero11.jpg")} alt="Ease of access" fill className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10" />
+              <div className="absolute inset-0 p-8 sm:p-10 z-20 flex flex-col justify-end text-white">
+                <div className="w-12 h-12 rounded-2xl bg-brand-orange text-white flex items-center justify-center mb-4">
+                  <IconHelper name="trend" className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-outfit font-medium text-white mb-4 leading-tight">
+                <h3 className="text-xl sm:text-2xl font-outfit font-bold mb-3 leading-tight">
                   Ease of access
                 </h3>
-                <p className="text-white/90 leading-relaxed font-normal">
-                  The commercial properties of Covai Tech Park in Coimbatore are present at a prime location in the city, making them easily accessible.
+                <p className="text-white/80 leading-relaxed text-sm">
+                  The commercial properties of Covai Tech Park in Coimbatore are present at a prime location in the city, making them easily accessible for your team and clients.
                 </p>
               </div>
             </div>
 
-            {/* Card 4 */}
-            <div className="group bg-white p-8 sm:p-10 rounded-[2rem] border border-slate-100 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-brand-orange/10 transition-all duration-500 relative overflow-hidden flex flex-col justify-between">
-              <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-brand-navy/[0.03] to-transparent rounded-tr-full pointer-events-none transition-transform duration-500 group-hover:scale-110" />
-              <div className="relative z-10 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-slate-100 text-brand-navy flex items-center justify-center mb-6 transform group-hover:-translate-y-1 transition-transform duration-500">
-                  <IconHelper name="breakout" className="w-7 h-7" />
+            {/* Wide Card 4: Image Right Split */}
+            <div className="md:col-span-2 group relative bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 transition-all duration-500 hover:shadow-xl flex flex-col sm:flex-row-reverse">
+              <div className="p-8 sm:p-10 flex-1 flex flex-col justify-center">
+                <div className="w-12 h-12 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-6">
+                  <IconHelper name="breakout" className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-outfit font-medium text-slate-900 mb-4 leading-tight group-hover:text-brand-orange transition-colors">
+                <h3 className="text-2xl font-outfit font-bold text-slate-900 mb-4 leading-tight">
                   Connect and collaborate
                 </h3>
-                <p className="text-slate-600 leading-relaxed font-normal">
-                  Covai Tech Park offers commercial office space that allows you to connect with a professional and business network within the business center. As a community, we will have many opportunities to grow, expand and exchange services.
+                <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
+                  Covai Tech Park offers commercial office space that allows you to connect with a professional network within the center, fostering opportunities to grow and exchange services.
                 </p>
+              </div>
+              <div className="w-full sm:w-2/5 relative min-h-[200px] sm:min-h-full bg-slate-200">
+                 <Image src={prefix("/workspace-meeting.png")} alt="Connect and collaborate" fill className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                 <div className="absolute inset-0 bg-gradient-to-b sm:bg-gradient-to-l from-slate-50 via-slate-50/60 to-transparent z-10" />
               </div>
             </div>
           </div>
@@ -351,10 +351,10 @@ export default function CommercialOfficePage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full relative overflow-hidden border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               BENEFITS &amp; CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Why Choose Our Commercial Office Space?
             </h2>
           </div>
@@ -362,16 +362,11 @@ export default function CommercialOfficePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {FEATURES.map((feat, idx) => (
               <div key={idx} className="bg-white border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4 h-4" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -384,10 +379,10 @@ export default function CommercialOfficePage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               SERVICES INCLUDED
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Everything Your Business Needs
             </h2>
           </div>
@@ -407,30 +402,17 @@ export default function CommercialOfficePage() {
       </section>
 
       {/* ── 5. CTA SECTION ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
             Need help with finding the right workspace solution?
           </h2>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Commercial Space Rent Inquiry")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk to our Expert
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+          <button
+            onClick={() => handleOpenBooking("Commercial Space Rent Inquiry")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk to our Expert
+          </button>
         </div>
       </section>
 
@@ -440,7 +422,7 @@ export default function CommercialOfficePage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-8">
             <div className="space-y-3 text-left">
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">WHAT OUR MEMBERS SAY</span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Here&apos;s what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
@@ -505,10 +487,10 @@ export default function CommercialOfficePage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-4xl mx-auto space-y-12 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 w-max px-3 py-1 rounded-sm mx-auto">
               QUESTIONS &amp; ANSWERS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight">
               Frequently Asked Questions
             </h2>
           </div>
@@ -540,35 +522,36 @@ export default function CommercialOfficePage() {
 
       {/* ── 8. EXPLORE OTHER SERVICES ── */}
       <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
-        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">ADDITIONAL WORKSPACES</span>
-            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
+              ADDITIONAL WORKSPACES
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
               Explore Other Workspace Solutions
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: "Private Office Space", desc: "Lockable, fully furnished office suites for teams seeking complete privacy and acoustic insulation.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
-              { name: "Furnished Office", desc: "Fully furnished workspace at a prime location with low upfront cost and zero setup hassle.", link: prefix("/furnished-office-space"), img: "/workspace-hotdesk.png" },
-              { name: "Managed Office", desc: "End-to-end custom workspace solutions built and managed exclusively for enterprise needs.", link: prefix("/managed-office-space"), img: "/workspace-meeting.png" }
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
+              { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: prefix("/managed-office"), img: "/workspace-meeting.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
             ].map((sol, idx) => (
-              <a href={sol.link} key={idx} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
-                <div className="relative w-full aspect-[16/9] overflow-hidden">
-                  <Image src={prefix(sol.img)} alt={sol.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-                <div className="p-5 flex flex-col gap-2 flex-1">
-                  <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
-                    {sol.name}
-                  </h4>
-                  <p className="text-slate-500 text-[13px] leading-relaxed line-clamp-2 font-normal flex-1">
-                    {sol.desc}
-                  </p>
-                  <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
-                    Learn More <span>&rarr;</span>
+              <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
                   </div>
+                </div>
+                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
+                  <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                  </div>
+                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
                 </div>
               </a>
             ))}
@@ -597,7 +580,7 @@ export default function CommercialOfficePage() {
             ) : (
               <form onSubmit={handleBookingSubmit} className="space-y-4">
                 <input type="text" name="bot_field" value={botField} onChange={(e) => setBotField(e.target.value)} className="hidden" style={{ display: "none" }} autoComplete="off" />
-                <h3 className="font-outfit font-medium text-2xl text-slate-900">Inquire Commercial Space</h3>
+                <h3 className="font-outfit font-bold text-2xl text-slate-900">Inquire Commercial Space</h3>
                 <p className="text-slate-500 text-sm">Fill out the details below to receive a customized quote.</p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-1.5">
@@ -621,7 +604,7 @@ export default function CommercialOfficePage() {
                   <label className="block text-sm font-medium text-slate-600">Inquiry Purpose</label>
                   <input type="text" disabled value={bookingLookingFor} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-500" />
                 </div>
-                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4">
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4">
                   Submit Inquiry
                 </button>
               </form>

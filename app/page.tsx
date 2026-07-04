@@ -123,7 +123,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "PREMIUM INFRASTRUCTURE",
     title: "Premium Office Infrastructure",
     description: "Thoughtfully designed workspaces with modern interiors, ergonomic furniture, and spacious layouts that create a productive and professional environment.",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
+    image: prefix("/workspace-cabin.png"),
     accent: "#f37021",
     icon: "office",
     points: [
@@ -137,7 +137,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "CUSTOM SOLUTIONS",
     title: "Tailored Workspace Solutions",
     description: "Customizable office environments designed around your team's operational, branding, and workspace requirements.",
-    image: "https://images.pexels.com/photos/17155842/pexels-photo-17155842.jpeg",
+    image: prefix("/workspace-meeting.png"),
     accent: "#f37021",
     icon: "support",
     points: [
@@ -151,7 +151,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "SCALABILITY",
     title: "Flexible Growth Options",
     description: "Scale your workspace effortlessly as your business grows, without the constraints of traditional office leases.",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80",
+    image: prefix("/workspace-lounge.png"),
     accent: "#f37021",
     icon: "access",
     points: [
@@ -165,7 +165,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "CUSTOMER FIRST",
     title: "Proactive Customer-Centric Approach",
     description: "A customer-first approach backed by responsive facility management, seamless onboarding, and continuous service improvement.",
-    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
+    image: prefix("/workspace-cafe.png"),
     accent: "#f37021",
     icon: "reception",
     points: [
@@ -241,7 +241,7 @@ function StackedCardsSection() {
         // Ensure cards have correct initial state
         cards.forEach((card, i) => {
           gsap.set(card, {
-            y: i === 0 ? 0 : "100%", // First card is visible at y=0, others are offscreen below
+            y: i === 0 ? 0 : "150%", // First card is visible at y=0, others are offscreen below
             zIndex: i, // New cards must have higher zIndex to slide OVER previous cards
           });
         });
@@ -271,7 +271,7 @@ function StackedCardsSection() {
             },
             onLeaveBack: () => {
               // Slide it back down
-              gsap.to(card, { y: "100%", duration: 0.5, ease: "power3.in" });
+              gsap.to(card, { y: "150%", duration: 0.5, ease: "power3.in" });
             },
           });
         });
@@ -292,13 +292,16 @@ function StackedCardsSection() {
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-between">
 
         {/* Section Header */}
-        <div className="text-center shrink-0 z-50 relative mb-4 lg:mb-6">
-          <h2 className="font-outfit font-bold text-2xl sm:text-3xl text-brand-navy tracking-tight leading-tight">
+        <div className="text-center space-y-4 max-w-4xl mx-auto shrink-0 z-50 relative mb-4 lg:mb-6">
+          <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            FACILITIES INCLUDED
+          </span>
+          {/* <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
             Facilities
-          </h2>
-          <p className="text-slate-500 text-xs sm:text-sm mt-1 lg:mt-2 max-w-xl mx-auto leading-relaxed">
+          </h2> */}
+          <h3 className="text-black  text-4xl font-bold ">
             Premium amenities designed to support modern businesses and teams.
-          </p>
+          </h3>
         </div>
 
         {/* Card stack area */}
@@ -332,10 +335,10 @@ function StackedCardsSection() {
                     </div>
 
                     <div>
-                      <h3 className="font-outfit font-bold text-lg sm:text-xl lg:text-2xl text-slate-900 leading-tight mb-1 lg:mb-2">
+                      <h3 className="font-outfit font-semibold text-xl sm:text-2xl lg:text-3xl text-slate-900 leading-tight mb-1 lg:mb-2">
                         {phase.title}
                       </h3>
-                      <p className="text-slate-500 text-[13px] sm:text-sm leading-relaxed max-w-2xl">
+                      <p className="text-slate-500 text-sm sm:text-base leading-relaxed max-w-2xl">
                         {phase.description}
                       </p>
                     </div>
@@ -343,10 +346,10 @@ function StackedCardsSection() {
                     <ul className="flex flex-col gap-2 mt-1">
                       {phase.points.map((point) => (
                         <li key={point.label} className="flex items-start gap-2.5">
-                          <div className="w-1.5 h-1.5 rounded-full bg-[#ffb700] shrink-0 mt-1.5" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#ffb700] shrink-0 mt-2" />
                           <div>
-                            <span className="text-[12px] sm:text-[13px] font-semibold text-slate-800 block">{point.label}</span>
-                            <span className="text-[11px] sm:text-[12px] text-slate-500 leading-relaxed hidden sm:block">{point.desc}</span>
+                            <span className="text-[13px] sm:text-[14px] lg:text-base font-medium text-slate-800 block">{point.label}</span>
+                            <span className="text-[12px] sm:text-[13px] lg:text-sm text-slate-500 leading-relaxed hidden sm:block">{point.desc}</span>
                           </div>
                         </li>
                       ))}
@@ -381,23 +384,23 @@ const GALLERY_ITEMS = [
 // FAQ Data
 const FAQS = [
   {
-    question: "WHY SHOULD I CHOOSE A FLEXIBLE WORKSPACE OVER A TRADITIONAL OFFICE?",
+    question: "Why should I choose a flexible workspace over a traditional office?",
     answer: "A flexible workspace eliminates the hassle of setting up and managing an office. With fully furnished spaces, business amenities, and flexible lease terms, you can focus on growing your business while we take care of the infrastructure."
   },
   {
-    question: "CAN I CUSTOMIZE MY OFFICE TO MATCH MY BRAND?",
+    question: "Can I customize my office to match my brand?",
     answer: "Yes. Depending on the workspace selected, branding, cabin layouts, seating arrangements, and office configurations can be customized to reflect your company's identity and operational needs."
   },
   {
-    question: "WHAT AMENITIES ARE INCLUDED IN YOUR WORKSPACE SOLUTIONS?",
+    question: "What amenities are included in your workspace solutions?",
     answer: "Our workspaces include high-speed internet, power backup, air conditioning, housekeeping, security, reception services, pantry access, meeting room facilities, and ample parking, ensuring a productive work environment."
   },
   {
-    question: "HOW QUICKLY CAN WE MOVE INTO A READY TO USE OFFICE?",
+    question: "How quickly can we move into a ready to use office?",
     answer: "Ready to use office spaces can typically be occupied shortly after the documentation is completed. For customized managed office spaces, the fit-out and handover process generally takes 20–30 working days, depending on the scope of customization and infrastructure requirements."
   },
   {
-    question: "CAN YOUR WORKSPACE SUPPORT OUR BUSINESS AS IT EXPANDS?",
+    question: "Can your workspace support our business as it expands?",
     answer: "Yes. Our flexible office solutions are designed to accommodate business growth. Whether you need additional workstations, a larger office, or multiple office units, we can help you scale with minimal disruption."
   }
 ];
@@ -1136,12 +1139,12 @@ export default function Home() {
 
             <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl max-w-full">
               <span className="w-2 h-2 rounded-full bg-brand-orange animate-pulse shrink-0" />
-              <span className="text-[10px] font-normal tracking-widest leading-none uppercase">
+              <span className="text-[10px] font-normal tracking-widest leading-none ">
                 {heroSlides[activeHeroSlide]?.meta}
               </span>
             </div>
 
-            <h1 className="text-[2.25rem] min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-outfit font-medium tracking-tight text-white leading-[1.08] relative">
+            <h1 className="text-[2.25rem] min-[400px]:text-[2.5rem] sm:text-5xl md:text-6xl lg:text-[4.5rem] font-outfit font-bold tracking-tight text-white leading-[1.08] relative">
               {heroSlides[activeHeroSlide]?.title} <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ffaa66]">
                 {heroSlides[activeHeroSlide]?.subtitle}
@@ -1158,15 +1161,12 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row flex-wrap items-center gap-3 sm:gap-5 pt-2 w-full sm:w-auto">
                 <button
                   onClick={() => handleOpenBooking("Get Quote (Hero)")}
-                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
                 >
                   Get Quote
                   <span className="text-sm font-medium">&rarr;</span>
                 </button>
-                <a
-                  href="#locations"
-                  className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent"
-                >
+                <a href="#locations" className="w-full sm:w-auto justify-center px-6 py-3.5 sm:px-8 sm:py-4 border border-white/35 text-white hover:bg-white hover:text-brand-navy font-medium text-sm tracking-widest rounded-full transition-all duration-300 hover:scale-[1.03] cursor-pointer flex items-center gap-2 text-center decoration-transparent" >
                   Learn More
                 </a>
               </div>
@@ -1233,7 +1233,7 @@ export default function Home() {
                           <div className={`absolute inset-0 flex items-center justify-start pl-3 sm:pl-5 transition-opacity duration-500 ${
                             isActive ? "opacity-100" : "opacity-60"
                           }`}>
-                            <span className="text-[9px] sm:text-[10px] font-normal tracking-widest text-white uppercase drop-shadow-md text-left leading-tight">
+                            <span className="text-[9px] sm:text-[10px] font-normal tracking-widest text-white drop-shadow-md text-left leading-tight">
                               {slide.label}
                             </span>
                           </div>
@@ -1317,7 +1317,7 @@ export default function Home() {
                   Business Ecosystem for<br />Collaboration & Growth
                 </h2>
 
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg">
+                <p className="text-slate-600 text-base sm:text-lg text-justify leading-relaxed max-w-lg">
                   Covai Tech Park® and Trichy Coworks, brands under MAX OFFICE, have enabled the growth of 650+ businesses across Tamil Nadu through premium managed offices, coworking spaces, and flexible workspace solutions. Today, we manage over 1,50,000 sq. ft. of office infrastructure across multiple locations, serving startups, enterprises, and global brands alike.
                 </p>
 
@@ -1331,17 +1331,14 @@ export default function Home() {
                   ].map(stat => (
                     <div key={stat.label} className="space-y-1">
                       <p className={`font-outfit font-medium text-2xl ${stat.color} leading-none`}>{stat.val}</p>
-                      <p className="text-[10px] font-medium text-slate-500 tracking-widest uppercase">{stat.label}</p>
+                      <p className="text-[10px] font-medium text-slate-500 tracking-widest ">{stat.label}</p>
                     </div>
                   ))}
                 </div>
 
                 {/* CTA */}
                 <div className="pt-4">
-                  <a
-                    href={prefix("/about-us")}
-                    className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-medium text-[11px] uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02] text-center"
-                  >
+                  <a href={prefix("/about-us")} className="inline-block px-8 py-3.5 bg-brand-orange hover:bg-brand-navy text-white font-medium text-[11px] tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer hover:scale-[1.02] text-center" >
                     Know More About Us
                   </a>
                 </div>
@@ -1372,7 +1369,7 @@ export default function Home() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col items-center text-center">
           {/* Tag */}
-          <span className="text-[10px] font-bold text-[#f37021] uppercase tracking-[0.35em] block mb-8">
+          <span className="text-[10px] font-bold text-[#f37021] tracking-[0.35em] block mb-8">
             ★ HONORARY ACCOLADE ★
           </span>
 
@@ -1404,7 +1401,7 @@ export default function Home() {
 
           {/* Award Info */}
           <div className="space-y-4 max-w-2xl">
-            <h3 className="font-outfit font-medium text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight">
+            <h3 className="font-outfit font-bold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight leading-tight">
               Times Business Awards
             </h3>
             
@@ -1415,12 +1412,7 @@ export default function Home() {
 
           {/* Interactive Accolade Link */}
           <div className="mt-10">
-            <a
-              href="https://timesofindia.indiatimes.com/life-style/events/first-ever-times-business-awards-madurai-2023-honouring-the-best-in-business-in-tamil-nadus-southern-districts/articleshow/98014003.cms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/btn relative px-8 py-3 bg-transparent text-xs font-bold uppercase tracking-widest text-amber-500 hover:text-white transition-colors duration-300 rounded-full border border-amber-500/30 hover:border-amber-500 overflow-hidden inline-block"
-            >
+            <a href="https://timesofindia.indiatimes.com/life-style/events/first-ever-times-business-awards-madurai-2023-honouring-the-best-in-business-in-tamil-nadus-southern-districts/articleshow/98014003.cms" target="_blank" rel="noopener noreferrer" className="group/btn relative px-8 py-3 bg-transparent text-xs font-bold tracking-widest text-amber-500 hover:text-white transition-colors duration-300 rounded-full border border-amber-500/30 hover:border-amber-500 overflow-hidden inline-block" >
               <span className="absolute inset-0 bg-amber-500 -translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out -z-10" />
               View Award &rarr;
             </a>
@@ -1437,7 +1429,7 @@ export default function Home() {
               {/* Yellow decorative accent circle */}
               <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#ffe066]/80 -z-10" />
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none relative z-10">OUR LOCATIONS</span>
-              <h2 className="font-outfit font-medium text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
+              <h2 className="font-outfit font-bold text-3xl sm:text-4xl md:text-5xl lg:text-5xl text-slate-900 tracking-tight leading-[1.05] relative z-10">
                 Find the Ideal Workspace <span className="text-brand-orange">for Your Business</span>
               </h2>
               <p className="text-slate-500 text-md leading-relaxed max-w-md relative z-10 font-normal">
@@ -1450,7 +1442,7 @@ export default function Home() {
               <div className="flex-1 space-y-3 pr-6">
                 <div className="flex items-center gap-2 mb-1">
                   <svg className="w-3.5 h-3.5 text-brand-orange shrink-0" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/></svg>
-                  <span className="text-[10px] font-bold text-brand-orange uppercase tracking-wider leading-none">Coimbatore Hub</span>
+                  <span className="text-[10px] font-bold text-brand-orange tracking-wider leading-none">Coimbatore Hub</span>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-5">
                   {CITIES.slice(0, 3).map((city) => {
@@ -1497,7 +1489,7 @@ export default function Home() {
               <div className="flex-1 space-y-3 pl-6">
                 <div className="flex items-center gap-2 mb-1">
                   <svg className="w-3.5 h-3.5 text-teal-500 shrink-0" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="8"/></svg>
-                  <span className="text-[10px] font-bold text-teal-600 uppercase tracking-wider leading-none">Trichy Hub</span>
+                  <span className="text-[10px] font-bold text-teal-600 tracking-wider leading-none">Trichy Hub</span>
                 </div>
                 <div className="flex flex-wrap gap-x-4 gap-y-5">
                   {CITIES.slice(3, 5).map((city) => {
@@ -1591,24 +1583,22 @@ export default function Home() {
                 <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
                   OUR SERVICES
                 </span>
-                <h2 className="text-4xl sm:text-6xl lg:text-7xl font-outfit font-medium tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
+                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-white to-brand-orange">
                   Our Services. Built for Teams.
                 </h2>
               </div>
-              <p className="text-white/75 text-base max-w-sm leading-relaxed text-left">
-                Tailored solutions for freelancers, startups, and enterprise teams.
-              </p>
+             
             </div>
   
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mt-12">
               {SERVICES_TAILORED.map((service, idx) => {
                 const serviceLinks: Record<string, string> = {
                   "01": prefix("/private-office-space"),
-                  "02": prefix("/managed-office-space"),
-                  "03": prefix("/virtual-office-space"),
-                  "04": prefix("/meeting-rooms"),
-                  "05": prefix("/coworking-space"),
-                  "06": prefix("/coworking-space"),
+                  "02": prefix("/managed-office"),
+                  "03": prefix("/virtual-office"),
+                  "04": prefix("/meeting-room"),
+                  "05": prefix("/coworking-space-in-coimbatore"),
+                  "06": prefix("/coworking-space-in-coimbatore"),
                 };
                 return (
                   <a
@@ -1632,7 +1622,7 @@ export default function Home() {
                         {service.title}
                       </h4>
                       <div className="pt-1.5 shrink-0">
-                        <span className="text-[10px] sm:text-sm font-medium text-brand-orange tracking-widest uppercase flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
+                        <span className="text-[10px] sm:text-sm font-medium text-brand-orange  flex items-center gap-1.5 group-hover:translate-x-1.5 transition-transform">
                           {service.linkText} <span className="text-sm sm:text-sm">&rarr;</span>
                         </span>
                       </div>
@@ -1645,7 +1635,7 @@ export default function Home() {
             <div className="flex justify-center pt-10 sm:pt-14 reveal reveal-up">
               <button
                 onClick={() => handleOpenBooking("Custom Workspace Consultation")}
-                className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
+                className="px-8 py-4 sm:px-10 sm:py-4.5 bg-brand-orange text-white hover:bg-white hover:text-brand-navy font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-brand-orange/25 hover:scale-[1.03] cursor-pointer flex items-center gap-2"
               >
                 Request Custom Office Solution
                 <span className="text-sm font-medium">&rarr;</span>
@@ -1684,7 +1674,7 @@ export default function Home() {
         
         <div className="relative z-10 box-container w-full flex flex-col items-center justify-center gap-0">
           <div className="text-center mb-6 reveal reveal-up">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-3">TESTIMONIALS</span>
+            <span className="text-[10px] font-medium text-brand-orange tracking-[0.25em] block leading-none mb-3">TESTIMONIALS</span>
             <h2 className="font-outfit font-medium text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight leading-none">
               Trusted by Teams.
             </h2>
@@ -1727,7 +1717,7 @@ export default function Home() {
               <div className="mt-4 flex flex-col items-center gap-1">
                 <div className="w-6 h-0.5 bg-brand-orange rounded-full mb-2" />
                 <span className="text-xs font-medium text-white uppercase tracking-[0.15em]">{TESTIMONIALS[activeTestimonial].name}</span>
-                <span className="text-[10px] font-medium text-white/45 uppercase tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
+                <span className="text-[10px] font-medium text-white/45 tracking-[0.2em]">{TESTIMONIALS[activeTestimonial].role}</span>
               </div>
             </div>
             
@@ -1752,7 +1742,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 relative z-10">
           <div className="text-center mb-12 reveal reveal-up">
             <span className="text-[11px] font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none mb-4">FAQS</span>
-            <h2 className="font-outfit font-medium text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
+            <h2 className="font-outfit font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-brand-navy tracking-tight leading-none">
               Frequently Asked Questions
             </h2>
           </div>
@@ -1800,7 +1790,7 @@ export default function Home() {
             <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.25em] block leading-none">
               CONNECT WITH US
             </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-[1.05]">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-[1.05]">
               Establish your business at Coimbatore or Trichy
             </h2>
             <p className="text-sm sm:text-base text-brand-slate font-medium leading-relaxed">
@@ -1964,10 +1954,7 @@ export default function Home() {
                     </select>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4"
-                  >
+                  <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium tracking-widest rounded-xl transition-all duration-300 shadow cursor-pointer mt-4" >
                     Request Tour Schedule
                   </button>
                 </form>
@@ -2133,10 +2120,7 @@ export default function Home() {
                   </select>
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-3.5 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium uppercase tracking-widest rounded-lg transition-all duration-300 shadow-md shadow-brand-orange/20 cursor-pointer text-center"
-                >
+                <button type="submit" className="w-full py-3.5 bg-brand-orange hover:bg-brand-navy text-white text-sm font-medium tracking-widest rounded-lg transition-all duration-300 shadow-md shadow-brand-orange/20 cursor-pointer text-center" >
                   Submit
                 </button>
               </form>

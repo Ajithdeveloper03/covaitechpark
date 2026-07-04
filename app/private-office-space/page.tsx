@@ -13,27 +13,27 @@ const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
 const PRIVATE_OFFICE_DETAILS = [
-  { title: "Ready to Move", desc: "Fully furnished workspace available to move in immediately and start operating with zero lead time.", icon: "zap", image: "/workspace-cabin.png" },
-  { title: "Cost-Effective", desc: "No upfront capital expenditure for fit-outs. Inclusive pricing covers housekeeping, utilities, and support.", icon: "trend", image: "/workspace-lounge.png" },
-  { title: "Customisable", desc: "Custom layouts, dedicated branding, and modular furniture setups tailored to your brand identity.", icon: "adjust", image: "/workspace-meeting.png" },
-  { title: "Scalable", desc: "Add seats or expand your space footprint effortlessly as your team and operations grow.", icon: "scale", image: "/workspace-hotdesk.png" },
-  { title: "Fully Serviced", desc: "Dedicated facility managers, daily professional cleaning, mail handling, and front desk hospitality.", icon: "heart", image: "/workspace-event.png" },
-  { title: "Enterprise IT Setup", desc: "Dual fiber lines with SLA backup, enterprise firewalls, and dedicated server rack space options.", icon: "shield", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/private office/CTP-1.jpg" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/private office/CTP-2.jpg" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/private office/CTP-3.jpg" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/private office/CTP-4.jpg" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/private office/CTP-5.jpg" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/private office/CTP-1.jpg" }
 ];
 
 const PRIVATE_OFFICE_AMENITIES = [
-  { name: "Lockable Cabin Suites", icon: "lock", desc: "Completely private, acoustic-insulated office cabins." },
-  { name: "SLA Business Internet", icon: "wifi", desc: "Dual-fiber high-speed connectivity with automatic failover." },
-  { name: "Smart Climate Control", icon: "ac", desc: "Individually controlled AC units in every cabin." },
-  { name: "Front Desk & Mail", icon: "reception", desc: "Professional reception presence and mail management." },
-  { name: "Housekeeping & Cleaning", icon: "cleaning", desc: "Daily maintenance and sanitation services." },
-  { name: "24/7 Security & CCTV", icon: "security", desc: "Continuous surveillance and security guards on duty." },
-  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backed by auto-trigger DG sets." },
-  { name: "Meeting Room Credits", icon: "office", desc: "Monthly complimentary meeting room and boardroom credits." },
-  { name: "RO Drinking Water", icon: "water", desc: "Pure drinking water stations distributed across the floor." },
-  { name: "Cafeteria Access", icon: "food", desc: "Lounge area and cafeteria for meals, coffee, and tea." },
-  { name: "Gym Facility", icon: "gym", desc: "In-house fitness studio for client and employee wellness." },
-  { name: "Networking Lounges", icon: "breakout", desc: "Collaborative breakout zones for community engagement." }
+  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
+  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
+  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
+  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
+  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
+  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
+  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
+  { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
 
 
@@ -212,7 +212,7 @@ export default function PrivateOfficePage() {
       {/* ── 1. HERO SECTION WITH BACKGROUND IMAGE ── */}
       <section 
         id="hero" 
-        className="relative min-h-[100vh] flex flex-col lg:flex-row justify-center items-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 section-x gap-8 md:gap-12 bg-brand-navy"
+        className="relative min-h-[100vh] flex flex-col justify-center overflow-hidden pt-20 md:pt-28 pb-10 md:pb-16 bg-brand-navy"
       >
         {/* Background Image Container */}
         <div className="absolute inset-0 z-0">
@@ -224,55 +224,52 @@ export default function PrivateOfficePage() {
             className="object-cover object-center"
             sizes="100vw"
           />
-          {/* Powerful Glassy Gradient Overlay */}
-          {/* <div className="absolute inset-0 bg-gradient-to-br from-[#091b29]/95 via-[#091b29]/80 to-brand-orange/25 z-10" />
-          <div className="absolute top-0 right-0 w-[80%] h-[80%] rounded-full bg-brand-orange/20 blur-[120px] translate-x-1/3 -translate-y-1/3 pointer-events-none z-10" />
-          <div className="absolute bottom-0 left-0 w-[60%] h-[60%] rounded-full bg-brand-orange/15 blur-[100px] -translate-x-1/3 translate-y-1/3 pointer-events-none z-10" />
-          <div className="absolute inset-0 bg-[#060c10]/40 backdrop-blur-[4px] border-b border-white/10 pointer-events-none z-10" /> */}
         </div>
-        {/* Hero Content Left */}
-        <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
-            Premium Managed Suites &middot; Coimbatore
-          </span>
-
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
-            Premium Private <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
-              Office Cabin Space
+        
+        {/* Container wrapper */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
+          {/* Hero Content Left */}
+          <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
+              Premium Managed Suites &middot; Coimbatore
             </span>
-          </h1>
 
-          <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-            Covai Tech Park offers private office space designed and equipped with all the business essentials in mind for you and your team to be highly productive. The space is ready to move and flexible to make changes of your choice. Our private office space plans are highly flexible to the needs of your business.
-          </p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
+              Premium Private <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
+                Office Cabin Space
+              </span>
+            </h1>
 
-          <div className="flex flex-wrap gap-4 pt-2">
-            <button
-              onClick={() => handleOpenBooking("Private Cabin Quote")}
-              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
-            >
-              Get Quote &rarr;
-            </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-            >
-              Explore Features
-            </a>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
+              Covai Tech Park offers private office space designed and equipped with all the business essentials in mind for you and your team to be highly productive. The space is ready to move and flexible to make changes of your choice. Our private office space plans are highly flexible to the needs of your business.
+            </p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <button
+                onClick={() => handleOpenBooking("Private Cabin Quote")}
+                className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+              >
+                Get Quote &rarr;
+              </button>
+              <a href="#features" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
+                Explore Features
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* Hero Visual Right */}
-        <div className="relative z-10 lg:w-1/2 w-full aspect-[16/9] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
-          <Image
-            src={prefix("/service5.png")}
-            alt="Private Cabin Office Space"
-            fill
-            priority
-            className="object-cover "
-           sizes="(max-width: 768px) 100vw, 800px"/>
+          {/* Hero Visual Right */}
+          <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
+            <Image
+              src={prefix("/service5.png")}
+              alt="Private Cabin Space"
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+          </div>
         </div>
       </section>
 
@@ -299,10 +296,10 @@ export default function PrivateOfficePage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               BENEFITS & CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Why Choose Our Managed Private Cabins?
             </h2>
           </div>
@@ -310,16 +307,11 @@ export default function PrivateOfficePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {PRIVATE_OFFICE_DETAILS.map((feat, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105"  sizes="(max-width: 768px) 100vw, 800px" loading="lazy"/>
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4.5 h-4.5" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -332,10 +324,10 @@ export default function PrivateOfficePage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               SERVICES INCLUDED
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Workspace Infrastructure Built For Success
             </h2>
           </div>
@@ -354,35 +346,18 @@ export default function PrivateOfficePage() {
         </div>
       </section>
 
-      {/* ── 4. SCHEDULE CONSULTATION CTA WITH BG IMAGE ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <div className="md:w-1/2 space-y-4">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight">
-              Need a customised seating layout or dedicated branding?
-            </h2>
-            <p className="text-slate-300 text-sm leading-relaxed font-normal">
-              Our enterprise planning team can customize private suites to fit your exact operational requirements. Let&apos;s design the perfect environment for your brand.
-            </p>
-          </div>
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Custom Consultation")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk With Our Experts
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+      {/* ── 4. SCHEDULE CONSULTATION CTA ── */}
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
+            Need a customised seating layout or dedicated branding?
+          </h2>
+          <button
+            onClick={() => handleOpenBooking("Custom Consultation")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk With Our Experts
+          </button>
         </div>
       </section>
 
@@ -396,7 +371,7 @@ export default function PrivateOfficePage() {
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">
                 WHAT OUR MEMBERS SAY
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Here&apos;s what our happy customers say!
               </h2>
               <div className="flex items-center gap-2 pt-1">
@@ -491,10 +466,10 @@ export default function PrivateOfficePage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-4xl mx-auto space-y-12">
           <div className="text-center space-y-4">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               QUESTIONS &amp; ANSWERS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight">
               Frequently Asked Questions
             </h2>
           </div>
@@ -542,19 +517,20 @@ export default function PrivateOfficePage() {
       <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
               ADDITIONAL WORKSPACES
             </span>
-            <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
               Explore Other Workspace Solutions
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
-              { name: "Managed Office", desc: "Enterprise scale fully managed spaces designed exclusively for large organizations.", link: prefix("/#services-dark"), img: "/workspace-meeting.png" },
-              { name: "Dedicated Desk", desc: "A permanent desk reserved for you in a collaborative sharing workspace.", link: prefix("/coimbatore"), img: "/workspace-hotdesk.png" },
-              { name: "Virtual Office", desc: "Prestigious corporate addresses for GST registration and mail handling.", link: prefix("/#services-dark"), img: "/workspace-lounge.png" }
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
+              { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: prefix("/managed-office"), img: "/workspace-meeting.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: prefix("/virtual-office"), img: "/workspace-lounge.png" },
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -614,7 +590,7 @@ export default function PrivateOfficePage() {
                   style={{ display: "none" }}
                   autoComplete="off"
                 />
-                <h3 className="font-outfit font-medium text-2xl text-slate-900">Inquire Private Office</h3>
+                <h3 className="font-outfit font-bold text-2xl text-slate-900">Inquire Private Office</h3>
                 <p className="text-slate-500 text-sm">Fill out the details below to receive custom plan pricing and seating configurations.</p>
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -673,10 +649,7 @@ export default function PrivateOfficePage() {
                   />
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium uppercase tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4"
-                >
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white text-sm font-medium tracking-widest rounded-xl transition-all duration-300 cursor-pointer mt-4" >
                   Submit Inquiry
                 </button>
               </form>

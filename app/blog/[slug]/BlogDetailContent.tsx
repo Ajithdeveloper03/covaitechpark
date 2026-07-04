@@ -293,7 +293,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               All Articles
             </a>
             <div className="flex items-center flex-wrap gap-3">
-              <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
+              <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
                 {currentArticle.category}
               </span>
               <span className="text-white/30 text-xs">·</span>
@@ -395,7 +395,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
               {currentArticle.faqs && currentArticle.faqs.length > 0 && (
                 <div className="mt-20 pt-10 border-t border-slate-200 space-y-8">
                   <div className="space-y-2">
-                    <span className="text-[10px] font-bold text-[#f37021] uppercase tracking-widest block">
+                    <span className="text-[10px] font-bold text-[#f37021] tracking-widest block">
                       Common Questions
                     </span>
                     <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-sans tracking-tight">
@@ -442,7 +442,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                   </svg>
                   Back to Articles
                 </a>
-                <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
+                <span className={`px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-wider border ${catColor.bg} ${catColor.text} ${catColor.border}`}>
                   {currentArticle.category}
                 </span>
               </div>
@@ -531,10 +531,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
                       onChange={(e) => setBookingPhone(e.target.value)}
                       className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 focus:bg-white transition-all"
                     />
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 bg-[#f37021] hover:bg-[#060d17] text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-[#f37021]/20"
-                    >
+                    <button type="submit" className="w-full py-3.5 bg-[#f37021] hover:bg-[#060d17] text-white text-xs font-bold tracking-widest rounded-xl transition-all duration-300 shadow-lg shadow-[#f37021]/20" >
                       Get Callback
                     </button>
                   </form>
@@ -578,33 +575,24 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
       </section>
 
       {/* ── CTA SECTION ── */}
-      <section className="py-24 bg-white border-t border-slate-100 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 relative z-10">
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-[#0a182b] via-[#1e293b] to-black overflow-hidden p-12 md:p-16 text-center shadow-2xl">
-            {/* Lightened glowing orb 1 */}
-            <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-[#f37021]/40 to-transparent blur-[100px] pointer-events-none" />
-            {/* Lightened glowing orb 2 */}
-            <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-[#f37021]/30 to-transparent blur-[100px] pointer-events-none" />
-            <div className="relative z-10 w-full flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-              <div className="md:w-1/2 space-y-4">
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#f37021] block">Ready to get started?</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight">Need help with finding the right workspace solution?</h2>
-              </div>
-              <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-                <a
-                  href={prefix("/private-office-space")}
-                  className="px-8 py-4 bg-[#f37021] hover:bg-white hover:text-[#f37021] text-white text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-[#f37021]/20 whitespace-nowrap"
-                >
-                  Explore Memberships
-                </a>
-                <a
-                  href={prefix("/contact")}
-                  className="px-8 py-4 border border-white/15 hover:border-white/30 text-white hover:bg-white/5 text-sm font-bold uppercase tracking-widest rounded-full transition-all duration-300 whitespace-nowrap"
-                >
-                  Contact Us
-                </a>
-              </div>
-            </div>
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800 mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-medium text-white m-0">
+            Need help with finding the right workspace solution?
+          </h2>
+          <div className="flex gap-4">
+            <a
+              href={prefix("/private-office-space")}
+              className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+            >
+              Explore Memberships
+            </a>
+            <a
+              href={prefix("/contact")}
+              className="px-6 py-2.5 border border-slate-700 hover:border-[#f03a17] text-white hover:bg-slate-900 font-semibold text-sm rounded-md transition-all whitespace-nowrap cursor-pointer"
+            >
+              Contact Us
+            </a>
           </div>
         </div>
       </section>

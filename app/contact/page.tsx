@@ -93,7 +93,7 @@ export default function ContactPage() {
           <p className="text-slate-300 text-sm sm:text-base max-w-md font-normal leading-relaxed mx-auto">
             Premium managed workspaces and bespoke private cabins at the intersection of productivity, design and technology.
           </p>
-          <div className="mt-8 text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-4">
+          <div className="mt-8 text-[10px] sm:text-xs font-bold text-slate-400 tracking-widest flex items-center justify-center gap-4">
             <span>Home</span> <span className="text-[#f37021] font-bold">|</span> <span>Contact Us</span>
           </div>
         </div>
@@ -278,7 +278,7 @@ export default function ContactPage() {
 
               {/* Coimbatore contact details */}
               <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold uppercase tracking-wider inline-block">Coimbatore Headquarters</span>
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold tracking-wider inline-block">Coimbatore Headquarters</span>
                 <h3 className="text-xl font-bold text-slate-900">CovaiTech Park HQ</h3>
                 <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
                   {settings.coimbatore_address}
@@ -291,7 +291,7 @@ export default function ContactPage() {
 
               {/* Trichy contact details */}
               <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold uppercase tracking-wider inline-block">Branch Office</span>
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold tracking-wider inline-block">Branch Office</span>
                 <h3 className="text-xl font-bold text-slate-900">Trichy Center</h3>
                 <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
                   {settings.trichy_address}

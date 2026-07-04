@@ -82,9 +82,10 @@ export function useAdminAuth(): UseAdminAuthResult {
       }
 
       if (!res.ok) {
-        // Network / server error — still show the page but log it
+        // Network / server error — clear session and redirect to avoid infinite loading loop
         console.error("[AdminAuth] Server returned", res.status);
-        setLoading(false);
+        clearSession();
+        redirectToLogin();
         return;
       }
 

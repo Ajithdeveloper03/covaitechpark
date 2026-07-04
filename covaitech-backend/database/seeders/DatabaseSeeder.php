@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         // ── Admin User ──
         User::updateOrCreate(
-            ['email' => 'admin@covaitech.com'],
+            ['email' => 'info@covaitechpark.com'],
             [
                 'name'     => 'Admin User',
-                'password' => \Illuminate\Support\Facades\Hash::make('password'),
+                'password' => \Illuminate\Support\Facades\Hash::make('CovaiTechPark@2026'),
             ]
         );
 

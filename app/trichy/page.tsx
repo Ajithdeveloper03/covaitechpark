@@ -139,9 +139,9 @@ export default function TrichyPage() {
           <div className="absolute bottom-[10%] right-[5%] w-[40%] h-[40%] rounded-full bg-brand-orange/10 blur-[100px]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-          <div className="w-full lg:w-1/2 space-y-6">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/20 text-brand-orange rounded-full text-xs font-bold uppercase tracking-widest border border-brand-orange/20">
+        <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-12">
+          <div className="w-full lg:w-1/2 space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/20 text-brand-orange rounded-full text-xs font-bold tracking-widest border border-brand-orange/20">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
               A Unit of Max Office
             </span>
@@ -158,12 +158,7 @@ export default function TrichyPage() {
               </p>
             </div>
             <div className="pt-6">
-              <a
-                href="https://trichycoworks.com/locations/?utm_source=ctp_website&utm_medium=navigation&utm_campaign=nav_bar"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg shadow-brand-orange/20"
-              >
+              <a href="https://trichycoworks.com/locations/?utm_source=ctp_website&utm_medium=navigation&utm_campaign=nav_bar" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm tracking-widest rounded-full transition-all shadow-lg shadow-brand-orange/20" >
                 Explore Trichy Location <span className="text-lg leading-none">&rarr;</span>
               </a>
             </div>
@@ -186,7 +181,7 @@ export default function TrichyPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
           <h2 className="text-2xl sm:text-3xl font-outfit font-bold mb-0 md:w-1/2">Need help with finding the right workspace solution?</h2>
           <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
+            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm tracking-widest rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
           </div>
         </div>
       </section>
@@ -194,7 +189,7 @@ export default function TrichyPage() {
       <section className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
               ADDITIONAL LOCATIONS
             </span>
             <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">Need help with finding the right workspace solution?</h2>
@@ -362,10 +357,7 @@ export default function TrichyPage() {
                       <option value="Trichy Tour">Trichy Tour</option>
                     </select>
                   </div>
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-[#091b29] text-white text-sm font-medium uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4"
-                  >
+                  <button type="submit" className="w-full py-4 bg-[#091b29] text-white text-sm font-medium tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4" >
                     Confirm Request
                   </button>
                 </form>

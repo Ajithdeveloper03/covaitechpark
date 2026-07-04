@@ -147,7 +147,7 @@ export default function CoimbatorePage() {
 
         {/* Centered Hero Content */}
         <div className="relative z-20 flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 max-w-7xl mt-8 mx-auto w-full">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff9853] leading-[1.05] mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-outfit font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#f37021] via-orange-300 to-yellow-300 leading-[1.05] mb-4">
             Covai Tech Park Locations
           </h1>
 
@@ -158,16 +158,11 @@ export default function CoimbatorePage() {
           <div className="flex flex-wrap items-center justify-center gap-4 mt-2 hidden">
             <button
               onClick={() => handleOpenBooking("Coimbatore HQ Tour")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
+              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer"
             >
               Schedule Visit
             </button>
-            <a
-              href="https://maps.app.goo.gl/T4HnE2Wn8nSjLptN8"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border border-white/30 hover:border-brand-orange text-white hover:bg-brand-orange/15 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2"
-            >
+            <a href="https://maps.app.goo.gl/T4HnE2Wn8nSjLptN8" target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-white/30 hover:border-brand-orange text-white hover:bg-brand-orange/15 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2" >
               Get Directions &rarr;
             </a>
           </div>
@@ -227,7 +222,7 @@ export default function CoimbatorePage() {
       <section id="locations" className="py-12 sm:py-24 md:py-32 bg-white w-full px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-4 max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-semibold uppercase tracking-wider">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-brand-orange/10 text-brand-orange rounded-full text-xs font-semibold tracking-wider">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-orange" />
               Coimbatore Branches
             </span>
@@ -282,8 +277,8 @@ export default function CoimbatorePage() {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                  <button onClick={() => handleOpenBooking("Nehru Nagar Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.app.goo.gl/MiaMTyTwTWYpsQot9" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                  <button onClick={() => handleOpenBooking("Nehru Nagar Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
+                  <a href="https://maps.app.goo.gl/MiaMTyTwTWYpsQot9" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
                 </div>
               </div>
             </div>
@@ -329,8 +324,8 @@ export default function CoimbatorePage() {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                  <button onClick={() => handleOpenBooking("Saravanampatti Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.app.goo.gl/rVBpynqALh8ShqYQA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                  <button onClick={() => handleOpenBooking("Saravanampatti Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
+                  <a href="https://maps.app.goo.gl/rVBpynqALh8ShqYQA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
                 </div>
               </div>
             </div>
@@ -376,8 +371,8 @@ export default function CoimbatorePage() {
                   </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                  <button onClick={() => handleOpenBooking("Broadview Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
-                  <a href="https://maps.app.goo.gl/kjPJpoRqvqdS6axeA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold uppercase tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
+                  <button onClick={() => handleOpenBooking("Broadview Tour")} className="w-full py-3 bg-brand-navy text-white text-[11px] font-bold tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow-sm cursor-pointer">Schedule Visit</button>
+                  <a href="https://maps.app.goo.gl/kjPJpoRqvqdS6axeA" target="_blank" rel="noopener noreferrer" className="w-full py-3 border-2 border-slate-100 text-center text-brand-navy text-[11px] font-bold tracking-widest rounded-xl hover:border-brand-orange hover:text-brand-orange transition-all duration-300 cursor-pointer">Get Directions</a>
                 </div>
               </div>
             </div>
@@ -388,15 +383,15 @@ export default function CoimbatorePage() {
 
 
 {/* ── 4. SHORTER CTA SECTION ── */}
-      <section className="relative py-16 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black text-white text-center overflow-hidden">
+      <section className="relative py-10 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black text-white text-center overflow-hidden">
         {/* Lightened glowing orb 1 */}
         <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
         {/* Lightened glowing orb 2 */}
         <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-2xl sm:text-3xl font-outfit font-bold mb-0 md:w-1/2">Need help with finding the right workspace solution?</h2>
+          <h2 className="text-2xl sm:text-2xl font-outfit font-bold mb-0 md:w-1/2">Need help with finding the right workspace solution?</h2>
           <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
+            <button onClick={() => handleOpenBooking("General Tour")} className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-brand-navy text-white font-medium text-sm   rounded-full transition-all shadow-lg whitespace-nowrap">Book a Tour Today</button>
           </div>
         </div>
       </section>
@@ -406,7 +401,7 @@ export default function CoimbatorePage() {
       <section className="py-10 sm:py-20 md:py-28 bg-slate-50 section-x w-full border-t border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 px-4 sm:px-6 lg:px-8">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
               ADDITIONAL LOCATIONS
             </span>
             <h2 className="text-3xl sm:text-4xl font-outfit font-medium tracking-tight leading-[1.1] text-slate-900">Need help with finding the right workspace solution?</h2>
@@ -590,10 +585,7 @@ export default function CoimbatorePage() {
                     </select>
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-[#091b29] text-white text-sm font-medium uppercase tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4"
-                  >
+                  <button type="submit" className="w-full py-4 bg-[#091b29] text-white text-sm font-medium tracking-widest rounded-xl hover:bg-brand-orange transition-all duration-300 shadow cursor-pointer mt-4" >
                     Confirm Request
                   </button>
                 </form>

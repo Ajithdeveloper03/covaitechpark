@@ -12,46 +12,46 @@ const BASE_PATH = "/covaitechpark";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const MANAGED_OFFICE_DETAILS = [
-  { title: "Built to Suit", desc: "Get custom office layouts, dedicated meeting rooms, and interior design matching your brand guidelines.", icon: "adjust", image: "/workspace-cabin.png" },
-  { title: "Zero Capital Outlay", desc: "Avoid heavy initial CapEx for workspace interior construction. Pay a single monthly fee instead.", icon: "trend", image: "/workspace-lounge.png" },
-  { title: "Premium Fit-outs", desc: "High-end ergonomic desks, sound-insulated glass partitions, and executive cabins built with quality materials.", icon: "zap", image: "/workspace-meeting.png" },
-  { title: "Scalable Operations", desc: "Easily scale your office footprint from a 20-seat setup to a 100+ seat enterprise floor as you expand.", icon: "scale", image: "/workspace-hotdesk.png" },
-  { title: "Turnkey Management", desc: "Includes reception presence, SLA-backed power/internet, housekeeping, cafeteria, and building maintenance.", icon: "heart", image: "/workspace-event.png" },
-  { title: "Enterprise Grade IT", desc: "Dual fiber lines with automated failover, private server racks, and advanced network security setups.", icon: "shield", image: "/workspace-cafe.png" }
+  { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/managed office/CTP-1.jpg" },
+  { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/managed office/CTP-2.jpg" },
+  { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/managed office/CTP-3.jpg" },
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/managed office/CTP-4.jpg" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/managed office/CTP-5.jpg" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/managed office/CTP-1.jpg" }
 ];
 
 const MANAGED_OFFICE_AMENITIES = [
-  { name: "Custom Suite Layouts", icon: "lock", desc: "Customized seating, conference setups, and director cabins." },
-  { name: "SLA Business Internet", icon: "wifi", desc: "High-performance dual-fiber connectivity with automatic failover." },
-  { name: "Dedicated IT Racks", icon: "shield", desc: "Secure hosting spaces for your localized servers and switches." },
-  { name: "Reception & Concierge", icon: "reception", desc: "Professional front desk hospitality and call-routing support." },
-  { name: "Housekeeping & Cleaning", icon: "cleaning", desc: "Daily maintenance, trash disposal, and floor sanitization." },
-  { name: "24/7 Access & CCTV", icon: "security", desc: "Secure smart card access and continuous campus surveillance." },
-  { name: "Generator Power Backup", icon: "generator", desc: "100% power backup via automatic main-failure DG units." },
-  { name: "Meeting Rooms Credits", icon: "office", desc: "Complimentary access to professional corporate boardrooms." },
-  { name: "RO Drinking Water", icon: "water", desc: "Purified drinking water stations available across all blocks." },
-  { name: "Cafeteria & Pantries", icon: "food", desc: "Breakout zones and cafeteria with hot beverages and snacks." },
-  { name: "Gym & Recreation", icon: "gym", desc: "In-house fitness studio to promote wellness among employees." },
-  { name: "Breakout Lounges", icon: "breakout", desc: "Collaborative soft-seating zones for casual discussions." }
+  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
+  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
+  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
+  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
+  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
+  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
+  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on-site facility management for day-to-day operational support." },
+  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
+  { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
 
 
 
 const FAQS = [
   {
-    question: "IS THERE A MINIMUM SIZE REQUIREMENT TO TAKE UP A MANAGED OFFICE SPACE?",
+    question: "Is there a minimum size requirement to take up a managed office space?",
     answer: "Yes, the minimum seating requirement for a managed office space at Covai Tech Park is 30 seats. If your requirement is for fewer than 30 seats, our team will help you identify the most suitable workspace solution based on your business needs."
   },
   {
-    question: "HOW MUCH IS THE SECURITY DEPOSIT FOR A MANAGED OFFICE SPACE?",
+    question: "How much is the security deposit for a managed office space?",
     answer: "At Covai Tech Park, the standard security deposit for a managed office space under the basic plan is equivalent to three months' rent. The deposit amount may vary depending on the office configuration and specific requirements."
   },
   {
-    question: "WHAT IS THE MINIMUM TENURE FOR LEASING A MANAGED OFFICE SPACE?",
+    question: "What is the minimum tenure for leasing a managed office space?",
     answer: "The standard minimum lease tenure for a managed office space at Covai Tech Park is 24 months. However, flexible lease terms may be available based on your workspace requirements."
   },
   {
-    question: "WHAT KIND OF SUPPORT DO YOU PROVIDE IF WE NEED A LARGER SPACE?",
+    question: "What kind of support do you provide if we need a larger space?",
     answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
   }
 ];
@@ -222,12 +222,12 @@ export default function ManagedOfficePage() {
         {/* Container wrapper */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8 md:gap-12">
         <div className="relative z-10 lg:w-1/2 text-left flex flex-col items-start gap-6">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] uppercase">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-brand-orange/20 rounded-full border border-brand-orange/30 text-brand-orange text-[10px] font-medium tracking-[0.15em] ">
             <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse" />
             Built-to-Suit Enterprise Suites
           </span>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-medium tracking-tight text-white leading-[1.08]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-outfit font-bold tracking-tight text-white leading-[1.08]">
             Premium Managed <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-[#ff802b]">
               Office Spaces
@@ -241,14 +241,11 @@ export default function ManagedOfficePage() {
           <div className="flex flex-wrap gap-4 pt-2">
             <button
               onClick={() => handleOpenBooking("Managed Office Quote")}
-              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
+              className="px-8 py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-sm tracking-widest rounded-full transition-all duration-300 shadow-xl shadow-orange-500/10 hover:scale-[1.02] cursor-pointer"
             >
               Get Custom Quote &rarr;
             </button>
-            <a
-              href="#features"
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline"
-            >
+            <a href="#features" className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline" >
               Explore Features
             </a>
           </div>
@@ -290,10 +287,10 @@ export default function ManagedOfficePage() {
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16 relative z-10">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               ENTERPRISE CAPABILITIES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Engineered for Growth &amp; Flexibility
             </h2>
           </div>
@@ -301,16 +298,11 @@ export default function ManagedOfficePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch max-w-6xl mx-auto">
             {MANAGED_OFFICE_DETAILS.map((feat, idx) => (
               <div key={idx} className="bg-slate-50 border border-slate-200 rounded-3xl p-6 flex flex-col gap-6 hover:border-brand-orange/40 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-                <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden shadow-inner border border-slate-200">
-                  <Image src={prefix(feat.image)} alt={feat.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />
+                <div className="w-14 h-14 rounded-2xl bg-brand-orange/10 text-brand-orange flex items-center justify-center mb-2">
+                  <IconHelper name={feat.icon} className="w-7 h-7" />
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-brand-orange/10 text-brand-orange flex items-center justify-center">
-                      <IconHelper name={feat.icon} className="w-4.5 h-4.5" />
-                    </span>
-                    <h3 className="font-outfit font-medium text-lg text-slate-800">{feat.title}</h3>
-                  </div>
+                  <h3 className="font-outfit font-bold text-lg text-slate-800">{feat.title}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed font-normal">{feat.desc}</p>
                 </div>
               </div>
@@ -323,10 +315,10 @@ export default function ManagedOfficePage() {
       <section id="amenities" className="py-10 sm:py-20 md:py-28 bg-slate-100 section-x w-full relative border-t border-b border-slate-200">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               ENTERPRISE SERVICES
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Premium Services Included In Your Plan
             </h2>
           </div>
@@ -346,31 +338,17 @@ export default function ManagedOfficePage() {
       </section>
 
       {/* ── 4. CTA PANEL ── */}
-      <section className="relative w-full overflow-hidden py-12 md:py-24 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black">
-        {/* Lightened glowing orb 1 */}
-        <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
-        {/* Lightened glowing orb 2 */}
-        <div className="absolute -bottom-[30%] -right-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-tl from-brand-orange/30 to-transparent blur-[100px] pointer-events-none" />
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12 text-center md:text-left">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium tracking-tight text-white leading-tight md:w-1/2">
+      <section className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-y border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-bold text-white m-0">
             Need help with finding the right workspace solution?
           </h2>
-          
-          <div className="flex flex-wrap justify-center md:justify-end gap-4 md:w-1/2">
-            <button
-              onClick={() => handleOpenBooking("Managed Office Inquiry")}
-              className="px-8 py-4 bg-brand-orange hover:bg-white hover:text-slate-950 text-white font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap"
-            >
-              Talk to our Expert
-            </button>
-            <a
-              href={`tel:${contactInfo.phone1.raw}`}
-              className="px-8 py-4 border border-slate-700 hover:border-brand-orange text-slate-300 hover:bg-slate-900 font-medium text-sm uppercase tracking-widest rounded-full transition-all duration-300 cursor-pointer no-underline flex items-center gap-2 whitespace-nowrap"
-            >
-              Call: {contactInfo.phone1.display}
-            </a>
-          </div>
+          <button
+            onClick={() => handleOpenBooking("Managed Office Inquiry")}
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
+          >
+            Talk to our Expert
+          </button>
         </div>
       </section>
 
@@ -382,7 +360,7 @@ export default function ManagedOfficePage() {
               <span className="text-sm font-medium text-brand-orange uppercase tracking-[0.3em] block leading-none">
                 MEMBER OPINIONS
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-brand-navy tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-brand-navy tracking-tight leading-tight">
                 Corporate Endorsements
               </h2>
             </div>
@@ -433,10 +411,10 @@ export default function ManagedOfficePage() {
       <section id="faqs" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative">
         <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16">
           <div className="text-center space-y-4 max-w-2xl mx-auto">
-            <span className="text-[10px] font-medium text-brand-orange uppercase tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block border border-brand-orange/30 text-brand-orange w-max px-3 py-1 rounded-sm mx-auto">
               COMMON QUESTIONS
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-medium text-slate-900 tracking-tight leading-[1.1]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-outfit font-bold text-slate-900 tracking-tight leading-[1.1]">
               Managed Offices FAQ
             </h2>
           </div>
@@ -466,6 +444,46 @@ export default function ManagedOfficePage() {
         </div>
       </section>
 
+      
+      {/* ── EXPLORE OTHER SOLUTIONS ── */}
+      <section className="py-10 sm:py-20 md:py-28 bg-white section-x w-full border-t border-slate-200">
+        <div className="max-w-7xl mx-auto space-y-12 sm:space-y-16">
+          <div className="text-center space-y-4 max-w-2xl mx-auto">
+            <span className="text-[10px] font-medium text-brand-orange tracking-widest block">
+              ADDITIONAL WORKSPACES
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-outfit font-bold tracking-tight leading-[1.1] text-slate-900">
+              Explore Other Workspace Solutions
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {[
+              { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: prefix("/coworking-space-in-coimbatore"), img: "/workspace-hotdesk.png" },
+              { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: prefix("/private-office-space"), img: "/workspace-cabin.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: prefix("/meeting-room"), img: "/workspace-event.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: prefix("/virtual-office"), img: "/workspace-lounge.png" },
+            ].map((sol, idx) => (
+              <a href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
+                  </div>
+                </div>
+                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
+                  <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                  </div>
+                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
 
       {/* ── BOOKING INQUIRY POPUP MODAL ── */}
@@ -479,8 +497,8 @@ export default function ManagedOfficePage() {
               &times;
             </button>
             <div className="space-y-2 text-left mb-6">
-              <span className="text-[10px] font-medium text-brand-orange uppercase tracking-wider">Managed Office Booking</span>
-              <h3 className="font-outfit font-medium text-2xl text-slate-950">Inquire About Managed Space</h3>
+              <span className="text-[10px] font-medium text-brand-orange tracking-wider">Managed Office Booking</span>
+              <h3 className="font-outfit font-bold text-2xl text-slate-950">Inquire About Managed Space</h3>
               <p className="text-slate-400 text-xs font-normal">Please share your contact details and seat requirements.</p>
             </div>
 
@@ -496,24 +514,24 @@ export default function ManagedOfficePage() {
                 <input type="text" className="hidden" value={botField} onChange={(e) => setBotField(e.target.value)} />
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">First Name</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">First Name</label>
                     <input required type="text" value={bookingFirstName} onChange={(e) => setBookingFirstName(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                   </div>
                   <div>
-                    <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Last Name</label>
+                    <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Last Name</label>
                     <input required type="text" value={bookingLastName} onChange={(e) => setBookingLastName(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                   </div>
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Corporate Email</label>
+                  <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Corporate Email</label>
                   <input required type="email" value={bookingEmail} onChange={(e) => setBookingEmail(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Contact Phone</label>
+                  <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Contact Phone</label>
                   <input required type="tel" value={bookingPhone} onChange={(e) => setBookingPhone(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors" />
                 </div>
                 <div>
-                  <label className="text-[10px] font-black uppercase text-slate-400 tracking-wider block mb-1">Estimated Seat Count</label>
+                  <label className="text-[10px] font-black text-slate-400 tracking-wider block mb-1">Estimated Seat Count</label>
                   <select value={bookingLookingFor} onChange={(e) => setBookingLookingFor(e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-orange focus:ring-1 focus:ring-brand-orange outline-none transition-colors">
                     <option value="15-30 Seats">15-30 Seats</option>
                     <option value="30-50 Seats">30-50 Seats</option>
@@ -521,7 +539,7 @@ export default function ManagedOfficePage() {
                     <option value="100+ Seats">100+ Seats</option>
                   </select>
                 </div>
-                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-xs uppercase tracking-widest rounded-full transition-all duration-300 mt-2 cursor-pointer">
+                <button type="submit" className="w-full py-4 bg-brand-orange hover:bg-slate-900 text-white font-medium text-xs tracking-widest rounded-full transition-all duration-300 mt-2 cursor-pointer">
                   Submit Reservation Request
                 </button>
               </form>

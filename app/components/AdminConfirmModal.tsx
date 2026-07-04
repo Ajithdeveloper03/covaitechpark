@@ -44,17 +44,13 @@ export default function AdminConfirmModal({
           {description}
         </p>
         <div className="flex items-center justify-end gap-3">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 text-sm font-medium uppercase tracking-wider transition-colors cursor-pointer select-none"
-          >
+          <button type="button" onClick={onCancel} className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-500 hover:bg-slate-50 text-sm font-medium tracking-wider transition-colors cursor-pointer select-none" >
             {cancelLabel}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className={`px-5 py-2.5 rounded-xl text-white text-sm font-medium uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] cursor-pointer select-none shadow-md ${
+            className={`px-5 py-2.5 rounded-xl text-white text-sm font-medium  tracking-wider transition-all duration-300 hover:scale-[1.02] cursor-pointer select-none shadow-md ${
               isDanger 
                 ? "bg-rose-500 hover:bg-rose-600 shadow-rose-500/10" 
                 : "bg-[#f37021] hover:bg-[#d55c14] shadow-[#f37021]/10"

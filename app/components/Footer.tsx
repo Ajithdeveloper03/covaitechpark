@@ -31,16 +31,14 @@ export default function Footer({ onCtaClick }: FooterProps) {
     <footer className="w-full bg-[#060c10] text-white border-t border-white/5 font-sans z-10 relative">
       
       {/* Top CTA Strip */}
-      <div className="border-b border-white/35 py-6 sm:py-8">
-        <div className="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 bg-[#0a1828] py-8 px-6 sm:px-10 rounded-xl">
-          <div className="text-center md:text-left space-y-1">
-            <p className="font-sans font-bold text-xl sm:text-2xl text-white tracking-tight">
-              Need help with finding the right workspace solution?
-            </p>
-          </div>
+      <div className="w-full bg-gradient-to-r from-[#0a0f1c] to-[#121b2f] py-6 sm:py-8 border-b border-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <h2 className="text-xl sm:text-2xl font-outfit font-medium text-white m-0">
+            Need help with finding the right workspace solution?
+          </h2>
           <button
             onClick={handleCtaClick}
-            className="w-full md:w-auto px-6 py-3 bg-[#e82500] hover:bg-brand-orange text-white font-bold text-sm rounded-md transition-all duration-300 cursor-pointer shadow-lg shrink-0"
+            className="px-6 py-2.5 bg-[#f03a17] hover:bg-white hover:text-slate-900 text-white font-semibold text-sm rounded-md transition-all whitespace-nowrap shadow-md cursor-pointer"
           >
             Talk to our Expert
           </button>
@@ -89,13 +87,12 @@ export default function Footer({ onCtaClick }: FooterProps) {
           <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em]">Workspace Solutions</h5>
           <ul className="space-y-3 text-sm font-normal text-white/45">
             {[
-              { name: "Coworking Space", link: prefix("/coworking-space") },
+              { name: "Coworking Space", link: prefix("/coworking-space-in-coimbatore") },
               { name: "Private Office Space", link: prefix("/private-office-space") },
-              { name: "Managed Office", link: prefix("/managed-office-space") },
-              { name: "Virtual Office", link: prefix("/virtual-office-space") },
-              { name: "Meeting Room", link: prefix("/meeting-rooms") },
-              { name: "Event Space", link: prefix("/event-space") },
-              { name: "Training Room", link: prefix("/training-room") }
+              { name: "Managed Office", link: prefix("/managed-office") },
+              { name: "Virtual Office", link: prefix("/virtual-office") },
+              { name: "Meeting Room", link: prefix("/meeting-room") },
+              { name: "Event Space", link: prefix("/event-space-in-coimbatore") }
             ].map(item => (
               <li key={item.name} className="flex items-center gap-2">
                 <span className="text-brand-orange text-sm">&rsaquo;</span>
@@ -133,10 +130,10 @@ export default function Footer({ onCtaClick }: FooterProps) {
             <h5 className="font-sans font-bold text-sm text-white uppercase tracking-[0.2em]">Other Pages</h5>
             <ul className="space-y-3 text-sm font-normal text-white/45">
               {[
-                { name: "Furnished Office Space in Coimbatore", link: prefix("/furnished-office-space") },
-                { name: "Commercial Office Space in Coimbatore", link: prefix("/commercial-space-for-rent") },
-                { name: "Locations", link: prefix("/locations") },
-                { name: "Refer and Earn Program", link: prefix("/refer-earn") }
+                { name: "Furnished Office Space", link: prefix("/furnished-office-space") },
+                { name: "Commercial Office Space", link: prefix("/commercial-space-for-rent") },
+                { name: "Coimbatore Hub", link: prefix("/coimbatore") },
+                { name: "Trichy Hub", link: prefix("/trichy") }
               ].map(item => (
                 <li key={item.name} className="flex items-start gap-2">
                   <span className="text-brand-orange text-sm mt-0.5">&rsaquo;</span>

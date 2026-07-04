@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class ContactController extends Controller
 {
@@ -22,7 +24,7 @@ class ContactController extends Controller
             'phone' => 'nullable|string|max:20',
             'company' => 'nullable|string|max:255',
             'message' => 'required|string',
-            'source' => 'nullable|string|in:popup,contact_page'
+            'source' => 'nullable|string'
         ]);
 
         if ($validator->fails()) {
@@ -36,22 +38,31 @@ class ContactController extends Controller
 
         // Send Email Notification
         try {
-            \Illuminate\Support\Facades\Mail::raw(
-                "New Contact Form Submission:\n\n" .
-                "Name: {$contact->name}\n" .
-                "Email: {$contact->email}\n" .
-                "Phone: {$contact->phone}\n" .
-                "Company: {$contact->company}\n" .
-                "Message: {$contact->message}\n" .
-                "Source: {$contact->source}",
-                function ($mail) use ($contact) {
-                    $mail->to('inymartlabs@gmail.com')
-                         ->replyTo($contact->email ?: 'inymartlabs@gmail.com', $contact->name)
-                         ->subject('New Contact Inquiry: ' . $contact->name);
-                }
-            );
+            $body =
+                "==================================================\n" .
+                "  NEW ENQUIRY — COVAI TECH PARK\n" .
+                "==================================================\n\n" .
+                "Name     : {$contact->name}\n" .
+                "Email    : " . ($contact->email    ?: 'Not provided') . "\n" .
+                "Phone    : " . ($contact->phone    ?: 'Not provided') . "\n" .
+                "Company  : " . ($contact->company  ?: 'Not provided') . "\n" .
+                "Source   : " . ($contact->source   ?: 'website')      . "\n" .
+                "Received : " . now()->format('d M Y, h:i A T')        . "\n\n" .
+                "--------------------------------------------------\n" .
+                "MESSAGE:\n" .
+                "--------------------------------------------------\n" .
+                $contact->message . "\n\n" .
+                "==================================================\n" .
+                "Automated notification from covaitechpark.com\n" .
+                "==================================================\n";
+
+            Mail::raw($body, function ($mail) use ($contact) {
+                $mail->to('inymart@gmail.com')
+                     ->replyTo($contact->email ?: 'inymart@gmail.com', $contact->name)
+                     ->subject('[CovaiTechPark] New Enquiry: ' . $contact->name);
+            });
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Mail sending failed: ' . $e->getMessage());
+            Log::error('Mail sending failed: ' . $e->getMessage());
         }
 
         return response()->json(['message' => 'Contact submitted successfully'], 201);

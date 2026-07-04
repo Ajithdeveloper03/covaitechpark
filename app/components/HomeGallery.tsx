@@ -134,7 +134,7 @@ export default function HomeGallery() {
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-brand-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold uppercase tracking-widest rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                      <span className="px-6 py-2 bg-brand-orange text-white text-sm font-bold tracking-widest rounded-full shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                         View
                       </span>
                     </div>

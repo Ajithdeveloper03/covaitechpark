@@ -20,21 +20,19 @@ export const GLOBAL_SECTIONS: NavSection[] = [
 ];
 
 export const ABOUT_SECTIONS: NavSection[] = [
-  { id: "hero", label: "Hero" },
+  { id: "hero", label: "Home" },
   { id: "who-we-are", label: "Who We Are" },
   { id: "our-story", label: "Our Story" },
-  { id: "feeling", label: "Feeling" }
+  { id: "founder", label: "Founder" }
 ];
 
 export const LOCATION_PAGES_SECTIONS: NavSection[] = [
   { id: "hero", label: "Home" },
-  { id: "locations", label: "Locations" },
-  { id: "cta", label: "Get Quote" },
-  { id: "services", label: "Services" }
+  { id: "locations", label: "Locations" }
 ];
 
 export const PRIVATE_OFFICE_SECTIONS: NavSection[] = [
-  { id: "hero", label: "Hero" },
+  { id: "hero", label: "Home" },
   { id: "features", label: "Features" },
   { id: "amenities", label: "Amenities" },
   { id: "testimonials", label: "Testimonials" },
@@ -77,12 +75,12 @@ export default function FloatingNav() {
     } else if (cleanPath.startsWith("/coimbatore") || cleanPath.startsWith("/trichy")) {
       selectedSections = LOCATION_PAGES_SECTIONS;
     } else if (
-      cleanPath.startsWith("/coworking-space") ||
+      cleanPath.startsWith("/coworking-space-in-coimbatore") ||
       cleanPath.startsWith("/private-office-space") ||
-      cleanPath.startsWith("/managed-office-space") ||
-      cleanPath.startsWith("/meeting-rooms") ||
-      cleanPath.startsWith("/virtual-office-space") ||
-      cleanPath.startsWith("/event-space")
+      cleanPath.startsWith("/managed-office") ||
+      cleanPath.startsWith("/meeting-room") ||
+      cleanPath.startsWith("/virtual-office") ||
+      cleanPath.startsWith("/event-space-in-coimbatore")
     ) {
       selectedSections = PRIVATE_OFFICE_SECTIONS;
     } else if (cleanPath.startsWith("/gallery")) {
@@ -184,7 +182,7 @@ export default function FloatingNav() {
                 }`}
               />
               {/* Hover label tooltip */}
-              <span className="absolute right-8 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-[#060c10] text-white text-[10px] font-semibold uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-xl pointer-events-none whitespace-nowrap border border-white/10 translate-x-1 group-hover:translate-x-0">
+              <span className="absolute right-8 opacity-0 group-hover:opacity-100 transition-all duration-200 bg-[#060c10] text-white text-[10px] font-semibold tracking-widest px-3 py-1.5 rounded-lg shadow-xl pointer-events-none whitespace-nowrap border border-white/10 translate-x-1 group-hover:translate-x-0">
                 {sec.label}
               </span>
             </a>

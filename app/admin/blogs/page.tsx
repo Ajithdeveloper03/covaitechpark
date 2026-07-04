@@ -164,8 +164,7 @@ function BlogListView({
             <option value="all">All Categories</option>
             {BLOG_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
-          <button onClick={onCreateNew}
-            className="flex items-center gap-2 px-5 py-2.5 bg-[#f37021] hover:bg-[#d55c14] text-white text-sm font-medium uppercase tracking-wider rounded-xl transition-all shadow-md shadow-[#f37021]/20 hover:scale-[1.01] cursor-pointer">
+          <button onClick={onCreateNew} className="flex items-center gap-2 px-5 py-2.5 bg-[#f37021] hover:bg-[#d55c14] text-white text-sm font-medium tracking-wider rounded-xl transition-all shadow-md shadow-[#f37021]/20 hover:scale-[1.01] cursor-pointer">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
             New Article
           </button>
@@ -544,8 +543,7 @@ function BlogEditorView({
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-medium text-slate-700">Content Sections</h3>
-                    <button onClick={addSection}
-                      className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-700 text-white text-xs font-medium uppercase tracking-wider rounded-xl transition-colors cursor-pointer">
+                    <button onClick={addSection} className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-700 text-white text-xs font-medium tracking-wider rounded-xl transition-colors cursor-pointer">
                       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                       Add Section
                     </button>
@@ -671,8 +669,7 @@ function BlogEditorView({
                     <h3 className="text-sm font-medium text-slate-700">Frequently Asked Questions</h3>
                     <p className="text-xs text-slate-400 mt-0.5">FAQs improve reader trust and SEO visibility for this article.</p>
                   </div>
-                  <button onClick={addFaq}
-                    className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium uppercase tracking-wider rounded-xl transition-colors cursor-pointer">
+                  <button onClick={addFaq} className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium tracking-wider rounded-xl transition-colors cursor-pointer">
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                     Add FAQ
                   </button>
@@ -940,7 +937,7 @@ function BlogEditorView({
                   <p className="text-[11px] text-slate-400">Used when sharing on Facebook, LinkedIn, WhatsApp. Recommended size: 1200×630px. Leave blank to use cover image.</p>
                   {ogImage && (
                     <div className="mt-2">
-                      <p className="text-[10px] text-slate-400 uppercase tracking-widest mb-1.5">Preview</p>
+                      <p className="text-[10px] text-slate-400 tracking-widest mb-1.5">Preview</p>
                       <div className="aspect-[1200/630] w-full max-w-xs rounded-xl overflow-hidden border border-slate-200 bg-slate-50">
                         <img src={ogImage} alt="OG preview" className="w-full h-full object-cover" onError={e => (e.currentTarget.style.display = 'none')} />
                       </div>

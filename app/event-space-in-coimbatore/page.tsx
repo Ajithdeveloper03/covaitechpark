@@ -563,11 +563,3 @@ export default function EventSpacePage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Event Spaces & Corporate Venues in Coimbatore | CovaiTech Park",
-  description: "Host your next corporate event, workshop, or seminar in our premium event spaces in Coimbatore. Flexible layouts and state-of-the-art facilities.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/event-space-in-coimbatore",
-  }
-};

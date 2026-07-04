@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Insights & Workspace Advice | Blog - CovaiTech Park",
-  // You can add a description here later if needed
+  title: "Blog | Insights on Coworking and Future of Work",
+  description: "Read the latest articles, insights, and news about coworking spaces, startup culture, and the future of work from CovaiTech Park.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/blog",
+  }
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

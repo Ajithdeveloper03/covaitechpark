@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Flexible Furnished Office Space in Coimbatore - Covaitechpark",
-  // You can add a description here later if needed
+  title: "Furnished Office Space for Rent in Coimbatore | CovaiTech Park",
+  description: "Move-in ready furnished office spaces for rent in Coimbatore. Zero setup hassle, premium ergonomic furniture, and instant plug-and-play access.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/furnished-office-space",
+  }
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

@@ -598,11 +598,3 @@ export default function CoimbatorePage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "CovaiTech Park Branches in Coimbatore | Nehru Nagar & More",
-  description: "Explore CovaiTech Park's premium workspace locations across Coimbatore, including Nehru Nagar (SITRA), Saravanampatti, and Broadview.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/coimbatore",
-  }
-};

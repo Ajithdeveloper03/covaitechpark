@@ -303,11 +303,3 @@ export default function BlogArchivePage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Blog | Insights on Coworking and Future of Work",
-  description: "Read the latest articles, insights, and news about coworking spaces, startup culture, and the future of work from CovaiTech Park.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/blog",
-  }
-};

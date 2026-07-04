@@ -219,11 +219,3 @@ export default function GalleryPage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Gallery | CovaiTech Park Workspaces",
-  description: "Take a tour of CovaiTech Park's premium workspaces, meeting rooms, and private cabins in Coimbatore and Trichy.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/gallery",
-  }
-};

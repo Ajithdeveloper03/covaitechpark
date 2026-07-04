@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Executive Boardrooms & Meeting Rooms for Rent - Covai Tech Park",
-  // You can add a description here later if needed
+  title: "Book Meeting Rooms & Conference Spaces in Coimbatore | CovaiTech",
+  description: "Professional meeting rooms and conference spaces in Coimbatore. Equipped with high-speed Wi-Fi, projectors, and premium amenities.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/meeting-room",
+  }
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

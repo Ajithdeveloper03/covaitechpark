@@ -528,11 +528,3 @@ export default function FurnishedOfficePage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Furnished Office Space for Rent in Coimbatore | CovaiTech Park",
-  description: "Move-in ready furnished office spaces for rent in Coimbatore. Zero setup hassle, premium ergonomic furniture, and instant plug-and-play access.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/furnished-office-space",
-  }
-};

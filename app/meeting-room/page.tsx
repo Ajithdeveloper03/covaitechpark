@@ -563,11 +563,3 @@ export default function MeetingRoomsPage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Book Meeting Rooms & Conference Spaces in Coimbatore | CovaiTech",
-  description: "Professional meeting rooms and conference spaces in Coimbatore. Equipped with high-speed Wi-Fi, projectors, and premium amenities.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/meeting-room",
-  }
-};

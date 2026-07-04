@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Book a Shared Office For Rent in Trichy | Coworking Space",
-  // You can add a description here later if needed
+  title: "Trichy Coworks by Max Office | Premium Coworking in Trichy",
+  description: "Premium coworking space, private cabins, and virtual offices in Thillai Nagar, Trichy. A unit of Max Office offering top-tier workspace solutions.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/trichy",
+  }
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

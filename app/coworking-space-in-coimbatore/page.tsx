@@ -17,9 +17,9 @@ const COWORKING_DETAILS = [
   { title: "Personalized Workspace Setup", desc: "Workspaces customized to match your team size, workflow, and business requirements.", icon: "adjust", image: "/coworking space/CTP-1.jpg" },
   { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/coworking space/CTP-2.jpg" },
   { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/coworking space/CTP-3.jpg" },
-  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/coworking space/CTP-4.jpg" },
-  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/coworking space/CTP-5.jpg" },
-  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/coworking space/CTP-1.jpg" }
+  { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/coworking space/CTP-1.jpg" },
+  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/coworking space/CTP-2.jpg" },
+  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/coworking space/CTP-3.jpg" }
 ];
 
 const COWORKING_AMENITIES = [
@@ -696,11 +696,3 @@ export default function CoworkingSpacePage() {
     </div>
   );
 }
-\n
-export const metadata = {
-  title: "Premium Coworking Space in Coimbatore | CovaiTech Park",
-  description: "Discover vibrant, fully managed coworking spaces in Coimbatore. Flexible hot desks, high-speed internet, and a thriving community at CovaiTech Park.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/coworking-space-in-coimbatore",
-  }
-};

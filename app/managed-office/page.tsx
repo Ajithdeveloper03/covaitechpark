@@ -53,15 +53,7 @@ const FAQS = [
   },
   {
     question: "What kind of support do you provide if we need a larger space?",
-    answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\n
-export const metadata = {
-  title: "Managed Office Space for Rent in Coimbatore | CovaiTech Park",
-  description: "Customizable, enterprise-grade managed office spaces in Coimbatore. Let CovaiTech Park handle your workspace setup, IT, and maintenance.",
-  alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/managed-office",
-  }
-};
-\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
+    answer: "At Covai Tech Park, our managed office solutions are designed to grow with your business. We maintain additional workspace inventory to accommodate expansion requirements with minimal disruption.\nOur facility management team will assist you throughout the expansion, setup, and relocation process, ensuring a seamless and hassle-free transition."
   }
 ];
 

@@ -1,14 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Fully Managed Corporate Office Spaces for Rent - Covai Tech Park",
-  // You can add a description here later if needed
+  title: "Managed Office Space for Rent in Coimbatore | CovaiTech Park",
+  description: "Customizable, enterprise-grade managed office spaces in Coimbatore. Let CovaiTech Park handle your workspace setup, IT, and maintenance.",
+  alternates: {
+    canonical: "https://covaitechpark.com/covaitechpark/managed-office",
+  }
 };
 
-export default function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

@@ -1,17 +1,13 @@
-import { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Commercial Space For Rent in Coimbatore | CovaiTech Park",
-  description: "Find the ideal commercial office space in Coimbatore. Fully furnished, flexible contracts, prime location, and managed services for startups and enterprises.",
+  title: "Commercial Space for Rent in Coimbatore | CovaiTech Park",
+  description: "Prime commercial spaces for rent in Coimbatore. Ideal for businesses looking for flexible, well-connected, and premium workspace solutions.",
   alternates: {
     canonical: "https://covaitechpark.com/covaitechpark/commercial-space-for-rent",
   }
 };
 
-export default function CommercialSpaceLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

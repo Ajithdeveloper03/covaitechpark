@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Admin Login | CMS Portal - CovaiTech Park",
+  title: "Admin Login | CMS Portal - Covai Tech Park",
   // You can add a description here later if needed
 };
 

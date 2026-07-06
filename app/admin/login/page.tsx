@@ -36,7 +36,7 @@ export default function AdminLoginPage() {
   }, []);
 
   useEffect(() => {
-    document.title = "Admin Login | CMS Portal - CovaiTech Park";
+    document.title = "Admin Login | CMS Portal - Covai Tech Park";
 
     // If already logged in, redirect
     const token = sessionStorage.getItem("admin_token");
@@ -162,7 +162,7 @@ export default function AdminLoginPage() {
           <div className="px-3.5 py-2 rounded-2xl">
             <Image
               src={`${BASE_PATH}/covai-tech-park-logo-white.png`}
-              alt="CovaiTech logo"
+              alt="Covai Tech logo"
               width={105}
               height={42}
               className="h-12 sm:h-14 lg:h-16 w-auto object-contain"

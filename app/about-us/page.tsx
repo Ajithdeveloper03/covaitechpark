@@ -42,7 +42,7 @@ const ECOSYSTEM_CARDS = [
   {
     title: "Meeting Rooms",
     img: "/workspace-meeting.png",
-    desc: "Fully-equipped spaces for presentations.",
+    desc: "Fully equipped spaces for presentations.",
     pos: "top-[44%] left-[1%] md:left-[2%] lg:left-[5%] xl:left-[9%]",
     href: "/meeting-room"
   },
@@ -155,7 +155,7 @@ export default function AboutUsPage() {
           <div className="relative aspect-[4/3] lg:aspect-[4/5] rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border border-slate-100 group order-2 lg:order-1">
             <Image 
               src={prefix("/workspace-meeting.png")} 
-              alt="About CovaiTech" 
+              alt="About Covai Tech" 
               fill 
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 1024px) 100vw, 50vw"
@@ -228,13 +228,13 @@ export default function AboutUsPage() {
 
           <div className="relative">
             {/* Vertical Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-[95%] bg-slate-200 top-[2%]"></div>
+            <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-[95%] bg-slate-200 top-[2%]"></div>
 
             {/* 2017 */}
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/workspace-lounge.png")} alt="CovaiTech 2017" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={prefix("/beginning.jpg")}  alt="Covai Tech 2017" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -254,7 +254,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/workspace-event.png")} alt="CovaiTech 2018" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop&q=80" alt="Covai Tech 2018" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -274,7 +274,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/workspace-meeting.png")} alt="CovaiTech 2022" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={prefix("/growth.jpg")}  alt="Covai Tech 2022" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -294,7 +294,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/hero2.jpg")} alt="CovaiTech 2023" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" alt="Covai Tech 2023" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -316,7 +316,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/workspace-cabin.png")} alt="CovaiTech 2024" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={prefix("/strength.jpg")}  alt="Covai Tech 2024" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -336,7 +336,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/hero13.jpg")} alt="CovaiTech 2025" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&auto=format&fit=crop&q=80" alt="Covai Tech 2025" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -356,7 +356,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/hero11.jpg")} alt="CovaiTech 2026" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80" alt="Covai Tech 2026" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -438,22 +438,11 @@ export default function AboutUsPage() {
         {/* Heading block */}
         <div className="max-w-5xl mx-auto px-4 text-center mb-16">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-slate-900 tracking-tight leading-tight mb-4 sm:mb-6 font-sans">
-            Step into CovaiTech's exclusive ecosystem
+            Step into Covai Tech's exclusive ecosystem
           </h2>
           <p className="text-slate-500 text-base sm:text-md leading-relaxed mb-10">
-            We connect members with premium office cabins, enterprise-grade networking, bespoke meeting rooms, and proactive operational support—empowering teams to work optimized.
+            We connect members with premium office cabins, enterprise grade networking, bespoke meeting rooms, and proactive operational support empowering teams to work optimized.
           </p>
-          <a
-            href={prefix("/private-office-space")}
-            className="inline-flex items-center gap-3 bg-[#1a1a1a] text-white pl-7 pr-2 py-2 rounded-full text-sm font-semibold hover:bg-[#f37021] transition-colors duration-300 shadow-md group"
-          >
-            Explore Spaces
-            <span className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-black group-hover:translate-x-0.5 transition-transform shrink-0">
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </a>
         </div>
 
         {/* Full-width stage: hand image + positioned cards */}
@@ -477,7 +466,7 @@ export default function AboutUsPage() {
           <div className="relative z-10 w-[95vw] max-w-[420px] sm:max-w-none sm:w-[480px] md:w-[580px] lg:w-[700px] xl:w-[920px] h-[380px] sm:h-[500px] md:h-[600px] lg:h-[680px]">
             <Image
               src={prefix("/hand.png")}
-              alt="CovaiTech Mobile Experience"
+              alt="Covai Tech Mobile Experience"
               fill
               className="object-contain object-bottom scale-110 sm:scale-100 origin-bottom"
               sizes="(max-width: 640px) 95vw, (max-width: 1024px) 580px, 920px"
@@ -525,7 +514,7 @@ export default function AboutUsPage() {
 
       </section>
 
-      {/* Why Choose CovaiTech (Bento Grid) */}
+      {/* Why Choose Covai Tech (Bento Grid) */}
       {/* <section className="py-12 sm:py-16 md:py-24 bg-white w-full">
         <div className="max-w-7xl mx-auto px-4 md:px-8">
           <div className="text-center mb-16">

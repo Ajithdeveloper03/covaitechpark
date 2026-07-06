@@ -278,10 +278,10 @@ export default function ContactPage() {
 
               {/* Coimbatore contact details */}
               <div className="border-l-2 border-[#f37021]/50 pl-6 py-1 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold tracking-wider inline-block">Coimbatore Headquarters</span>
-                <h3 className="text-xl font-bold text-slate-900">CovaiTech Park HQ</h3>
+                <span className="px-2.5 py-0.5 bg-[#f37021]/10 text-[#f37021] rounded-full text-[10px] font-bold tracking-wider inline-block">Coimbatore</span>
+                <h3 className="text-xl font-bold text-slate-900">Coimbatore Center</h3>
                 <p className="text-slate-500 text-xs sm:text-sm leading-relaxed">
-                  {settings.coimbatore_address}
+                  {settings.coimbatore_address?.replace(/Covai Tech Park,?\s*/gi, '')}
                 </p>
                 <div className="pt-1.5 space-y-0.5 text-xs sm:text-sm font-medium text-slate-700">
                   <p><span className="text-[#f37021] font-bold">P:</span> {settings.coimbatore_phone_display}</p>
@@ -354,7 +354,7 @@ export default function ContactPage() {
                     : "text-slate-400 hover:text-white"
                 }`}
               >
-                Coimbatore HQ
+                Coimbatore Center
               </button>
               <button
                 type="button"
@@ -376,7 +376,7 @@ export default function ContactPage() {
           
           {selectedMap === "coimbatore" ? (
             <iframe 
-              src={settings.coimbatore_map_embed} 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3915.8835120520475!2d77.03981047480903!3d11.047359589118365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857f12b26310f%3A0x2562361c01089332!2sCovai%20Tech%20Park!5e0!3m2!1sen!2sin!4v1783327095176!5m2!1sen!2sin" 
               width="100%" 
               height="100%" 
               style={{ border: 0,  }} 
@@ -387,7 +387,7 @@ export default function ContactPage() {
             />
           ) : (
             <iframe 
-              src={settings.trichy_map_embed} 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1959.4337100038842!2d78.67928082146491!3d10.821456599999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3baaf575a5752daf%3A0xe349b6321dc99adc!2sTrichy%20Coworks!5e0!3m2!1sen!2sin!4v1783327478913!5m2!1sen!2sin" 
               width="100%" 
               height="100%" 
               style={{ border: 0,  }} 
@@ -403,11 +403,11 @@ export default function ContactPage() {
             {selectedMap === "coimbatore" ? (
               <div className="space-y-4">
                 <div>
-                  <span className="text-[9px] font-bold text-[#f37021] uppercase tracking-[0.2em] block mb-1">MAIN HEADQUARTERS</span>
-                  <h3 className="text-xl font-bold font-sans">CovaiTech Park HQ</h3>
+                  <span className="text-[9px] font-bold text-[#f37021] uppercase tracking-[0.2em] block mb-1">MAIN OFFICE</span>
+                  <h3 className="text-xl font-bold font-sans">Coimbatore Center</h3>
                 </div>
                 <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-                  {settings.coimbatore_address}
+                  {settings.coimbatore_address?.replace(/Covai Tech Park,?\s*/gi, '')}
                 </p>
                 <div className="text-xs text-slate-400 space-y-1">
                   <p>Hours: Mon - Sat, 9:00 AM - 7:00 PM</p>

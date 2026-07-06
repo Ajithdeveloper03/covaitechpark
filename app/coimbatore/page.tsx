@@ -195,7 +195,7 @@ export default function CoimbatorePage() {
                   }`}
                   style={{ height: '260px' }}
                 >
-                  <Image src={card.img} alt="CovaiTech Park Coimbatore Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
+                  <Image src={card.img} alt="Covai Tech Park Coimbatore Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
                 </div>
               </div>
             ))}
@@ -211,7 +211,7 @@ export default function CoimbatorePage() {
               { img: "/covaitechpark/hero13.jpg" },
             ].map((card, i) => (
               <div key={i} className={`flex-shrink-0 w-28 relative rounded-[1rem] overflow-hidden ${card.active ? 'h-44' : 'h-36'}`}>
-                <Image src={card.img} alt="CovaiTech Park Coimbatore Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
+                <Image src={card.img} alt="Covai Tech Park Coimbatore Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
               </div>
             ))}
           </div>
@@ -334,7 +334,7 @@ export default function CoimbatorePage() {
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/hero2.jpg")} alt="Covai Tech Park, Broadview" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prefix("/broadview.png")} alt="Covai Tech Park, Broadview" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     EAST ZONE
@@ -409,7 +409,7 @@ export default function CoimbatorePage() {
 
           <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
             {[
-              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/coimbatore.jpg" }
+              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/trichy.png" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[4/3] overflow-hidden">
@@ -443,7 +443,7 @@ export default function CoimbatorePage() {
             <div className="relative w-full md:w-5/12 hidden md:block">
               <Image
                 src={prefix("/workspace-cabin.png")}
-                alt="CovaiTech Park Premium Workspace"
+                alt="Covai Tech Park Premium Workspace"
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, 800px" loading="lazy" />

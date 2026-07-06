@@ -10,11 +10,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://covaitechpark.com"),
 
   title: {
-    default: "CovaiTech Park | Premium Coworking Space & Offices in Coimbatore",
-    template: "%s | CovaiTech Park",
+    default: "Covai Tech Park | Premium Coworking Space & Offices in Coimbatore",
+    template: "%s | Covai Tech Park",
   },
   description:
-    "CovaiTech Park offers premium coworking spaces, private cabin suites, hot desks, meeting rooms, and virtual office addresses in Coimbatore (Nehru Nagar) and Trichy (Thillai Nagar). Join 100+ companies thriving at India's best tech coworking park.",
+    "Covai Tech Park offers premium coworking spaces, private cabin suites, hot desks, meeting rooms, and virtual office addresses in Coimbatore (Nehru Nagar) and Trichy (Thillai Nagar). Join 100+ companies thriving at India's best tech coworking park.",
   keywords: [
     "coworking space coimbatore",
     "office space for rent coimbatore",
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
     "coworking trichy",
     "managed office space",
     "tech park coimbatore",
-    "CovaiTech Park",
+    "Covai Tech Park",
     "Max Office Coimbatore",
     "startup office coimbatore",
     "dedicated desk nehru nagar",
     "coworking space thillai nagar",
   ],
-  authors: [{ name: "CovaiTech Park" }],
-  creator: "CovaiTech Park",
-  publisher: "CovaiTech Park",
+  authors: [{ name: "Covai Tech Park" }],
+  creator: "Covai Tech Park",
+  publisher: "Covai Tech Park",
   robots: {
     index: true,
     follow: true,
@@ -44,27 +44,27 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "CovaiTech Park | Premium Coworking & Managed Offices — Coimbatore",
+    title: "Covai Tech Park | Premium Coworking & Managed Offices — Coimbatore",
     description:
       "State-of-the-art coworking spaces, private cabins, and managed meeting rooms in Coimbatore & Trichy. Flexible plans for startups and enterprises.",
     type: "website",
     url: BASE_URL,
-    siteName: "CovaiTech Park",
+    siteName: "Covai Tech Park",
     locale: "en_IN",
     images: [
       {
         url: `${BASE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "CovaiTech Park — Premium Coworking Space Coimbatore",
+        alt: "Covai Tech Park — Premium Coworking Space Coimbatore",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "CovaiTech Park | Premium Coworking in Coimbatore",
+    title: "Covai Tech Park | Premium Coworking in Coimbatore",
     description:
-      "Premium managed coworking spaces, private cabins & virtual offices in Coimbatore and Trichy. Join CovaiTech Park today.",
+      "Premium managed coworking spaces, private cabins & virtual offices in Coimbatore and Trichy. Join Covai Tech Park today.",
     images: [`${BASE_URL}/og-image.png`],
   },
 };
@@ -79,7 +79,7 @@ export const viewport: Viewport = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "CoworkingSpace"],
-  name: "CovaiTech Park",
+  name: "Covai Tech Park",
   alternateName: "Max Office Coimbatore",
   url: BASE_URL,
   logo: `${BASE_URL}/logo.png`,
@@ -142,6 +142,17 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased" suppressHydrationWarning>
       <head>
         <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N72BS53');`,
+          }}
+        />
+        <Script
           id="json-ld-localbusiness"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -149,6 +160,15 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-white text-brand-navy pb-[76px] md:pb-0" suppressHydrationWarning>
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-N72BS53"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <FloatingNav />
         {children}
         {/* Sticky Mobile Call Button */}

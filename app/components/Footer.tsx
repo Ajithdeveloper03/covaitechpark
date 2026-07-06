@@ -89,6 +89,7 @@ export default function Footer({ onCtaClick }: FooterProps) {
           <ul className="space-y-3 text-sm font-normal text-white/45">
             {[
               { name: "Coworking Space", link: prefix("/coworking-space-in-coimbatore") },
+              { name: "Hot Desk", link: prefix("/hot-desk") },
               { name: "Private Office Space", link: prefix("/private-office-space") },
               { name: "Managed Office", link: prefix("/managed-office") },
               { name: "Virtual Office", link: prefix("/virtual-office") },
@@ -117,7 +118,8 @@ export default function Footer({ onCtaClick }: FooterProps) {
             <ul className="space-y-3 text-sm font-normal text-white/45">
               {[
                 { name: "Terms & Conditions", link: prefix("/terms") },
-                { name: "Privacy Policy", link: prefix("/privacy") }
+                { name: "Privacy Policy", link: prefix("/privacy") },
+                { name: "Gallery", link: prefix("/gallery") }
               ].map(item => (
                 <li key={item.name} className="flex items-center gap-2">
                   <span className="text-brand-orange text-sm">&rsaquo;</span>

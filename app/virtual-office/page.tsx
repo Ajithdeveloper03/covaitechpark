@@ -17,26 +17,23 @@ const VIRTUAL_OFFICE_DETAILS = [
   { title: "Premium Interiors", desc: "Modern, thoughtfully designed interiors that create a comfortable and professional work environment.", icon: "office", image: "/virtual office/CTP-2.jpg" },
   { title: "Scalable Solutions", desc: "Expand your workspace effortlessly as your team and business grow.", icon: "scale", image: "/virtual office/CTP-3.jpg" },
   { title: "Easily Accessible", desc: "Strategically located with excellent connectivity and easy access for employees and visitors.", icon: "trend", image: "/virtual office/CTP-4.jpg" },
-  { title: "Customer Support", desc: "Responsive on-site support to ensure smooth day-to-day operations and prompt assistance.", icon: "reception", image: "/virtual office/CTP-5.jpg" },
-  { title: "Flexible Office Solutions", desc: "Choose from coworking spaces, private cabins, managed offices, or customized workspace solutions designed to suit your business needs.", icon: "zap", image: "/virtual office/CTP-1.jpg" }
+  { title: "Customer Support", desc: "Responsive on site support to ensure smooth day to day operations and prompt assistance.", icon: "reception", image: "/virtual office/CTP-5.jpg" },
+  { title: "Coffee & Tea Setup", desc: "Complimentary unlimited beverages to keep your team energized.", icon: "coffee", image: "/virtual office/CTP-6.jpg" }
 ];
 
-const VIRTUAL_OFFICE_AMENITIES = [
-  { name: "Furnished Office Space", icon: "office", desc: "Fully furnished workspaces designed to meet your business requirements." },
-  { name: "Secure Business-Class Wi-Fi", icon: "wifi", desc: "High-speed, secure internet connectivity for seamless business operations." },
-  { name: "Air-Conditioned Environment", icon: "ac", desc: "Fully air-conditioned workspaces for a comfortable working environment." },
-  { name: "Cleaning & Maintenance", icon: "cleaning", desc: "Daily housekeeping and regular facility maintenance for a clean workspace." },
-  { name: "Front Desk Support", icon: "reception", desc: "Professional reception services to welcome visitors and assist with enquiries." },
-  { name: "Power Backup", icon: "generator", desc: "Uninterrupted power backup to ensure continuous business operations." },
-  { name: "CCTV Surveillance", icon: "security", desc: "24/7 CCTV monitoring across the facility for enhanced security." },
-  { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock security personnel ensuring a safe and secure workplace." },
-  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on-site facility management for day-to-day operational support." },
-  { name: "Mail & Package Handling", icon: "heart", desc: "Secure handling of incoming and outgoing mail and courier deliveries." },
-  { name: "Dining Area", icon: "food", desc: "Spacious and well-maintained dining area for members." },
-  { name: "Break-Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
+const FEATURES = [
+  { name: "Secure Business Class Wi-Fi", icon: "wifi", desc: "High speed, secure internet connectivity for seamless business operations." },
+  { name: "Air Conditioned Environment", icon: "ac", desc: "Fully air conditioned workspaces for a comfortable working environment." },
+  { name: "Ergonomic Workstations", icon: "chair", desc: "Designed for comfort and productivity." },
+  { name: "Professional Ambience", icon: "briefcase", desc: "Premium interiors and thoughtfully designed spaces." },
+  { name: "Daily Housekeeping", icon: "sparkles", desc: "Well maintained and clean work environment." },
+  { name: "Ample Parking Facility", icon: "parking", desc: "Dedicated and secure parking space for members." },
+  { name: "24/7 Building Security", icon: "lock", desc: "Round the clock security personnel ensuring a safe and secure workplace." },
+  { name: "Facility Manager Support", icon: "shield", desc: "Dedicated on site facility management for day to day operational support." },
+  { name: "Cafeteria Access", icon: "cafe", desc: "Fully equipped cafeteria for meals and networking." },
+  { name: "Dining Area", icon: "food", desc: "Spacious and well maintained dining area for members." },
+  { name: "Break Out Area", icon: "breakout", desc: "Comfortable breakout spaces for informal meetings, collaboration, and relaxation." }
 ];
-
-
 
 const FAQS = [
   {
@@ -128,7 +125,6 @@ export default function VirtualOfficePage() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    // eslint-disable-next-line
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
     onSelect();
@@ -265,7 +261,7 @@ export default function VirtualOfficePage() {
 
           <div className="relative lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
             <Image
-              src={prefix("/service3.png")}
+              src={prefix("/service5.png")}
               alt="Virtual Office Address Support"
               fill
               priority
@@ -308,41 +304,7 @@ export default function VirtualOfficePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Basic Plan */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-lg hover:shadow-xl hover:border-brand-orange/50 transition-all duration-500 relative flex flex-col group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-orange/5 to-transparent rounded-bl-3xl pointer-events-none" />
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-14 h-14 rounded-2xl bg-brand-navy/5 text-brand-navy flex items-center justify-center shrink-0">
-                  <IconHelper name="office" className="w-7 h-7" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-outfit font-bold text-slate-900">Virtual Office Basic</h3>
-                  <p className="text-brand-orange font-medium mt-1">INR 1000 per month</p>
-                </div>
-              </div>
-              <ul className="space-y-4 mb-8 flex-grow">
-                {[
-                  "Premium Office Address for Business Communication",
-                  "Mail Handling Service",
-                  "Booking and Renewal at a Phone Call"
-                ].map((feat, i) => (
-                  <li key={i} className="flex items-start gap-3 text-slate-600 font-normal">
-                    <span className="w-5 h-5 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
-                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                    </span>
-                    {feat}
-                  </li>
-                ))}
-              </ul>
-              <button
-                onClick={() => handleOpenBooking("Virtual Office Basic")}
-                className="w-full py-4 bg-brand-navy text-white font-medium text-sm tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300"
-              >
-                Learn More
-              </button>
-            </div>
-
-            {/* Premium Plan */}
+            {/* Premium Plan (Now Office Registration) */}
             <div className="bg-brand-navy border border-brand-navy rounded-3xl p-8 sm:p-10 shadow-2xl relative flex flex-col transform md:-translate-y-4 group overflow-hidden">
               <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 pointer-events-none" />
               <div className="absolute top-4 right-4 bg-brand-orange text-white text-[10px] tracking-widest font-bold px-3 py-1 rounded-full">
@@ -353,8 +315,8 @@ export default function VirtualOfficePage() {
                   <IconHelper name="shield" className="w-7 h-7" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-outfit font-bold text-white">Office for Registration</h3>
-                  <p className="text-brand-orange font-medium mt-1">INR 1500 per month <span className="text-white/60 text-xs">(Billed Annually)</span></p>
+                  <h3 className="text-2xl font-outfit font-bold text-white">Office Registration</h3>
+                  <p className="text-brand-orange font-medium mt-1">₹3,500 + GST / Month</p>
                 </div>
               </div>
               <ul className="space-y-4 mb-8 flex-grow relative z-10">
@@ -374,8 +336,42 @@ export default function VirtualOfficePage() {
                 ))}
               </ul>
               <button
-                onClick={() => handleOpenBooking("Office for Registration")}
+                onClick={() => handleOpenBooking("Office Registration")}
                 className="w-full py-4 bg-brand-orange text-white font-medium text-sm tracking-widest rounded-xl hover:bg-white hover:text-brand-navy transition-colors duration-300 shadow-xl shadow-brand-orange/20 relative z-10"
+              >
+                Learn More
+              </button>
+            </div>
+
+            {/* Basic Plan */}
+            <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-10 shadow-lg hover:shadow-xl hover:border-brand-orange/50 transition-all duration-500 relative flex flex-col group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-orange/5 to-transparent rounded-bl-3xl pointer-events-none" />
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-14 h-14 rounded-2xl bg-brand-navy/5 text-brand-navy flex items-center justify-center shrink-0">
+                  <IconHelper name="office" className="w-7 h-7" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-outfit font-bold text-slate-900">Virtual Office Basic</h3>
+                  <p className="text-brand-orange font-medium mt-1">₹1,500 + GST / Month</p>
+                </div>
+              </div>
+              <ul className="space-y-4 mb-8 flex-grow">
+                {[
+                  "Premium Office Address for Business Communication",
+                  "Mail Handling Service",
+                  "Booking and Renewal at a Phone Call"
+                ].map((feat, i) => (
+                  <li key={i} className="flex items-start gap-3 text-slate-600 font-normal">
+                    <span className="w-5 h-5 rounded-full bg-brand-orange/10 text-brand-orange flex items-center justify-center shrink-0 mt-0.5">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </span>
+                    {feat}
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={() => handleOpenBooking("Virtual Office Basic")}
+                className="w-full py-4 bg-brand-navy text-white font-medium text-sm tracking-widest rounded-xl hover:bg-brand-orange transition-colors duration-300"
               >
                 Learn More
               </button>
@@ -592,26 +588,27 @@ export default function VirtualOfficePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {[
               { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: "/coworking-space-in-coimbatore", img: "/workspace-hotdesk.png" },
+              { name: "Hot Desk", desc: "Flexible, non-reserved desks in a vibrant shared coworking layout.", link: "/hot-desk", img: "/workspace-cafe.png" },
               { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: "/private-office-space", img: "/workspace-cabin.png" },
               { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: "/managed-office", img: "/workspace-meeting.png" },
-              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: "/meeting-room", img: "/workspace-event.png" },
+              { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: "/meeting-room", img: "/workspace-event.png" }
             ].map((sol, idx) => (
               <Link href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
+                    <h4 className="font-outfit font-medium text-xl mb-1">{sol.name}</h4>
                   </div>
                 </div>
-                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
+                <div className="p-5 flex flex-col justify-between flex-grow bg-white relative">
                   <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                   </div>
-                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
+                  <p className="text-slate-500 text-xs font-normal leading-relaxed pr-6 line-clamp-3">{sol.desc}</p>
                 </div>
               </Link>
             ))}

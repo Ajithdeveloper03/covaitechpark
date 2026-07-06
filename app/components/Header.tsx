@@ -81,7 +81,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                 {/* Coimbatore Card */}
                 <Link href={"/coimbatore"} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
-                    <Image src={prefix("/coimbatore.jpg")} alt="CovaiTech Park Coimbatore Headquarters Workspace" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={prefix("/coimbatore.jpg")} alt="Covai Tech Park Coimbatore Headquarters Workspace" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
                       <div>
@@ -107,7 +107,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                 {/* Trichy Card */}
                 <Link href={"/trichy"} className="group/loc relative bg-white border border-slate-100/80 rounded-2xl overflow-hidden flex flex-col hover:border-brand-orange/40 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
                   <div className="relative h-36 w-full overflow-hidden">
-                    <Image src={prefix("/trichy.png")} alt="CovaiTech Park Trichy Center Coworking Space" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                    <Image src={prefix("/trichy.png")} alt="Covai Tech Park Trichy Center Coworking Space" fill className="object-cover transition-transform duration-700 group-hover/loc:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0a1828]/90 via-[#0a1828]/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 p-5 w-full flex justify-between items-end">
                       <div>
@@ -139,6 +139,10 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Coworking Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
                 </Link>
+                <Link href={"/hot-desk"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
+                  <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Hot Desk</span>
+                  <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
+                </Link>
                 <Link href={"/private-office-space"} className="px-4 py-3.5 hover:bg-slate-50 hover:text-brand-orange rounded-2xl transition-all flex items-center justify-between group/link">
                   <span className="font-outfit text-[15px] text-slate-700 group-hover/link:text-brand-orange">Private Office Space</span>
                   <span className="text-brand-orange opacity-0 -translate-x-2 group-hover/link:translate-x-0 group-hover/link:opacity-100 transition-all duration-300">&rarr;</span>
@@ -157,6 +161,7 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
                 </Link>
               </div>
             </div>
+            <Link href={"/gallery"} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Gallery</Link>
             <Link href={"/blog"} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Blog</Link>
             <Link href={"/contact"} className="hover:text-brand-orange transition-colors font-medium relative py-6 after:content-[''] after:absolute after:bottom-4 after:left-0 after:w-0 after:h-[2px] after:bg-brand-orange hover:after:w-full after:transition-all after:duration-300">Contact</Link>
           </nav>
@@ -258,12 +263,16 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
               
               <div 
                 className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                  mobileServicesOpen ? "max-h-[300px] mt-4 opacity-100" : "max-h-0 opacity-0"
+                  mobileServicesOpen ? "max-h-[360px] mt-4 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
                 <div className="flex flex-col gap-3 pl-2 normal-case tracking-normal font-medium text-sm">
                   <Link href={"/coworking-space-in-coimbatore"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
                     <span>Coworking Space</span>
+                    <span className="text-brand-orange/55">&rarr;</span>
+                  </Link>
+                  <Link href={"/hot-desk"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
+                    <span>Hot Desk</span>
                     <span className="text-brand-orange/55">&rarr;</span>
                   </Link>
                   <Link href={"/private-office-space"} onClick={() => setMobileMenuOpen(false)} className="text-white/80 hover:text-brand-orange transition-colors flex items-center justify-between">
@@ -287,6 +296,9 @@ export default function Header({ ctaText = "Get Quote", ctaAction }: HeaderProps
             </div>
 
             {/* Static Links */}
+            <Link href={"/gallery"} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
+              Gallery
+            </Link>
             <Link href={"/blog"} onClick={() => setMobileMenuOpen(false)} className="hover:text-brand-orange transition-colors border-b border-white/5 pb-4">
               Blog
             </Link>

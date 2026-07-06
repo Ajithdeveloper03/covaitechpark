@@ -28,7 +28,7 @@ const ARTICLES_CONTENT: Record<string, {
     content: [
       {
         heading: "The Shift in Workspace Dynamics",
-        text: "Managed coworking spaces are no longer just for freelancers and small teams. Today, premium tech coworking parks like CovaiTech Park are housing mid-size enterprises and fast-growing startups in Coimbatore's thriving tech corridors. The rise of hybrid work models has dramatically accelerated this shift, requiring adaptable environments that scale with business needs while maintaining operational excellence.",
+        text: "Managed coworking spaces are no longer just for freelancers and small teams. Today, premium tech coworking parks like Covai Tech Park are housing mid-size enterprises and fast-growing startups in Coimbatore's thriving tech corridors. The rise of hybrid work models has dramatically accelerated this shift, requiring adaptable environments that scale with business needs while maintaining operational excellence.",
         img: "/workspace-lounge.png"
       },
       {
@@ -68,7 +68,7 @@ const ARTICLES_CONTENT: Record<string, {
       },
       {
         heading: "Customizable Environments",
-        text: "Every cabin suite at CovaiTech Park is fully customized with ergonomic seating, modular storage, and individual smart air conditioning control units. It allows teams to set their own workspace environment parameters according to their workflows, enhancing comfort over long hours and improving overall team retention metrics.",
+        text: "Every cabin suite at Covai Tech Park is fully customized with ergonomic seating, modular storage, and individual smart air conditioning control units. It allows teams to set their own workspace environment parameters according to their workflows, enhancing comfort over long hours and improving overall team retention metrics.",
         img: "/workspace-event.png"
       },
       {
@@ -217,7 +217,7 @@ export default function BlogDetailContent({ slug }: BlogDetailContentProps) {
   const [readProgress, setReadProgress] = useState(0);
 
   useEffect(() => {
-    document.title = `${currentArticle.title} | Blog - CovaiTech Park`;
+    document.title = `${currentArticle.title} | Blog - Covai Tech Park`;
   }, [currentArticle.title]);
 
   // Read progress bar

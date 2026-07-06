@@ -92,7 +92,7 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
               <div className="bg-white p-2 rounded-2xl">
                 <Image 
                   src="/covaitechpark/covai-tech-park-logo.png" 
-                  alt="CovaiTech logo" 
+                  alt="Covai Tech logo" 
                   width={110} 
                   height={35}
                   className="h-7 w-auto object-contain"

@@ -507,26 +507,27 @@ export default function PrivateOfficePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {[
               { name: "Coworking Space", desc: "Vibrant community-driven workspaces designed for flexibility.", link: "/coworking-space-in-coimbatore", img: "/workspace-hotdesk.png" },
+              { name: "Hot Desk", desc: "Flexible, non-reserved desks in a vibrant shared coworking layout.", link: "/hot-desk", img: "/workspace-cafe.png" },
               { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: "/managed-office", img: "/workspace-meeting.png" },
               { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: "/meeting-room", img: "/workspace-event.png" },
-              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: "/virtual-office", img: "/workspace-lounge.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: "/virtual-office", img: "/workspace-lounge.png" }
             ].map((sol, idx) => (
               <Link href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 <div className="relative aspect-[16/9] w-full overflow-hidden">
                   <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
                   <div className="absolute bottom-6 left-6 text-white">
-                    <h4 className="font-outfit font-medium text-2xl mb-1">{sol.name}</h4>
+                    <h4 className="font-outfit font-medium text-xl mb-1">{sol.name}</h4>
                   </div>
                 </div>
-                <div className="p-8 flex flex-col justify-between flex-grow bg-white relative">
+                <div className="p-5 flex flex-col justify-between flex-grow bg-white relative">
                   <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
                   </div>
-                  <p className="text-slate-500 text-sm font-normal leading-relaxed pr-6">{sol.desc}</p>
+                  <p className="text-slate-500 text-xs font-normal leading-relaxed pr-6 line-clamp-3">{sol.desc}</p>
                 </div>
               </Link>
             ))}

@@ -11,7 +11,7 @@ export default function Loading() {
         <div className="w-48 h-16 relative">
           <Image
             src={prefix("/covai-tech-park-logo.png")}
-            alt="CovaiTech Park Logo"
+            alt="Covai Tech Park Logo"
             fill
             className="object-contain"
             priority

@@ -532,28 +532,27 @@ export default function CoworkingSpacePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
             {[
+              { name: "Hot Desk", desc: "Flexible, non-reserved desks in a vibrant shared coworking layout.", link: "/hot-desk", img: "/workspace-cafe.png" },
               { name: "Private Office", desc: "Lockable, fully furnished private cabins for productive work.", link: "/private-office-space", img: "/workspace-cabin.png" },
               { name: "Managed Office", desc: "Enterprise scale fully managed spaces for large organizations.", link: "/managed-office", img: "/workspace-meeting.png" },
               { name: "Meeting Room", desc: "Premium boardrooms equipped for seamless presentations.", link: "/meeting-room", img: "/workspace-event.png" },
-              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: "/virtual-office", img: "/workspace-lounge.png" },
+              { name: "Virtual Office", desc: "Prestigious addresses for GST registration and mail handling.", link: "/virtual-office", img: "/workspace-lounge.png" }
             ].map((sol, idx) => (
-              <Link href={sol.link} key={idx} className="group bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
-                <div className="relative w-full aspect-[16/9] overflow-hidden">
-                  <Image src={prefix(sol.img)} alt={sol.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-                <div className="p-5 flex flex-col gap-2 flex-1">
-                  <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
-                    {sol.name}
-                  </h4>
-                  <p className="text-slate-500 text-[13px] leading-relaxed line-clamp-2 font-normal flex-1">
-                    {sol.desc}
-                  </p>
-                  <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
-                    Learn More <span>&rarr;</span>
+              <Link href={sol.link} key={idx} className="group relative bg-white border border-slate-200 rounded-[2rem] overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                  <Image src={prefix(sol.img)} alt={sol.name} fill className="object-cover transition-transform duration-700 group-hover:scale-110" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/90 via-brand-navy/30 to-transparent" />
+                  <div className="absolute bottom-6 left-6 text-white">
+                    <h4 className="font-outfit font-medium text-xl mb-1">{sol.name}</h4>
                   </div>
+                </div>
+                <div className="p-5 flex flex-col justify-between flex-grow bg-white relative">
+                  <div className="absolute -top-6 right-6 w-12 h-12 bg-brand-orange text-white rounded-full flex items-center justify-center shadow-lg transform group-hover:rotate-45 transition-transform duration-300">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                  </div>
+                  <p className="text-slate-500 text-xs font-normal leading-relaxed pr-6 line-clamp-3">{sol.desc}</p>
                 </div>
               </Link>
             ))}

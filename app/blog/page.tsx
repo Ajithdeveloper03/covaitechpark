@@ -21,8 +21,8 @@ const ARTICLES = [
     img: "/workspace-lounge.png",
     featured: true,
     snippet: "How hybrid models, premium modular cabins, and smart tech parks are reshaping the corporate ecosystem in Coimbatore's thriving tech corridors.",
-    author: "CovaiTech Team",
-    authorImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+    author: "Covai Tech Team",
+    authorImg: prefix("/covai-tech-park-logo.png")
   },
   {
     slug: "maximizing-productivity-in-private-office-cabins",
@@ -33,8 +33,8 @@ const ARTICLES = [
     img: "/workspace-cabin.png",
     featured: false,
     snippet: "A deep dive into UX-driven workspace ergonomics, acoustic privacy, and how dedicated cabin structures accelerate business outputs.",
-    author: "CovaiTech Team",
-    authorImg: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=80&q=80"
+    author: "Covai Tech Team",
+    authorImg: prefix("/covai-tech-park-logo.png")
   },
   {
     slug: "why-virtual-offices-are-essential-for-startups",
@@ -45,8 +45,8 @@ const ARTICLES = [
     img: "/workspace-meeting.png",
     featured: false,
     snippet: "How virtual mailing addresses and professional phone handling help companies register for GST and build credibility remotely.",
-    author: "CovaiTech Team",
-    authorImg: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=80&q=80"
+    author: "Covai Tech Team",
+    authorImg: prefix("/covai-tech-park-logo.png")
   }
 ];
 
@@ -102,8 +102,8 @@ export default function BlogArchivePage() {
                 img: resolvedImg,
                 featured: i === 0,
                 snippet: blog.excerpt ?? "",
-                author: "CovaiTech Team",
-                authorImg: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80"
+                author: "Covai Tech Team",
+                authorImg: prefix("/covai-tech-park-logo.png")
               };
             });
             setArticles(mapped);
@@ -138,7 +138,7 @@ export default function BlogArchivePage() {
           {/* Eyebrow */}
           <div className="flex justify-center items-center gap-3 mb-6">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-[10px] font-bold tracking-[0.2em] ">
-              CovaiTech Journal
+              Covai Tech Journal
             </span>
           </div>
 

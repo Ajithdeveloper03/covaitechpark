@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://covaitechpark.com/covaitechpark/sitemap.xml',
+    sitemap: 'https://covaitechpark.com/sitemap.xml',
   };
 }

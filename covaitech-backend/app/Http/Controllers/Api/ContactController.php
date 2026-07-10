@@ -36,34 +36,51 @@ class ContactController extends Controller
 
         $contact = Contact::create($data);
 
+        $mailError = null;
         // Send Email Notification
         try {
-            $body =
-                "==================================================\n" .
-                "  NEW ENQUIRY — COVAI TECH PARK\n" .
-                "==================================================\n\n" .
-                "Name     : {$contact->name}\n" .
-                "Email    : " . ($contact->email    ?: 'Not provided') . "\n" .
-                "Phone    : " . ($contact->phone    ?: 'Not provided') . "\n" .
-                "Company  : " . ($contact->company  ?: 'Not provided') . "\n" .
-                "Source   : " . ($contact->source   ?: 'website')      . "\n" .
-                "Received : " . now()->format('d M Y, h:i A T')        . "\n\n" .
-                "--------------------------------------------------\n" .
-                "MESSAGE:\n" .
-                "--------------------------------------------------\n" .
-                $contact->message . "\n\n" .
-                "==================================================\n" .
-                "Automated notification from covaitechpark.com\n" .
-                "==================================================\n";
+            $bodyLines = [
+                "==================================================",
+                "  NEW ENQUIRY — COVAI TECH PARK",
+                "==================================================\n",
+                "MESSAGE:",
+                "--------------------------------------------------",
+                $contact->message . "\n",
+                "--------------------------------------------------",
+                "Name     : {$contact->name}",
+            ];
+
+            if (!empty($contact->email)) {
+                $bodyLines[] = "Email    : {$contact->email}";
+            }
+            if (!empty($contact->phone)) {
+                $bodyLines[] = "Phone    : {$contact->phone}";
+            }
+            if (!empty($contact->company)) {
+                $bodyLines[] = "Company  : {$contact->company}";
+            }
+            if (!empty($contact->source)) {
+                $bodyLines[] = "Source   : {$contact->source}";
+            }
+
+            $body = implode("\n", $bodyLines);
 
             Mail::raw($body, function ($mail) use ($contact) {
-                $mail->from(env('MAIL_FROM_ADDRESS', 'inymart@gmail.com'), env('MAIL_FROM_NAME', 'CovaiTechPark'))
-                     ->to(['inymart@gmail.com', 'info@covaitechpark.com'])
-                     ->replyTo($contact->email ?: 'inymart@gmail.com', $contact->name)
+                $mail->from(env('MAIL_FROM_ADDRESS', 'info@covaitechpark.com'), env('MAIL_FROM_NAME', 'CovaiTechPark'))
+                     ->to('info@covaitechpark.com')
+                     ->replyTo($contact->email ?: 'info@covaitechpark.com', $contact->name)
                      ->subject('[CovaiTechPark] New Enquiry: ' . $contact->name);
             });
         } catch (\Exception $e) {
             Log::error('Mail sending failed: ' . $e->getMessage());
+            $mailError = $e->getMessage();
+        }
+
+        if ($mailError) {
+            return response()->json([
+                'message' => 'Contact saved in database, but mail sending failed.',
+                'error' => $mailError
+            ], 500);
         }
 
         return response()->json(['message' => 'Contact submitted successfully'], 201);

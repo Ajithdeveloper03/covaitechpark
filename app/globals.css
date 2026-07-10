@@ -2,6 +2,7 @@
 @import url('https://cdn.jsdelivr.net/npm/@qpokychuk/gilroy@1.0.2/index.min.css');
 @import url('https://fonts.cdnfonts.com/css/gordita');
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;

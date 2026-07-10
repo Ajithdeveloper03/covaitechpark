@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 export default function Loading() {

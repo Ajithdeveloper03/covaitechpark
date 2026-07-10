@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { contactInfo } from "../config/contactInfo";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 interface HeaderProps {

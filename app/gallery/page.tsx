@@ -6,33 +6,21 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ImageLightbox from "../components/ImageLightbox";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 const getImgUrl = (img: string) => img.startsWith("http") || img.startsWith("/") ? img : prefix(img);
 
-const TABS = ["All", "Virtual Office Space", "Coworking Space", "Private Office Space", "Meeting Room", "Managed Office Space", "Furnished Office Space", "Commercial Space"];
+const TABS = ["All", "Coworking Space", "Private Office Space", "Meeting Room", "Managed Office Space", "Furnished Office Space", "Common Area"];
 
-const FULL_GALLERY_ITEMS = [
-  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[3/5]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[4/3]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[1/1]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[16/9]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[4/5]" },
-  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/2]" },
-  { img: "/workspace-cabin.png", category: "Cabins", aspect: "aspect-[1/1]" },
-  { img: "/workspace-lounge.png", category: "Lounge", aspect: "aspect-[9/16]" },
-  { img: "/workspace-cafe.png", category: "Lounge", aspect: "aspect-[3/4]" },
-  { img: "/workspace-meeting.png", category: "Meeting Rooms", aspect: "aspect-[4/3]" },
-  { img: "/workspace-hotdesk.png", category: "Cabins", aspect: "aspect-[16/9]" },
-  { img: "/workspace-event.png", category: "Lounge", aspect: "aspect-[3/4]" }
-];
+
 
 export default function GalleryPage() {
   const [activeTab, setActiveTab] = useState("All");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImage, setLightboxImage] = useState("");
   const [numColumns, setNumColumns] = useState(4);
-  const [galleryItems, setGalleryItems] = useState(FULL_GALLERY_ITEMS);
+  const [galleryItems, setGalleryItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -50,10 +38,8 @@ export default function GalleryPage() {
                 if (rawImg) {
                   if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
                     resolvedImg = rawImg;
-                  } else if (rawImg.includes("/")) {
-                    resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
                   } else {
-                    resolvedImg = `/${rawImg}`;
+                    resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
                   }
                 }
 
@@ -73,6 +59,8 @@ export default function GalleryPage() {
         }
       } catch (error) {
         console.error("Failed to fetch gallery:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchGallery();
@@ -165,9 +153,19 @@ export default function GalleryPage() {
           ))}
         </div>
 
-        {/* Flat Grid Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mb-24">
-          {filteredItems.map((item, idx) => {
+        {/* Gallery Content */}
+        {loading ? (
+          <div className="flex justify-center items-center py-20 mb-24 w-full">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#f37021]"></div>
+          </div>
+        ) : filteredItems.length === 0 ? (
+          <div className="text-center py-20 mb-24 w-full">
+            <h2 className="text-2xl font-bold text-slate-800 mb-2">No images found</h2>
+            <p className="text-slate-500">There are no gallery images available in this category yet.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full mb-24">
+            {filteredItems.map((item, idx) => {
             return (
               <div
                 key={`${item.img}-${idx}`}
@@ -182,7 +180,7 @@ export default function GalleryPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                   onError={(e) => {
-                    e.currentTarget.src = "/covaitechpark/covai-tech-park-logo.png";
+                    e.currentTarget.src = "/covai-tech-park-logo.png";
                     e.currentTarget.className = "object-contain p-8 opacity-20";
                   }}
                 />
@@ -194,8 +192,8 @@ export default function GalleryPage() {
               </div>
             );
           })}
-        </div>
-
+          </div>
+        )}
 
 
       </section>

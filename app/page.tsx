@@ -18,7 +18,7 @@ const Footer = dynamic(() => import("./components/Footer"), {
   loading: () => <div className="h-60 bg-[#060c10] animate-pulse" />
 });
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
@@ -156,7 +156,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "SCALABILITY",
     title: "Flexible Growth Options",
     description: "Scale your workspace effortlessly as your business grows, without the constraints of traditional office leases.",
-    image: prefix("/workspace-lounge.png"),
+    image: prefix("/scalability.jpg"),
     accent: "#f37021",
     icon: "access",
     points: [
@@ -170,7 +170,7 @@ const DEPLOYMENT_PHASES = [
     subtitle: "CUSTOMER FIRST",
     title: "Proactive Customer-Centric Approach",
     description: "A customer-first approach backed by responsive facility management, seamless onboarding, and continuous service improvement.",
-    image: prefix("/workspace-cafe.png"),
+    image: prefix("/customer.jpg"),
     accent: "#f37021",
     icon: "reception",
     points: [
@@ -788,6 +788,7 @@ export default function Home() {
   const [contactPhoneCode, setContactPhoneCode] = useState("+91");
   const [contactLookingFor, setContactLookingFor] = useState("");
   const [contactSuccess, setContactSuccess] = useState(false);
+  const [contactError, setContactError] = useState<string | null>(null);
   const [botField, setBotField] = useState("");
 
   // FAQ state
@@ -832,6 +833,7 @@ export default function Home() {
   const [bookingLookingFor, setBookingLookingFor] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingError, setBookingError] = useState<string | null>(null);
 
   // Track scroll position for navbar styling
   useEffect(() => {
@@ -941,6 +943,7 @@ export default function Home() {
 
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setBookingError(null);
     if (bookingFirstName && bookingLastName && bookingEmail && bookingPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -973,15 +976,20 @@ export default function Home() {
             setBookingOpen(false);
             setBookingSuccess(false);
           }, 3000);
+        } else {
+          const data = await response.json();
+          setBookingError(data.error || data.message || "Failed to submit request.");
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Form submission error", error);
+        setBookingError(error.message || "Failed to connect to the server.");
       }
     }
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setContactError(null);
     if (contactFirstName && contactLastName && contactEmail && contactPhone) {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/contact`, {
@@ -1012,9 +1020,13 @@ export default function Home() {
             setContactLookingFor("");
             setContactSuccess(false);
           }, 3000);
+        } else {
+          const data = await response.json();
+          setContactError(data.error || data.message || "Failed to submit message.");
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Form submission error", error);
+        setContactError(error.message || "Failed to connect to the server.");
       }
     }
   };
@@ -1032,9 +1044,9 @@ export default function Home() {
             "@context": "https://schema.org",
             "@type": "CoworkingSpace",
             "name": "Covai Tech Park",
-            "image": "https://covaitechpark.com/covaitechpark/covai-tech-park-logo.png",
-            "@id": "https://covaitechpark.com/covaitechpark/#coworkingspace",
-            "url": "https://covaitechpark.com/covaitechpark",
+            "image": "https://covaitechpark.com/covai-tech-park-logo.png",
+            "@id": "https://covaitechpark.com/#coworkingspace",
+            "url": "https://covaitechpark.com",
             "telephone": contactInfo.phone1.raw,
             "priceRange": "₹1499 - ₹14999",
             "address": {
@@ -1866,7 +1878,17 @@ export default function Home() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-medium text-sm w-full">
+                <div className="w-full">
+                  {contactError && (
+                    <div className="p-4 mb-4 text-xs text-red-800 bg-red-50 rounded-xl border border-red-100 flex flex-col gap-1 w-full">
+                      <span className="font-bold text-red-950 flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        Mail Dispatch Failed:
+                      </span>
+                      <p className="text-red-700 leading-normal">{contactError}</p>
+                    </div>
+                  )}
+                  <form onSubmit={handleContactSubmit} className="space-y-4 text-left font-medium text-sm w-full">
                   <input
                     type="text"
                     name="bot_field"
@@ -1974,7 +1996,8 @@ export default function Home() {
                     Request Tour Schedule
                   </button>
                 </form>
-              )}
+              </div>
+            )}
             </div>
           </div>
 
@@ -2031,7 +2054,17 @@ export default function Home() {
                   </p>
                 </div>
               ) : (
-                <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-medium text-sm">
+                <div className="w-full">
+                  {bookingError && (
+                    <div className="p-4 mb-4 text-xs text-red-800 bg-red-50 rounded-xl border border-red-100 flex flex-col gap-1 text-left">
+                      <span className="font-bold text-red-950 flex items-center gap-1.5">
+                        <svg className="w-3.5 h-3.5 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                        Mail Dispatch Failed:
+                      </span>
+                      <p className="text-red-700 leading-normal">{bookingError}</p>
+                    </div>
+                  )}
+                  <form onSubmit={handleBookingSubmit} className="space-y-5 text-left font-medium text-sm">
                   <input
                     type="text"
                     name="bot_field"
@@ -2140,7 +2173,8 @@ export default function Home() {
                     Submit
                   </button>
                 </form>
-              )}
+              </div>
+            )}
 
             </div>
           </div>

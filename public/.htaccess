@@ -1,15 +1,19 @@
 # Rewrite rules for Next.js static export deployed in a subfolder
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteBase /covaitechpark/
+  RewriteBase /
 
   # Do not rewrite if it's already index.html
   RewriteRule ^index\.html$ - [L]
+
+  # Force trailing slash for directories (Next.js static export trailingSlash: true)
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^(.*?[^/])$ %{REQUEST_URI}/ [R=301,L]
 
   # If the requested path is not a file, not a directory, and not a symbolic link,
   # rewrite the request to the subfolder's index.html
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-l
-  RewriteRule . /covaitechpark/index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>

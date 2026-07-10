@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import ImageLightbox from "./ImageLightbox";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const TABS = ["All", "Private Office", "Managed Office", "Meeting Rooms", "Coworking Space"];

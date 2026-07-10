@@ -32,7 +32,7 @@ const defaultSettings: SettingsDict = {
   whatsapp_url: contactInfo.whatsappUrl,
   facebook_url: "https://www.facebook.com/coworkingspaceincoimbatore/",
   twitter_url: "https://twitter.com/covaitechpark",
-  instagram_url: "https://www.instagram.com/covaitechpark/",
+  instagram_url: "https://www.instagram.com/",
   linkedin_url: "https://www.linkedin.com/company/covai-tech-park/",
   youtube_url: "https://youtube.com/covaitechpark",
   coimbatore_map_embed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.143641267597!2d77.031952!3d11.027815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba857a2bd66f649%3A0xc48c0827ea8061e8!2sCovai%20Tech%20Park!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",

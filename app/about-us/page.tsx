@@ -5,7 +5,7 @@ import Image from "next/image";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const HERO_GRID_IMAGES = [
@@ -168,13 +168,13 @@ export default function AboutUsPage() {
             </h2>
             <div className="space-y-4">
               <p className="text-slate-600 text-lg leading-relaxed font-medium">
-                Covai Tech Park was launched to bring premium managed office spaces and flexible workspace solutions to businesses in Coimbatore. Owned and operated by MAX OFFICE, a company established in 2017, Covai Tech Park is backed by years of expertise in delivering managed offices, coworking spaces, and enterprise workspace solutions designed for startups, growing businesses, and large enterprises.
+                <strong>Covai Tech Park</strong> was launched to bring premium managed office spaces and flexible workspace solutions to businesses in Coimbatore. <strong>Owned and operated by MAX OFFICE</strong>, a company established in 2017, Covai Tech Park is backed by years of expertise in delivering managed offices, coworking spaces, and enterprise workspace solutions designed for startups, growing businesses, and large enterprises.
               </p>
               <p className="text-slate-500 leading-relaxed text-base">
                 Our workspaces are thoughtfully designed to provide the flexibility, functionality, and professional environment that modern businesses need. Whether you're looking for a private office, a managed workspace, or a fully customized office solution, our team is committed to delivering a seamless experience from workspace planning and setup to day-to-day operations.
               </p>
               <p className="text-slate-500 leading-relaxed text-base">
-                Today, MAX OFFICE operates through Covai Tech Park in Coimbatore and Trichy Coworks in Trichy, with 8 business centres across the two cities. Together, we manage over 1.5 lakh square feet of premium office space, creating productive environments where businesses can collaborate, innovate, and grow.
+                Today, <strong>MAX OFFICE</strong> operates through <strong>Covai Tech Park</strong> in Coimbatore and <strong>Trichy Coworks</strong> in Trichy, with <strong>8 business centres</strong> across the two cities. Together, we manage over <strong>1.5 lakh square feet</strong> of premium office space, creating productive environments where businesses can collaborate, innovate, and grow.
               </p>
             </div>
           </div>
@@ -190,14 +190,14 @@ export default function AboutUsPage() {
             </h2>
             <div className="space-y-4">
               <p className="text-slate-600 leading-relaxed text-base">
-                Over the years, organizations from diverse industries have chosen our workspaces, including BIS, WNS, Sigma Technologies, Choitrams, PhonePe, Zomato, Vodafone, 99acres, Naukri, Capgemini, HDFC Bank, Pan Gulf, Club Mahindra, and many more. Our focus on quality infrastructure, exceptional service, and operational excellence has enabled us to build lasting relationships with businesses of all sizes.
+                Over the years, organizations from diverse industries have chosen our workspaces, including <strong>BIS</strong>, <strong>WNS</strong>, <strong>Sigma Technologies</strong>, <strong>Choitrams</strong>, <strong>PhonePe</strong>, <strong>Zomato</strong>, <strong>Vodafone</strong>, <strong>99acres</strong>, <strong>Naukri</strong>, <strong>Capgemini</strong>, <strong>HDFC Bank</strong>, <strong>Pan Gulf</strong>, <strong>Club Mahindra</strong>, and many more. Our focus on quality infrastructure, exceptional service, and operational excellence has enabled us to build lasting relationships with businesses of all sizes.
               </p>
               <p className="text-slate-600 leading-relaxed text-base">
-                Our commitment to excellence has also earned industry recognition. Trichy Coworks, another brand owned and operated by MAX OFFICE, was recognized by Times Magazine as the Best Office Space Solution in Tier 2 and Tier 3 Cities of Tamil Nadu, reflecting our dedication to delivering outstanding workspace experiences.
+                Our commitment to excellence has also earned industry recognition. <strong>Trichy Coworks</strong>, another brand owned and operated by <strong>MAX OFFICE</strong>, was recognized by <strong>Times Magazine</strong> as the <strong>Best Office Space Solution in Tier 2 and Tier 3 Cities of Tamil Nadu</strong>, reflecting our dedication to delivering outstanding workspace experiences.
               </p>
               <div className="p-6 bg-white border border-brand-orange/20 rounded-2xl shadow-sm mt-6">
                 <p className="text-brand-navy font-medium italic text-lg leading-relaxed">
-                  "At Covai Tech Park, we believe that a workspace is more than just an office. It is a place where ideas are transformed into opportunities, teams work together with confidence, and businesses achieve sustainable growth. As we continue to expand across Tamil Nadu, our mission remains the same—to provide flexible, future-ready workspaces that empower businesses to succeed."
+                  "At <strong>Covai Tech Park</strong>, we believe that a workspace is more than just an office. It is a place where ideas are transformed into opportunities, teams work together with confidence, and businesses achieve sustainable growth. As we continue to expand across Tamil Nadu, our mission remains the same to provide flexible, future-ready workspaces that empower businesses to succeed."
                 </p>
               </div>
             </div>
@@ -243,7 +243,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-left px-4 md:px-0 md:pl-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">The Beginning</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Starting with 500 Sq. Ft.</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   MAX OFFICE was founded with a vision to transform the way businesses work. Trichy Coworks was launched as one of the first organized coworking spaces in Trichy, introducing flexible and managed office solutions to the city.
                 </p>
@@ -274,7 +274,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src={prefix("/growth.jpg")}  alt="Covai Tech 2022" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={prefix("/locations.jpg")}  alt="Covai Tech 2022" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -283,7 +283,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-left px-4 md:px-0 md:pl-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">Rapid Growth</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Reaching 3 Locations</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   Reached 750+ seats across 3 locations in Trichy, managing over 23,000 sq. ft. of premium office space.
                 </p>
@@ -303,7 +303,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-right px-4 md:px-0 md:pr-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">Expansion into Coimbatore</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Launching Covai Tech Park</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   Launched Covai Tech Park in Coimbatore, expanding beyond Trichy and increasing our portfolio to 1,500+ seats.
                   <br/><br/>
@@ -325,7 +325,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-left px-4 md:px-0 md:pl-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">Strengthening Our Presence</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Expanding to Kattur, Trichy</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   Added 20,000 sq. ft. of premium office space in Trichy, further expanding our capacity and meeting the growing demand for flexible workspaces.
                 </p>
@@ -336,7 +336,7 @@ export default function AboutUsPage() {
             <div className="relative z-10 flex flex-col md:flex-row-reverse items-center justify-between mb-24 w-full group">
               <div className="w-full md:w-[45%] mb-8 md:mb-0">
                 <div className="relative rounded-2xl overflow-hidden aspect-[4/3] shadow-lg border border-brand-navy/10 transition-transform duration-500 group-hover:-translate-y-2">
-                  <Image src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&auto=format&fit=crop&q=80" alt="Covai Tech 2025" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <Image src={prefix("/covai2.jpg")} alt="Covai Tech 2025" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
                 </div>
               </div>
               <div className="w-full md:w-[10%] flex justify-center py-4 md:py-0">
@@ -345,7 +345,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-right px-4 md:px-0 md:pr-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">Growing in Coimbatore</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Opening Our Second Coimbatore Centre</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   Expanded our presence in Coimbatore by adding 10,000 sq. ft. of premium office space under the Covai Tech Park brand, strengthening our footprint in the city's growing business ecosystem.
                 </p>
@@ -365,7 +365,7 @@ export default function AboutUsPage() {
                 </div>
               </div>
               <div className="w-full md:w-[45%] text-center md:text-left px-4 md:px-0 md:pl-12">
-                <h3 className="text-2xl font-bold text-brand-navy mb-4">Accelerating Growth</h3>
+                <h3 className="text-2xl font-bold text-brand-navy mb-4">Managing 1.5 Lakh Sq. Ft. Across 8 Centres</h3>
                 <p className="text-slate-600 leading-relaxed text-sm sm:text-base">
                   Further expanded our portfolio with 17,000 sq. ft. of premium office space in Trichy and 30,000 sq. ft. in Coimbatore. Today, MAX OFFICE manages over 1.5 lakh square feet of workspace across 8 business centres in Coimbatore and Trichy, serving businesses ranging from startups to leading national and multinational organizations.
                 </p>
@@ -392,10 +392,10 @@ export default function AboutUsPage() {
             {/* Left Content */}
             <div className="space-y-5 text-slate-600 text-sm sm:text-base leading-relaxed text-justify flex flex-col justify-center">
               <p className="bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-sm">
-                In 2017, Manoj Prabahar Asokan recognized a significant gap in Trichy's business ecosystem. While startups, freelancers, and growing businesses were emerging, there were no organized coworking or managed office spaces that offered the flexibility and professional infrastructure they needed.
+                In 2017, <strong>Manoj Prabahar Asokan</strong> recognized a significant gap in Trichy's business ecosystem. While startups, freelancers, and growing businesses were emerging, there were no organized coworking or managed office spaces that offered the flexibility and professional infrastructure they needed. Businesses had limited options beyond traditional office leases, making it difficult to establish and scale their operations efficiently.
               </p>
               <p className="px-2">
-                Seeing this opportunity, Manoj founded Trichy Coworks, one of the city's first organized coworking space providers, with a vision to make premium workspaces accessible to businesses of every size. What started as a modest 500 sq. ft. workspace soon transformed the way companies worked in Trichy.
+                Seeing this opportunity, Manoj founded <strong>Trichy Coworks</strong>, one of the city's first organized coworking space providers, with a vision to make premium workspaces accessible to businesses of every size. What started as a modest <strong>500 sq. ft.</strong> workspace soon transformed the way companies worked in Trichy, offering flexible office solutions backed by professional services and a thriving business environment.
               </p>
             </div>
             
@@ -411,20 +411,23 @@ export default function AboutUsPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent"></div>
               <div className="absolute bottom-8 left-0 right-0 text-center px-4">
                 <h3 className="text-white text-2xl font-bold">Manoj Prabahar Asokan</h3>
-                <p className="text-brand-orange font-medium mt-1">Founder & Managing Director</p>
+                <p className="text-brand-orange font-bold mt-1">Founder & Managing Director</p>
               </div>
             </div>
 
             {/* Right Content */}
             <div className="space-y-5 text-slate-600 text-sm sm:text-base leading-relaxed text-justify flex flex-col justify-center">
               <p className="px-2">
-                As demand grew, so did the vision. Under his leadership, MAX OFFICE expanded beyond Trichy with the launch of Covai Tech Park in Coimbatore. Today, the company manages over 1.5 lakh square feet of premium office space across 8 business centres.
+                As demand grew, so did the vision. Under his leadership, <strong>MAX OFFICE</strong> expanded beyond Trichy with the launch of <strong>Covai Tech Park</strong> in Coimbatore. Today, the company manages <strong>over 1.5 lakh square feet</strong> of premium office space across <strong>8 business centres</strong>, serving more than <strong>650+ businesses</strong> from India, the USA, Europe, the GCC, and other global markets.
               </p>
               <p className="bg-slate-50 p-5 rounded-2xl border border-slate-100 shadow-sm">
-                Driven by a passion for enabling business growth, Manoj also founded Talentztech Solution, helping organizations around the world build and manage remote teams in India. A Civil Engineer and Master's graduate from the University of Greenwich, UK.
+                Driven by a passion for enabling business growth, Manoj also founded <strong>Talentztech Solution</strong>, helping organizations around the world build and manage remote teams in India.
               </p>
-              <p className="font-semibold text-slate-800 text-base italic border-l-4 border-brand-orange pl-4 mt-2">
-                "His vision continues to guide MAX OFFICE today: to build inspiring workspaces that empower businesses, foster collaboration, and create opportunities for growth."
+              <p className="px-2">
+                A <strong>Civil Engineer</strong> and <strong>Master's graduate from the University of Greenwich, United Kingdom</strong>, Manoj combines technical expertise with a customer-first approach to business.
+              </p>
+              <p className="text-slate-800 text-base italic border-l-4 border-brand-orange pl-4 mt-2">
+                His vision continues to guide MAX OFFICE today: <strong>to build inspiring workspaces that empower businesses, foster collaboration, and create opportunities for growth.</strong>
               </p>
             </div>
             

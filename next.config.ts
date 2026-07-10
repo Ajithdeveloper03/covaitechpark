@@ -16,7 +16,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  basePath: "/covaitechpark",
+  // basePath: "/covaitechpark",
 };
 
 export default nextConfig;

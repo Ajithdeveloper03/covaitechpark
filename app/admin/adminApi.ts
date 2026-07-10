@@ -12,7 +12,7 @@
 import { getAdminToken } from "./hooks/useAdminAuth";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const TIMEOUT_MS = 8000;
 
 function redirectToLogin(): void {

@@ -9,7 +9,7 @@ import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "../config/testimonials";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const EVENT_SPACE_DETAILS = [

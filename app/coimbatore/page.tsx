@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const AmenityIcon = ({ name, className }: { name: string; className?: string }) => {
@@ -136,7 +136,7 @@ export default function CoimbatorePage() {
         {/* Full bleed background */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/covaitechpark/coimbatore.png"
+            src="/coimbatore.png"
             alt="Coimbatore coworking space"
             fill
             priority
@@ -173,11 +173,11 @@ export default function CoimbatorePage() {
           {/* Desktop/tablet view */}
           <div className="hidden sm:block relative w-full h-full">
             {[
-              { img: "/covaitechpark/hero1.jpg", rotate: -36, offset: "-300px", translateY: "60px", active: false },
-              { img: "/covaitechpark/hero2.jpg", rotate: -18, offset: "-160px", translateY: "15px", active: false },
-              { img: "/covaitechpark/hero3.jpg", rotate: 0, offset: "0px", translateY: "0px", active: true },
-              { img: "/covaitechpark/hero11.jpg", rotate: 18, offset: "160px", translateY: "15px", active: false },
-              { img: "/covaitechpark/hero13.jpg", rotate: 36, offset: "300px", translateY: "60px", active: false },
+              { img: "/hero1.jpg", rotate: -36, offset: "-300px", translateY: "60px", active: false },
+              { img: "/hero2.jpg", rotate: -18, offset: "-160px", translateY: "15px", active: false },
+              { img: "/hero3.jpg", rotate: 0, offset: "0px", translateY: "0px", active: true },
+              { img: "/hero11.jpg", rotate: 18, offset: "160px", translateY: "15px", active: false },
+              { img: "/hero13.jpg", rotate: 36, offset: "300px", translateY: "60px", active: false },
             ].map((card, i) => (
               <div
                 key={i}
@@ -204,11 +204,11 @@ export default function CoimbatorePage() {
           {/* Mobile view */}
           <div className="flex sm:hidden gap-3 overflow-x-auto pb-2 scrollbar-hide items-end justify-center">
             {[
-              { img: "/covaitechpark/hero1.jpg" },
-              { img: "/covaitechpark/hero2.jpg" },
-              { img: "/covaitechpark/hero3.jpg", active: true },
-              { img: "/covaitechpark/hero11.jpg" },
-              { img: "/covaitechpark/hero13.jpg" },
+              { img: "/hero1.jpg" },
+              { img: "/hero2.jpg" },
+              { img: "/hero3.jpg", active: true },
+              { img: "/hero11.jpg" },
+              { img: "/hero13.jpg" },
             ].map((card, i) => (
               <div key={i} className={`flex-shrink-0 w-28 relative rounded-[1rem] overflow-hidden ${card.active ? 'h-44' : 'h-36'}`}>
                 <Image src={card.img} alt="Covai Tech Park Coimbatore Workspace Highlight" fill sizes="112px" className="object-cover" loading="lazy" />
@@ -409,7 +409,7 @@ export default function CoimbatorePage() {
 
           <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
             {[
-              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/covaitechpark/trichy.png" }
+              { name: "Trichy Campus", desc: "Trichy Coworks - A Unit of Max Office. Providing modern workspaces in the heart of Trichy.", link: prefix("/trichy"), img: "/trichy.png" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[4/3] overflow-hidden">

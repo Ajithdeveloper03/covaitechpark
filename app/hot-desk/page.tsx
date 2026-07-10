@@ -9,7 +9,7 @@ import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "../config/testimonials";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const HOT_DESK_DETAILS = [
@@ -289,7 +289,7 @@ export default function HotDeskPage() {
       </section>
 
       {/* Floating details bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
+      {/* <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-4">
           {[
             { label: "Plan", val: "Hot Desk / Day Pass" },
@@ -305,7 +305,7 @@ export default function HotDeskPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ── 2. WHY CHOOSE SECTION ── */}
       <section id="why-choose" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">
@@ -424,7 +424,7 @@ export default function HotDeskPage() {
                       </div>
                       <div className="text-left">
                         <p className="font-outfit font-medium text-sm text-brand-navy">{testimonial.name}</p>
-                        <p className="text-sm text-brand-orange font-semibold">Verified Member</p>
+                        <p className="text-xs text-slate-400 font-normal mt-0.5">{testimonial.role}</p>
                       </div>
                     </div>
                   </div>

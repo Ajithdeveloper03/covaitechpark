@@ -9,7 +9,7 @@ import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "../config/testimonials";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const MEETING_ROOM_DETAILS = [
@@ -270,7 +270,7 @@ export default function MeetingRoomsPage() {
       </section>
 
       {/* Floating details bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full section-x">
+      {/* <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full section-x">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-6 gap-4">
           {[
             { label: "Pricing", val: "Hourly / Daily" },
@@ -286,7 +286,7 @@ export default function MeetingRoomsPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* ── 2. FEATURES & BENEFITS ── */}
       <section id="features" className="py-10 sm:py-20 md:py-28 bg-white section-x w-full relative overflow-hidden">

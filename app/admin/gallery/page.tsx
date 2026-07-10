@@ -16,13 +16,12 @@ interface GalleryItem {
 }
 
 const GALLERY_CATEGORIES = [
-  "Virtual Office Space",
   "Coworking Space",
   "Private Office Space",
   "Meeting Room",
   "Managed Office Space",
   "Furnished Office Space",
-  "Commercial Space",
+  "Common Area",
 ];
 
 const getImgUrl = (path: string) => {

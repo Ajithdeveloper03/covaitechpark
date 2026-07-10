@@ -5,6 +5,10 @@ import AdminLayout from "../../components/AdminLayout";
 import AdminConfirmModal from "../../components/AdminConfirmModal";
 import AdminToast, { ToastMessage } from "../../components/AdminToast";
 import { adminGet, adminDelete as apiDelete, adminPost, adminPut, adminUpload } from "../adminApi";
+import dynamic from 'next/dynamic';
+import 'react-quill-new/dist/quill.snow.css';
+
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 /* ─── Types ─── */
 interface BlogSection {
@@ -298,6 +302,22 @@ function BlogEditorView({
   const [image, setImage] = useState(editingBlog?.image ?? "");
   const [isPublished, setIsPublished] = useState(editingBlog?.is_published ?? false);
   const [schema, setSchema] = useState(editingBlog?.schema ?? "");
+  
+  const [editorType, setEditorType] = useState<"sections" | "classic">(() => {
+    let rawContent = editingBlog?.content;
+    if (typeof rawContent === "string") {
+      try {
+        const parsed = JSON.parse(rawContent);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+           if (parsed[0].heading === "_CLASSIC_TEXT_" || parsed[0].heading === "_CLASSIC_IMAGE_") return "classic";
+        }
+      } catch {}
+    }
+    if (Array.isArray(rawContent) && rawContent.length > 0) {
+      if (rawContent[0].heading === "_CLASSIC_TEXT_" || rawContent[0].heading === "_CLASSIC_IMAGE_") return "classic";
+    }
+    return "sections";
+  });
 
   /* SEO fields */
   const [metaTitle, setMetaTitle] = useState(editingBlog?.meta_title ?? "");
@@ -322,7 +342,7 @@ function BlogEditorView({
         text: s.text ?? "",
         img: s.img ?? "",
         imgCaption: s.imgCaption ?? "",
-        bullets: Array.isArray(s.bullets) && s.bullets.length ? s.bullets : [],
+        bullets: Array.isArray(s.bullets) ? s.bullets.map((b: any) => typeof b === 'string' ? b : (b?.text ?? b?.toString() ?? '')) : [],
       }));
     }
     return [emptySection()];
@@ -336,7 +356,12 @@ function BlogEditorView({
         rawFaqs = [];
       }
     }
-    return Array.isArray(rawFaqs) && rawFaqs.length ? rawFaqs : [emptyFaq()];
+    return Array.isArray(rawFaqs) && rawFaqs.length 
+      ? rawFaqs.map(f => ({
+          question: f?.question ?? "",
+          answer: f?.answer ?? "",
+        }))
+      : [emptyFaq()];
   });
 
   /* Upload states */
@@ -419,8 +444,8 @@ function BlogEditorView({
     const payload = {
       title: title.trim(), category, excerpt: excerpt.trim(), image,
       content: sections.filter(s => s.heading || s.text),
-      bullets: sections.flatMap(s => (s.bullets ?? []).filter(b => b.trim()).map(b => ({ text: b }))),
-      faqs: faqs.filter(f => f.question.trim() && f.answer.trim()),
+      bullets: sections.flatMap(s => (s.bullets ?? []).filter(b => typeof b === 'string' && b.trim()).map(b => ({ text: b }))),
+      faqs: faqs.filter(f => typeof f?.question === 'string' && typeof f?.answer === 'string' && f.question.trim() && f.answer.trim()),
       is_published: isPublished,
       published_at: isPublished ? new Date().toISOString() : null,
       schema: schema.trim(),
@@ -450,7 +475,7 @@ function BlogEditorView({
     finally { setIsSubmitting(false); }
   };
 
-  const totalBullets = sections.reduce((acc, s) => acc + (s.bullets?.filter(b => b.trim()).length ?? 0), 0);
+  const totalBullets = sections.reduce((acc, s) => acc + (s.bullets?.filter(b => typeof b === 'string' && b.trim()).length ?? 0), 0);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -541,18 +566,100 @@ function BlogEditorView({
                   />
                 </div>
 
+                {/* Editor Toggle */}
+                <div className="flex items-center gap-4 mb-6 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+                  <label className="text-sm font-medium text-slate-700">Editor Type:</label>
+                  <div className="flex gap-2">
+                    <button onClick={() => {
+                      setEditorType("sections");
+                      if (sections.length === 1 && sections[0].heading === "_CLASSIC_TEXT_" && !sections[0].text) {
+                          setSections([emptySection()]);
+                      }
+                    }} className={`px-4 py-2 text-xs font-medium rounded-lg transition-all ${editorType === "sections" ? "bg-[#f37021] text-white shadow-md shadow-[#f37021]/20" : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"}`}>Current Blog Setup (Advanced)</button>
+                    <button onClick={() => {
+                      setEditorType("classic");
+                      if (sections.length === 0 || (sections.length === 1 && !sections[0].heading && !sections[0].text)) {
+                          setSections([{ heading: "_CLASSIC_TEXT_", text: "", img: "", imgCaption: "", bullets: [] }]);
+                      }
+                    }} className={`px-4 py-2 text-xs font-medium rounded-lg transition-all ${editorType === "classic" ? "bg-[#f37021] text-white shadow-md shadow-[#f37021]/20" : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"}`}>Classic (WordPress-style)</button>
+                  </div>
+                </div>
+
                 {/* Sections */}
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-slate-700">Content Sections</h3>
-                    <button onClick={addSection} className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-700 text-white text-xs font-medium tracking-wider rounded-xl transition-colors cursor-pointer">
-                      <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
-                      Add Section
-                    </button>
+                    <h3 className="text-sm font-medium text-slate-700">Content {editorType === "classic" ? "Blocks" : "Sections"}</h3>
+                    {editorType === "classic" ? (
+                      <div className="flex gap-2">
+                        <button onClick={() => setSections([...sections, { heading: "_CLASSIC_TEXT_", text: "", img: "", imgCaption: "", bullets: [] }])} className="px-3 py-1.5 bg-[#f37021]/10 hover:bg-[#f37021]/20 text-[#f37021] text-xs font-medium rounded-lg cursor-pointer transition-colors">
+                          + Text Block
+                        </button>
+                        <button onClick={() => setSections([...sections, { heading: "_CLASSIC_IMAGE_", text: "", img: "", imgCaption: "", bullets: [] }])} className="px-3 py-1.5 bg-[#f37021]/10 hover:bg-[#f37021]/20 text-[#f37021] text-xs font-medium rounded-lg cursor-pointer transition-colors">
+                          + Image Block
+                        </button>
+                      </div>
+                    ) : (
+                      <button onClick={addSection} className="flex items-center gap-1.5 px-4 py-2 bg-slate-900 hover:bg-slate-700 text-white text-xs font-medium tracking-wider rounded-xl transition-colors cursor-pointer">
+                        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>
+                        Add Section
+                      </button>
+                    )}
                   </div>
 
                   <div className="space-y-6">
-                    {sections.map((sec, idx) => (
+                    {sections.map((sec, idx) => {
+                      if (editorType === "classic") {
+                        if (sec.heading === "_CLASSIC_TEXT_") {
+                          return (
+                            <div key={idx} className="border border-slate-200 rounded-2xl p-5 bg-white relative shadow-sm">
+                              <button onClick={() => removeSection(idx)} className="absolute top-3 right-3 text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg transition-colors cursor-pointer">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                              </button>
+                              <label className="text-xs font-medium text-slate-400 uppercase tracking-widest block mb-3">Text Block</label>
+                              <div className="bg-white [&_.ql-container]:min-h-[150px] [&_.ql-toolbar]:rounded-t-xl [&_.ql-container]:rounded-b-xl [&_.ql-editor]:text-sm [&_.ql-editor]:text-slate-700">
+                                <ReactQuill theme="snow" value={sec.text} onChange={val => updateSection(idx, "text", val)} />
+                              </div>
+                            </div>
+                          );
+                        } else if (sec.heading === "_CLASSIC_IMAGE_") {
+                          return (
+                            <div key={idx} className="border border-slate-200 rounded-2xl p-5 bg-white relative shadow-sm">
+                              <button onClick={() => removeSection(idx)} className="absolute top-3 right-3 text-rose-500 hover:bg-rose-50 p-1.5 rounded-lg transition-colors cursor-pointer">
+                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                              </button>
+                              <label className="text-xs font-medium text-slate-400 uppercase tracking-widest block mb-3">Image Block</label>
+                              <div className="flex flex-col sm:flex-row gap-5 items-start">
+                                <div className="w-full sm:w-48 h-32 rounded-xl overflow-hidden border border-slate-200 bg-slate-50 shrink-0 relative flex flex-col items-center justify-center">
+                                  {sec.img ? (
+                                    <>
+                                      <img src={getImgUrl(sec.img)} alt="Blog Section Image" className="w-full h-full object-cover" />
+                                      <button onClick={() => updateSection(idx, "img", "")} className="absolute -top-2 -right-2 w-5 h-5 bg-rose-500 text-white rounded-full flex items-center justify-center text-xs cursor-pointer z-10">×</button>
+                                    </>
+                                  ) : uploadingSectionIdx === idx ? (
+                                    <div className="w-5 h-5 border-2 border-[#f37021]/30 border-t-[#f37021] rounded-full animate-spin" />
+                                  ) : (
+                                    <span className="text-xs text-slate-400">No image</span>
+                                  )}
+                                </div>
+                                <div className="flex-1 space-y-4 w-full">
+                                  <div>
+                                    <label className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-1.5">Upload File</label>
+                                    <input type="file" accept="image/*" onChange={e => handleSectionImg(e, idx)} className="text-sm block w-full text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-[#f37021]/10 file:text-[#f37021] hover:file:bg-[#f37021]/20 file:transition-colors file:cursor-pointer cursor-pointer" />
+                                  </div>
+                                  <div>
+                                    <label className="text-[11px] font-medium text-slate-400 uppercase tracking-widest block mb-1.5">Image Caption (Optional)</label>
+                                    <input type="text" placeholder="Add a caption..." value={sec.imgCaption || ""} onChange={e => updateSection(idx, "imgCaption", e.target.value)} className="w-full bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:border-[#f37021]/50 transition-all" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return null; // Hide non-classic sections in classic mode
+                      }
+
+                      // Original Advanced Section Rendering
+                      return (
                       <div key={idx} className="border border-slate-200 rounded-2xl overflow-hidden bg-white shadow-sm">
                         {/* Section Header */}
                         <div className="flex items-center justify-between px-5 py-3.5 bg-slate-50 border-b border-slate-100">
@@ -655,7 +762,8 @@ function BlogEditorView({
                           </div>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
 
                     {sections.length === 0 && (
                       <div className="flex flex-col items-center py-12 gap-3 border-2 border-dashed border-slate-200 rounded-2xl">
@@ -797,8 +905,8 @@ function BlogEditorView({
                   <div className="grid grid-cols-2 gap-3">
                     {[
                       { label: "Sections", value: sections.filter(s => s.heading || s.text).length },
-                      { label: "Bullets", value: sections.reduce((a, s) => a + (s.bullets?.filter(b => b.trim()).length ?? 0), 0) },
-                      { label: "FAQs", value: faqs.filter(f => f.question.trim()).length },
+                      { label: "Bullets", value: sections.reduce((a, s) => a + (s.bullets?.filter(b => typeof b === 'string' && b.trim()).length ?? 0), 0) },
+                      { label: "FAQs", value: faqs.filter(f => typeof f?.question === 'string' && f.question.trim()).length },
                       { label: "Images", value: [image, ...sections.map(s => s.img)].filter(Boolean).length },
                     ].map(item => (
                       <div key={item.label} className="bg-white rounded-xl p-3 border border-slate-200 text-center">

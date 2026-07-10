@@ -73,8 +73,8 @@ export default function AdminDashboard() {
           {/* ── STATS CARDS ── */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl">
             {[
-              { label: "Blog Articles", val: stats.blogs, color: "text-[#f37021] bg-[#f37021]/10", desc: "Live articles on site", href: "/covaitechpark/admin/blogs" },
-              { label: "Gallery Photos", val: stats.gallery, color: "text-indigo-500 bg-indigo-50", desc: "Display portfolio items", href: "/covaitechpark/admin/gallery" }
+              { label: "Blog Articles", val: stats.blogs, color: "text-[#f37021] bg-[#f37021]/10", desc: "Live articles on site", href: "/admin/blogs" },
+              { label: "Gallery Photos", val: stats.gallery, color: "text-indigo-500 bg-indigo-50", desc: "Display portfolio items", href: "/admin/gallery" }
             ].map((card, i) => (
               <a key={i} href={card.href} className="bg-white border border-slate-200/60 rounded-3xl p-6 shadow-sm hover:shadow-md hover:border-[#f37021]/40 transition-all duration-300 block cursor-pointer">
                 <div className="flex items-center justify-between gap-4">

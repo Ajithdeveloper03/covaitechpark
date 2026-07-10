@@ -4,7 +4,7 @@ import FloatingNav from "./components/FloatingNav";
 import "./globals.css";
 import { contactInfo } from "./config/contactInfo";
 
-const BASE_URL = "https://covaitechpark.com/covaitechpark";
+const BASE_URL = "https://covaitechpark.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://covaitechpark.com"),
@@ -174,7 +174,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* Sticky Mobile Call Button */}
         <div className="fixed bottom-0 left-0 w-full z-[100] md:hidden p-2.5 bg-white/85 backdrop-blur-md border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)]">
           <div className="grid grid-cols-2 gap-3">
-            <a href="/covaitechpark/contact" className="flex items-center justify-center w-full gap-2 py-3 bg-slate-800 text-white font-medium text-[13px] tracking-wider rounded-lg shadow-md transition-transform active:scale-[0.98]" >
+            <a href="/contact" className="flex items-center justify-center w-full gap-2 py-3 bg-slate-800 text-white font-medium text-[13px] tracking-wider rounded-lg shadow-md transition-transform active:scale-[0.98]" >
               Get Quote
             </a>
             <a href={`tel:${contactInfo.phone1.raw}`} className="flex items-center justify-center w-full gap-2 py-3 bg-brand-orange text-white font-medium text-[13px] tracking-wider rounded-lg shadow-lg shadow-brand-orange/30 transition-transform active:scale-[0.98]" >

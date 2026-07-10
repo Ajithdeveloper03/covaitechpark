@@ -8,7 +8,7 @@
  * ║  DELETE THIS FILE from server after use!                 ║
  * ╚══════════════════════════════════════════════════════════╝
  *
- * Usage: https://inymartlabs.com/covaitechpark/api/deploy-run.php?token=COVAITECH_DEPLOY_2026
+ * Usage: https://covaitechpark.com/api/deploy-run.php?token=COVAITECH_DEPLOY_2026
  */
 
 // ─── SECURITY TOKEN ──────────────────────────────────────────────────────────
@@ -199,7 +199,7 @@ $confirmed = isset($_POST['confirm']) && $_POST['confirm'] === 'YES_RUN_DEPLOY';
     <div class="log">
       <div class="ok">Email    : info@covaitechpark.com</div>
       <div class="ok">Password : CovaiTechPark@2026</div>
-      <div class="ok">URL      : https://inymartlabs.com/covaitechpark/admin/login</div>
+      <div class="ok">URL      : https://covaitechpark.com/admin/login</div>
     </div>
   </div>
 

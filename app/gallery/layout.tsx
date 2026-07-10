@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "Gallery | Covai Tech Park Workspaces",
   description: "Take a tour of Covai Tech Park's premium workspaces, meeting rooms, and private cabins in Coimbatore and Trichy.",
   alternates: {
-    canonical: "https://covaitechpark.com/covaitechpark/gallery",
+    canonical: "https://covaitechpark.com/gallery",
   }
 };
 

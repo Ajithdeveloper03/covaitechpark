@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Ensure DirectoryIndex is set
+    DirectoryIndex index.html
+
+    # Add trailing slash if it's not a file, doesn't already have one, and has no file extension
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !/$
+    RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]+$
+    RewriteRule ^(.*)$ /$1/ [L,R=301]
+
+    # Serve the Next.js custom 404 page for missing files
+    ErrorDocument 404 /404.html
+</IfModule>

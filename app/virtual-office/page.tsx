@@ -9,7 +9,7 @@ import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "../config/testimonials";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 const VIRTUAL_OFFICE_DETAILS = [
@@ -273,24 +273,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* Floating details bar */}
-      <section className="py-6 bg-white border-t border-b border-slate-200 shadow-sm w-full">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-6 gap-4">
-          {[
-            { label: "Purpose", val: "GST & Registry" },
-            { label: "Duration", val: "1 Year Contract" },
-            { label: "Mail Alert", val: "Instant Email" },
-            { label: "Onsite Desk", val: "Credits Included" },
-            { label: "NOC Document", val: "Provided" },
-            { label: "Support", val: "Compliance Team" }
-          ].map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center text-center justify-center p-2">
-              <span className="text-[9px] font-medium text-slate-400 uppercase tracking-widest mb-1">{item.label}</span>
-              <span className="text-sm font-medium text-slate-800">{item.val}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
+      
       {/* ── 2. VIRTUAL OFFICE PLANS ── */}
       <section id="plans" className="py-16 sm:py-24 bg-white section-x w-full relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -316,7 +299,7 @@ export default function VirtualOfficePage() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-outfit font-bold text-white">Office Registration</h3>
-                  <p className="text-brand-orange font-medium mt-1">₹3,500 + GST / Month</p>
+                  <p className="text-brand-orange font-medium mt-1">₹3,500 + GST / Month (Billed Annually)</p>
                 </div>
               </div>
               <ul className="space-y-4 mb-8 flex-grow relative z-10">
@@ -352,7 +335,7 @@ export default function VirtualOfficePage() {
                 </div>
                 <div>
                   <h3 className="text-2xl font-outfit font-bold text-slate-900">Virtual Office Basic</h3>
-                  <p className="text-brand-orange font-medium mt-1">₹1,500 + GST / Month</p>
+                  <p className="text-brand-orange font-medium mt-1">₹1,500 + GST / Month (Billed Annually)  </p>
                 </div>
               </div>
               <ul className="space-y-4 mb-8 flex-grow">
@@ -381,7 +364,7 @@ export default function VirtualOfficePage() {
       </section>
 
       {/* ── 2B. DETAILED BENEFITS ── */}
-      <section className="py-16 sm:py-24 bg-white section-x w-full relative">
+      <section id="features" className="py-16 sm:py-24 bg-white section-x w-full relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-5xl font-outfit font-bold text-brand-orange tracking-tight mb-4">

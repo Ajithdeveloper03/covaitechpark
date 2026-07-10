@@ -6,7 +6,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { contactInfo } from "../config/contactInfo";
 import { useSettings } from "../hooks/useSettings";
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 const AmenityIcon = ({ name, className }: { name: string; className?: string }) => {
   const cls = className || "w-6 h-6";
@@ -197,7 +197,7 @@ export default function TrichyPage() {
 
           <div className="flex flex-wrap gap-8 max-w-6xl mx-auto justify-center">
             {[
-              { name: "Coimbatore Hub", desc: "Premium Workspaces in Well-Connected Hubs across Coimbatore.", link: prefix("/coimbatore"), img: "/covaitechpark/coimbatore.jpg" }
+              { name: "Coimbatore Hub", desc: "Premium Workspaces in Well-Connected Hubs across Coimbatore.", link: prefix("/coimbatore"), img: "/coimbatore.jpg" }
             ].map((sol, idx) => (
               <a href={sol.link} key={idx} className="group w-full max-w-sm bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgb(0,0,0,0.06)] hover:shadow-[0_12px_32px_rgb(0,0,0,0.12)] transition-all duration-400 flex flex-col cursor-pointer border border-slate-100 hover:border-brand-orange/20 hover:-translate-y-1">
                 <div className="relative w-full aspect-[4/3] overflow-hidden">

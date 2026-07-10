@@ -9,7 +9,7 @@ import { contactInfo } from "../config/contactInfo";
 import useEmblaCarousel from "embla-carousel-react";
 import { TESTIMONIALS } from "../config/testimonials";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const prefix = (url: string) => `${BASE_PATH}${url}`;
 
 
@@ -442,7 +442,7 @@ export default function CoworkingSpacePage() {
                       </div>
                       <div className="text-left">
                         <p className="font-outfit font-medium text-sm text-brand-navy">{testimonial.name}</p>
-                        <p className="text-sm text-brand-orange font-semibold">Verified Member</p>
+                        <p className="text-xs text-slate-400 font-normal mt-0.5">{testimonial.role}</p>
                       </div>
                     </div>
 

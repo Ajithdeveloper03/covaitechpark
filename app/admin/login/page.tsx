@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { setAdminSession } from "../hooks/useAdminAuth";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 
 /** Sanitize input on the client side before sending to API */
 function sanitizeInput(value: string): string {

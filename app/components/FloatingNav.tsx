@@ -64,7 +64,7 @@ export default function FloatingNav() {
 
   useEffect(() => {
     // Standardize pathname by removing the base path prefix if present
-    const cleanPath = pathname.replace(/^\/covaitechpark/, "");
+    const cleanPath = pathname;
 
     let selectedSections: NavSection[] | null = null;
 

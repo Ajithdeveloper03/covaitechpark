@@ -16,7 +16,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 
-const BASE_PATH = "/covaitechpark";
+const BASE_PATH = "";
 const API_BASE = process.env.NEXT_PUBLIC_API_URL;
 
 export interface AdminUser {

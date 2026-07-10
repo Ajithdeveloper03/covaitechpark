@@ -17,13 +17,13 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
     const token = sessionStorage.getItem("admin_token");
     const userJson = sessionStorage.getItem("admin_user");
     if (!token || !userJson) {
-      window.location.href = "/covaitechpark/admin/login";
+      window.location.href = "/admin/login";
       return;
     }
     try {
       setAdminUser(JSON.parse(userJson));
     } catch {
-      window.location.href = "/covaitechpark/admin/login";
+      window.location.href = "/admin/login";
     }
   }, []);
 
@@ -45,7 +45,7 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
     // Also clear any legacy localStorage entries
     localStorage.removeItem("admin_token");
     localStorage.removeItem("admin_user");
-    window.location.href = "/covaitechpark/admin/login";
+    window.location.href = "/admin/login";
   };
 
   const navItems = [
@@ -91,7 +91,7 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
             <div className="flex items-center gap-3">
               <div className="bg-white p-2 rounded-2xl">
                 <Image 
-                  src="/covaitechpark/covai-tech-park-logo.png" 
+                  src="/covai-tech-park-logo.png" 
                   alt="Covai Tech logo" 
                   width={110} 
                   height={35}
@@ -117,7 +117,7 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
               return (
                 <a
                   key={item.id}
-                  href={`/covaitechpark${item.path}`}
+                  href={`${item.path}`}
                   className={`flex items-center gap-4 py-3.5 px-5 rounded-2xl text-sm font-medium transition-all duration-300 group ${
                     isSelected 
                       ? "bg-[#f37021] text-white shadow-lg shadow-[#f37021]/20 scale-[1.01]" 
@@ -147,7 +147,7 @@ export default function AdminLayout({ children, activeTab, fullPage = false }: A
           </div>
           
           <div className="space-y-2 w-full">
-            <a href="/covaitechpark" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/20 hover:text-emerald-500 rounded-xl text-xs font-medium tracking-widest transition-all cursor-pointer" >
+            <a href="/" target="_blank" rel="noopener noreferrer" className="w-full flex items-center justify-center gap-2 py-3 bg-white/5 hover:bg-emerald-500/15 border border-white/10 hover:border-emerald-500/20 hover:text-emerald-500 rounded-xl text-xs font-medium tracking-widest transition-all cursor-pointer" >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
               </svg>

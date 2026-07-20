@@ -216,7 +216,7 @@ function BlogListView({
                       <div className="w-16 h-11 rounded-xl overflow-hidden border border-slate-100 bg-slate-50">
                         {blog.image
                           ? <img src={getImgUrl(blog.image)} alt={blog.title} className="object-cover w-full h-full" />
-                          : <div className="w-full h-full flex items-center justify-center text-slate-300">📷</div>}
+                          : <div className="w-full h-full flex items-center justify-center text-slate-400 text-[10px] text-center font-medium leading-tight">No Images</div>}
                       </div>
                     </td>
                     <td className="py-4 px-6">

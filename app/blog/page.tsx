@@ -39,7 +39,7 @@ export default function BlogArchivePage() {
           if (data && data.length > 0) {
             const mapped = data.map((blog: any, i: number) => {
               const rawImg = blog.image;
-              let resolvedImg = "/workspace-lounge.png";
+              let resolvedImg = "";
               if (rawImg) {
                 if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
                   resolvedImg = rawImg;
@@ -152,15 +152,19 @@ export default function BlogArchivePage() {
                   className="group grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white border border-slate-200/80 rounded-[2rem] overflow-hidden hover:border-[#f37021]/30 hover:shadow-2xl hover:shadow-slate-200 transition-all duration-500 block"
                 >
                   {/* Image */}
-                  <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:min-h-[420px] overflow-hidden">
-                    <Image
-                      src={getImgUrl(featured.img)}
-                      alt={featured.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      sizes="(max-width: 1024px) 100vw, 50vw"
-                      priority
-                    />
+                  <div className="relative w-full aspect-[4/3] lg:aspect-auto lg:min-h-[420px] overflow-hidden bg-slate-100 flex items-center justify-center">
+                    {featured.img ? (
+                      <Image
+                        src={getImgUrl(featured.img)}
+                        alt={featured.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        priority
+                      />
+                    ) : (
+                      <span className="text-slate-400 font-medium text-lg">No Images</span>
+                    )}
                     <div className="absolute inset-0 bg-gradient-to-t from-[#060d17]/30 via-transparent to-transparent" />
                     <span className="absolute top-5 left-5 px-3 py-1.5 rounded-full bg-[#f37021] text-white text-[10px] font-bold tracking-widest shadow">
                       Featured
@@ -215,15 +219,19 @@ export default function BlogArchivePage() {
                       className="group bg-white border border-slate-200/80 rounded-[1.5rem] overflow-hidden hover:border-[#f37021]/30 hover:shadow-xl hover:shadow-slate-200 hover:-translate-y-1.5 transition-all duration-400 flex flex-col"
                     >
                       {/* Image */}
-                      <div className="relative w-full aspect-[16/10] overflow-hidden">
-                        <Image
-                          src={getImgUrl(article.img)}
-                          alt={article.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          loading="lazy"
-                        />
+                      <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100 flex items-center justify-center">
+                        {article.img ? (
+                          <Image
+                            src={getImgUrl(article.img)}
+                            alt={article.title}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            loading="lazy"
+                          />
+                        ) : (
+                          <span className="text-slate-400 font-medium">No Images</span>
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#060d17]/20 to-transparent" />
                       </div>
 

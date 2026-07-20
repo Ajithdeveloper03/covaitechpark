@@ -40,6 +40,22 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: [{ url: "/favicon.ico" }],
+    apple: [
+      { url: "/apple-icon.png", type: "image/png", sizes: "180x180" },
+    ],
+    other: [
+      { rel: "mask-icon", url: "/favicon.png", color: "#f03a17" },
+    ],
+  },
+  category: "Business",
+  classification: "Coworking Space, Office Space, Real Estate",
   alternates: {
     canonical: BASE_URL,
   },
@@ -73,6 +89,11 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0f1c" },
+  ],
+  colorScheme: "light dark",
 };
 
 // JSON-LD structured data

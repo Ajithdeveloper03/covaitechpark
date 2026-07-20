@@ -240,7 +240,7 @@ export default function CoimbatorePage() {
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/hero1.jpg")} alt="Covai Tech Park, Nehru Nagar" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prefix("/sitra.jpeg")} alt="Covai Tech Park, Nehru Nagar" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     SITRA
@@ -287,7 +287,7 @@ export default function CoimbatorePage() {
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/hero3.jpg")} alt="Covai Tech Park, Saravanampatti" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prefix("/sunvale.png")} alt="Covai Tech Park, Saravanampatti" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     IT CORRIDOR

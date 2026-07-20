@@ -73,11 +73,11 @@ export default function BlogDetailContent() {
               ? (data.image.startsWith("http") || data.image.startsWith("/")
                 ? data.image
                 : `${process.env.NEXT_PUBLIC_STORAGE_URL}/${data.image}`)
-              : "/workspace-lounge.png",
+              : "",
             excerpt: data.excerpt ?? "",
             content: (data.content || []).map((sec: any) => {
               const rawImg = sec.img;
-              let resolvedImg = "/workspace-lounge.png";
+              let resolvedImg = "";
               if (rawImg) {
                 if (rawImg.startsWith("http") || rawImg.startsWith("/")) {
                   resolvedImg = rawImg;
@@ -173,7 +173,11 @@ export default function BlogDetailContent() {
       {/* ── EDITORIAL MAGAZINE HERO ── */}
       <section className="relative w-full pt-32 pb-16 bg-slate-900 overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={getImgUrl(currentArticle.img)} alt="Blog Details background" fill className="object-cover" sizes="100vw" priority />
+          {currentArticle.img ? (
+            <Image src={getImgUrl(currentArticle.img)} alt="Blog Details background" fill className="object-cover" sizes="100vw" priority />
+          ) : (
+            <div className="w-full h-full bg-slate-800" />
+          )}
           <div className="absolute inset-0 bg-slate-900/85 backdrop-blur-sm" />
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end relative z-10">
@@ -207,15 +211,19 @@ export default function BlogDetailContent() {
             </p>
           </div>
           {/* Image side - Large and overlapping */}
-          <div className="lg:col-span-6 relative z-10 w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl">
-            <Image
-              src={getImgUrl(currentArticle.img)}
-              alt={currentArticle.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-            />
+          <div className="lg:col-span-6 relative z-10 w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl bg-slate-100 flex items-center justify-center">
+            {currentArticle.img ? (
+              <Image
+                src={getImgUrl(currentArticle.img)}
+                alt={currentArticle.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+              />
+            ) : (
+              <span className="text-slate-400 font-medium text-lg">No Images</span>
+            )}
           </div>
         </div>
       </section>
@@ -226,15 +234,19 @@ export default function BlogDetailContent() {
             {/* ── MAIN ARTICLE ── */}
             <article className="lg:col-span-8 space-y-0">
               {/* Hero image */}
-              <div className="relative w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-slate-200/80 shadow-xl shadow-slate-200/50 mb-14">
-                <Image
-                  src={getImgUrl(currentArticle.img)}
-                  alt={currentArticle.title}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 800px"
-                  priority
-                />
+              <div className="relative w-full aspect-[16/9] rounded-[1.5rem] overflow-hidden border border-slate-200/80 shadow-xl shadow-slate-200/50 mb-14 bg-slate-100 flex items-center justify-center">
+                {currentArticle.img ? (
+                  <Image
+                    src={getImgUrl(currentArticle.img)}
+                    alt={currentArticle.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 800px"
+                    priority
+                  />
+                ) : (
+                  <span className="text-slate-400 font-medium text-lg">No Images</span>
+                )}
               </div>
               {/* Content sections */}
               <div className="space-y-20">
@@ -414,7 +426,7 @@ export default function BlogDetailContent() {
                       const c = categoryColors[category] || { bg: "bg-slate-50", text: "text-slate-600", border: "border-slate-200" };
                       const readTime = `${Math.max(3, Math.ceil(JSON.stringify(blog.content || "").length / 1000))} min read`;
                       const rawImg = blog.image;
-                      let resolvedImg = "/workspace-lounge.png";
+                      let resolvedImg = "";
                       if (rawImg) {
                         if (rawImg.startsWith("http") || rawImg.startsWith("/")) resolvedImg = rawImg;
                         else resolvedImg = `${process.env.NEXT_PUBLIC_STORAGE_URL}/${rawImg}`;
@@ -426,8 +438,12 @@ export default function BlogDetailContent() {
                           href={prefix(`/blog/${blog.slug}`)}
                           className="group flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-100 transition-all"
                         >
-                          <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0">
-                            <Image src={getImgUrl(resolvedImg)} alt={blog.title} fill className="object-cover" sizes="56px" />
+                          <div className="relative w-14 h-14 rounded-xl overflow-hidden flex-shrink-0 bg-slate-100 flex items-center justify-center">
+                            {resolvedImg ? (
+                              <Image src={getImgUrl(resolvedImg)} alt={blog.title} fill className="object-cover" sizes="56px" />
+                            ) : (
+                              <span className="text-slate-400 text-[10px] text-center">No Images</span>
+                            )}
                           </div>
                           <div className="space-y-1.5 min-w-0">
                             <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider border ${c.bg} ${c.text} ${c.border}`}>

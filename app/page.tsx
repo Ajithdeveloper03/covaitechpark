@@ -48,7 +48,7 @@ const HERO_SLIDES = [
     id: 2,
     title: "Work Your",
     subtitle: "Way Today.",
-    image: prefix("/service1.png"),
+    image: prefix("/day pass.png"),
     label: "DAY PASS",
     description: "Access professional workspaces on demand with high-speed internet, comfortable seating, and all essential amenities for a productive day.",
     meta: "ACCESS ON YOUR TERMS",
@@ -1152,10 +1152,10 @@ export default function Home() {
           COVAI TECH PARK
         </div>
 
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-5 md:gap-5 md:gap-8 lg:gap-12 items-center relative z-20 lg:flex-1">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5 lg:gap-8 xl:gap-12 2xl:gap-16 items-center relative z-20 lg:flex-1">
 
           {/* Left info column */}
-          <div className="lg:col-span-7 text-left space-y-4 mb-6 sm:mb-12 md:mb-0 sm:space-y-5 lg:space-y-7 max-w-2xl relative z-20 w-full">
+          <div className="lg:col-span-7 xl:col-span-7 2xl:col-span-7 text-left space-y-4 mb-6 sm:mb-12 md:mb-0 sm:space-y-5 lg:space-y-6 xl:space-y-7 max-w-2xl xl:max-w-3xl relative z-20 w-full">
             <div className="absolute -top-1/4 -left-4 sm:-left-12 w-[280px] sm:w-[400px] h-[280px] sm:h-[400px] bg-brand-orange/15 rounded-full blur-3xl pointer-events-none -z-10" />
 
             <div className="inline-flex items-center gap-2 px-3.5 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 text-white/95 shadow-xl max-w-full">
@@ -1195,20 +1195,20 @@ export default function Home() {
           </div>
 
           {/* Slide thumbnails — vertical list with vertical dot line on desktop */}
-          <div className="lg:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center mt-4 sm:mt-6 lg:mt-0">
-            <div className="relative flex items-stretch gap-6 w-full lg:max-w-[320px] xl:max-w-[360px]">
+          <div className="lg:col-span-5 xl:col-span-5 2xl:col-span-5 w-full z-20 flex justify-center lg:justify-end items-center mt-4 sm:mt-6 lg:mt-0">
+            <div className="relative flex items-stretch gap-4 sm:gap-6 w-full lg:max-w-[300px] xl:max-w-[340px] 2xl:max-w-[380px]">
 
               {/* Vertical Timeline Dot Connector (Desktop only) */}
               <div className="absolute left-1.5 top-[15%] bottom-[15%] w-[1px] bg-white/15 hidden lg:block z-0 pointer-events-none" />
 
-              <div ref={thumbContainerRef} className="w-full flex flex-row lg:flex-col gap-2 sm:gap-4 lg:gap-5 justify-start md:justify-center lg:justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-2 lg:pb-0 px-4 lg:px-0 scroll-smooth">
+              <div ref={thumbContainerRef} className="w-full flex flex-row lg:flex-col gap-2 sm:gap-3 lg:gap-3 xl:gap-4 justify-start md:justify-center lg:justify-center items-center relative z-10 overflow-x-auto lg:overflow-visible no-scrollbar pb-2 lg:pb-0 px-4 lg:px-0 scroll-smooth">
                 {heroSlides.map((slide, i) => {
                   const isActive = activeHeroSlide === i;
 
                   return (
                     <div
                       key={slide.id}
-                      className="flex-shrink-0 transition-all duration-700 ease-in-out w-[130px] sm:w-[150px] lg:w-full flex items-center gap-4 justify-center"
+                      className="flex-shrink-0 transition-all duration-700 ease-in-out w-[130px] sm:w-[150px] lg:w-full flex items-center gap-3 lg:gap-4 lg:justify-start justify-center"
                     >
                       {/* Timeline Dot (Desktop only) */}
                       <div className="relative flex items-center justify-center shrink-0 w-4 h-4 hidden lg:flex">
@@ -1226,9 +1226,9 @@ export default function Home() {
                           setIsAutoPlay(false);
                         }}
                         className={`group relative rounded-xl sm:rounded-2xl border font-medium transition-all duration-700 cursor-pointer overflow-hidden bg-white/60 backdrop-blur-md ${isActive
-                          ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 h-[65px] sm:h-[80px] lg:h-[100px] w-full"
-                          : "border-white/10 opacity-45 scale-90 h-[55px] sm:h-[70px] lg:h-[80px] w-[80%] lg:w-[70%]"
-                          }`}
+                          ? "border-brand-orange ring-2 ring-brand-orange/40 shadow-lg shadow-brand-orange/20 opacity-100 scale-100 h-[65px] sm:h-[80px] lg:h-[90px] xl:h-[100px] w-full"
+                          : "border-white/10 opacity-45 scale-95 h-[55px] sm:h-[70px] lg:h-[70px] xl:h-[80px] w-[80%] lg:w-[85%]"
+                          } origin-center lg:origin-left`}
                         title={slide.label}
                         aria-label={`View slide: ${slide.label}`}
                         aria-pressed={isActive}

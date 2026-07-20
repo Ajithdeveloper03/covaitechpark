@@ -42,7 +42,7 @@ const PRIVATE_OFFICE_AMENITIES = [
 const FAQS = [
   {
     question: "What is a Private Office Space?",
-    answer: "A private office space is a lockable, fully furnished office suite located within a shared business park. It gives your team complete acoustic and visual privacy while allowing you to enjoy shared common amenities like the reception, cafeteria, gym, and meeting rooms."
+    answer: "A private office space is a lockable, fully furnished office suite located within a shared business park. It gives your team complete acoustic and visual privacy while allowing you to enjoy shared common amenities like the reception, cafeteria, and meeting rooms."
   },
   {
     question: "How many desks can we get in a private office cabin?",
@@ -58,7 +58,7 @@ const FAQS = [
   },
   {
     question: "What amenities are included in the price?",
-    answer: "The price includes ergonomic furniture, dual high-speed SLA Wi-Fi, air conditioning, daily housekeeping, electricity backup, reception support, meeting room credits, and access to all common amenities including the cafeteria, lounges, and gym."
+    answer: "The price includes ergonomic furniture, dual high-speed SLA Wi-Fi, air conditioning, daily housekeeping, electricity backup, reception support, meeting room credits, and access to all common amenities including the cafeteria and lounges."
   }
 ];
 

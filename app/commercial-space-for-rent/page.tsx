@@ -32,7 +32,7 @@ const AMENITIES = [
   { name: "Meeting Rooms", icon: "office", desc: "Access to boardrooms and conference rooms with AV equipment." },
   { name: "RO Drinking Water", icon: "water", desc: "Pure drinking water stations across all floors." },
   { name: "Cafeteria Access", icon: "food", desc: "Lounge area and cafeteria for meals, coffee, and tea." },
-  { name: "Gym Facility", icon: "gym", desc: "In-house fitness studio for employee wellness." },
+  { name: "Dedicated IT Support", icon: "zap", desc: "Expert on-site technical support team to assist with your IT needs." },
   { name: "Networking Lounges", icon: "breakout", desc: "Collaborative breakout zones for community engagement." }
 ];
 

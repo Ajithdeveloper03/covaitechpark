@@ -266,9 +266,27 @@ export default function CoworkingSpacePage() {
               </span>
             </h1>
 
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-              Covai Tech Park coworking space offers you a vibrant and dynamic working environment in Coimbatore. Get connected with the network of professionals and businesses by joining Covai Tech Park’s coworking community.
-            </p>
+            {/* Hero Stats Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-2xl overflow-hidden border border-white/10 w-full max-w-xl">
+              {[
+                { value: "100+", label: "Companies Thriving" },
+                { value: "500+", label: "Seats Available" },
+                { value: "2", label: "Prime Locations" },
+                { value: "4.9★", label: "Google Rating" },
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center justify-center py-4 px-3 bg-white/5 hover:bg-white/10 transition-colors duration-300 text-center"
+                >
+                  <span className="text-2xl sm:text-3xl font-outfit font-bold text-brand-orange leading-none">
+                    {stat.value}
+                  </span>
+                  <span className="text-[11px] text-slate-400 mt-1.5 leading-tight font-normal tracking-wide">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
             <div className="flex flex-wrap gap-4 pt-2">
               <button

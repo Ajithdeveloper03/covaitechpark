@@ -254,7 +254,7 @@ export default function ManagedOfficePage() {
 
         <div className="relative z-10 lg:w-1/2 w-full aspect-[4/3] rounded-[2rem] overflow-hidden border border-slate-800 shadow-2xl">
           <Image
-            src={prefix("/service1.png")}
+            src={prefix("/manage office.png")}
             alt="Managed Office Team Space"
             fill
             priority

@@ -32,7 +32,7 @@ const AMENITIES = [
   { name: "Meeting Room Access", icon: "office", desc: "Monthly complimentary meeting room and boardroom credits." },
   { name: "RO Drinking Water", icon: "water", desc: "Pure drinking water stations across all floors." },
   { name: "Cafeteria Access", icon: "food", desc: "Lounge area and cafeteria for meals, coffee, and tea." },
-  { name: "Gym Facility", icon: "gym", desc: "In-house fitness studio for employee wellness." },
+  { name: "Dedicated IT Support", icon: "zap", desc: "Expert on-site technical support team to assist with your IT needs." },
   { name: "Networking Lounges", icon: "breakout", desc: "Collaborative breakout zones for community engagement." }
 ];
 
@@ -57,7 +57,7 @@ const FAQS = [
   },
   {
     question: "What amenities are included with the furnished office space?",
-    answer: "The furnished office space includes ergonomic furniture, dual high-speed SLA Wi-Fi, air conditioning, daily housekeeping, electricity backup, reception support, meeting room credits, and access to all common amenities including the cafeteria, lounges, and gym."
+    answer: "The furnished office space includes ergonomic furniture, dual high-speed SLA Wi-Fi, air conditioning, daily housekeeping, electricity backup, reception support, meeting room credits, and access to all common amenities including the cafeteria and lounges."
   }
 ];
 

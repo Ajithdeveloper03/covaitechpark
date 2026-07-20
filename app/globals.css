@@ -3,12 +3,10 @@
 @import url('https://fonts.cdnfonts.com/css/gordita');
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-
 :root {
   --background: #ffffff;
   --foreground: #0a0f1a;
 }
-
 @theme {
   --color-brand-navy:      #0a0f1a;
   --color-brand-orange:    #f37021;
@@ -24,11 +22,9 @@
   --font-outfit:  "Gilroy", "Gordita", "Manrope", system-ui, sans-serif;
   --font-inter:   "Gordita", "Gilroy", "Manrope", system-ui, sans-serif;
 }
-
 html {
   scroll-behavior: smooth;
 }
-
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #ffffff; }
@@ -43,15 +39,12 @@ body {
   letter-spacing: -0.01em;
   -webkit-font-smoothing: antialiased;
 }
-
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
 }
-
 p, span, label, input, select, textarea, button, a {
   font-family: var(--font-body);
 }
-
 /* Paragraphs & descriptions — always normal weight (not bold) */
 p {
   font-weight: 400 !important;

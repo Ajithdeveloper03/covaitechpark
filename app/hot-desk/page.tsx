@@ -36,7 +36,7 @@ const HOT_DESK_AMENITIES = [
   { name: "Purified Drinking Water", icon: "water", desc: "Continuous RO drinking water supply available at all times." },
 
   { name: "24/7 Building Security", icon: "lock", desc: "Round-the-clock professional security guard monitoring." },
-  { name: "24/7 Building Access", icon: "clock", desc: "Work anytime according to your preferred timeline." },
+  { name: "Anytime Workspace Access", icon: "clock", desc: "Work anytime according to your preferred timeline." },
   { name: "Break-Out Area", icon: "breakout", desc: "Comfortable lounge settings for networking, short breaks, or relaxation." },
   { name: "Dedicated IT Support", icon: "zap", desc: "Expert on-site technical support team to assist with your IT needs." }
 ];

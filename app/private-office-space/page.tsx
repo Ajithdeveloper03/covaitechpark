@@ -133,7 +133,6 @@ export default function PrivateOfficePage() {
 
   useEffect(() => {
     if (!emblaApi) return;
-    // eslint-disable-next-line
     setScrollSnaps(emblaApi.scrollSnapList());
     emblaApi.on("select", onSelect);
     onSelect();

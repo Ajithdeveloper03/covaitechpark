@@ -1,8 +1,12 @@
 *.log
 .DS_Store
-.env*
-*.sql
+.env
+.env.*
+# *.sql
+*.sqlite
+*.sqlite3
 *.zip
+# database_dump.*
 .phpactor.json
 .phpunit.result.cache
 /.fleet
@@ -22,3 +26,12 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+desktop.ini
+
+# Deploy / utility scripts — never commit these
+deploy-run.php
+deploy*.php
+export_data.php
+test_mail*.php
+update_user.php
+*.key

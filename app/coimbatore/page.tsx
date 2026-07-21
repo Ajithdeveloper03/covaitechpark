@@ -60,7 +60,7 @@ const AmenityIcon = ({ name, className }: { name: string; className?: string }) 
 
 export default function CoimbatorePage() {
   // Set page meta title for SEO
-  
+
 
   // Booking Modal States
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -126,13 +126,13 @@ export default function CoimbatorePage() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-brand-navy flex flex-col font-inter relative select-none font-medium text-base antialiased">
-      
+
 
       <Header />
 
       {/* ── 1. HERO SECTION ── */}
       <section id="hero" className="relative min-h-[100vh] w-full flex flex-col items-center justify-start pt-16 sm:pt-24 md:pt-28 pb-30 overflow-hidden text-white">
-        
+
         {/* Full bleed background */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -190,9 +190,8 @@ export default function CoimbatorePage() {
                 }}
               >
                 <div
-                  className={`relative w-48 sm:w-52 md:w-52 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${
-                    card.active ? 'scale-105' : 'scale-95'
-                  }`}
+                  className={`relative w-48 sm:w-52 md:w-52 rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden transition-all duration-500 ${card.active ? 'scale-105' : 'scale-95'
+                    }`}
                   style={{ height: '260px' }}
                 >
                   <Image src={card.img} alt="Covai Tech Park Coimbatore Workspace Highlight" fill sizes="156px" className="object-cover" loading="lazy" />
@@ -235,12 +234,12 @@ export default function CoimbatorePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 xl:gap-10 mt-8 sm:mt-16 max-w-7xl mx-auto px-4 lg:px-0">
-            
+
             {/* Listing 1 - Nehru Nagar */}
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/sitra.jpeg")} alt="Covai Tech Park, Nehru Nagar" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prefix("/sitra.png")} alt="Covai Tech Park, Nehru Nagar" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     SITRA
@@ -334,7 +333,7 @@ export default function CoimbatorePage() {
             <div className="group relative bg-white rounded-[2rem] overflow-hidden shadow-[0_4px_20px_rgb(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-500 border border-slate-100 flex flex-col transform hover:-translate-y-2">
               <div className="relative aspect-[4/3] w-full overflow-hidden p-3 pb-0">
                 <div className="relative w-full h-full rounded-[1.5rem] overflow-hidden shadow-sm">
-                  <Image src={prefix("/broadview.png")} alt="Covai Tech Park, Broadview" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <Image src={prefix("/broadvieww.png")} alt="Covai Tech Park, Broadview" fill className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out" sizes="(max-width: 768px) 100vw, 33vw" />
                   <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-brand-orange shadow-lg font-bold text-[10px] tracking-wider flex items-center gap-1.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
                     EAST ZONE
@@ -382,7 +381,7 @@ export default function CoimbatorePage() {
       </section>
 
 
-{/* ── 4. SHORTER CTA SECTION ── */}
+      {/* ── 4. SHORTER CTA SECTION ── */}
       <section className="relative py-10 bg-gradient-to-br from-brand-navy via-[#1e293b] to-black text-white text-center overflow-hidden">
         {/* Lightened glowing orb 1 */}
         <div className="absolute -top-[30%] -left-[10%] w-[70%] h-[100%] rounded-full bg-gradient-to-br from-brand-orange/40 to-transparent blur-[100px] pointer-events-none" />
@@ -420,7 +419,7 @@ export default function CoimbatorePage() {
                   <h4 className="font-outfit font-bold text-[17px] text-brand-navy group-hover:text-brand-orange transition-colors duration-300 leading-tight">
                     {sol.name}
                   </h4>
-                  
+
                   <div className="pt-2 flex items-center gap-1.5 text-brand-orange text-[11px] font-bold uppercase tracking-widest group-hover:translate-x-1 transition-transform duration-300">
                     Learn More <span>&rarr;</span>
                   </div>
@@ -431,7 +430,7 @@ export default function CoimbatorePage() {
         </div>
       </section>
 
-      
+
 
       <Footer />
 
@@ -439,7 +438,7 @@ export default function CoimbatorePage() {
       {bookingOpen && (
         <div className="fixed inset-0 bg-brand-navy/60 backdrop-blur-sm z-50 flex justify-center items-center p-4">
           <div className="bg-white rounded-[2rem] overflow-hidden w-full max-w-4xl shadow-2xl relative border border-brand-navy/10 flex flex-col md:flex-row">
-            
+
             <div className="relative w-full md:w-5/12 hidden md:block">
               <Image
                 src={prefix("/workspace-cabin.png")}
@@ -456,7 +455,7 @@ export default function CoimbatorePage() {
                 className="absolute top-5 right-5 text-brand-navy/55 hover:text-brand-navy hover:bg-brand-navy/5 p-2 rounded-full transition-all cursor-pointer"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M18 6L6 18M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </button>
 

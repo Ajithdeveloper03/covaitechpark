@@ -30,8 +30,13 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files — never commit secrets
+.env
+.env.*
+.env.local
+.env.development
+.env.production
+.env.staging
 
 # vercel
 .vercel
@@ -40,6 +45,27 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# sensitive data & backups
+# sensitive data, backups & database dumps
 *.zip
-*.sql
+# *.sql
+*.sqlite
+*.sqlite3
+# database_dump.*
+
+# deploy / utility scripts (should never be public)
+deploy-run.php
+deploy*.php
+export_data.php
+test_mail*.php
+update_user.php
+
+# OS artifacts
+Thumbs.db
+desktop.ini
+
+# IDE & editor files
+.vscode/
+.idea/
+.nova/
+*.swp
+*.swo
